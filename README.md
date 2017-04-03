@@ -29,6 +29,14 @@ Install dependencies with your favorite dependency manager (npm or yarn) :
 npm install
 ```
 
+If you want to use Angular-cli to generate components & co, you must to install it globally.  
+Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed an old version of angular-cli and need to upgrade it.
+
+``` bash
+npm install -g @angular/cli
+```
+
+
 ## To build for development
 
 **in a terminal window** -> npm start  
