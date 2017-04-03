@@ -7,7 +7,7 @@
     "name": "Maxime GRIS",
     "email": "maxime.gris@gmail.com"
   },
-  "keywords" : [
+  "keywords": [
     "angular",
     "electron",
     "typescript",
@@ -18,12 +18,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && copyfiles main.js dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "electron .",
-    "electron dist": "electron main.js"
+    "electron:serve": "electron . --serve",
+    "electron:dist": "npm run build && electron dist/main.js",
+    "electron:linux": "npm run build && copyfiles package.json dist && electron-packager dist --overwrite --platform=linux --arch=x64 --asar=true  --out=app-builds",
+    "electron:windows": "npm run build && copyfiles package.json dist && electron-packager dist --overwrite --platform=win32 --arch=ia32 --asar=false --out=app-builds",
+    "electron:mac": "npm run build && copyfiles package.json dist && electron-packager . --overwrite --platform=darwin --arch=x64 --asar=true --out=app-builds"
   },
   "dependencies": {
     "@angular/common": "~4.0.0",
@@ -44,15 +47,18 @@
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",
+    "copyfiles": "^1.2.0",
+    "electron": "1.6.2",
+    "electron-packager": "~8.6.0",
     "electron-prebuilt": "~1.4.13",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",
     "karma-chrome-launcher": "~2.0.0",
     "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "~0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "~0.2.2",
-    "karma-coverage-istanbul-reporter": "~0.2.0",
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
