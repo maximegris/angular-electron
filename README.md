@@ -45,13 +45,13 @@ npm install -g @angular/cli
 Voila! You have your Angular + Electron app in a local development environment with hot reload !
 
 The code for this is managed at `main.js`. In this sample, the app runs with a simple Electron window.
-By default, Developer tools is opened. You can unactivate it by uncomment `win.webContents.openDevTools();` in `main.js`.
+By default, Developer tools is opened. You can desactivate it by commenting `win.webContents.openDevTools();` in `main.js`.
 
 ## To build for production
 
 - npm run electron:dist
 
-You can find your builted files in the /dist directory.
+You can find your built files in the /dist directory.
 
 ## Included Commands
 
