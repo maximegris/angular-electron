@@ -9,7 +9,11 @@ Currently runs with:
 - Angular v4.0.1
 - Angular-CLI v1.0.0
 - Electron v1.6.2
-- Electron-Prebuilt v1.4.13
+
+With this sample, you can :
+
+- Run your app in a local development environment with Electron & Hot reload
+- Package your app into an executable file for Linux, Windows & Mac
 
 ## Getting Started
 
@@ -29,6 +33,8 @@ npm install
 
 **in a terminal window** -> npm start  
 **in another terminal window** -> npm run electron:serve
+
+Voila! You have your Angular + Electron app in a local development environment with hot reload !
 
 The code for this is managed at `main.js`. In this sample, the app runs with a simple Electron window.
 By default, Developer tools is opened. You can unactivate it by uncomment `win.webContents.openDevTools();` in `main.js`.
