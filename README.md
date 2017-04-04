@@ -23,14 +23,14 @@ Clone this repository locally :
 git clone https://github.com/maximegris/angular-electron.git
 ```
 
-Install dependencies with your favorite dependency manager (npm or yarn) :
+Install dependencies with your favorite dependencies manager (npm or yarn) :
 
 ``` bash
 npm install
 ```
 
-If you want to use Angular-cli to generate components & co, you must to install it globally.  
-Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed an old version of angular-cli and need to upgrade it.
+If you want to use Angular-cli to generate components, you must install `@angular/cli` in the global context.  
+Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed an previous version of `angular-cli`.
 
 ``` bash
 npm install -g @angular/cli
@@ -44,8 +44,8 @@ npm install -g @angular/cli
 
 Voila! You have your Angular + Electron app in a local development environment with hot reload !
 
-The code for this is managed at `main.js`. In this sample, the app runs with a simple Electron window.
-By default, Developer tools is open. You can desactivate it by commenting `win.webContents.openDevTools();` in `main.js`.
+The code for this is managed at `main.js`. In this sample, the app runs with a simple Electron window and "Developer Tools" is open.  
+You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.js`.
 
 ## To build for production
 
@@ -57,6 +57,6 @@ You can find your built files in the /dist directory.
 
 - `npm run electron:linux` - builds your application and creates an app consumable on linux systems.
 - `npm run electron:windows` - On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems.
-- `npm run electron:mac` - On a MAC OS, builds your application and generates a `.app` file of your application that can be run on mac .
+- `npm run electron:mac` - On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac.
 
-**Your executable is optimised. There are only the files of /dist directory in the executable generated.**
+**Your application is optimised. There are only the files of /dist folder in the generated executable.**
