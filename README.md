@@ -1,5 +1,8 @@
-[![Build Status](https://travis-ci.org/maximegris/angular-electron.svg?branch=master)](https://travis-ci.org/maximegris/angular-electron)
 [![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/)
+
+[![Build Status](https://travis-ci.org/maximegris/angular-electron.svg?branch=master)](https://travis-ci.org/maximegris/angular-electron)
+[![Dependency Status](https://dependencyci.com/github/maximegris/angular-electron/badge)](https://dependencyci.com/github/maximegris/angular-electron)
+[![License](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat)](https://github.com/maximegris/angular-electron/blob/master/LICENSE.md)
 
 # Introduction
 
