@@ -1,8 +1,8 @@
 {
   "name": "angular-electron",
-  "version": "1.1.0",
-  "description": "Angular 4 with Electron (Typescript + SASS)",
-  "homepage": "",
+  "version": "1.1.1",
+  "description": "Angular 4 with Electron (Typescript + SASS + Hot Reload)",
+  "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
     "name": "Maxime GRIS",
     "email": "maxime.gris@gmail.com"
@@ -25,7 +25,7 @@
     "prepree2e": "npm start",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "electron:serve": "electron . --serve",
-    "electron:dist": "npm run build && electron dist/main.js",
+    "electron:dist": "npm ru1 build && electron dist/main.js",
     "electron:linux": "npm run build && copyfiles package.json dist && electron-packager dist --overwrite --platform=linux --arch=x64 --asar=true  --out=app-builds",
     "electron:windows": "npm run build && copyfiles package.json dist && electron-packager dist --overwrite --platform=win32 --arch=ia32 --asar=false --out=app-builds",
     "electron:mac": "npm run build && copyfiles package.json dist && electron-packager . --overwrite --platform=darwin --arch=x64 --asar=true --out=app-builds"
@@ -57,7 +57,7 @@
     "electron": "~1.6.2",
     "electron-packager": "~8.6.0",
     "electron-prebuilt": "~1.4.13",
-    "electron-reload": "^1.1.0",
+    "electron-reload": "~1.1.0",
     "exports-loader": "~0.6.3",
     "file-loader": "~0.10.0",
     "istanbul-instrumenter-loader": "~2.0.0",
@@ -86,8 +86,7 @@
     "typescript": "~2.2.0",
     "url-loader": "~0.5.7",
     "webdriver-manager": "~12.0.4",
-    "webpack": "~2.3.3",
-    "webpack-dev-server": "~2.4.2"
+    "webpack": "~2.3.3"
   },
   "license": "SEE LICENSE IN LICENSE.md"
 }
