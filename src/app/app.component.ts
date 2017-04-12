@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ipcRenderer } from 'electron';
+import * as childProcess from 'child_process';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app works!';
+
+  constructor() {
+    // Check if electron is correctly injected (see externals in webpack.config.js)
+    console.log('c', ipcRenderer);
+    // Check if nodeJs childProcess is correctly injected (see externals in webpack.config.js)
+    console.log('c', childProcess);
+
+  }
 }

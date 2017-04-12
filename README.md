@@ -40,7 +40,6 @@ Please follow [Angular-cli documentation](https://github.com/angular/angular-cli
 npm install -g @angular/cli
 ```
 
-
 ## To build for development
 
 **in a terminal window** -> npm start  
@@ -64,3 +63,16 @@ You can find your built files in the /dist directory.
 - `npm run electron:mac` - On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac.
 
 **Your application is optimised. There are only the files of /dist folder in the generated executable.**
+
+## Use NodeJS Native libraries
+
+By default, Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs during compilation time.
+If you need to use NodeJS native libraries like 'fs' or 'os', you MUST add it manually in the file `webpack.config.js` in root directory :
+
+```javascript
+  "externals": {
+    "child_process": 'require(\'child_process\')',
+    "electron": 'require(\'electron\')',
+    "fs": 'require(\'fs\')'
+  },
+```
