@@ -5,7 +5,13 @@ const {app} = electron;
 // Module to create native browser window.
 const {BrowserWindow} = electron;
 
-let win;
+let win, serve;
+const args = process.argv.slice(1);
+serve = args.some(val => val === "--serve");
+
+if (serve) {
+  require('electron-reload')(__dirname + '/dist');
+}
 
 function createWindow() {
 
@@ -20,20 +26,17 @@ function createWindow() {
         height: size.height
     });
 
-    let url = 'file://' + __dirname + '/index.html';
-    let Args = process.argv.slice(1);
-
-    Args.forEach(function (val) {
-        if (val === "--serve") {
-            url = 'http://localhost:4200'
-        }
-    });
+    let url = serve ?
+      'file://' + __dirname + '/dist/index.html':
+      'file://' + __dirname + '/index.html';
 
     // and load the index.html of the app.
     win.loadURL(url);
 
     // Open the DevTools.
-    win.webContents.openDevTools();
+    if (serve) {
+      win.webContents.openDevTools();
+    }
 
     // Emitted when the window is closed.
     win.on('closed', () => {

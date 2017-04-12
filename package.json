@@ -17,7 +17,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "webpack-dev-server --port=4200",
+    "start": "webpack --watch",
     "test": "karma start ./karma.conf.js",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
@@ -57,6 +57,7 @@
     "electron": "~1.6.2",
     "electron-packager": "~8.6.0",
     "electron-prebuilt": "~1.4.13",
+    "electron-reload": "^1.1.0",
     "exports-loader": "~0.6.3",
     "file-loader": "~0.10.0",
     "istanbul-instrumenter-loader": "~2.0.0",
