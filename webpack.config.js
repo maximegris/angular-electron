@@ -37,13 +37,13 @@ module.exports = {
   },
   "entry": {
     "main": [
-      "./src\\main.ts"
+      "./src/main.ts"
     ],
     "polyfills": [
-      "./src\\polyfills.ts"
+      "./src/polyfills.ts"
     ],
     "styles": [
-      "./src\\styles.scss"
+      "./src/styles.scss"
     ]
   },
   "output": {
@@ -79,7 +79,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\styles.scss")
+          path.join(process.cwd(), "src/styles.scss")
         ],
         "test": /\.css$/,
         "loaders": [
@@ -90,7 +90,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\styles.scss")
+          path.join(process.cwd(), "src/styles.scss")
         ],
         "test": /\.scss$|\.sass$/,
         "loaders": [
@@ -102,7 +102,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\styles.scss")
+          path.join(process.cwd(), "src/styles.scss")
         ],
         "test": /\.less$/,
         "loaders": [
@@ -114,7 +114,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\styles.scss")
+          path.join(process.cwd(), "src/styles.scss")
         ],
         "test": /\.styl$/,
         "loaders": [
@@ -126,7 +126,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\styles.scss")
+          path.join(process.cwd(), "src/styles.scss")
         ],
         "test": /\.css$/,
         "loaders": ExtractTextPlugin.extract({
@@ -140,7 +140,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\styles.scss")
+          path.join(process.cwd(), "src/styles.scss")
         ],
         "test": /\.scss$|\.sass$/,
         "loaders": ExtractTextPlugin.extract({
@@ -155,7 +155,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\styles.scss")
+          path.join(process.cwd(), "src/styles.scss")
         ],
         "test": /\.less$/,
         "loaders": ExtractTextPlugin.extract({
@@ -170,7 +170,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\styles.scss")
+          path.join(process.cwd(), "src/styles.scss")
         ],
         "test": /\.styl$/,
         "loaders": ExtractTextPlugin.extract({
@@ -204,7 +204,7 @@ module.exports = {
     }),
     new ProgressPlugin(),
     new HtmlWebpackPlugin({
-      "template": "./src\\index.html",
+      "template": "./src/index.html",
       "filename": "./index.html",
       "hash": false,
       "inject": true,
@@ -286,10 +286,10 @@ module.exports = {
     new AotPlugin({
       "mainPath": "main.ts",
       "hostReplacementPaths": {
-        "environments\\environment.ts": "environments\\environment.ts"
+        "environments/environment.ts": "environments/environment.ts"
       },
       "exclude": [],
-      "tsConfigPath": "src\\tsconfig.app.json",
+      "tsConfigPath": "src/tsconfig.app.json",
       "skipCodeGeneration": true
     })
   ],
