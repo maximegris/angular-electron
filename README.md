@@ -10,7 +10,7 @@ Bootstrap your project with Angular 4 and Electron (Typescript + SASS)
 
 Currently runs with:
 
-- Angular v4.0.1
+- Angular v4.0.2
 - Angular-CLI v1.0.0
 - Electron v1.6.2
 
@@ -45,7 +45,7 @@ npm install -g @angular/cli
 **in a terminal window** -> npm start  
 **in another terminal window** -> npm run electron:serve
 
-Voila! You have your Angular + Electron app in a local development environment with hot reload !
+Voila! You can use your Angular + Electron app in a local development environment with hot reload !
 
 The code for this is managed at `main.js`. In this sample, the app runs with a simple Electron window and "Developer Tools" is open.  
 You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.js`.
@@ -54,7 +54,7 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 - npm run electron:dist
 
-You can find your built files in the /dist directory.
+Your built files are in the /dist directory.
 
 ## Included Commands
 
@@ -66,8 +66,8 @@ You can find your built files in the /dist directory.
 
 ## Use NodeJS Native libraries
 
-By default, Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs during compilation time.
-If you need to use NodeJS native libraries like 'fs' or 'os', you MUST add it manually in the file `webpack.config.js` in root directory :
+Actually Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs at compilation time (Webpack error).
+If you need to use NodeJS some native libraries like 'fs' or 'os', you **MUST** add it manually in the file `webpack.config.js` in root directory :
 
 ```javascript
   "externals": {
