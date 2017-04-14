@@ -69,8 +69,8 @@ Your built files are in the /dist folder.
 
 ## Use NodeJS Native libraries
 
-Actually Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs at compilation time (Webpack error).
-If you need to use NodeJS some native libraries like 'fs' or 'os', you **MUST** add it manually in the file `webpack.config.js` in root folder :
+Actually Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs at compile time (Webpack error).
+If you need to use NodeJS native libraries like 'fs' or 'os', you **MUST** add it manually in the file `webpack.config.js` in root folder :
 
 ```javascript
   "externals": {
