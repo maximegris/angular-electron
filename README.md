@@ -6,17 +6,19 @@
 
 # Introduction
 
-Bootstrap your project with Angular 4 and Electron (Typescript + SASS)
+Bootstrap and package your project with Angular 4 and Electron (Typescript + SASS)
 
 Currently runs with:
 
 - Angular v4.0.2
 - Angular-CLI v1.0.0
 - Electron v1.6.2
+- Electron Packager v8.6.0
 
 With this sample, you can :
 
 - Run your app in a local development environment with Electron & Hot reload
+- Run your app in a production environment
 - Package your app into an executable file for Linux, Windows & Mac
 
 ## Getting Started
@@ -33,8 +35,8 @@ Install dependencies with your favorite dependencies manager (npm or yarn) :
 npm install
 ```
 
-If you want to use Angular-cli to generate components, you must install `@angular/cli` in the global context.  
-Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed an previous version of `angular-cli`.
+If you want to generate Angular components with Angular-cli , you **MUST** install `@angular/cli` in npm global context.  
+Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed a previous version of `angular-cli`.
 
 ``` bash
 npm install -g @angular/cli
@@ -47,14 +49,15 @@ npm install -g @angular/cli
 
 Voila! You can use your Angular + Electron app in a local development environment with hot reload !
 
-The code for this is managed at `main.js`. In this sample, the app runs with a simple Electron window and "Developer Tools" is open.  
+The application code is managed by `main.js`. In this sample, the app runs with a simple Electron window and "Developer Tools" is open.  
+The Angular component contains an example of Electron and NodeJS native lib import. See [Use NodeJS Native libraries](#use-nodejs-native-libraries) charpter if you want to import other native libraries in your project.  
 You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.js`.
 
 ## To build for production
 
 - npm run electron:dist
 
-Your built files are in the /dist directory.
+Your built files are in the /dist folder.
 
 ## Included Commands
 
@@ -62,12 +65,12 @@ Your built files are in the /dist directory.
 - `npm run electron:windows` - On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems.
 - `npm run electron:mac` - On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac.
 
-**Your application is optimised. There are only the files of /dist folder in the generated executable.**
+**Your application is optimised. Only the files of /dist folder are included in the executable.**
 
 ## Use NodeJS Native libraries
 
 Actually Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs at compilation time (Webpack error).
-If you need to use NodeJS some native libraries like 'fs' or 'os', you **MUST** add it manually in the file `webpack.config.js` in root directory :
+If you need to use NodeJS some native libraries like 'fs' or 'os', you **MUST** add it manually in the file `webpack.config.js` in root folder :
 
 ```javascript
   "externals": {
