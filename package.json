@@ -25,10 +25,10 @@
     "prepree2e": "npm start",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "electron:serve": "electron . --serve",
-    "electron:dist": "npm ru1 build && electron dist/main.js",
+    "electron:dist": "npm run build && electron dist/main.js",
     "electron:linux": "npm run build && copyfiles package.json dist && electron-packager dist --overwrite --platform=linux --arch=x64 --asar=true  --out=app-builds",
     "electron:windows": "npm run build && copyfiles package.json dist && electron-packager dist --overwrite --platform=win32 --arch=ia32 --asar=false --out=app-builds",
-    "electron:mac": "npm run build && copyfiles package.json dist && electron-packager . --overwrite --platform=darwin --arch=x64 --asar=true --out=app-builds"
+    "electron:mac": "npm run build && copyfiles package.json dist && electron-packager dist --overwrite --platform=darwin --arch=x64 --asar=true --out=app-builds"
   },
   "dependencies": {
     "@angular/common": "~4.0.0",
