@@ -8,7 +8,7 @@ import * as childProcess from 'child_process';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
+  title = `App works !`;
 
   constructor() {
     // Check if electron is correctly injected (see externals in webpack.config.js)
