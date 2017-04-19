@@ -12,7 +12,7 @@ Currently runs with:
 
 - Angular v4.0.2
 - Angular-CLI v1.0.0
-- Electron v1.6.2
+- Electron v1.6.5
 - Electron Packager v8.6.0
 
 With this sample, you can :
