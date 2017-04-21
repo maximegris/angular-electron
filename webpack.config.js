@@ -130,13 +130,13 @@ module.exports = {
         ],
         "test": /\.css$/,
         "loaders": ExtractTextPlugin.extract({
-  "use": [
-    "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-    "postcss-loader"
-  ],
-  "fallback": "style-loader",
-  "publicPath": ""
-})
+          "use": [
+            "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
+            "postcss-loader"
+          ],
+          "fallback": "style-loader",
+          "publicPath": ""
+        })
       },
       {
         "include": [
@@ -144,14 +144,14 @@ module.exports = {
         ],
         "test": /\.scss$|\.sass$/,
         "loaders": ExtractTextPlugin.extract({
-  "use": [
-    "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-    "postcss-loader",
-    "sass-loader"
-  ],
-  "fallback": "style-loader",
-  "publicPath": ""
-})
+          "use": [
+            "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
+            "postcss-loader",
+            "sass-loader"
+          ],
+          "fallback": "style-loader",
+          "publicPath": ""
+        })
       },
       {
         "include": [
@@ -159,14 +159,14 @@ module.exports = {
         ],
         "test": /\.less$/,
         "loaders": ExtractTextPlugin.extract({
-  "use": [
-    "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-    "postcss-loader",
-    "less-loader"
-  ],
-  "fallback": "style-loader",
-  "publicPath": ""
-})
+          "use": [
+            "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
+            "postcss-loader",
+            "less-loader"
+          ],
+          "fallback": "style-loader",
+          "publicPath": ""
+        })
       },
       {
         "include": [
@@ -174,14 +174,14 @@ module.exports = {
         ],
         "test": /\.styl$/,
         "loaders": ExtractTextPlugin.extract({
-  "use": [
-    "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-    "postcss-loader",
-    "stylus-loader?{\"sourceMap\":false,\"paths\":[]}"
-  ],
-  "fallback": "style-loader",
-  "publicPath": ""
-})
+          "use": [
+            "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
+            "postcss-loader",
+            "stylus-loader?{\"sourceMap\":false,\"paths\":[]}"
+          ],
+          "fallback": "style-loader",
+          "publicPath": ""
+        })
       },
       {
         "test": /\.ts$/,
@@ -252,24 +252,24 @@ module.exports = {
       "options": {
         "postcss": [
           autoprefixer(),
-          postcssUrl({"url": (URL) => {
+          postcssUrl({"url": (obj) => {
             // Only convert root relative URLs, which CSS-Loader won't process into require().
-            if (!URL.startsWith('/') || URL.startsWith('//')) {
-                return URL;
+            if (!obj.url.startsWith('/') || obj.url.startsWith('//')) {
+                return obj.url;
             }
             if (deployUrl.match(/:\/\//)) {
                 // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
-                return `${deployUrl.replace(/\/$/, '')}${URL}`;
+                return `${deployUrl.replace(/\/$/, '')}${obj.url}`;
             }
             else if (baseHref.match(/:\/\//)) {
                 // If baseHref contains a scheme, include it as is.
                 return baseHref.replace(/\/$/, '') +
-                    `/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
+                    `/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
             }
             else {
                 // Join together base-href, deploy-url and the original URL.
                 // Also dedupe multiple slashes into single ones.
-                return `/${baseHref}/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
+                return `/${baseHref}/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
             }
         }})
         ],
