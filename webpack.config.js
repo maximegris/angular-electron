@@ -67,7 +67,7 @@ module.exports = {
       },
       {
         "test": /\.html$/,
-        "loader": "raw-loader"
+        "loader": "html-loader"
       },
       {
         "test": /\.(eot|svg)$/,
