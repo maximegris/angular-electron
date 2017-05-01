@@ -10,6 +10,9 @@
     "experimentalDecorators": true,
     "allowJs": true,
     "target": "es5",
+    "paths": {
+      "environments": [ "./environments" ]
+    },
     "typeRoots": [
       "node_modules/@types"
     ],

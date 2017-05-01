@@ -55,7 +55,9 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 ## To build for production
 
-- npm run electron:dist
+* Using development variables (environments/index.ts) :  `npm run electron:dev`
+
+* Using production variables (environments/index.prod.ts) :  `npm run electron:prod`
 
 Your built files are in the /dist folder.
 
