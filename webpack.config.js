@@ -36,7 +36,7 @@ function getPlugins() {
       "favicon.ico"
     ],
     "globOptions": {
-      "cwd": "C:\\_PROJECTS\\_PERSO\\angular-electron\\src",
+      "cwd": process.cwd() + "/src",
       "dot": true,
       "ignore": "**/.gitkeep"
     }
