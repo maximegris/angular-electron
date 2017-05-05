@@ -7,8 +7,8 @@ describe('angular-electron App', () => {
     page = new AngularElectronPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display message saying App works !', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('App works !');
   });
 });
