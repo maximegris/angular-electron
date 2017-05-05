@@ -82,6 +82,11 @@ If you need to use NodeJS native libraries like 'fs' or 'os', you **MUST** add i
   },
 ```
 
+## Browser mode
+
+Maybe you want to execute the application in the browser ? You can do it with `npm run start:web`.  
+Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
+
 ## Execute E2E tests
 
 You can find end-to-end tests in /e2e folder.
@@ -92,7 +97,3 @@ You can now execute tests with the command lines below :
 - **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
 - **in another terminal window** -> Then, execute Protractor : `npm run e2e`
 
-## Browser mode
-
-Maybe you want to execute the application in the browser ? You can do it with `npm run start:web`.  
-Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
