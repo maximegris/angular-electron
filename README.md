@@ -96,4 +96,3 @@ Before executing e2e scripts, you may need to update drivers libraries : `npm ru
 You can now execute tests with the command lines below : 
 - **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
 - **in another terminal window** -> Then, execute Protractor : `npm run e2e`
-
