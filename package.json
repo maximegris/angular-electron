@@ -50,7 +50,7 @@
     "@angular/compiler-cli": "~4.0.2",
     "@types/electron": "~1.4.37",
     "@types/jasmine": "2.5.41",
-    "@types/node": "~7.0.13",
+    "@types/node": "^7.0.18",
     "autoprefixer": "~6.7.7",
     "codelyzer": "~2.1.1",
     "copyfiles": "~1.2.0",
