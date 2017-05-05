@@ -9,7 +9,11 @@ exports.config = {
     './e2e/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    chromeOptions: {
+        binary: './node_modules/electron/dist/electron.exe',
+        args: ['--test-type=webdriver', 'app=main.js']
+    }
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',

@@ -19,10 +19,6 @@
     "ng": "ng",
     "lint": "ng lint",
     "start": "webpack --watch",
-    "test": "karma start ./karma.conf.js",
-    "e2e": "protractor ./protractor.conf.js",
-    "prepree2e": "npm start",
-    "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "build": "webpack --display-error-details && copyfiles main.js dist",
     "build:prod": "cross-env NODE_ENV='production' npm run build",
     "electron:serve": "electron . --serve",
@@ -30,7 +26,11 @@
     "electron:prod": "npm run build:prod && electron dist/main.js",
     "electron:linux": "npm run build:prod && copyfiles package.json dist && electron-packager dist --overwrite --platform=linux --arch=x64 --asar=true  --out=app-builds",
     "electron:windows": "npm run build:prod && copyfiles package.json dist && electron-packager dist --overwrite --platform=win32 --arch=ia32 --asar=true --out=app-builds",
-    "electron:mac": "npm run build:prod && copyfiles package.json dist && electron-packager dist --overwrite --platform=darwin --arch=x64 --asar=true --out=app-builds"
+    "electron:mac": "npm run build:prod && copyfiles package.json dist && electron-packager dist --overwrite --platform=darwin --arch=x64 --asar=true --out=app-builds",
+    "test": "karma start ./karma.conf.js",
+    "e2e": "protractor ./protractor.conf.js",
+    "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
+    "prepree2e": "webpack-dev-server . --port 4200"
   },
   "dependencies": {
     "@angular/common": "~4.0.2",
@@ -49,7 +49,7 @@
     "@angular/cli": "1.0.0",
     "@angular/compiler-cli": "~4.0.2",
     "@types/electron": "~1.4.37",
-    "@types/jasmine": "~2.5.38",
+    "@types/jasmine": "2.5.41",
     "@types/node": "~7.0.13",
     "autoprefixer": "~6.7.7",
     "codelyzer": "~2.1.1",
@@ -90,7 +90,8 @@
     "typescript": "~2.2.2",
     "url-loader": "~0.5.8",
     "webdriver-manager": "~12.0.4",
-    "webpack": "~2.4.1"
+    "webpack": "~2.4.1",
+    "webpack-dev-server": "^2.4.5"
   },
   "license": "SEE LICENSE IN LICENSE.md"
 }
