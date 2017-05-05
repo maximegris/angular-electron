@@ -53,27 +53,12 @@ The application code is managed by `main.js`. In this sample, the app runs with 
 The Angular component contains an example of Electron and NodeJS native lib import. See [Use NodeJS Native libraries](#use-nodejs-native-libraries) charpter if you want to import other native libraries in your project.  
 You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.js`.
 
-## Browser mode
-
-Maybe you want to execute the application in the browser ? You can do it with `npm run start:web`.  
-Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
-
 ## To build for production
 
 - Using development variables (environments/index.ts) :  `npm run electron:dev`
 - Using production variables (environments/index.prod.ts) :  `npm run electron:prod`
 
 Your built files are in the /dist folder.
-
-## Execute E2E tests
-
-You can find end-to-end tests in /e2e folder.
-
-Before executing e2e scripts, you may need to update drivers libraries : `npm run pree2e`
-
-You can now execute tests with the command lines below : 
-- **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
-- **in another terminal window** -> Then, execute Protractor : `npm run e2e`
 
 ## Included Commands
 
@@ -96,3 +81,18 @@ If you need to use NodeJS native libraries like 'fs' or 'os', you **MUST** add i
     "fs": 'require(\'fs\')'
   },
 ```
+
+## Execute E2E tests
+
+You can find end-to-end tests in /e2e folder.
+
+Before executing e2e scripts, you may need to update drivers libraries : `npm run pree2e`
+
+You can now execute tests with the command lines below : 
+- **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
+- **in another terminal window** -> Then, execute Protractor : `npm run e2e`
+
+## Browser mode
+
+Maybe you want to execute the application in the browser ? You can do it with `npm run start:web`.  
+Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
