@@ -175,14 +175,33 @@ function getPlugins() {
 module.exports = {
   "devtool": "source-map",
   "externals": {
-    "child_process": 'require(\'child_process\')',
-    "electron": 'require(\'electron\')'
+    "electron": "require('electron')",
+    "child_process": "require('child_process')",
+    "crypto": "require('crypto')",
+    "events": "require('events')",
+    "fs": "require('fs')",
+    "http": "require('http')",
+    "https": "require('https')",
+    "assert": "require('assert')",
+    "dns": "require('dns')",
+    "net": "require('net')",
+    "os": "require('os')",
+    "path": "require('path')",
+    "querystring": "require('querystring')",
+    "readline": "require('readline')",
+    "repl": "require('repl')",
+    "stream": "require('stream')",
+    "string_decoder": "require('string_decoder')",
+    "url": "require('url')",
+    "util": "require('util')",
+    "zlib": "require('zlib')"
   },
   "resolve": {
     "extensions": [
       ".ts",
       ".js",
-       ".scss"
+       ".scss",
+       ".json"
     ],
     "aliasFields": [],
     "alias": { // WORKAROUND See. angular-cli/issues/5433
@@ -222,10 +241,6 @@ module.exports = {
         "exclude": [
           /\/node_modules\//
         ]
-      },
-      {
-        "test": /\.json$/,
-        "loader": "json-loader"
       },
       {
         "test": /\.html$/,
