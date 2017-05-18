@@ -1,8 +1,15 @@
 [![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/)
 
-[![Build Status](https://travis-ci.org/maximegris/angular-electron.svg?branch=master)](https://travis-ci.org/maximegris/angular-electron)
-[![Dependency Status](https://dependencyci.com/github/maximegris/angular-electron/badge)](https://dependencyci.com/github/maximegris/angular-electron)
-[![License](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat)](https://github.com/maximegris/angular-electron/blob/master/LICENSE.md)
+
+[![Travis Build Status][build-badge]][build]
+[![Dependencies Status][dependencyci-badge]][dependencyci]
+[![Make a pull request][prs-badge]][prs]
+[![Apache 2 License][license-badge]][license]
+[![Donate][donate-badge]][donate]
+
+[![Watch on GitHub][github-watch-badge]][github-watch]
+[![Star on GitHub][github-star-badge]][github-star]
+[![Tweet][twitter-badge]][twitter]
 
 # Introduction
 
@@ -72,15 +79,18 @@ Your built files are in the /dist folder.
 ## Use NodeJS Native libraries
 
 Actually Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs at compile time (Webpack error).
-If you need to use NodeJS native libraries like 'fs' or 'os', you **MUST** add it manually in the file `webpack.config.js` in root folder :
+If you need to use NodeJS native libraries, you **MUST** add it manually in the file `webpack.config.js` in root folder :
 
 ```javascript
   "externals": {
     "child_process": 'require(\'child_process\')',
     "electron": 'require(\'electron\')',
     "fs": 'require(\'fs\')'
+    ...
   },
 ```
+
+Notice that all NodeJS v7 native libs are already added in this sample. 
 
 ## Browser mode
 
@@ -96,3 +106,21 @@ Before executing e2e scripts, you may need to update drivers libraries : `npm ru
 You can now execute tests with the command lines below : 
 - **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
 - **in another terminal window** -> Then, execute Protractor : `npm run e2e`
+
+
+[build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
+[build]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
+[dependencyci-badge]: https://dependencyci.com/github/maximegris/angular-electron/badge
+[dependencyci]: https://dependencyci.com/github/maximegris/angular-electron
+[license-badge]: https://img.shields.io/badge/license-Apache2-blue.svg?style=flat
+[license]: https://github.com/maximegris/angular-electron/blob/master/LICENSE.md
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[prs]: http://makeapullrequest.com
+[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
+[donate]: https://www.paypal.me/maximegris/10
+[github-watch-badge]: https://img.shields.io/github/watchers/maximegris/angular-electron.svg?style=social
+[github-watch]: https://github.com/maximegris/angular-electron/watchers
+[github-star-badge]: https://img.shields.io/github/stars/maximegris/angular-electron.svg?style=social
+[github-star]: https://github.com/maximegris/angular-electron/stargazers
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20angular-electron!%20https://github.com/maximegris/angular-electron%20%F0%9F%91%8D
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/maximegris/angular-electron.svg?style=social
