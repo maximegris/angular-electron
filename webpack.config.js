@@ -12,7 +12,7 @@ const { CommonsChunkPlugin, UglifyJsPlugin } = require('webpack').optimize;
 const { AotPlugin } = require('@ngtools/webpack');
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
-const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"];
+const entryPoints = ["inline", "polyfills", "sw-register", "styles", "vendor", "main"];
 const baseHref = "";
 const deployUrl = "";
 
@@ -62,13 +62,13 @@ function getPlugins() {
       let leftIndex = entryPoints.indexOf(left.names[0]);
       let rightindex = entryPoints.indexOf(right.names[0]);
       if (leftIndex > rightindex) {
-          return 1;
+        return 1;
       }
       else if (leftIndex < rightindex) {
-          return -1;
+        return -1;
       }
       else {
-          return 0;
+        return 0;
       }
     }
   }));
@@ -98,26 +98,28 @@ function getPlugins() {
     "options": {
       "postcss": [
         autoprefixer(),
-        postcssUrl({"url": (obj) => {
-          // Only convert root relative URLs, which CSS-Loader won't process into require().
-          if (!obj.url.startsWith('/') || obj.url.startsWith('//')) {
+        postcssUrl({
+          "url": (obj) => {
+            // Only convert root relative URLs, which CSS-Loader won't process into require().
+            if (!obj.url.startsWith('/') || obj.url.startsWith('//')) {
               return obj.url;
-          }
-          if (deployUrl.match(/:\/\//)) {
+            }
+            if (deployUrl.match(/:\/\//)) {
               // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
               return `${deployUrl.replace(/\/$/, '')}${obj.url}`;
-          }
-          else if (baseHref.match(/:\/\//)) {
+            }
+            else if (baseHref.match(/:\/\//)) {
               // If baseHref contains a scheme, include it as is.
               return baseHref.replace(/\/$/, '') +
-                  `/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
-          }
-          else {
+                `/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
+            }
+            else {
               // Join together base-href, deploy-url and the original URL.
               // Also dedupe multiple slashes into single ones.
               return `/${baseHref}/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
+            }
           }
-      }})
+        })
       ],
       "sassLoader": {
         "sourceMap": false,
@@ -130,7 +132,7 @@ function getPlugins() {
     }
   }));
 
-  if(isProd) {
+  if (isProd) {
     plugins.push(new HashedModuleIdsPlugin({
       "hashFunction": "md5",
       "hashDigest": "base64",
@@ -158,7 +160,7 @@ function getPlugins() {
     }));
 
   } else {
-    plugins.push( new AotPlugin({
+    plugins.push(new AotPlugin({
       "mainPath": "main.ts",
       "hostReplacementPaths": {
         "environments/index.ts": "environments/index.ts"
@@ -200,8 +202,8 @@ module.exports = {
     "extensions": [
       ".ts",
       ".js",
-       ".scss",
-       ".json"
+      ".scss",
+      ".json"
     ],
     "aliasFields": [],
     "alias": { // WORKAROUND See. angular-cli/issues/5433
@@ -368,14 +370,16 @@ module.exports = {
   },
   "plugins": getPlugins(),
   "node": {
-    "fs": "empty",
-    "global": true,
-    "crypto": "empty",
-    "tls": "empty",
-    "net": "empty",
-    "process": true,
-    "module": false,
-    "clearImmediate": false,
-    "setImmediate": false
+    fs: "empty",
+    global: true,
+    crypto: "empty",
+    tls: "empty",
+    net: "empty",
+    process: true,
+    module: false,
+    clearImmediate: false,
+    setImmediate: false,
+    __dirname: false,
+    __filename: false
   }
 };

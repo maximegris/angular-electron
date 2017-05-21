@@ -2,6 +2,7 @@
 
 try {
   const electron = require('electron');
+
   // Module to control application life.
   const { app } = electron;
   // Module to create native browser window.
@@ -12,7 +13,8 @@ try {
   serve = args.some(val => val === "--serve");
 
   if (serve) {
-    require('electron-reload')(__dirname + '/dist');
+    require('electron-reload')(__dirname + '/dist', {
+    });
   }
 
   function createWindow() {
@@ -75,4 +77,5 @@ try {
 
 } catch (e) {
   // Catch Error
+  throw e;
 }
