@@ -236,10 +236,11 @@ module.exports = {
     "rules": [
       {
         "enforce": "pre",
-        "test": /\.js$/,
+        "test": /\.(js|ts)$/,
         "loader": "source-map-loader",
         "exclude": [
-          /\/node_modules\//
+          /\/node_modules\//,
+          path.join(__dirname, 'node_modules', '@angular/compiler')
         ]
       },
       {
