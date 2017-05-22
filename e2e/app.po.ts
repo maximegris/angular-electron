@@ -6,6 +6,6 @@ export class AngularElectronPage {
   }
 
   getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+    return element(by.css('app-home h1')).getText();
   }
 }

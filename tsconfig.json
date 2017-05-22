@@ -11,8 +11,13 @@
     "allowJs": true,
     "target": "es5",
     "paths": {
-      "environments": [ "./environments" ]
+      "environments": [
+        "./environments"
+      ]
     },
+    "types": [
+      "node"
+    ],
     "typeRoots": [
       "node_modules/@types"
     ],
