@@ -12,7 +12,7 @@ exports.config = {
     'browserName': 'chrome',
     chromeOptions: {
         binary: './node_modules/electron/dist/electron.exe',
-        args: ['--test-type=webdriver', 'app=main.js']
+        args: ['--test-type=webdriver', 'app=dist/main.js']
     }
   },
   directConnect: true,

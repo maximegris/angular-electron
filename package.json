@@ -19,11 +19,11 @@
     "ng": "ng",
     "lint": "ng lint",
     "start": "webpack --watch",
-    "start:web": "webpack-dev-server . --port 4200",
-    "build": "webpack --display-error-details && copyfiles main.js package.json dist",
-    "dependencies:prod": "cd ./dist && npm install --only=prod && cd ..",
+    "start:web": "webpack-dev-server --content-base . --port 4200 --inline",
+    "build:electron:main": "tsc main.ts --outDir dist && copyfiles package.json dist",
+    "build": "webpack --display-error-details && npm run build:electron:main",
     "build:prod": "cross-env NODE_ENV='production' npm run build",
-    "electron:serve": "electron . --serve",
+    "electron:serve": "npm run build:electron:main && electron ./dist --serve",
     "electron:test": "electron ./dist",
     "electron:dev": "npm run build && electron dist/main.js",
     "electron:prod": "npm run build:prod && electron dist/main.js",
@@ -31,8 +31,8 @@
     "electron:windows": "npm run build:prod && node package.js --asar --platform=win32 --arch=ia32",
     "electron:mac": "npm run build:prod && node package.js --asar --platform=darwin --arch=x64",
     "test": "karma start ./karma.conf.js",
-    "e2e": "protractor ./protractor.conf.js",
-    "pree2e": "webdriver-manager update --standalone false --gecko false --quiet"
+    "pree2e": "webdriver-manager update --standalone false --gecko false --quiet && npm run build",
+    "e2e": "protractor ./protractor.conf.js"
   },
   "dependencies": {
     "@angular/common": "4.0.2",
