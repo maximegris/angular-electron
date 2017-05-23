@@ -94,7 +94,7 @@ Notice that all NodeJS v7 native libs are already added in this sample.
 
 ## Browser mode
 
-Maybe you want to execute the application in the browser ? You can do it with `npm run start:web`.  
+Maybe you want to execute the application in the browser (NO HOT RELOAD!) ? You can do it with `npm run start:web`.  
 Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
 
 ## Execute E2E tests
