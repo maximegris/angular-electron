@@ -56,9 +56,9 @@ npm install -g @angular/cli
 
 Voila! You can use your Angular + Electron app in a local development environment with hot reload !
 
-The application code is managed by `main.js`. In this sample, the app runs with a simple Electron window and "Developer Tools" is open.  
+The application code is managed by `main.ts`. In this sample, the app runs with a simple Electron window and "Developer Tools" is open.  
 The Angular component contains an example of Electron and NodeJS native lib import. See [Use NodeJS Native libraries](#use-nodejs-native-libraries) charpter if you want to import other native libraries in your project.  
-You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.js`.
+You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.ts`.
 
 ## To build for production
 
@@ -101,11 +101,9 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 
 You can find end-to-end tests in /e2e folder.
 
-Before executing e2e scripts, you may need to update drivers libraries : `npm run pree2e`
-
-You can now execute tests with the command lines below : 
+You can run tests with the command lines below : 
 - **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
-- **in another terminal window** -> Then, execute Protractor : `npm run e2e`
+- **in another terminal window** -> Then, launch Protractor (E2E framework): `npm run e2e`
 
 
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
