@@ -13,13 +13,13 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 4 and Electron (Typescript + SASS)
+Bootstrap and package your project with Angular 4(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v4.0.2
+- Angular v4.1.3
 - Angular-CLI v1.0.0
-- Electron v1.6.5
+- Electron v1.6.10
 - Electron Packager v8.6.0
 
 With this sample, you can :
@@ -69,32 +69,34 @@ Your built files are in the /dist folder.
 
 ## Included Commands
 
-- `npm run start:web` - Execute the app in the brower
-- `npm run electron:linux` - builds your application and creates an app consumable on linux systems.
-- `npm run electron:windows` - On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems.
-- `npm run electron:mac` - On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac.
+|Command|Description|
+|--|--|
+|`npm run start:web`| Execute the app in the brower |
+|`npm run electron:linux`| Builds your application and creates an app consumable on linux system |
+|`npm run electron:windows`| On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems |
+|`npm run electron:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Ma |
 
 **Your application is optimised. Only the files of /dist folder are included in the executable.**
 
 ## Use NodeJS Native libraries
 
-Actually Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs at compile time (Webpack error).
+Actually Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs at compile time (Webpack error). This is (one of) the reason why webpack.config was ejected of ng-cli.
 If you need to use NodeJS native libraries, you **MUST** add it manually in the file `webpack.config.js` in root folder :
 
 ```javascript
   "externals": {
-    "child_process": 'require(\'child_process\')',
     "electron": 'require(\'electron\')',
+    "child_process": 'require(\'child_process\')',
     "fs": 'require(\'fs\')'
     ...
   },
 ```
 
-Notice that all NodeJS v7 native libs are already added in this sample. 
+Notice that all NodeJS v7 native libs are already added in this sample. Feel free to remove those you don't need.
 
 ## Browser mode
 
-Maybe you want to execute the application in the browser (NO HOT RELOAD!) ? You can do it with `npm run start:web`.  
+Maybe you want to execute the application in the browser (WITHOUT HOT RELOAD ACTUALLY...) ? You can do it with `npm run start:web`.  
 Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
 
 ## Execute E2E tests
@@ -105,6 +107,11 @@ You can run tests with the command lines below :
 - **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
 - **in another terminal window** -> Then, launch Protractor (E2E framework): `npm run e2e`
 
+# Contributors 
+
+[<img alt="Maxime GRIS" src="https://avatars2.githubusercontent.com/u/10827551?v=3&s=117" width="117">](https://github.com/maximegris) |
+:---:
+|[Maxime GRIS](https://github.com/maximegris)|
 
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
 [build]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
