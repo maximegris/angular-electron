@@ -18,18 +18,13 @@ const DEFAULT_OPTS = {
     buildVersion: buildVersion
 };
 
-const icon = 'assets/favicon';
-
-if (icon) {
-    DEFAULT_OPTS.icon = icon;
-}
 
 pack(platform, arch, function done(err, appPath) {
-  if(err) {
-    console.log(err);
-  } else {
-    console.log('Application packaged successfuly!', appPath);
-  }
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('Application packaged successfuly!', appPath);
+    }
 
 });
 
@@ -37,9 +32,10 @@ function pack(plat, arch, cb) {
     // there is no darwin ia32 electron
     if (plat === 'darwin' && arch === 'ia32') return;
 
-    const iconObj = {
-        icon: DEFAULT_OPTS.icon + (() => {
+    const icon = 'src/favicon';
 
+    if (icon) {
+        DEFAULT_OPTS.icon = icon + (() => {
             let extension = '.png';
             if (plat === 'darwin') {
                 extension = '.icns';
@@ -47,8 +43,8 @@ function pack(plat, arch, cb) {
                 extension = '.ico';
             }
             return extension;
-        })()
-    };
+        })();
+    }
 
     const opts = Object.assign({}, DEFAULT_OPTS, {
         platform: plat,
