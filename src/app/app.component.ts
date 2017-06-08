@@ -9,7 +9,7 @@ import { ElectronService } from './providers/electron.service';
 export class AppComponent {
   constructor(public electronService: ElectronService) {
 
-    if(electronService.isElectron()) {
+    if (electronService.isElectron()) {
       console.log('Mode electron');
       // Check if electron is correctly injected (see externals in webpack.config.js)
       console.log('c', electronService.ipcRenderer);
