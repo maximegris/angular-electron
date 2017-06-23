@@ -22,7 +22,7 @@
     "start:web": "webpack-dev-server --content-base . --port 4200 --inline",
     "build:electron:main": "tsc main.ts --outDir dist && copyfiles package.json dist && cd dist && npm install --prod && cd ..",
     "build": "webpack --display-error-details && npm run build:electron:main",
-    "build:prod": "cross-env NODE_ENV='production' && npm run build",
+    "build:prod": "cross-env NODE_ENV='production' npm run build",
     "electron:serve": "npm run build:electron:main && electron ./dist --serve",
     "electron:test": "electron ./dist",
     "electron:dev": "npm run build && electron ./dist",
