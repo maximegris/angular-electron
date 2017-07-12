@@ -1,0 +1,23 @@
+<form class="filter">
+  <div class="columns">
+    <div class="column is-3 is-offset-one-quarter">
+      <div class="field">
+        <p class="control">
+          <input Placeholder="Name" class="input" type="text" [formControl]="name" name="name"/>
+        </p>
+      </div>
+    </div>
+    <div class="column is-3">
+      <div class="field">
+        <p class="control">
+          <input Placeholder="Email" class="input" type="text" [formControl]="email" name="email"/>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-3 is-offset-one-quarter">
+      <a (click)="clearFilter()" class="button is-primary">Clear Filter</a>
+    </div>
+  </div>
+</form>
