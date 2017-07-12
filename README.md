@@ -1,4 +1,4 @@
-[![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/)
+ [![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Ngrx Logo](https://avatars2.githubusercontent.com/u/16272733?v=3&s=100)](https://github.com/ngrx) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/)
 
 
 [![Travis Build Status][build-badge]][build]
