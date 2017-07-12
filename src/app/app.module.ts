@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { Store, StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { freelancersReducer } from './components/home/freelancer-grid/freelancers.reducer';
 import { filterReducer } from './components/home/filter/filter.reducer';
 
@@ -31,7 +33,11 @@ import { ElectronService } from './providers/electron.service';
     HttpModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    StoreModule.provideStore({ freelancers: freelancersReducer , filter: filterReducer })
+    StoreModule.provideStore({ freelancers: freelancersReducer , filter: filterReducer }),
+    // Note that you must instrument after importing StoreModule
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    })
   ],
   providers: [ElectronService],
   bootstrap: [AppComponent]
