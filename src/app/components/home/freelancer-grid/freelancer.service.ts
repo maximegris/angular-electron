@@ -30,7 +30,7 @@ export class RealtimeFreelancersService {
       })
     })
 
-    setInterval(() => {
+    setTimeout(() => {
       this.store.select('freelancers').first().subscribe((freelancers: Array<IFreelancer>) => {
         let getDeletedIndex = () => {
           return this.random(freelancers.length - 1)
@@ -46,7 +46,7 @@ export class RealtimeFreelancersService {
           this.addFadeClassToNewElements();
         });
       });
-    }, 50000);
+    }, 5000);
   }
 
   private addFadeClassToNewElements() {

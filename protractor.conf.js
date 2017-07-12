@@ -11,7 +11,7 @@ exports.config = {
   capabilities: {
     'browserName': 'chrome',
     chromeOptions: {
-        binary: './node_modules/electron/dist/electron.exe',
+        binary: './node_modules/electron/dist/electron',
         args: ['--test-type=webdriver', 'app=dist/main.js']
     }
   },
