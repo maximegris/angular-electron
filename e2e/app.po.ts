@@ -5,6 +5,10 @@ export class AngularElectronPage {
     return browser.get('/');
   }
 
+  getTitle() {
+    return browser.getTitle();
+  }
+
   getParagraphText() {
     return element(by.css('app-home h1')).getText();
   }

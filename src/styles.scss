@@ -1,7 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
-  margin: 0;
-  padding: 0;
 
-  height: 100%;
-}
+
+/* You can add global styles to this file, and also import other style files */
+
+// 1. Import the initial variables
+@import "~bulma/sass/utilities/initial-variables";
+
+// 2. Set your own initial variables
+// Update blue
+// $blue: #72d0eb;
+$danger: #EE5555;
+// Add pink and its invert
+// $pink: #ffb3b3;
+// $pink-invert: #fff;
+
+// Add a serif family
+// $family-serif: "Merriweather", "Georgia", serif;
+
+// 3. Set the derived variables
+// Use the new pink as the primary color
+// $primary: $pink;
+// $primary-invert: $pink-invert;
+// Use the existing orange as the danger color
+// $danger: $orange;
+// Use the new serif family
+// $family-primary: $family-serif;
+
+$primary:#ba0c2f;
+
+@import '~bulma';
+
+$fa-font-path: '~font-awesome/fonts/';
+@import '~font-awesome/scss/font-awesome';
+
+html, body {background-color: $white-bis;}
+body { font-size: 14px; }
