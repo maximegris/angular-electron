@@ -4,7 +4,7 @@ import * as path from 'path';
 
 let win, serve;
 const args = process.argv.slice(1);
-serve = args.some(val => val === "--serve");
+serve = args.some(val => val === '--serve');
 
 if (serve) {
   require('electron-reload')(__dirname, {
@@ -13,8 +13,8 @@ if (serve) {
 
 function createWindow() {
 
-  let electronScreen = screen;
-  let size = electronScreen.getPrimaryDisplay().workAreaSize;
+  const electronScreen = screen;
+  const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
   win = new BrowserWindow({
@@ -67,5 +67,5 @@ try {
 
 } catch (e) {
   // Catch Error
-  //throw e;
+  // throw e;
 }
