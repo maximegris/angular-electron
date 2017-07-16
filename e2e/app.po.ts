@@ -1,11 +1,8 @@
 import { browser, element, by } from 'protractor';
 
+/* tslint:disable */
 export class AngularElectronPage {
-  navigateTo() {
-    return browser.get('/');
-  }
-
-  getParagraphText() {
-    return element(by.css('app-home h1')).getText();
+  navigateTo(route: string) {
+    return browser.get(route);
   }
 }

@@ -8,6 +8,9 @@
   },
   "exclude": [
     "test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "dist",
+    "app-builds",
+    "node_modules"
   ]
 }
