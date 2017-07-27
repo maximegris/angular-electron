@@ -44,14 +44,17 @@
     "@angular/platform-browser-dynamic": "4.3.0",
     "@angular/router": "4.3.0",
     "core-js": "2.4.1",
+    "enhanced-resolve": "3.3.0",
     "rxjs": "5.4.2",
     "zone.js": "0.8.12"
   },
   "devDependencies": {
     "@angular/cli": "1.2.1",
     "@angular/compiler-cli": "4.3.0",
+    "@types/bluebird": "3.5.8",
+    "@types/core-js": "0.9.36",
     "@types/jasmine": "2.5.53",
-    "@types/node": "7.0.18",
+    "@types/node": "7.0.7",
     "autoprefixer": "7.1.1",
     "codelyzer": "3.1.1",
     "copyfiles": "1.2.0",
