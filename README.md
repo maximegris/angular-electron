@@ -18,9 +18,9 @@ Bootstrap and package your project with Angular 4(+) and Electron (Typescript + 
 Currently runs with:
 
 - Angular v4.3.5
-- Angular-CLI v1.3.1
-- Electron v1.7.5
-- Electron Packager v8.7.2
+- Angular-CLI v1.4.1
+- Electron v1.7.6
+- Electron Packager v9.0.1
 
 With this sample, you can :
 
