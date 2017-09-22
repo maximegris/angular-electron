@@ -21,7 +21,6 @@ const isProd = (process.env.NODE_ENV === 'production');
 
 //add all external css to be added in our index.html--> like as if it's .angular-cli.json
 const styles = [
-  "./src/assets/css/bootstrap.css",
   "./src/styles.scss"
 ];
 
