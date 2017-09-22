@@ -1,6 +1,6 @@
 {
   "name": "angular-electron",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "description": "Angular 4 with Electron (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
@@ -18,7 +18,8 @@
   "scripts": {
     "ng": "ng",
     "lint": "ng lint",
-    "start": "webpack --watch",
+    "start": "npm-run-all --parallel webpack:watch electron:serve",
+    "webpack:watch": "webpack --watch",
     "start:web": "webpack-dev-server --content-base . --port 4200 --inline",
     "build:electron:main": "tsc main.ts --outDir dist && copyfiles package.json dist && cd dist && npm install --prod && cd ..",
     "build": "webpack --display-error-details && npm run build:electron:main",
@@ -80,6 +81,7 @@
     "less-loader": "4.0.5",
     "minimist": "1.2.0",
     "mkdirp": "0.5.1",
+    "npm-run-all": "^4.1.1",
     "postcss-loader": "2.0.6",
     "postcss-url": "7.1.2",
     "protractor": "5.1.2",
