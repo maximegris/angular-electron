@@ -5,9 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
+const ConcatPlugin = require('webpack-concat-plugin');
 
 const { NoEmitOnErrorsPlugin, LoaderOptionsPlugin, DefinePlugin, HashedModuleIdsPlugin } = require('webpack');
-const { GlobCopyWebpackPlugin, BaseHrefWebpackPlugin } = require('@angular/cli/plugins/webpack');
+const { GlobCopyWebpackPlugin, BaseHrefWebpackPlugin, InsertConcatAssetsWebpackPlugin } = require('@angular/cli/plugins/webpack');
 const { CommonsChunkPlugin, UglifyJsPlugin } = require('webpack').optimize;
 const { AotPlugin } = require('@ngtools/webpack');
 
@@ -17,6 +18,18 @@ const baseHref = "";
 const deployUrl = "";
 
 const isProd = (process.env.NODE_ENV === 'production');
+
+//add all external css to be added in our index.html--> like as if it's .angular-cli.json
+const styles = [
+  "./src/styles.scss"
+];
+
+//we add all our external scripts we want to load externally, like inserting in our index.html --> like as if it's .angular-cli.json
+const scripts = [
+];
+
+//create file path for each , so we use for our excludes and includes where needed
+let style_paths = styles.map(style_src => path.join(process.cwd(), style_src));
 
 function getPlugins() {
   var plugins = [];
@@ -29,6 +42,19 @@ function getPlugins() {
   }));
 
   plugins.push(new NoEmitOnErrorsPlugin());
+
+if(scripts.length > 0){
+  plugins.push(new ConcatPlugin({
+    "uglify": false,
+    "sourceMap": true,
+    "name": "scripts",
+    "fileName": "[name].bundle.js",
+    "filesToConcat": scripts
+  }));
+  plugins.push(new InsertConcatAssetsWebpackPlugin([
+    "scripts"
+  ]));
+}
 
   plugins.push(new GlobCopyWebpackPlugin({
     "patterns": [
@@ -225,9 +251,7 @@ module.exports = {
     "polyfills": [
       "./src/polyfills.ts"
     ],
-    "styles": [
-      "./src/styles.scss"
-    ]
+    "styles": styles
   },
   "output": {
     "path": path.join(process.cwd(), "dist"),
@@ -258,9 +282,7 @@ module.exports = {
         "loader": "url-loader?name=[name].[hash:20].[ext]&limit=10000"
       },
       {
-        "exclude": [
-          path.join(process.cwd(), "src/styles.scss")
-        ],
+        "exclude": style_paths,
         "test": /\.css$/,
         "loaders": [
           "exports-loader?module.exports.toString()",
@@ -269,9 +291,7 @@ module.exports = {
         ]
       },
       {
-        "exclude": [
-          path.join(process.cwd(), "src/styles.scss")
-        ],
+        "exclude": style_paths,
         "test": /\.scss$|\.sass$/,
         "loaders": [
           "exports-loader?module.exports.toString()",
@@ -281,9 +301,7 @@ module.exports = {
         ]
       },
       {
-        "exclude": [
-          path.join(process.cwd(), "src/styles.scss")
-        ],
+        "exclude": style_paths,
         "test": /\.less$/,
         "loaders": [
           "exports-loader?module.exports.toString()",
@@ -293,9 +311,7 @@ module.exports = {
         ]
       },
       {
-        "exclude": [
-          path.join(process.cwd(), "src/styles.scss")
-        ],
+        "exclude": style_paths,
         "test": /\.styl$/,
         "loaders": [
           "exports-loader?module.exports.toString()",
@@ -305,9 +321,7 @@ module.exports = {
         ]
       },
       {
-        "include": [
-          path.join(process.cwd(), "src/styles.scss")
-        ],
+        "include": style_paths,
         "test": /\.css$/,
         "loaders": ExtractTextPlugin.extract({
           "use": [
@@ -319,9 +333,7 @@ module.exports = {
         })
       },
       {
-        "include": [
-          path.join(process.cwd(), "src/styles.scss")
-        ],
+        "include": style_paths,
         "test": /\.scss$|\.sass$/,
         "loaders": ExtractTextPlugin.extract({
           "use": [
@@ -334,9 +346,7 @@ module.exports = {
         })
       },
       {
-        "include": [
-          path.join(process.cwd(), "src/styles.scss")
-        ],
+        "include":style_paths,
         "test": /\.less$/,
         "loaders": ExtractTextPlugin.extract({
           "use": [
@@ -349,9 +359,7 @@ module.exports = {
         })
       },
       {
-        "include": [
-          path.join(process.cwd(), "src/styles.scss")
-        ],
+        "include": style_paths,
         "test": /\.styl$/,
         "loaders": ExtractTextPlugin.extract({
           "use": [
