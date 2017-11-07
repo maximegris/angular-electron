@@ -13,12 +13,12 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 4(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 5(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v4.3.5
-- Angular-CLI v1.4.1
+- Angular v5.0.0
+- Angular-CLI v1.5.0
 - Electron v1.7.6
 - Electron Packager v9.0.1
 
@@ -104,11 +104,11 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 
 You can find end-to-end tests in /e2e folder.
 
-You can run tests with the command lines below : 
+You can run tests with the command lines below :
 - **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
 - **in another terminal window** -> Then, launch Protractor (E2E framework): `npm run e2e`
 
-# Contributors 
+# Contributors
 
 [<img alt="Maxime GRIS" src="https://avatars2.githubusercontent.com/u/10827551?v=3&s=117" width="117">](https://github.com/maximegris) |
 :---:
