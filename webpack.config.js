@@ -187,14 +187,14 @@ if(scripts.length > 0){
     }));
 
   } else {
-    plugins.push(new AotPlugin({
+    plugins.push(new AngularCompilerPlugin({
+      entryModule: "src/app/app.module#AppModule",
       "mainPath": "main.ts",
       "hostReplacementPaths": {
         "environments/index.ts": "environments/index.ts"
       },
       "exclude": [],
-      "tsConfigPath": "src/tsconfig.app.json",
-      "skipCodeGeneration": true
+      "tsConfigPath": "src/tsconfig.app.json"
     }));
   }
 
