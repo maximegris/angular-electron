@@ -1,0 +1,10 @@
+{
+    "directories": {
+        "app": "dist",
+        "output": "app-builds"
+    },
+    "win": {
+        "icon": "dist/favicon",
+        "target": ["portable"]
+    }
+}
