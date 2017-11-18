@@ -1,6 +1,6 @@
 {
   "name": "angular-electron",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
@@ -54,12 +54,15 @@
   "devDependencies": {
     "@angular/cli": "1.5.2",
     "@angular/compiler-cli": "5.0.2",
+    "@angular/language-service": "5.0.2",
     "@types/core-js": "0.9.36",
     "@types/jasmine": "2.5.54",
     "@types/node": "7.0.7",
     "autoprefixer": "7.1.4",
-    "codelyzer": "4.0.1",
+    "circular-dependency-plugin": "3.0.0",
+    "codelyzer": "3.2.0",
     "copyfiles": "1.2.0",
+    "copy-webpack-plugin": "4.1.1",
     "cross-env": "5.0.5",
     "css-loader": "0.28.7",
     "cssnano": "3.10.0",
@@ -68,8 +71,9 @@
     "electron-packager": "9.1.0",
     "electron-reload": "1.2.1",
     "exports-loader": "0.6.4",
-    "file-loader": "0.11.2",
+    "file-loader": "1.1.5",
     "html-loader": "0.5.1",
+    "html-webpack-plugin": "2.29.0",
     "istanbul-instrumenter-loader": "3.0.0",
     "jasmine-core": "2.8.0",
     "jasmine-spec-reporter": "4.2.1",
@@ -97,10 +101,12 @@
     "ts-node": "3.3.0",
     "tslint": "5.7.0",
     "typescript": "2.4.2",
-    "url-loader": "0.5.9",
+    "uglifyjs-webpack-plugin": "1.0.0",
+    "url-loader": "0.6.2",
     "webdriver-manager": "12.0.6",
     "webpack": "3.8.1",
-    "webpack-dev-server": "2.8.2"
+    "webpack-concat-plugin": "1.4.0",
+    "webpack-dev-server": "2.9.3"
   },
   "license": "SEE LICENSE IN LICENSE.md"
 }

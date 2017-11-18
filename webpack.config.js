@@ -1,21 +1,62 @@
+const fs = require('fs');
 const path = require('path');
-const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
-const ConcatPlugin = require('webpack-concat-plugin');
+const customProperties = require('postcss-custom-properties');
 
-const { NoEmitOnErrorsPlugin, LoaderOptionsPlugin, DefinePlugin, HashedModuleIdsPlugin } = require('webpack');
-const { GlobCopyWebpackPlugin, BaseHrefWebpackPlugin, InsertConcatAssetsWebpackPlugin } = require('@angular/cli/plugins/webpack');
-const { CommonsChunkPlugin, UglifyJsPlugin } = require('webpack').optimize;
+const { NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, DefinePlugin, NamedModulesPlugin } = require('webpack');
+const { BaseHrefWebpackPlugin, NamedLazyChunksWebpackPlugin } = require('@angular/cli/plugins/webpack');
+const { CommonsChunkPlugin } = require('webpack').optimize;
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
+const realNodeModules = fs.realpathSync(nodeModules);
+const genDirNodeModules = path.join(process.cwd(), 'src', '$$_gendir', 'node_modules');
 const entryPoints = ["inline", "polyfills", "sw-register", "styles", "vendor", "main"];
+const minimizeCss = false;
 const baseHref = "";
 const deployUrl = "";
+
+const postcssPlugins = function () {
+  // safe settings based on: https://github.com/ben-eb/cssnano/issues/358#issuecomment-283696193
+  const importantCommentRe = /@preserve|@license|[@#]\s*source(?:Mapping)?URL|^!/i;
+  const minimizeOptions = {
+      autoprefixer: false,
+      safe: true,
+      mergeLonghand: false,
+      discardComments: { remove: (comment) => !importantCommentRe.test(comment) }
+  };
+  return [
+      postcssUrl({
+          url: (obj) => {
+            if (!obj.url.startsWith('/') || obj.url.startsWith('//')) {
+              return obj.url;
+            }
+            if (deployUrl.match(/:\/\//)) {
+              // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
+              return `${deployUrl.replace(/\/$/, '')}${obj.url}`;
+            }
+            else if (baseHref.match(/:\/\//)) {
+              // If baseHref contains a scheme, include it as is.
+              return baseHref.replace(/\/$/, '') +
+                `/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
+            }
+            else {
+              // Join together base-href, deploy-url and the original URL.
+              // Also dedupe multiple slashes into single ones.
+              return `/${baseHref}/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
+            }
+          }
+      }),
+      autoprefixer(),
+      customProperties({ preserve: true })
+  ].concat(minimizeCss ? [cssnano(minimizeOptions)] : []);
+};
 
 const isProd = (process.env.NODE_ENV === 'production');
 
@@ -43,35 +84,51 @@ function getPlugins() {
 
   plugins.push(new NoEmitOnErrorsPlugin());
 
-if(scripts.length > 0){
-  plugins.push(new ConcatPlugin({
-    "uglify": false,
-    "sourceMap": true,
-    "name": "scripts",
-    "fileName": "[name].bundle.js",
-    "filesToConcat": scripts
-  }));
-  plugins.push(new InsertConcatAssetsWebpackPlugin([
-    "scripts"
-  ]));
-}
+  // if(scripts.length > 0) {
+  //   plugins.push(new ConcatPlugin({
+  //     "uglify": false,
+  //     "sourceMap": true,
+  //     "name": "scripts",
+  //     "fileName": "[name].bundle.js",
+  //     "filesToConcat": scripts
+  //   }));
+  // }
 
-  plugins.push(new GlobCopyWebpackPlugin({
-    "patterns": [
-      "assets",
-      "favicon.ico"
-    ],
-    "globOptions": {
-      "cwd": process.cwd() + "/src",
-      "dot": true,
-      "ignore": "**/.gitkeep"
+  plugins.push(new CopyWebpackPlugin([
+    {
+      "context": "src",
+      "to": "",
+      "from": {
+        "glob": "assets/**/*",
+        "dot": true
+      }
+    },
+    {
+      "context": "src",
+      "to": "",
+      "from": {
+        "glob": "favicon.ico",
+        "dot": true
+      }
     }
+  ], {
+    "ignore": [
+      ".gitkeep"
+    ],
+    "debug": "warning"
   }));
 
   plugins.push(new ProgressPlugin());
 
+  plugins.push(new CircularDependencyPlugin({
+    "exclude": /(\\|\/)node_modules(\\|\/)/,
+    "failOnError": false
+  }));
+
+  plugins.push(new NamedLazyChunksWebpackPlugin());
+
   plugins.push(new HtmlWebpackPlugin({
-    "template": "./src/index.html",
+    "template": "./src\\index.html",
     "filename": "./index.html",
     "hash": false,
     "inject": true,
@@ -102,99 +159,74 @@ if(scripts.length > 0){
   plugins.push(new BaseHrefWebpackPlugin({}));
 
   plugins.push(new CommonsChunkPlugin({
-    "name": "inline",
+    "name": [
+      "inline"
+    ],
     "minChunks": null
   }));
 
   plugins.push(new CommonsChunkPlugin({
-    "name": "vendor",
-    "minChunks": (module) => module.resource && module.resource.startsWith(nodeModules),
+    "name": [
+      "vendor"
+    ],
+    "minChunks": (module) => {
+              return module.resource
+                  && (module.resource.startsWith(nodeModules)
+                      || module.resource.startsWith(genDirNodeModules)
+                      || module.resource.startsWith(realNodeModules));
+          },
     "chunks": [
       "main"
     ]
   }));
 
-  plugins.push(new ExtractTextPlugin({
-    "filename": "[name].bundle.css",
-    "disable": true
+  plugins.push(new SourceMapDevToolPlugin({
+    "filename": "[file].map[query]",
+    "moduleFilenameTemplate": "[resource-path]",
+    "fallbackModuleFilenameTemplate": "[resource-path]?[hash]",
+    "sourceRoot": "webpack:///"
   }));
 
-  plugins.push(new LoaderOptionsPlugin({
-    "sourceMap": false,
-    "options": {
-      "postcss": [
-        autoprefixer(),
-        postcssUrl({
-          "url": (obj) => {
-            // Only convert root relative URLs, which CSS-Loader won't process into require().
-            if (!obj.url.startsWith('/') || obj.url.startsWith('//')) {
-              return obj.url;
-            }
-            if (deployUrl.match(/:\/\//)) {
-              // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
-              return `${deployUrl.replace(/\/$/, '')}${obj.url}`;
-            }
-            else if (baseHref.match(/:\/\//)) {
-              // If baseHref contains a scheme, include it as is.
-              return baseHref.replace(/\/$/, '') +
-                `/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
-            }
-            else {
-              // Join together base-href, deploy-url and the original URL.
-              // Also dedupe multiple slashes into single ones.
-              return `/${baseHref}/${deployUrl}/${obj.url}`.replace(/\/\/+/g, '/');
-            }
-          }
-        })
-      ],
-      "sassLoader": {
-        "sourceMap": false,
-        "includePaths": []
-      },
-      "lessLoader": {
-        "sourceMap": false
-      },
-      "context": ""
-    }
+  plugins.push(new CommonsChunkPlugin({
+    "name": [
+      "main"
+    ],
+    "minChunks": 2,
+    "async": "common"
   }));
+
+  plugins.push(new NamedModulesPlugin({}));
 
   if (isProd) {
-    plugins.push(new HashedModuleIdsPlugin({
-      "hashFunction": "md5",
-      "hashDigest": "base64",
-      "hashDigestLength": 4
-    }));
-
     plugins.push(new AngularCompilerPlugin({
-      entryModule: "src/app/app.module#AppModule",
       "mainPath": "main.ts",
+      "platform": 0,
+      "sourceMap": true,
+      "tsConfigPath": "src/tsconfig.app.json",
+      "skipCodeGeneration": true,
+      "compilerOptions": {},
       "hostReplacementPaths": {
         "environments/index.ts": "environments/index.prod.ts"
       },
-      "exclude": [],
-      "tsConfigPath": "src/tsconfig.app.json"
+      "exclude": []
     }));
 
     plugins.push(new UglifyJsPlugin({
-      "mangle": {
-        "screw_ie8": true
-      },
-      "compress": {
-        "screw_ie8": true,
-        "warnings": false
-      },
       "sourceMap": false
     }));
 
   } else {
     plugins.push(new AngularCompilerPlugin({
-      entryModule: "src/app/app.module#AppModule",
       "mainPath": "main.ts",
+      "platform": 0,
+      "sourceMap": true,
+      "tsConfigPath": "src/tsconfig.app.json",
+      "skipCodeGeneration": true,
+      "compilerOptions": {},
       "hostReplacementPaths": {
         "environments/index.ts": "environments/index.ts"
       },
-      "exclude": [],
-      "tsConfigPath": "src/tsconfig.app.json"
+      "exclude": []
     }));
   }
 
@@ -239,6 +271,11 @@ module.exports = {
     },
     "modules": [
       "./node_modules"
+    ],
+    "mainFields": [
+      "browser",
+      "module",
+      "main"
     ]
   },
   "resolveLoader": {
@@ -258,124 +295,232 @@ module.exports = {
   "output": {
     "path": path.join(process.cwd(), "dist"),
     "filename": "[name].bundle.js",
-    "chunkFilename": "[id].chunk.js"
+    "chunkFilename": "[id].chunk.js",
+    "crossOriginLoading": false
   },
   "module": {
     "rules": [
       {
-        "enforce": "pre",
-        "test": /\.(js|ts)$/,
-        "loader": "source-map-loader",
-        "exclude": [
-          /\/node_modules\//,
-          path.join(__dirname, 'node_modules', '@angular/compiler')
-        ]
-      },
-      {
         "test": /\.html$/,
-        "loader": "html-loader"
+        "use": ["html-loader"]
       },
       {
-        "test": /\.(eot|svg)$/,
-        "loader": "file-loader?name=[name].[hash:20].[ext]"
-      },
-      {
-        "test": /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)$/,
-        "loader": "url-loader?name=[name].[hash:20].[ext]&limit=10000"
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|json|xml|ico|cur|ani)$/,
+        "use": ["file-loader?name=[path][name].[ext]"]
       },
       {
         "exclude": style_paths,
         "test": /\.css$/,
-        "loaders": [
+        "use": [
           "exports-loader?module.exports.toString()",
-          "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-          "postcss-loader"
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": false,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "ident": "postcss",
+              "plugins": postcssPlugins
+            }
+          }
         ]
       },
       {
         "exclude": style_paths,
         "test": /\.scss$|\.sass$/,
-        "loaders": [
+        "use": [
           "exports-loader?module.exports.toString()",
-          "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-          "postcss-loader",
-          "sass-loader"
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": false,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "ident": "postcss",
+              "plugins": postcssPlugins
+            }
+          },
+          {
+            "loader": "sass-loader",
+            "options": {
+              "sourceMap": false,
+              "precision": 8,
+              "includePaths": []
+            }
+          }
         ]
       },
       {
         "exclude": style_paths,
         "test": /\.less$/,
-        "loaders": [
+        "use": [
           "exports-loader?module.exports.toString()",
-          "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-          "postcss-loader",
-          "less-loader"
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": false,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "ident": "postcss",
+              "plugins": postcssPlugins
+            }
+          },
+          {
+            "loader": "less-loader",
+            "options": {
+              "sourceMap": false
+            }
+          }
         ]
       },
       {
         "exclude": style_paths,
         "test": /\.styl$/,
-        "loaders": [
+        "use": [
           "exports-loader?module.exports.toString()",
-          "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-          "postcss-loader",
-          "stylus-loader?{\"sourceMap\":false,\"paths\":[]}"
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": false,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "ident": "postcss",
+              "plugins": postcssPlugins
+            }
+          },
+          {
+            "loader": "stylus-loader",
+            "options": {
+              "sourceMap": false,
+              "paths": []
+            }
+          }
         ]
       },
       {
         "include": style_paths,
         "test": /\.css$/,
-        "loaders": ExtractTextPlugin.extract({
-          "use": [
-            "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-            "postcss-loader"
-          ],
-          "fallback": "style-loader",
-          "publicPath": ""
-        })
+        "use": [
+          "style-loader",
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": false,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "ident": "postcss",
+              "plugins": postcssPlugins
+            }
+          }
+        ]
       },
       {
         "include": style_paths,
         "test": /\.scss$|\.sass$/,
-        "loaders": ExtractTextPlugin.extract({
-          "use": [
-            "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-            "postcss-loader",
-            "sass-loader"
-          ],
-          "fallback": "style-loader",
-          "publicPath": ""
-        })
+        "use": [
+          "style-loader",
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": false,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "ident": "postcss",
+              "plugins": postcssPlugins
+            }
+          },
+          {
+            "loader": "sass-loader",
+            "options": {
+              "sourceMap": false,
+              "precision": 8,
+              "includePaths": []
+            }
+          }
+        ]
       },
       {
         "include":style_paths,
         "test": /\.less$/,
-        "loaders": ExtractTextPlugin.extract({
-          "use": [
-            "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-            "postcss-loader",
-            "less-loader"
-          ],
-          "fallback": "style-loader",
-          "publicPath": ""
-        })
+        "use": [
+          "style-loader",
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": false,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "ident": "postcss",
+              "plugins": postcssPlugins
+            }
+          },
+          {
+            "loader": "less-loader",
+            "options": {
+              "sourceMap": false
+            }
+          }
+        ]
       },
       {
         "include": style_paths,
         "test": /\.styl$/,
-        "loaders": ExtractTextPlugin.extract({
-          "use": [
-            "css-loader?{\"sourceMap\":false,\"importLoaders\":1}",
-            "postcss-loader",
-            "stylus-loader?{\"sourceMap\":false,\"paths\":[]}"
-          ],
-          "fallback": "style-loader",
-          "publicPath": ""
-        })
+        "use": [
+          "style-loader",
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": false,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "ident": "postcss",
+              "plugins": postcssPlugins
+            }
+          },
+          {
+            "loader": "stylus-loader",
+            "options": {
+              "sourceMap": false,
+              "paths": []
+            }
+          }
+        ]
       },
       {
         "test": /\.ts$/,
-        "loader": "@ngtools/webpack"
+        "use": "@ngtools/webpack"
       }
     ]
   },
@@ -392,5 +537,8 @@ module.exports = {
     setImmediate: false,
     __dirname: false,
     __filename: false
+  },
+  "devServer": {
+    "historyApiFallback": true
   }
 };
