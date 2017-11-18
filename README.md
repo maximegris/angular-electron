@@ -5,11 +5,14 @@
 [![Dependencies Status][dependencyci-badge]][dependencyci]
 [![Make a pull request][prs-badge]][prs]
 [![Apache 2 License][license-badge]][license]
-[![Donate][donate-badge]][donate]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/zEig29HrXXTTPEH8HY8Qmk5p/maximegris/angular-electron'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/zEig29HrXXTTPEH8HY8Qmk5p/maximegris/angular-electron.svg' />
+</a>
 
 # Introduction
 
@@ -122,8 +125,6 @@ You can run tests with the command lines below :
 [license]: https://github.com/maximegris/angular-electron/blob/master/LICENSE.md
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
-[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
-[donate]: https://www.paypal.me/maximegris/10
 [github-watch-badge]: https://img.shields.io/github/watchers/maximegris/angular-electron.svg?style=social
 [github-watch]: https://github.com/maximegris/angular-electron/watchers
 [github-star-badge]: https://img.shields.io/github/stars/maximegris/angular-electron.svg?style=social
