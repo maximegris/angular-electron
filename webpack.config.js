@@ -128,7 +128,7 @@ function getPlugins() {
   plugins.push(new NamedLazyChunksWebpackPlugin());
 
   plugins.push(new HtmlWebpackPlugin({
-    "template": "./src\\index.html",
+    "template": "./src/index.html",
     "filename": "./index.html",
     "hash": false,
     "inject": true,
