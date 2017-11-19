@@ -1,3 +1,7 @@
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/zEig29HrXXTTPEH8HY8Qmk5p/maximegris/angular-electron'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/zEig29HrXXTTPEH8HY8Qmk5p/maximegris/angular-electron.svg' />
+</a>
+
 [![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/)
 
 
@@ -9,10 +13,6 @@
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
-
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/zEig29HrXXTTPEH8HY8Qmk5p/maximegris/angular-electron'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/zEig29HrXXTTPEH8HY8Qmk5p/maximegris/angular-electron.svg' />
-</a>
 
 # Introduction
 
