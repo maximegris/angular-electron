@@ -10,9 +10,10 @@ const postcssUrl = require('postcss-url');
 const customProperties = require('postcss-custom-properties');
 
 const { NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, DefinePlugin, NamedModulesPlugin } = require('webpack');
-const { BaseHrefWebpackPlugin, NamedLazyChunksWebpackPlugin } = require('@angular/cli/plugins/webpack');
+const { BaseHrefWebpackPlugin, NamedLazyChunksWebpackPlugin, InsertConcatAssetsWebpackPlugin } = require('@angular/cli/plugins/webpack');
 const { CommonsChunkPlugin } = require('webpack').optimize;
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const ConcatPlugin = require('webpack-concat-plugin');
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
 const realNodeModules = fs.realpathSync(nodeModules);
@@ -84,15 +85,18 @@ function getPlugins() {
 
   plugins.push(new NoEmitOnErrorsPlugin());
 
-  // if(scripts.length > 0) {
-  //   plugins.push(new ConcatPlugin({
-  //     "uglify": false,
-  //     "sourceMap": true,
-  //     "name": "scripts",
-  //     "fileName": "[name].bundle.js",
-  //     "filesToConcat": scripts
-  //   }));
-  // }
+  if (scripts.length > 0) {
+    plugins.push(new ConcatPlugin({
+      "uglify": false,
+      "sourceMap": true,
+      "name": "scripts",
+      "fileName": "[name].bundle.js",
+      "filesToConcat": scripts
+    }));
+    plugins.push(new InsertConcatAssetsWebpackPlugin([
+      "scripts"
+    ]));
+  }
 
   plugins.push(new CopyWebpackPlugin([
     {
