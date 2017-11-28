@@ -1,10 +1,25 @@
 {
-    "directories": {
-        "app": "dist",
-        "output": "app-builds"
-    },
-    "win": {
-        "icon": "dist/favicon",
-        "target": ["portable"]
-    }
+  "productName": "angular-electron",
+  "directories": {
+    "app": "dist",
+    "output": "app-builds"
+  },
+  "win": {
+    "icon": "dist/favicon",
+    "target": [
+      "portable"
+    ]
+  },
+  "mac": {
+    "icon": "dist/favicon",
+    "target": [
+      "dmg"
+    ]
+  },
+  "linux": {
+    "icon": "dist/favicon",
+    "target": [
+      "AppImage"
+    ]
+  }
 }
