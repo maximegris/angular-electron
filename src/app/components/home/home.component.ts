@@ -13,4 +13,16 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+  * @param {string} name  Hello you!
+  *
+  * ``` typescript
+  * sayHelloTo('jude');
+  * ```
+  *
+  */
+  sayHelloTo(name: string) {
+    console.log(`Hello ${name}!`);
+  }
+
 }
