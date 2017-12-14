@@ -17,7 +17,7 @@
     ]
   },
   "linux": {
-    "icon": "dist/favicon",
+    "icon": "dist",
     "target": [
       "AppImage"
     ]
