@@ -56,7 +56,7 @@ npm install -g @angular/cli
 
 ## To build for development
 
-- **in a terminal window** -> npm start  
+- **in a terminal window** -> `npm start`  
 
 Voila! You can use your Angular + Electron app in a local development environment with hot reload !
 
@@ -79,6 +79,7 @@ Your built files are in the /dist folder.
 |`npm run electron:linux`| Builds your application and creates an app consumable on linux system |
 |`npm run electron:windows`| On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems |
 |`npm run electron:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac |
+|`npm run compodoc:serve`|  Builds documentation using [Compodoc](https://github.com/compodoc/compodoc) and serves it on http://localhost:8080/ |
 
 **Your application is optimised. Only the files of /dist folder are included in the executable.**
 
