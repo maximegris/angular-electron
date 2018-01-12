@@ -4,6 +4,7 @@ import * as path from 'path';
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+import * as url from 'url';
 
 if (serve) {
   require('electron-reload')(__dirname, {
@@ -24,7 +25,11 @@ function createWindow() {
   });
 
   // and load the index.html of the app.
-  win.loadURL('file://' + __dirname + '/index.html');
+  win.loadURL(url.format({
+    protocol: 'file:',
+    pathname: path.join(__dirname, '/index.html'),
+    slashes:  true
+  }));
 
   // Open the DevTools.
   if (serve) {
