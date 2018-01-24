@@ -1,6 +1,6 @@
 {
   "name": "angular-electron",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
@@ -67,7 +67,7 @@
     "cross-env": "5.0.5",
     "css-loader": "0.28.7",
     "cssnano": "3.10.0",
-    "electron": "1.7.8",
+    "electron": "1.7.11",
     "electron-builder": "19.45.4",
     "electron-reload": "1.2.1",
     "exports-loader": "0.6.4",
