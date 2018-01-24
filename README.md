@@ -1,6 +1,5 @@
 [![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/)
 
-
 [![Travis Build Status][build-badge]][build]
 [![Dependencies Status][dependencyci-badge]][dependencyci]
 [![Make a pull request][prs-badge]][prs]
@@ -16,10 +15,10 @@ Bootstrap and package your project with Angular 5(+) and Electron (Typescript + 
 
 Currently runs with:
 
-- Angular v5.0.1
-- Angular-CLI v1.5.0
-- Electron v1.7.6
-- Electron Packager v9.0.1
+- Angular v5.2.0
+- Angular-CLI v1.6.4
+- Electron v1.7.8
+- Electron Builder v19.45.4
 
 With this sample, you can :
 
