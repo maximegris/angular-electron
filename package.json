@@ -19,7 +19,7 @@
   "scripts": {
     "ng": "ng",
     "lint": "ng lint",
-    "start": "npm-run-all --parallel webpack:watch electron:serve",
+    "start": "tsc main.ts && npm-run-all --parallel webpack:watch electron:serve",
     "webpack:watch": "webpack --watch",
     "start:web": "webpack-dev-server --content-base . --port 4200 --inline",
     "build:electron:main": "tsc main.ts --outDir dist && copyfiles package.json dist && cd dist && npm install --prod && cd ..",
@@ -52,7 +52,7 @@
     "enhanced-resolve": "3.3.0",
     "rxjs": "5.5.2",
     "zone.js": "0.8.17",
-    "@angular/cli": "1.6.4",
+    "@angular/cli": "1.6.8",
     "@angular/compiler-cli": "5.2.5",
     "@angular/language-service": "5.2.5",
     "@types/core-js": "0.9.36",

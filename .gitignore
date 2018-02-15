@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /app-builds
+main.js
 
 # dependencies
 /node_modules
