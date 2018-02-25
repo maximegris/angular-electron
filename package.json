@@ -31,7 +31,7 @@
     "electron:mac": "npm run build:prod && npx electron-builder build --mac",
     "test": "karma start ./karma.conf.js",
     "pree2e:build": "webdriver-manager update --gecko false && npm run ng:serve",
-    "pree2e:protractor" : "wait-on http-get://localhost:4200/ && protractor ./protractor.conf.js",
+    "pree2e:protractor": "wait-on http-get://localhost:4200/ && protractor ./protractor.conf.js",
     "e2e": "npm-run-all -p pree2e:build pree2e:protractor"
   },
   "dependencies": {},
