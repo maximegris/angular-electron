@@ -1,14 +1,15 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
+import * as url from 'url';
 
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
-import * as url from 'url';
 
-if (serve) {
-  require('electron-reload')(__dirname, {
-  });
+try {
+  require('dotenv').config();
+} catch {
+  console.log('asar');
 }
 
 function createWindow() {
@@ -24,17 +25,19 @@ function createWindow() {
     height: size.height
   });
 
-  // and load the index.html of the app.
-  win.loadURL(url.format({
-    protocol: 'file:',
-    pathname: path.join(__dirname, '/index.html'),
-    slashes:  true
-  }));
-
-  // Open the DevTools.
   if (serve) {
-    win.webContents.openDevTools();
+    require('electron-reload')(__dirname, {
+    });
+    win.loadURL('http://localhost:4200');
+  } else {
+    win.loadURL(url.format({
+      pathname: path.join(__dirname, 'dist/index.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
   }
+
+  win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {

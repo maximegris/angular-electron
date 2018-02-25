@@ -1,7 +1,6 @@
 {
   "productName": "angular-electron",
   "directories": {
-    "app": "dist",
     "output": "app-builds"
   },
   "win": {
