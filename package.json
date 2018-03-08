@@ -22,7 +22,7 @@
     "start": "node hooks/environments/set_profile.js && npm-run-all -p ng:serve electron:serve",
     "build": "node hooks/environments/set_profile.js && ng build && npm run electron:tsc",
     "build:prod": "node hooks/environments/set_profile.js && ng build --prod && npm run electron:tsc",
-    "ng:serve": "ng serve",
+    "ng:serve": "ng serve -o",
     "electron:tsc": "tsc main.ts",
     "electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve",
     "electron:local": "npm run build:prod && electron .",
