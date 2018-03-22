@@ -23,4 +23,11 @@ export class ElectronService {
     return window && window.process && window.process.type;
   }
 
+  openAddItem(item) {
+    console.log('onaddOpenItem');
+    ipcRenderer.sendSync('addItem', (event, arg = item) => {
+      console.log('Sending to electron');
+    });
+  }
+
 }

@@ -1,0 +1,34 @@
+<!-- <div style="margin: 20px;"> -->
+  <div *ngIf="!customerIsSelected">
+    <h1>We need to select a customer</h1>
+    <app-customers></app-customers>
+    <div>
+
+      <div *ngIf="customerIsSelected" class="example-container ">
+        <p>FOR: {{selectedCustomer.customerName}}</p>
+        <mat-table #table [dataSource]="itemsMatTableData">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.price | currency: 'USD'}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="unit">
+            <mat-header-cell *matHeaderCellDef> Unit </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.unit}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Qty">
+            <mat-header-cell *matHeaderCellDef> Qty </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.orderQty}} </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row [ngClass]="{'highlight': selectedRowIndex == i}" *matRowDef="let row; columns: displayedColumns; let i = index"></mat-row>
+        </mat-table>
+      </div>
+
+      <p>Total: {{this.total | currency: 'USD'}}</p>
+    </div>
+  </div>
+<!-- </div> -->

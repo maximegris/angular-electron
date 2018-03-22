@@ -1,0 +1,24 @@
+{
+  "sessions": [
+    {
+      "id": "b9409ff2-ef1f-4f1d-94f6-faea62c13bca",
+      "tabLayout": {
+        "type": "stack",
+        "width": 100,
+        "height": 100,
+        "tabs": [
+          {
+            "id": "19ad3738-b2c2-4201-91d9-f5098858a25c",
+            "relativeUrl": "file://./tsconfig.json",
+            "additionalData": null
+          }
+        ],
+        "subItems": [],
+        "activeItemIndex": 0
+      },
+      "lastUsed": 1520352519127,
+      "selectedTabId": "19ad3738-b2c2-4201-91d9-f5098858a25c"
+    }
+  ],
+  "relativePathToTsconfig": "./tsconfig.json"
+}

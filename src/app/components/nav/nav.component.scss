@@ -1,0 +1,21 @@
+.fillNavBar {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+div.titleBarPadding {
+  ition: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000; 
+}
+
+a {
+    color: purple;
+}

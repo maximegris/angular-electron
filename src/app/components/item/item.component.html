@@ -1,0 +1,35 @@
+<div>
+  <form style="display: flex; flex-direction: column" (ngSubmit)="onSubmit()" #itemForm="ngForm">
+    <mat-form-field>
+      <label for="name">Item Name</label>
+      <input matInput type="text" id="name" required [(ngModel)]="item.name" name="name" #name="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+        <label for="name">Item Description</label>
+        <input matInput type="text" id="description" [(ngModel)]="item.description" name="description" #description="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+      <label for="name">Scan Code</label>
+      <input matInput type="text" id="scancode" [(ngModel)]="item.scancode" name="description" #scancode="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+      <label for="price">Retail Price</label>
+      <input matInput type="text" id="price" required [(ngModel)]="item.price" name="price">
+    </mat-form-field>
+    <mat-form-field>
+      <label for="class">Item Class</label>
+      <input matInput type="text" class="form-control" id="class" required [(ngModel)]="item.class" name="class" #class="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+        <label for="category">Item Category</label>
+        <input matInput type="text" class="form-control" id="category" required [(ngModel)]="item.category" name="category" #category="ngModel">
+      </mat-form-field>
+    <mat-form-field>
+      <mat-select [(ngModel)]="item.unit" name="unit">
+        <mat-option *ngFor="let unit of units" [value]="unit">{{unit}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" style="padding: 16px" type="button" class="" (click)="sendEdit(item)">Update Item</button>
+  </form>
+</div>

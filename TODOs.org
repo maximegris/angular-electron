@@ -1,0 +1,4 @@
+* Todos
+** TODO Change the items component around so that it doesn't keep any local variable for invoiced items in the component.
+*** The way it needs to behave is that it only uses the inventory providers version of the invoiced items variable so that I can make the scancode feature it's own component. This is VERY important.
+** TODO Make tables in MONGO for customers & invoices. Make routes in the express server to get and put for these tables.

@@ -1,0 +1,17 @@
+<!-- <mat-card> -->
+  <!-- <mat-card-title>Add item by scancode:</mat-card-title> -->
+  <!-- <mat-card-content> -->
+    <form (ngSubmit)="onSubmitScanCode(scanCode)" #scancodeForm="ngForm">
+      <div class="inputs">
+        <mat-form-field style="width: 45%">
+          <label for="name">Scan a barcode:</label>
+          <input matInput tabindex="-1" type="text" id="scancode" (blur)="onSubmitScanCode(scanCode)" required [(ngModel)]="scanCode" name="scancode" #scancode="ngModel">
+        </mat-form-field>
+        <mat-form-field style="width: 25%">
+          <label for="name">Enter a Quantity</label>
+          <input matInput tabindex="-1" type="number" id="quantity" [(ngModel)]="quantity" name="quantity">
+        </mat-form-field>
+      </div>
+    </form>
+  <!-- </mat-card-content> -->
+<!-- </mat-card> -->

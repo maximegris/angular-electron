@@ -1,0 +1,47 @@
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .title {
+    color: white;
+    margin:0;
+    padding:50px 20px;
+  }
+
+}
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+  cursor: default;
+}
+
+mat-row {
+    font-size: 8px; 
+}
+
+mat-row.highlight{
+    background: lightslategrey;
+}
+
+mat-row:hover {
+    background-color: lightslategrey;
+    transition: 0.5s;
+}

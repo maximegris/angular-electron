@@ -1,0 +1,13 @@
+<div class="titleBarPadding"></div>
+<mat-toolbar color="secondary" style="-webkit-app-region: drag">
+    <mat-toolbar-row>
+      <a routerLink=""><mat-icon>home</mat-icon></a>
+        <span class="fillNavBar">
+        </span>
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            {{link.label}}
+          </a>
+        </nav>
+    </mat-toolbar-row>
+</mat-toolbar>

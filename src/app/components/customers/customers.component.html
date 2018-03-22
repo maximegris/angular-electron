@@ -1,0 +1,23 @@
+<div class="example-container ">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="Customers">
+    <ng-container matColumnDef="number">
+      <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.customerNumber}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.customerName}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address.city}} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row (click)="highlight(i); selectCustomer(row)" [ngClass]="{'highlight': selectedRowIndex == i}" *matRowDef="let row; columns: displayedColumns; let i = index"></mat-row>
+  </mat-table>
+</div>

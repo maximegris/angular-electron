@@ -1,0 +1,47 @@
+<div class="example-container ">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="itemsList">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.price | currency: 'USD'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="unit">
+      <mat-header-cell *matHeaderCellDef> Unit </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.unit}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="class">
+      <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.class}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="openEditDialog(element._id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="deleteItem(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row (click)="highlight(i);" [ngClass]="{'highlight': selectedRowIndex == i}" *matRowDef="let row; columns: displayedColumns; let i = index"></mat-row>
+  </mat-table>
+</div>

@@ -1,7 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Global angular material style:
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+
 html, body {
   margin: 0;
   padding: 0;
-
+  background-color: white;
   height: 100%;
+}
+
+.titleBarPadding {
+    height: 40px;
+    background-color: #7e57c2;
+    -webkit-app-region: drag;
 }

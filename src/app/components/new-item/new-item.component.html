@@ -1,0 +1,34 @@
+<div>
+  <form id="itemForm" (ngSubmit)="onSubmit()"  #itemForm="ngForm">
+    <mat-form-field>
+      <label for="name">Item Name</label>
+      <input matInput type="text" id="name" [(ngModel)]="newItem.name" name="name" #name="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+      <label for="name">Item Description</label>
+      <input matInput type="text" id="description" [(ngModel)]="newItem.description" name="description" #description="ngModel"> 
+    </mat-form-field>
+    <mat-form-field>
+      <label for="scancode">Scan Code</label>
+      <input matInput type="text" id="scancode" [(ngModel)]="newItem.scancode" name="scancode" #scancode="ngModel"> 
+    </mat-form-field>
+    <mat-form-field>
+      <label for="price">Retail Price</label>
+      <input matInput type="text" id="name"  [(ngModel)]="newItem.price" name="price"> 
+    </mat-form-field>
+    <mat-form-field>
+      <label for="class">Item Class</label>
+      <input matInput type="text" id="class"  [(ngModel)]="newItem.class" name="class" #class="ngModel"> 
+    </mat-form-field>
+    <mat-form-field>
+      <label for="class">Item Category</label>
+      <input matInput type="text" id="category"  [(ngModel)]="newItem.category" name="category" #category="ngModel"> 
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select [(ngModel)]="newItem.unit" name="unit">
+          <mat-option *ngFor="let unit of units" [value]="unit">{{unit}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="button"  (click)="addNewItem(newItem); itemForm.reset()">Add</button>
+  </form>
+</div>

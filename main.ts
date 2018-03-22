@@ -1,7 +1,7 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as path from 'path';
 
-let win, serve;
+let win, serve, addWin;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 import * as url from 'url';
@@ -11,7 +11,41 @@ if (serve) {
   });
 }
 
+ipcMain.on('addItem', (e, arg) => {
+  console.log('electron has revieved the message from renderer.')
+  console.log('item is is: ' + arg);
+  const electronScreen = screen;
+  const size = electronScreen.getPrimaryDisplay().workAreaSize;
+
+  // Create the browser window.
+  addWin = new BrowserWindow({
+    x: 0,
+    y: 0,
+    width: 300,
+    height: 500,
+    titleBarStyle: 'hiddenInset',
+    parent: win
+  });
+
+  // and load the index.html of the app.
+  addWin.loadURL('file://' + __dirname + '/index.html#/edit-item/' + arg);
+
+  // Open the DevTools.
+  if (serve) {
+    win.webContents.openDevTools();
+  }
+
+  // Emitted when the window is closed.
+  addWin.on('closed', () => {
+    // Dereference the window object, usually you would store window
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    win = null;
+  });
+})
+
 function createWindow() {
+  console.log('creating the window');
 
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
@@ -21,7 +55,8 @@ function createWindow() {
     x: 0,
     y: 0,
     width: size.width,
-    height: size.height
+    height: size.height,
+    titleBarStyle: 'hiddenInset'
   });
 
   // and load the index.html of the app.

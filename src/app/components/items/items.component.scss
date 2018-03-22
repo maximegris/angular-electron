@@ -1,27 +1,26 @@
-@import '~@angular/material/theming';
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-// .container {
-//   height: 100%;
-//   // display: flex;
-//   // align-items: center;
-//   // justify-content: center;
-//
-//   .title {
-//     color: white;
-//     margin:0;
-//     padding:50px 20px;
-//   }
-// }
-// .example-container {
-//   display: flex;
-//   flex-direction: column;
-//   min-width: 300px;
-// }
-//
-// .example-header {
-//   min-height: 64px;
-//   padding: 8px 24px 0;
-// }
+  .title {
+    color: white;
+    margin:0;
+    padding:50px 20px;
+  }
+
+}
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
 
 .mat-form-field {
   font-size: 14px;
@@ -41,7 +40,16 @@
                                   supported by Chrome and Opera */
 }
 
-mat-row:hover {
-  background-color: lightslategrey;
-  transition: 0.5s;
+// mat-row.selectedItem {
+//   background-color: lightslategrey;
+// }
+
+mat-row.highlight{
+    background: lightslategrey;
 }
+
+mat-row:hover {
+    background-color: lightslategrey;
+    transition: 0.5s;
+}
+
