@@ -43,3 +43,6 @@ package-lock.json
 # System Files
 .DS_Store
 Thumbs.db
+
+# misc
+src/app/app.config.ts
