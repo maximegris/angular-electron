@@ -45,4 +45,4 @@ package-lock.json
 Thumbs.db
 
 # misc
-src/app/app.config.ts
+src/app/environment.ts

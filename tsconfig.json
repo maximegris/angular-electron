@@ -14,6 +14,11 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "environments": [
+        "app/environment"
+      ]
+    }
   }
 }

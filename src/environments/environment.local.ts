@@ -1,4 +1,4 @@
-export const env = {
+export const environment = {
   production: false,
   environment: 'LOCAL'
 };
