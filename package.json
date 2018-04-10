@@ -54,7 +54,6 @@
     "@types/jasminewd2": "2.0.3",
     "@types/node": "7.0.7",
     "codelyzer": "4.2.1",
-    "copyfiles": "1.2.0",
     "core-js": "2.5.5",
     "cross-env": "5.1.4",
     "dotenv": "5.0.1",
