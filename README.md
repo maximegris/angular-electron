@@ -64,7 +64,7 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 - Using local variables :  `npm start` or `cross-env ENV=local npm start`
 - Using development variables :  `cross-env ENV=dev npm start`
-- Using production variables  :  `cross-env ENV=rod npm start`
+- Using production variables  :  `cross-env ENV=prod npm start`
 
 ## Included Commands
 
