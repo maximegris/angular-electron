@@ -54,7 +54,6 @@
     "@types/node": "7.0.7",
     "codelyzer": "4.2.1",
     "core-js": "2.5.5",
-    "cross-env": "5.1.4",
     "dotenv": "5.0.1",
     "electron": "1.8.4",
     "electron-builder": "20.8.1",
