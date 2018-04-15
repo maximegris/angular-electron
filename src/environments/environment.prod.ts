@@ -1,4 +1,4 @@
-export const CONF_PROD = {
+export const environment = {
   production: true,
-  environment: 'PROD'
+  environmentName: 'PROD'
 };
