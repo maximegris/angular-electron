@@ -62,9 +62,9 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 ## Manage your environment variables
 
-- Using local variables :  `npm start` or `cross-env ENV=local npm start`
-- Using development variables :  `cross-env ENV=dev npm start`
-- Using production variables  :  `cross-env ENV=prod npm start`
+If you want to switch between environments see the angular cli documentation: https://github.com/angular/angular-cli/wiki/stories-application-environments
+
+Example: you want to build in prod mode but use the local environment: `ng build --prod --env=local`
 
 ## Included Commands
 
