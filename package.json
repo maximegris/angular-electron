@@ -26,7 +26,7 @@
     "ng:serve:no-open": "ng serve",
     "electron:tsc": "tsc main.ts",
     "electron:tsc:watch": "tsc --watch main.ts",
-    "electron:start": "electron . --serve",
+    "electron:start": "electron .",
     "electron:serve": "wait-on http-get://localhost:4200/ && cross-env-shell WATCH_MODE=true npm-run-all -p electron:tsc:watch electron:start",
     "electron:local": "npm run build:prod && electron .",
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
