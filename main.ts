@@ -2,9 +2,8 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-let win, serve;
-const args = process.argv.slice(1);
-serve = args.some(val => val === '--serve');
+let win;
+const serve = ['true', '1'].indexOf(('' + process.env.WATCH_MODE).toLowerCase()) !== -1 || false;
 
 try {
   require('dotenv').config();
@@ -27,7 +26,8 @@ function createWindow() {
 
   if (serve) {
     require('electron-reload')(__dirname, {
-     electron: require(`${__dirname}/node_modules/electron`)});
+     electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+    });
     win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(url.format({
