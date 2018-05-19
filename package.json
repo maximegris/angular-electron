@@ -19,9 +19,10 @@
   "scripts": {
     "postinstall": "npx electron-builder install-app-deps",
     "ng": "ng",
-    "start": "node hooks/environments/set_profile.js && npm-run-all -p ng:serve electron:serve",
-    "build": "node hooks/environments/set_profile.js && ng build && npm run electron:tsc",
-    "build:prod": "node hooks/environments/set_profile.js && ng build -c production && npm run electron:tsc",
+    "start": "npm-run-all -p ng:serve electron:serve",
+    "build": "npm run electron:tsc && ng build",
+    "build:dev": "npm run build -- -c dev",
+    "build:prod": "npm run build -- -c production",
     "ng:serve": "ng serve -o",
     "electron:tsc": "tsc main.ts",
     "electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve",
