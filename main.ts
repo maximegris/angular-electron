@@ -6,12 +6,6 @@ let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 
-try {
-  require('dotenv').config();
-} catch {
-  console.log('asar');
-}
-
 function createWindow() {
 
   const electronScreen = screen;
