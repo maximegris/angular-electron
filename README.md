@@ -81,11 +81,11 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 
 ## Error with nodejs third party packages
 
-However since Angular 6 does not provide an eject anymore, you can't configure your webpack config file to import node externals.
+Since Angular 6 does not provide an eject anymore, you can't configure your webpack config file to import node externals.
 
 An issue in [Angular repository](https://github.com/angular/angular-cli/issues/10681) is opened about this feature. 
 
-Please have a look at [Stack Overflow Post workaround](https://stackoverflow.com/questions/50234196/after-updating-from-angular-5-to-6-i-keep-getting-the-error-cant-resolve-timer) or use branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5) and continue to eject your configuration file.
+Please have a look at [Stack Overflow Post workaround](https://stackoverflow.com/questions/50234196/after-updating-from-angular-5-to-6-i-keep-getting-the-error-cant-resolve-timer) that may work in some cases. Or use branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5) and continue to eject your configuration file.
 
 ## Branch & Packages version
 
