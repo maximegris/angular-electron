@@ -1,6 +1,10 @@
 ### Changelog
 All notable changes to this project will be documented in this file.
 
+#### [Unreleased](https://github.com/maximegris/angular-electron/compare/3.4.0...3.4.1)
+- Modify electron builder configuration to remove source code and tests [`#190`](https://github.com/maximegris/angular-electron/pull/190)
+- version 3.4.1 [`308ea9c`](https://github.com/maximegris/angular-electron/commit/308ea9c014781aa65c712ea69a844e77c8e651ef)
+
 #### [Unreleased](https://github.com/maximegris/angular-electron/compare/3.3.0...3.4.0)
 - Resolved Translation issue [`#186`](https://github.com/maximegris/angular-electron/pull/186)
 - Removed unused file [`#185`](https://github.com/maximegris/angular-electron/pull/185)
