@@ -11,14 +11,14 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 5(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 6(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v5.2.5
-- Angular-CLI v1.6.4
-- Electron v1.8.2
-- Electron Builder v20.0.4
+- Angular v6.0.2
+- Angular-CLI v6.0.3
+- Electron v2.0.1
+- Electron Builder v20.13.4
 
 With this sample, you can :
 
