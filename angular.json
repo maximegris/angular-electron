@@ -25,7 +25,7 @@
               "src/favicon.512x512.png"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/assets/style.css"
             ],
             "scripts": []
           },
