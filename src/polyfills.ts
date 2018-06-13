@@ -72,7 +72,12 @@ import 'core-js/es7/reflect';
  */
 import 'zone.js/dist/zone-mix';  // Included with Angular CLI.
 
-
+/**
+ * You can load zone-patch-electron to allow electron native APIs
+ * (Such as dialog/shortcut/menu/getFileIcon/shell/session/
+ * desktopCapturer/onEvent) in ngZone
+ */
+// import 'zone.js/dist/zone-patch-electron'; // add zone-patch-electron to patch Electron native API
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
