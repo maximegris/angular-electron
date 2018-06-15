@@ -35,16 +35,16 @@
       <div class="full tab-container">
           <ul class="tabs">
               <li class="quarter">
-                  <a href="active.html" class="is-active">Active Rentals</a>
+                  <a (click)="filterOrders('active')" class="is-active">Active Rentals</a>
               </li>
               <li class="quarter">
-                  <a href="upcoming.html">Upcoming Rentals</a>
+                  <a (click)="filterOrders('upcoming')">Upcoming Rentals</a>
               </li>
               <li class="quarter">
-                  <a href="expired.html">Expired Rentals</a>
+                  <a (click)="filterOrders('expired')">Expired Rentals</a>
               </li>
               <li class="quarter">
-                  <a href="test.html">Test Images</a>
+                  <a (click)="filterOrders('test')">Test Images</a>
               </li>
           </ul>
       </div>

@@ -1,121 +1,21 @@
+<app-slide-show></app-slide-show>
+
+<app-navbar (newOrders)="onNewOrders($event)" ></app-navbar>
+
 <section class="main">
   <div class="inner">
-      <div class="item quarter">
+      <div class="item quarter" *ngFor="let order of orders">
           <div class="item-inner">
-              <figure><img src="../../assets/../../assets/img/genericimage.png" alt=""></figure>
+              <figure><img (click)=fullSreen($event) src="{{ 'file:///' + thumbPath + order.thumb_img_path.substring(order.thumb_img_path.lastIndexOf('/') + 1 )}}" alt=""></figure>
               <div class="text">
                   <div class="full">
-                      <p class="image-name">Sharks</p>
+                      <p class="image-name">{{ order.name }}</p>
                       <p class="skunumber">794253645</p>
                   </div>
                   <div class="full">
-                      <p class="image-date">Valid until: <span>April 02, 2018</span></p>
-                      <p class="image-days">2 Days Remaining</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="item quarter">
-          <div class="item-inner">
-              <figure><img src="../../assets/img/genericimage.png" alt=""></figure>
-              <div class="text">
-                  <div class="full">
-                      <p class="image-name">Sharks</p>
-                      <p class="skunumber">794253645</p>
-                  </div>
-                  <div class="full">
-                      <p class="image-date">Valid until: <span>April 02, 2018</span></p>
-                      <p class="image-days">2 Days Remaining</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="item quarter">
-          <div class="item-inner">
-              <figure><img src="../../assets/img/genericimage.png" alt=""></figure>
-              <div class="text">
-                  <div class="full">
-                      <p class="image-name">Sharks</p>
-                      <p class="skunumber">794253645</p>
-                  </div>
-                  <div class="full">
-                      <p class="image-date">Valid until: <span>April 02, 2018</span></p>
-                      <p class="image-days">2 Days Remaining</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="item quarter">
-          <div class="item-inner">
-              <figure><img src="../../assets/img/genericimage.png" alt=""></figure>
-              <div class="text">
-                  <div class="full">
-                      <p class="image-name">Sharks</p>
-                      <p class="skunumber">794253645</p>
-                  </div>
-                  <div class="full">
-                      <p class="image-date">Valid until: <span>April 02, 2018</span></p>
-                      <p class="image-days">2 Days Remaining</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="item quarter">
-          <div class="item-inner">
-              <figure><img src="../../assets/img/genericimage.png" alt=""></figure>
-              <div class="text">
-                  <div class="full">
-                      <p class="image-name">Sharks</p>
-                      <p class="skunumber">794253645</p>
-                  </div>
-                  <div class="full">
-                      <p class="image-date">Valid until: <span>April 02, 2018</span></p>
-                      <p class="image-days">2 Days Remaining</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="item quarter">
-          <div class="item-inner">
-              <figure><img src="../../assets/img/genericimage.png" alt=""></figure>
-              <div class="text">
-                  <div class="full">
-                      <p class="image-name">Sharks</p>
-                      <p class="skunumber">794253645</p>
-                  </div>
-                  <div class="full">
-                      <p class="image-date">Valid until: <span>April 02, 2018</span></p>
-                      <p class="image-days">2 Days Remaining</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="item quarter">
-          <div class="item-inner">
-              <figure><img src="../../assets/img/genericimage.png" alt=""></figure>
-              <div class="text">
-                  <div class="full">
-                      <p class="image-name">Sharks</p>
-                      <p class="skunumber">794253645</p>
-                  </div>
-                  <div class="full">
-                      <p class="image-date">Valid until: <span>April 02, 2018</span></p>
-                      <p class="image-days">2 Days Remaining</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="item quarter">
-          <div class="item-inner">
-              <figure><img src="../../assets/img/genericimage.png" alt=""></figure>
-              <div class="text">
-                  <div class="full">
-                      <p class="image-name">Sharks</p>
-                      <p class="skunumber">794253645</p>
-                  </div>
-                  <div class="full">
-                      <p class="image-date">Valid until: <span>April 02, 2018</span></p>
-                      <p class="image-days">2 Days Remaining</p>
+                      <!-- <p class="image-date">Valid until: <span>April 02, 2018</span></p> -->
+                      <p class="image-date">Valid until: <span>{{ order.end_date | date }}</span></p>
+                      <p class="image-days">{{ moment.duration(moment(order.end_date).diff(moment(order.start_date))).asDays() }} Days Remaining</p>
                   </div>
               </div>
           </div>

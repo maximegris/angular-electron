@@ -14,13 +14,38 @@
       </div>
       <h6 class="white with-lines">or</h6>
       <h6 class="white">Login</h6>
-      <div class="form">
-        <input type="email" name="email" id="email" placeholder="Email" />
-        <input type="password" name="password" id="password" placeholder="Password" />
+
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="form">
+        <input
+          type="text"
+          [(ngModel)]="user.email"
+          [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
+          name="email"
+          placeholder="Email"
+          #userEmail="ngModel"
+          required
+          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+        />
+        <div [hidden]="!userEmail.errors?.required" >Email required</div>
+        <div [hidden]="!userEmail.errors?.pattern" >Email invalid</div>
+
+        <input
+          type="text"
+          [(ngModel)]="user.password"
+          [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}"
+          name="password"
+          placeholder="Password"
+          #userPassword="ngModel"
+          required
+          minlength="2"
+        />
+        <div [hidden]="!userPassword.errors?.required" >Password required</div>
+        <div [hidden]="!userPassword.errors?.minlength" >Password invalid</div>
+
         <div class="button">
-          <button class="secondary">Login</button>
+          <button [disabled]="!userForm.form.valid" class="secondary">Login</button>
         </div>
-      </div>
+      </form>
     </div>
   </section>
 </div>
