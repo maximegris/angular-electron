@@ -5,5 +5,6 @@ export interface Order {
   start_date: string,
   end_date: string,
   name: string,
-  thumb_img_path: string
+  thumb_img_path: string,
+  position?: number
 }

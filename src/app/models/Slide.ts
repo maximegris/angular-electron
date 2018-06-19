@@ -1,4 +1,6 @@
 export interface Slide {
   thumb_img_path: string,
-  show: boolean
+  show: boolean,
+  position: number,
+  order_id: number
 }

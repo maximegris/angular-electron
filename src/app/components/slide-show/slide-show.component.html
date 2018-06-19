@@ -1,12 +1,6 @@
-<!-- <ul *ngIf="showSlideShow">
-  <li *ngFor="let slide of slides">
-    <img src="{{ 'file:///' + fullPath +slide.thumb_img_path.substring(slide.thumb_img_path.lastIndexOf('/') + 1 )}}" alt="">
-  </li>
-</ul> -->
 <div class="slide-show">
-  <!-- <img *ngFor="let slide of slides" [(ngModel)]="slide.show" [hidden]="!slide.show" src="{{ 'file:///' + fullPath +slide.thumb_img_path.substring(slide.thumb_img_path.lastIndexOf('/') + 1 )}}" alt=""> -->
   <div *ngFor="let slide of slides"  [hidden]="!slide.show" >
-      <img src="{{ 'file:///' + fullPath +slide.thumb_img_path.substring(slide.thumb_img_path.lastIndexOf('/') + 1 )}}" alt="">
+      <img src="{{ 'file:///' + fullPath + slide.thumb_img_path.substring(slide.thumb_img_path.lastIndexOf('/') + 1 )}}" alt="">
   </div>
 </div>
 

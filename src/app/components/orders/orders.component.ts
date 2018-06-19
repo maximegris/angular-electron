@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener  } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter, Output  } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { Order } from "../../models/Order";
+import { Slide } from "../../models/Slide";
 import { ElectronService } from "../../providers/electron.service";
 
 @Component({
@@ -15,8 +16,23 @@ export class OrdersComponent implements OnInit {
   moment: any = this.electron.moment;
   hideOrders: boolean = false;
   showSlideShow: boolean = false;
+  parentMessage = this.orders;
+  // slide = {
+  //   thumb_img_path: '',
+  //   show: '',
+  //   position: number
+  // }
+  // slides: Slide[];
+  positions: any;
+
+  @Output() slides: EventEmitter<any> = new EventEmitter();
 
   constructor(private apiService: ApiService, private electron: ElectronService) { }
+
+  onKeyUp() {
+    // console.log(this.orders)
+    this.slides = this.orders;
+  }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -38,7 +54,7 @@ export class OrdersComponent implements OnInit {
     this.thumbPath = this.apiService.thumbPath;
 
     this.orders = this.activeRentals();
-    // console.log(this.activeRentals());
+    console.log(this.activeRentals());
 
   }
 
@@ -69,6 +85,10 @@ export class OrdersComponent implements OnInit {
     console.log(orders);
     this.orders = orders;
   }
+
+  // changeOrder() {
+  //   this.slides.emit('test');
+  // }
 
 
 
