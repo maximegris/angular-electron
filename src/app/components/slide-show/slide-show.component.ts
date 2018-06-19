@@ -25,14 +25,14 @@ export class SlideShowComponent implements OnInit {
   slides: Slide[];
   moment: any = this.electron.moment;
   fullPath: string = this.apiService.fullPath;
-  showSlideShow: boolean = true;
   active: number = 0;
 
   constructor(private apiService : ApiService, private electron: ElectronService) { }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log(event);
+
+    console.log('slideshow', event);
 
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
       // document.querySelector('app-slide-show img').webkitRequestFullscreen()
@@ -61,6 +61,16 @@ export class SlideShowComponent implements OnInit {
           this.active--
         }
       }
+    }
+
+    if(event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105 ) {
+      console.log('numpad');
+      this.slides.forEach( slide => slide.show = false);
+      const selectSlide = this.slides[parseInt(event.key) - 1];
+      if(selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+
     }
 
     console.log(this.slides);

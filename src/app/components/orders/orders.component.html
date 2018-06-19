@@ -1,5 +1,6 @@
-<app-slide-show></app-slide-show>
+<app-slide-show [hidden]="!showSlideShow"></app-slide-show>
 
+<div [hidden]="hideOrders">
 <app-navbar (newOrders)="onNewOrders($event)" ></app-navbar>
 
 <section class="main">
@@ -22,3 +23,5 @@
       </div>
   </div>
 </section>
+</div>
+

@@ -5,6 +5,7 @@ import { User } from '../models/User';
 import { ElectronService } from "../providers/electron.service";
 import { Router } from '@angular/router';
 import { Order } from "../models/Order";
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -48,12 +49,21 @@ export class ApiService {
         store.set('user.loggedIn', true);
         store.set('user.token', res.success.token);
         store.set('user.details', res.success.user);
+
+        this.cacheOrders();
+        this.makeDirs();
+        this.cahceThumbs();
+        this.cacheFullImgs();
+
         this.router.navigate(['home']);
       });
 
+  }
 
-      // console.log('####helooooo', this.data)
-
+  logout() {
+    let store = new this.electronService.store();
+    store.set('user.loggedIn', false);
+    this.router.navigate(['']);
   }
 
   getOrders() {

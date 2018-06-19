@@ -40,6 +40,10 @@ export class NavbarComponent implements OnInit {
     this.newOrders.emit(filtered);
   }
 
+  logout() {
+    this.apiService.logout();
+  }
+
 
 
 

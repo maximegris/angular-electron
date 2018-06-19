@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener  } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { Order } from "../../models/Order";
 import { ElectronService } from "../../providers/electron.service";
@@ -13,26 +13,42 @@ export class OrdersComponent implements OnInit {
   thumbPath: string;
   fullPath: string = this.apiService.fullPath;
   moment: any = this.electron.moment;
+  hideOrders: boolean = false;
+  showSlideShow: boolean = false;
 
   constructor(private apiService: ApiService, private electron: ElectronService) { }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    // console.log(event);
+    if (event.key === 'Escape') {
+      this.hideOrders = false;
+      this.showSlideShow = false;
+    }
+  }
 
   ngOnInit() {
     // document.addEventListener('keydown', this.slideNav);
     // console.log(this.apiService.cahceThumbs());
     // this.apiService.cacheOrders();
+    // this.apiService.makeDirs();
+    // this.apiService.cahceThumbs();
+    // this.apiService.cacheFullImgs();
     // this.apiService.getStuff();
     this.thumbPath = this.apiService.thumbPath;
-    // this.apiService.makeDirs();
-    // this.apiService.cacheFullImgs();
+
     this.orders = this.activeRentals();
     // console.log(this.activeRentals());
 
   }
 
   fullSreen(event) {
-    const filepath = event.target.src;
-    event.target.src = filepath.replace('thumbs', 'full');
-    event.target.webkitRequestFullscreen();
+    this.hideOrders = true;
+    this.showSlideShow = true;
+    document.documentElement.webkitRequestFullScreen();
+    // const filepath = event.target.src;
+    // event.target.src = filepath.replace('thumbs', 'full');
+    // event.target.webkitRequestFullscreen();
 
   }
 
