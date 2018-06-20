@@ -1,4 +1,5 @@
 export interface Order {
+  id: number,
   order_id: number,
   image_id: number,
   user_id: number,
@@ -6,5 +7,6 @@ export interface Order {
   end_date: string,
   name: string,
   thumb_img_path: string,
-  position?: number
+  position?: number,
+  show?: boolean
 }
