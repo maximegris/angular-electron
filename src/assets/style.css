@@ -1610,7 +1610,9 @@ header {
             color: white;
             border: 1px solid #52C5F1; }
           header .inner-large ul.tabs li a:hover {
-            color: #1198cc; }
+            background: #52C5F1;
+            color: white;
+            border: 1px solid #52C5F1; }
 
 .main .item {
   padding: 1.5%; }
@@ -1622,6 +1624,8 @@ header {
     -ms-box-shadow: 2px 3px 2px 1px #C7C7C7;
     -o-box-shadow: 2px 3px 2px 1px #C7C7C7;
     box-shadow: 2px 3px 2px 1px #C7C7C7; }
+    .main .item .item-inner figure img:hover {
+      opacity: 0.8; }
     .main .item .item-inner .text::after {
       clear: both;
       content: "";

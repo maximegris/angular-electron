@@ -14,8 +14,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 export class ApiService {
-  domain: string = 'http://backdrops.localhost';
-  apiURL: string = 'http://backdrops.localhost/api/';
+  domain: string = 'http://backdrop-projections.ninja-staging.co.za';
+  apiURL: string = 'http://backdrop-projections.ninja-staging.co.za/api/';
   loggedIn: boolean;
   thumbPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/";
   fullPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/full/";
