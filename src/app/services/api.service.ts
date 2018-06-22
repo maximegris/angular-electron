@@ -14,8 +14,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 export class ApiService {
-  domain: string = 'http://backdrop-projections.ninja-staging.co.za';
-  apiURL: string = 'http://backdrop-projections.ninja-staging.co.za/api/';
+  local: boolean = false;
+  domain: string;
+  apiURL: string;
   loggedIn: boolean;
   thumbPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/";
   fullPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/full/";
@@ -26,6 +27,13 @@ export class ApiService {
     if(this.loggedIn === true) {
       this.router.navigate(['home']);
     }
+
+    if(this.local) {
+      this.domain = 'http://backdrops.localhost';
+    } else {
+      this.domain = 'http://backdrop-projections.ninja-staging.co.za';
+    }
+    this.apiURL = this.domain + '/api/';
   }
 
   api(route) {
