@@ -1,0 +1,24 @@
+figure img
+  width: 100%
+a figure
+  @include vendor-prefix('transition','all 0.3s ease')
+a:hover figure
+  opacity: 0.9
+
+.secondary:hover > .image
+  opacity: 0.9
+
+figure
+  overflow: hidden
+  &.thumb
+    height: 100px
+  &.sml
+    height: 200px
+  &.med
+    height: 300px
+    @media screen and (max-width: 1600px)
+      height: 200px
+      @media screen and (max-width: 1024px)
+        height: 150px
+  &.lrg
+    height: 500px

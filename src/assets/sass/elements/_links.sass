@@ -1,0 +1,13 @@
+a, a h1, a h2, a h3, a h4, a h4, a h5, a h6, a p
+  outline: 0
+  color: $pc2
+  text-decoration: none
+.inv
+  @include vendor-prefix('transition','all 0.3s ease')
+a
+  outline: none !important
+  color: $pc1
+  @include vendor-prefix('transition','all 0.3s ease')
+  &:hover
+    color: $pc1-dark
+

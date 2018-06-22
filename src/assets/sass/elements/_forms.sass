@@ -1,0 +1,68 @@
+.caldera-grid
+  .form-group input[type=submit]
+    float: right
+    color: $pc2
+    @include vendor-prefix('border-radius','0')
+    padding: 12px 45px
+
+.footer// WP_LOGIN_FORM
+#loginform
+  .login-username, .login-password
+    label
+      width: 100px
+      display: inline-block
+    input
+      width: 200px
+      display: inline-block
+      background-color: $white !important
+      
+//
+form.industry-cvs
+  select
+    padding: 10px
+    width: 100%
+  input
+    width: 24%
+    padding: 10px
+  .select-style
+    position: relative
+    width: 23%
+    margin-right: 10px
+    display: inline-block
+  .select-style:after
+    // content: url('img/icons/down-arrow-blue.jpg')
+    pointer-events: none
+    position: absolute
+    top: 10px 
+    right: 7px
+// Search Form
+.search-form
+  position: relative
+  display: inline-block
+  width: 35%
+  .search-field
+    display: block
+    padding: 16px 24px
+    width: 100%
+    border: 3px solid #999
+  .search-submit-news
+    // background-image: url('img/icons/search.png')
+    height: 30px
+    width: 30px
+    background-repeat: no-repeat
+    -webkit-appearance: none
+    position: absolute
+    top: 12px
+    right: -22px
+    border-color: transparent
+    background-color: transparent
+//Responsive
+
+.footer, .advertise, .contact-us, .saaff-assist
+  .caldera-grid
+    @media screen and (max-width: 480px)
+      label
+        width: 100%
+        float: none
+      .form-control
+        width: 100%

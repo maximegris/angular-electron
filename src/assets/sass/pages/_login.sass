@@ -1,0 +1,81 @@
+.login
+    .field-required
+        margin-top: 5px
+        color: $whitest
+    background: url(img/splash.jpg) no-repeat
+    width: 100%
+    h1
+        font-weight: 300
+        text-align: center
+        margin-bottom: 12px
+    h6
+        font-weight: 600
+        text-align: center
+        margin-bottom: 1em
+        &.with-lines
+            position: relative
+            margin: 1.4em 0px
+            font-size: 1.3em
+            font-weight: 300
+            &:before
+                content: ""
+                position: absolute
+                top: 15px
+                left: 0px
+                width: 220px
+                height: 1px
+                background: $whitest
+            &:after
+                content: ""
+                position: absolute
+                top: 15px
+                right: 0px
+                width: 220px
+                height: 1px
+                background: $whitest
+    .full
+        float: none
+    p
+        text-align: center
+                
+    .logo
+        text-align: center
+        margin: 10px auto 0px auto
+    .inner
+        width: 525px
+    input
+        width: 100%
+        background: transparent
+        border: 1px solid $whitest
+        +vendor-prefix('border-radius','3px')
+        padding: 8px 12px
+        color: $whitest
+        margin-top: 20px
+        &::placeholder
+            color: $whitest
+        &::-webkit-input-placeholder
+            color: $whitest
+        &::-moz-placeholder
+            color: $whitest
+        &:-ms-input-placeholder
+            color: $whitest
+        &:-moz-placeholder
+            color: $whitest
+        
+        &:first-child
+            margin-top: 0px
+            
+    #activation
+        text-align: center
+            
+    .button
+        width: 100%
+        float: none
+        margin-top: 20px
+        .primary
+            border: 0px
+            width: 100%
+        .secondary
+            border: 0px
+            background: #E52A6F
+            width: 100%
