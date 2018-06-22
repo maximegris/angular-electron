@@ -1,0 +1,273 @@
+// ELEMENTS
+// -- NAVIGATION
+$nav-top-height: 0px
+$nav-main-height: 80px
+$nav-total-height: $nav-top-height + $nav-main-height
+// -- HOME
+$home-hero-height: 462px
+
+// TEXT & ELEMENT COLORS
+$open-sans: "Open Sans"
+$roboto: "Roboto Condensed"
+$titillium: 'Titillium Web', sans-serif
+//
+body*
+  outline: 0 !important
+//
+html, body 
+  height: 100%
+  margin: 0
+  padding: 0
+
+section
+  padding: 30px 0px 30px 0px
+  +clearfix
+  .inner
+    width: 80%
+    margin: 0px auto
+    +clearfix
+    @media screen and (max-width: 1280px)
+      width: 90%
+    
+#map 
+  width: 100%
+  height: 400px
+
+
+.desktop
+  display: block
+  @media screen and (max-width: 1024px)
+    display: none
+.mobile
+  display: none
+  @media screen and (max-width: 1024px)
+    display: block  
+//
+.sub
+  text-align: center
+  width: 75%
+  margin: 0px auto 50px auto
+  @media screen and (max-width: 768px)
+    width: 100%
+    @media screen and (max-width: 480px)
+      width: 90%
+
+.clearfix
+  clear: both
+  content: ""
+  display: table
+  
+.pagination
+  text-align: center
+address
+  display: inline
+
+// PARENT ELEMENTS
+header, nav, section, main, footer
+  +clearfix
+// CHILD ELEMENT
+article, figcaption, aside, .item, .sub-item //details,
+  float: left
+// BLOCK HELPER
+.block
+  float: none !important
+  display: inline-block
+  img
+    width: auto
+// FLOAT HELPER
+.left
+  float: left
+.right
+  float: right
+
+// PAGE LEVEL CLEAFIX
+body, .page
+  +clearfix
+
+.no-margin
+  margin: 0 auto !important
+  padding: 0 !important
+.margin
+  padding: 30px 0
+
+section .conainer
+  width: auto
+
+// MAP
+
+#map
+  height: 100%
+
+//VIDEO
+
+iframe, embed, video
+  width: 100% !important
+
+
+.quiz, .quiz-test
+  text-align: center
+  margin-bottom: 20px
+  .the-text
+    display: inline-block
+    .small, .medium
+      font-size: 1.367em
+      font-weight: 600
+      margin: 0px 0px 10px 0px
+      text-align: center
+      color: #fff
+    .large
+      text-transform: uppercase
+      font-size: 2.63em
+      font-weight: bold
+      margin: 0px
+      text-align: center
+      color: #fff
+      @media screen and (max-width: 610px)
+        line-height: 44px
+  .button  
+    display: inline-block
+    float: none
+    vertical-align: top
+    margin-top: 6px 
+    margin-left: 50px
+    padding: 0px
+    @media screen and (max-width: 868px)
+      margin-left: 0px
+      margin-top: 30px
+    a
+      display: block !important
+      background: #555555 !important
+      color: #fff !important
+      text-transform: uppercase
+      font-weight: bold
+      border-radius: 0px !important
+      border: 0px !important
+      font-size: 1.1em !important
+      padding: 20px 24px !important
+      
+.quiz-test
+  padding-bottom: 19px
+  .the-text
+    text-align: center
+  .small
+    line-height: 1.4em !important
+  .medium
+    font-size: 2.39em !important
+    line-height: 38px !important
+  .large
+    line-height: 1.1em !important
+    
+   
+.scholarship-banner, .scholarship-interest
+  background: #74ACDF
+  padding: 0px 0px 8px 0px
+  margin-top: 116px
+  // position: absolute
+  // top: 116px !important
+  // left: 0px
+  width: 100%
+  border-top: 5px solid white
+  border-bottom: 5px solid white
+  display: block
+  &:hover
+    border-top: 5px solid #3C8BD2
+    background: #3C8BD2
+    border-bottom: 5px solid #3C8BD2
+  h1
+    color: white
+    text-align: center
+    margin: 0em auto 0.1em auto
+    position: relative
+    font-size: 3.5em
+    display: flex
+    align-items: center
+    justify-content: center
+    @media screen and (max-width: 1024px)
+      font-size: 2.5em
+    @media screen and (max-width: 768px)
+      font-size: 1.8em
+    &:before
+      content: ''
+      height: 8px
+      width: 100px
+      margin-right: 10px
+      background: white
+      @media screen and (max-width: 1024px)
+        width: 60px
+    &:after
+      content: ''
+      height: 8px
+      width: 100px
+      margin-left: 10px
+      background: white
+      @media screen and (max-width: 1024px)
+        width: 60px      
+  p
+    color: white
+    text-align: center
+    margin: 0em 0em 0em 0em
+    font-size: 1.3em
+    font-weight: 600
+    @media screen and (max-width: 768px)
+      font-size: 1.2em
+    @media screen and (max-width: 480px)
+      font-size: 1.1em
+      
+a.scholarship-interest
+  position: relative
+  border: 0px
+  height: 100%
+  padding-left: 0%
+  padding: 20px
+  margin-top: 0px !important
+  @media screen and (max-width: 1024px)
+    padding: 10px
+  &:hover
+    border: 0px
+    background: #3C8BD2
+  .interest-inner
+    position: absolute
+    width: 90%
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
+    -webkit-transform: translate(-50%,-50%)
+    -moz-transform: translate(-50%,-50%)
+    -ms-transform: translate(-50%,-50%)
+  h1
+    font-size: 2.5em
+    @media screen and (max-width: 1024px)
+      font-size: 2.2em
+  p
+    font-size: 1.1em
+    @media screen and (max-width: 768px)
+      font-size: 1em
+      
+.page-template-template-topic, .page-template-template-school
+  .scholarship-banner
+    border-top: 5px solid white !important
+    border-bottom: 5px solid white !important
+    &:hover
+      border-top: 5px solid #3C8BD2 !important
+      background: #3C8BD2 !important
+      border-bottom: 5px solid #3C8BD2 !important    
+    h1
+      padding-top: 0px !important
+      font-size: 3.5em !important
+      text-shadow: 0px 0px 0px transparent !important     
+      -webkit-text-shadow: 0px 0px 0px transparent !important     
+      -moz-text-shadow: 0px 0px 0px transparent !important     
+      -ms-text-shadow: 0px 0px 0px transparent !important     
+      @media screen and (max-width: 1024px)
+        font-size: 2.5em !important
+      @media screen and (max-width: 768px)
+        font-size: 1.8em !important      
+        
+.page-template-template-index
+  h1
+    color: white !important
+  // .full
+  //   p        
+  //     margin-top: 200px !important
+  //     @media screen and (max-width: 480px)
+  //       margin-top: 170px !important    

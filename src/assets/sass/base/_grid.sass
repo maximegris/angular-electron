@@ -1,0 +1,161 @@
+// MAIN CONTAINER
+$container-width: 80%
+$margin-center: 0px auto 0px auto
+
+// THE GRID
+$one-sixth: 16.66666%
+$one-fifth: 20%
+$quarter: 25%
+$two-sixths: 33.33333%
+$one-third: 33.33333%
+$two-fifths: 40%
+$half: 50%
+$three-fifths: 60%
+$three-quarter: 75%
+$four-fifths: 80%
+$five-sixths: 83.33333%
+$full: 100%
+$two-thirds: 66.66667%
+
+.full
+  width: $full
+  float: left
+.container
+  width: $container-width
+  margin: 0 auto
+  +clearfix
+.quarter
+  width: $quarter
+  float: left
+  &.col-margined
+    width: $quarter - 2%  
+.half
+  width: $half
+  float: left
+  &.col-margined
+    width: $half - 2% 
+  @media screen and (max-width: 768px)
+    width: $full
+.three-quarter
+  width: $three-quarter
+  float: left
+  &.col-margined
+    width: $three-quarter - 2%  
+.one-third
+  width: $one-third
+  float: left
+  &.col-margined
+    width: $one-third - 2%  
+.two-thirds
+  width: $two-thirds
+  float: left
+  &.col-margined
+    width: $two-thirds - 2%  
+.one-fifth
+  width: $one-fifth
+  float: left
+  &.col-margined
+    width: $one-fifth - 2%  
+.two-fifths
+  width: $two-fifths
+  float: left
+  &.col-margined
+    width: $two-fifths - 2%  
+.three-fifths
+  width: $three-fifths
+  float: left
+  &.col-margined
+    width: $three-fifths - 2%  
+.four-fifths
+  width: $four-fifths
+  float: left
+  &.col-margined
+    width: $four-fifths - 2%  
+
+.col-margined
+  &.col-5
+    &:nth-child(5n+1)
+      margin-right: 2%
+    &:nth-child(5n+2)
+      margin: 0 1%
+    &:nth-child(5n+3)
+      margin: 0 1%
+    &:nth-child(5n+4)
+      margin: 0 1%
+    &:nth-child(5n+5)
+      margin-left: 2%
+
+  // 4-COL MARGIN SCHEME
+  &.col-4
+    &:nth-child(4n+1)
+      margin-right: 2%
+    &:nth-child(4n+2)
+      margin: 0 1%
+    &:nth-child(4n+3)
+      margin: 0 1%
+    &:nth-child(4n+4)
+      margin-left: 2%
+
+  // 3-COL MARGIN SCHEME
+  &.col-3
+    &:nth-child(3n+1)
+      margin-right: 2%
+    &:nth-child(3n+2)
+      margin: 0 1%
+    &:nth-child(3n+3)
+      margin-left: 2%
+      
+  // 2-COL MARGIN SCHEME
+  &.col-2
+    &:nth-child(odd)
+      margin-right: 2%
+    &:nth-child(even)
+      margin-left: 2%
+
+// 5-COL PADDING SCHEME
+.col-5
+  &:nth-child(5n+1)
+    padding-right: 2%
+  &:nth-child(5n+2)
+    padding: 0 1%
+  &:nth-child(5n+3)
+    padding: 0 1%
+  &:nth-child(5n+4)
+    padding: 0 1%
+  &:nth-child(5n+5)
+    padding-left: 2%
+
+// 4-COL PADDING SCHEME
+.col-4
+  &:nth-child(4n+1)
+    padding-right: 1.5%
+  &:nth-child(4n+2)
+    padding: 0 1.5%
+  &:nth-child(4n+3)
+    padding: 0 1.5%
+  &:nth-child(4n+4)
+    padding-left: 1.5%
+
+// 3-COL PADDING SCHEME
+.col-3
+  &:nth-child(3n+1)
+    padding-right: 2%
+  &:nth-child(3n+2)
+    padding: 0 1%
+  &:nth-child(3n+3)
+    padding-left: 2%
+    
+// 2-COL PADDING SCHEME
+.col-2
+  &:nth-child(odd)
+    padding-right: 2%
+  &:nth-child(even)
+    padding-left: 2%
+
+//RESPONSIVE
+.quarter, .half, .three-quarter, .one-third, .two-thirds, .one-third, .two-thirds, .one-fifth, .two-fifths, .three-fifths, .four-fifths
+  @media screen and (max-width: 768px)
+    width: $full !important
+.quarter
+  @media screen and (max-width: 1024px)
+    width: $half 

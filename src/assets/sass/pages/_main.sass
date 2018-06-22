@@ -1,0 +1,74 @@
+header
+    padding-top: 10px
+    background: $grey3
+    .inner-large
+        width: 90% !important
+        margin: 0px auto
+        .half
+            ul
+                list-style-type: none
+                float: right
+                li
+                    list-style-type: none
+                    margin-left: 0px
+                    display: inline-block
+                    a
+                        font-size: 0.8em
+                        margin-left: 20px
+                        padding: 6px 14px
+                        text-align: center
+        ul.tabs
+            list-style-type: none
+            li
+                list-style-type: none
+                margin-left: 0px       
+                text-align: center 
+                a
+                    width: 100%
+                    display: block
+                    color: $grey5
+                    font-size: 1.4em
+                    background: $whitest
+                    border: 1px solid $grey4
+                    padding: 20px 0px
+                    +vendor-prefix('border-radius','8px 8px 0px 0px')
+                    &.is-active
+                        background: $pc1
+                        color: $whitest
+                        border: 1px solid $pc1
+                    &:hover
+                        color: $pc1-dark
+    
+.main
+    .item
+        padding: 1.5%
+        .item-inner
+            padding: 10px
+            background: #eee
+            +vendor-prefix('box-shadow','2px 3px 2px 1px #C7C7C7')
+            .text
+                +clearfix
+                .full
+                    clear: both
+                    float: none
+                p
+                    font-size: 0.75em
+                    margin-bottom: 0em
+                    margin-top: 0em
+                span
+                    font-weight: bold
+                    font-size: 1.1em
+                .image-name
+                    float: left
+                .skunumber
+                    float: right
+                    text-align: right
+                .image-date
+                    float: left
+                .image-date-end, .image-days
+                    float: right
+                    text-align: right
+                .button
+                    float: right
+                    button
+                        float: right

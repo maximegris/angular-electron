@@ -1,11 +1,11 @@
 {
-  "name": "backdrop-projections",
-  "version": "1.0.0",
-  "description": "Backdrop Projections",
-  "homepage": "",
+  "name": "angular-electron",
+  "version": "4.0.0",
+  "description": "Angular 6 with Electron (Typescript + SASS + Hot Reload)",
+  "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "Maxime GRIS",
+    "email": "maxime.gris@gmail.com"
   },
   "keywords": [
     "angular",
@@ -65,7 +65,7 @@
     "electron-reload": "1.2.2",
     "jasmine-core": "3.1.0",
     "jasmine-spec-reporter": "4.2.1",
-    "karma": "2.0.2",
+    "karma": "^2.0.3",
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage-istanbul-reporter": "2.0.0",
     "karma-jasmine": "1.1.2",

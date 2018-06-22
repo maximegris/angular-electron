@@ -18,6 +18,7 @@
                       <p class="image-date">Valid until: <span>{{ order.end_date | date }}</span></p>
 
                       <!-- <input type="number" [(ngModel)]="order.position" name="position" (keyup)="onKeyUp()"> -->
+                      <span>| {{ order.position }} |</span>
                       <!-- [(ngModel)]="order.position" -->
                       <select class="update-slides-state" type="number" (change)="onKeyUp($event, order)" name="position">
                         <option class="" [selected]="order.position == 1 ? true : null" value="1">1</option>
@@ -27,8 +28,6 @@
                         <option [selected]="order.position == 5 ? true : null" value="5">5</option>
                         <option [selected]="order.position == 6 ? true : null" value="6">6</option>
                         <option [selected]="order.position == 7 ? true : null" value="7">7</option>
-                        <option [selected]="order.position == 8 ? true : null" value="7">8</option>
-                        <option [selected]="order.position == 9 ? true : null" value="7">9</option>
                       </select>
 
 
