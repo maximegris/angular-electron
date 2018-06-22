@@ -1,11 +1,11 @@
 {
-  "name": "angular-electron",
-  "version": "4.0.0",
-  "description": "Angular 6 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "backdrop-projections",
+  "version": "1.0.0",
+  "description": "Backdrop Projections",
+  "homepage": "",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "",
+    "email": ""
   },
   "keywords": [
     "angular",
