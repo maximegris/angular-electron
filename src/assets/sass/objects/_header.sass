@@ -36,4 +36,9 @@ header
                     display: block
                     text-align: center
                     border: 0px
+                    margin-top: 19px
                     width: auto
+                    +vendor-prefix('trasition','transform  0.3s ease')
+                    &:hover
+                        background: transparent
+                        +vendor-prefix('transform','rotate(180deg)')
