@@ -5,7 +5,7 @@
 <div [hidden]="hideOrders">
 <app-navbar (newOrders)="onNewOrders($event)" ></app-navbar>
 
-<section class="main">
+<section class="main" [ngClass]="orderType + '-order-type'">
   <div class="inner">
       <div class="item quarter" *ngFor="let order of orders">
           <div class="item-inner">
