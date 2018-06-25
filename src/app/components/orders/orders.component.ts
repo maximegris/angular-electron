@@ -36,6 +36,8 @@ export class OrdersComponent implements OnInit {
     // console.log(event.target);
 
     // let indexToSwop = event.target.selectedIndex;
+
+
     const oldPosition = order.position;
     const newPosition = parseInt(event.target.value);
 
@@ -46,13 +48,13 @@ export class OrdersComponent implements OnInit {
     // this.orders[indexToSwop].position = b; //
     const b = tempOrders.findIndex( el => el.position == newPosition);
 
-    const c = tempOrders.findIndex( el => el.show == true);
+    // const c = tempOrders.findIndex( el => el.show == true);
     // console.log('to swop', this.orders[indexToSwop])
     this.orders[a].position = newPosition;
     this.orders[b].position = oldPosition;
-    this.orders[c].show = false;
+    // this.orders[c].show = false;
 
-    this.orders[0].show = true;
+    // this.orders[0].show = true;
 
     this.slides = this.orders;
 
@@ -70,7 +72,7 @@ export class OrdersComponent implements OnInit {
     // order.position = 7;
     // console.log(order);
 
-    console.log(this.orders);
+    console.log('new slide order', this.slides);
 
 
     // this.slides = this.orders;

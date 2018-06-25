@@ -35,7 +35,7 @@ export class SlideShowComponent implements OnInit {
       // this.slides = this.slideOrders;
       this.slides = this.activeRentals();
       // this.slides[0].show = true;
-      console.log(this.slides);
+      console.log('current slides', this.slides);
     }
   }
 
@@ -63,6 +63,10 @@ export class SlideShowComponent implements OnInit {
         this.slides.forEach( slide => slide.show = false);
         this.slides[this.active -= 1].show = true;
       }
+    }
+
+    if (event.key === 'Escape') {
+      this.active = 0;
     }
 
 
@@ -110,8 +114,12 @@ export class SlideShowComponent implements OnInit {
 
     const slides = this.slideOrders.sort((a, b) => a.position - b.position);
 
+    for(let i = 0; i < slides.length; i++) {
+      slides[i].show = false;
+    }
+
     // show the first slide
-    // slides[0].show = true;
+    slides[0].show = true;
 
     return slides;
 

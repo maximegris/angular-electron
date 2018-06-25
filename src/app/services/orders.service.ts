@@ -28,7 +28,7 @@ export class OrdersService {
         name: order.name,
         thumb_img_path: order.thumb_img_path,
         position: index + 1,
-        show: index === 0 ? true : false
+        show: false
       }
     })
   }
