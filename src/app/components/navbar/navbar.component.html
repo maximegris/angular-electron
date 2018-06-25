@@ -27,7 +27,7 @@
                 </a>
               </li>
               <li>
-                  <a class="has-icon">
+                  <a (click)="showModal()" class="has-icon">
                       <p><span class="icon"><img src="../../assets/img/help.png" alt=""></span>Help</p>
                   </a>
               </li>
@@ -36,16 +36,16 @@
       <div class="full tab-container">
           <ul class="tabs">
               <li class="quarter">
-                  <a (click)="filterOrders('active')" class="is-active">Active Rentals</a>
+                  <a (click)="filterOrders($event, 'active')" class="is-active tab-item">Active Rentals</a>
               </li>
               <li class="quarter">
-                  <a (click)="filterOrders('upcoming')">Upcoming Rentals</a>
+                  <a (click)="filterOrders($event, 'upcoming')" class="tab-item">Upcoming Rentals</a>
               </li>
               <li class="quarter">
-                  <a (click)="filterOrders('expired')">Expired Rentals</a>
+                  <a (click)="filterOrders($event, 'expired')" class="tab-item">Expired Rentals</a>
               </li>
               <li class="quarter">
-                  <a (click)="filterOrders('test')">Test Images</a>
+                  <a (click)="filterOrders($event, 'test')" class="tab-item">Test Images</a>
               </li>
           </ul>
       </div>

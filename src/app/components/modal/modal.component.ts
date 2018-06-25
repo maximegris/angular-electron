@@ -12,4 +12,8 @@ export class ModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  hideModal() {
+    document.querySelector('app-modal').setAttribute('hidden', 'true');
+  }
+
 }

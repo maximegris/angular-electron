@@ -23,7 +23,10 @@ export class NavbarComponent implements OnInit {
     this.client = this.apiService.getClient().name;
   }
 
-  filterOrders(param) {
+  filterOrders(event, param) {
+    Array.from(document.querySelectorAll('.tab-item')).forEach( e => e.classList.remove('is-active'));
+    event.target.classList.add('is-active');
+
     // const orders = this.apiService.loadCachedOrders();
     // let filtered: any = {};
     // filtered.type = param;
@@ -49,9 +52,11 @@ export class NavbarComponent implements OnInit {
     this.apiService.logout();
   }
 
-  // showModal() {
-  //   document.querySelector('app-modal').hiod
-  // }
+  showModal() {
+    document.querySelector('app-modal').removeAttribute('hidden');
+  }
+
+
 
 
 
