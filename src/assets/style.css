@@ -407,7 +407,7 @@ section {
     content: "";
     display: table; }
   section .inner {
-    width: 80%;
+    width: 90%;
     margin: 0px auto; }
     section .inner::after {
       clear: both;
@@ -1379,7 +1379,20 @@ header .header-buttons li {
       display: block;
       text-align: center;
       border: 0px;
-      width: auto; }
+      margin-top: 19px;
+      width: auto;
+      -webkit-trasition: transform  0.3s ease;
+      -moz-trasition: transform  0.3s ease;
+      -ms-trasition: transform  0.3s ease;
+      -o-trasition: transform  0.3s ease;
+      trasition: transform  0.3s ease; }
+      header .header-buttons li a.refresh:hover {
+        background: transparent;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg); }
 
 .lity {
   z-index: 9999999;
@@ -1612,48 +1625,75 @@ header {
           header .inner-large ul.tabs li a:hover {
             background: #52C5F1;
             color: white;
-            border: 1px solid #52C5F1; }
+            border: 1px solid #52C5F1;
+            cursor: pointer; }
 
-.main .item {
-  padding: 1.5%; }
-  .main .item .item-inner {
-    padding: 10px;
-    background: #eee;
-    -webkit-box-shadow: 2px 3px 2px 1px #C7C7C7;
-    -moz-box-shadow: 2px 3px 2px 1px #C7C7C7;
-    -ms-box-shadow: 2px 3px 2px 1px #C7C7C7;
-    -o-box-shadow: 2px 3px 2px 1px #C7C7C7;
-    box-shadow: 2px 3px 2px 1px #C7C7C7; }
-    .main .item .item-inner figure img:hover {
-      opacity: 0.8; }
-    .main .item .item-inner .text::after {
-      clear: both;
-      content: "";
-      display: table; }
-    .main .item .item-inner .text .full {
-      clear: both;
-      float: none; }
-    .main .item .item-inner .text p {
-      font-size: 0.75em;
-      margin-bottom: 0em;
-      margin-top: 0em; }
-    .main .item .item-inner .text span {
-      font-weight: bold;
-      font-size: 1.1em; }
-    .main .item .item-inner .text .image-name {
-      float: left; }
-    .main .item .item-inner .text .skunumber {
-      float: right;
-      text-align: right; }
-    .main .item .item-inner .text .image-date {
-      float: left; }
-    .main .item .item-inner .text .image-date-end, .main .item .item-inner .text .image-days {
-      float: right;
-      text-align: right; }
-    .main .item .item-inner .text .button {
-      float: right; }
-      .main .item .item-inner .text .button button {
+.main {
+  -webkit-transform: all 0.5s ease;
+  -moz-transform: all 0.5s ease;
+  -ms-transform: all 0.5s ease;
+  -o-transform: all 0.5s ease;
+  transform: all 0.5s ease; }
+  .main .item {
+    padding: 1.5%; }
+    .main .item .item-inner {
+      padding: 10px;
+      background: #eee;
+      -webkit-box-shadow: 2px 3px 2px 1px #C7C7C7;
+      -moz-box-shadow: 2px 3px 2px 1px #C7C7C7;
+      -ms-box-shadow: 2px 3px 2px 1px #C7C7C7;
+      -o-box-shadow: 2px 3px 2px 1px #C7C7C7;
+      box-shadow: 2px 3px 2px 1px #C7C7C7;
+      height: 240px; }
+      .main .item .item-inner figure {
+        max-height: 137px;
+        overflow: hidden; }
+        .main .item .item-inner figure img:hover {
+          opacity: 0.8;
+          cursor: pointer; }
+      .main .item .item-inner .text::after {
+        clear: both;
+        content: "";
+        display: table; }
+      .main .item .item-inner .text .full {
+        clear: both;
+        float: none;
+        position: relative; }
+      .main .item .item-inner .text select {
+        float: right;
+        cursor: pointer; }
+      .main .item .item-inner .text p {
+        font-size: 0.75em;
+        margin-bottom: 0em;
+        margin-top: 0em; }
+      .main .item .item-inner .text span {
+        font-weight: bold;
+        font-size: 1.1em; }
+      .main .item .item-inner .text .image-name {
+        float: left; }
+      .main .item .item-inner .text .skunumber {
+        position: absolute;
+        right: 0px;
+        top: -18px;
+        padding: 4px;
+        line-height: 10px;
+        background: white;
+        -webkit-border-radius: 5px 0px 0px 0px;
+        -moz-border-radius: 5px 0px 0px 0px;
+        -ms-border-radius: 5px 0px 0px 0px;
+        -o-border-radius: 5px 0px 0px 0px;
+        border-radius: 5px 0px 0px 0px; }
+      .main .item .item-inner .text .image-date {
+        float: left; }
+      .main .item .item-inner .text .image-date-end, .main .item .item-inner .text .image-days {
+        float: none;
+        text-align: center;
+        padding-top: 8px;
+        clear: both; }
+      .main .item .item-inner .text .button {
         float: right; }
+        .main .item .item-inner .text .button button {
+          float: right; }
 
 .expired .item .item-inner figure img {
   opacity: 0.7; }

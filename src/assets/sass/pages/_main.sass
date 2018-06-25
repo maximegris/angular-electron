@@ -40,23 +40,33 @@ header
                         background: $pc1
                         color: $whitest
                         border: 1px solid $pc1
+                        cursor: pointer
     
 .main
+    +vendor-prefix('transform','all 0.5s ease')
     .item
         padding: 1.5%
         .item-inner
             padding: 10px
             background: #eee
             +vendor-prefix('box-shadow','2px 3px 2px 1px #C7C7C7')
+            height: 240px
             figure
+                max-height: 137px
+                overflow: hidden
                 img
                     &:hover
                         opacity: 0.8
+                        cursor: pointer
             .text
                 +clearfix
                 .full
                     clear: both
                     float: none
+                    position: relative
+                select
+                    float: right
+                    cursor: pointer
                 p
                     font-size: 0.75em
                     margin-bottom: 0em
@@ -67,13 +77,20 @@ header
                 .image-name
                     float: left
                 .skunumber
-                    float: right
-                    text-align: right
+                    position: absolute
+                    right: 0px
+                    top: -18px
+                    padding: 4px
+                    line-height: 10px
+                    background: $whitest
+                    +vendor-prefix('border-radius','5px 0px 0px 0px')
                 .image-date
                     float: left
                 .image-date-end, .image-days
-                    float: right
-                    text-align: right
+                    float: none
+                    text-align: center
+                    padding-top: 8px
+                    clear: both
                 .button
                     float: right
                     button
