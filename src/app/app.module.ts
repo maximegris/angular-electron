@@ -23,6 +23,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { SlideShowComponent } from './components/slide-show/slide-show.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -37,7 +38,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     LoginComponent,
     OrdersComponent,
-    SlideShowComponent
+    SlideShowComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

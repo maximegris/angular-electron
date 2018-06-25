@@ -1,3 +1,5 @@
+<app-modal [hidden]="!showModal" (onShowModal)="displayModal($event)" ></app-modal>
+
 <app-slide-show [fullScreen]="showSlideShow" [slideOrders]="slides" [hidden]="!showSlideShow"></app-slide-show>
 
 <div [hidden]="hideOrders">
@@ -13,12 +15,8 @@
                       <p class="image-name">{{ order.name }}</p>
                       <p class="skunumber">794253645</p>
                   </div>
-                  <div class="full">
-                      <!-- <p class="image-date">Valid until: <span>April 02, 2018</span></p> -->
+                  <div class="full" *ngIf="orderType === 'active'">
                       <p class="image-date">Valid until: <span>{{ order.end_date | date }}</span></p>
-
-                      <!-- <input type="number" [(ngModel)]="order.position" name="position" (keyup)="onKeyUp()"> -->
-                      <!-- [(ngModel)]="order.position" -->
                       <select class="update-slides-state" type="number" (change)="onKeyUp($event, order)" name="position">
                         <option class="" [selected]="order.position == 1 ? true : null" value="1">1</option>
                         <option [selected]="order.position == 2 ? true : null" value="2">2</option>
@@ -30,10 +28,21 @@
                         <option [selected]="order.position == 8 ? true : null" value="7">8</option>
                         <option [selected]="order.position == 9 ? true : null" value="7">9</option>
                       </select>
-
-
                       <p class="image-days">{{ moment.duration(moment(order.end_date).diff(moment(order.start_date))).asDays() }} Days Remaining</p>
                   </div>
+
+                  <div class="full" *ngIf="orderType === 'upcoming'">
+                      <p class="image-date half">Start: <span>{{ order.start_date | date }}</span></p>
+                      <p class="image-date-end half">End: <span>{{ order.end_date | date }}</span></p>
+                  </div>
+
+                  <div class="full" *ngIf="orderType === 'expired'">
+                      <p class="image-date half">Expired: <span>{{ order.end_date | date }}</span></p>
+                      <div class="button half">
+                          <button class="primary">Rent it again</button>
+                      </div>
+                  </div>
+
               </div>
           </div>
       </div>

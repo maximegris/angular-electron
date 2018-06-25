@@ -60,7 +60,8 @@ export class ApiService {
 
         this.cacheOrders();
         this.makeDirs();
-        this.cahceThumbs();
+        this.cacheThumbs();
+        this.cacheWatermarked();
         this.cacheFullImgs();
 
         this.router.navigate(['home']);
@@ -100,12 +101,31 @@ export class ApiService {
     return store.get('order_data.orders');
   }
 
-  cahceThumbs() {
+  cacheThumbs() {
     const images = this.loadCachedOrders();
     images.forEach(el => {
       const options = {
         url: this.domain + '/storage' + el.thumb_img_path,
         dest: this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/"                  // Save to /path/to/dest/image.jpg
+      }
+
+      this.electronService.imageDownloader.image(options)
+        .then(({ filename, image }) => {
+          console.log('File saved to', filename)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+
+    });
+  }
+
+  cacheWatermarked() {
+    const images = this.loadCachedOrders();
+    images.forEach(el => {
+      const options = {
+        url: this.domain + '/storage/images/watermarked/' + el.file,
+        dest: this.electronService.remote.app.getPath('userData') + "/orderCache/watermarked/"                  // Save to /path/to/dest/image.jpg
       }
 
       this.electronService.imageDownloader.image(options)
@@ -144,6 +164,14 @@ export class ApiService {
     orderImageCache.dir('full');
   }
 
+  getClient() {
+    let store = new this.electronService.store();
+    const user = store.get('user.details');
+    if(user !== undefined) {
+        return user;
+    }
+  }
+
 
   getStuff() {
     let store = new this.electronService.store();
@@ -164,7 +192,5 @@ export class ApiService {
       .catch((err) => {
         console.error(err)
       })
-
-
   }
 }

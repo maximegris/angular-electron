@@ -72,15 +72,15 @@ export class SlideShowComponent implements OnInit {
 
     // Important function for numpad below !!!!!!
 
-    // if(event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105 ) {
-    //   console.log('numpad');
-    //   this.slides.forEach( slide => slide.show = false);
-    //   const selectSlide = this.slides[parseInt(event.key) - 1];
-    //   if(selectSlide !== undefined) {
-    //     selectSlide.show = true;
-    //   }
+    if(event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105 ) {
+      console.log('numpad');
+      this.slides.forEach( slide => slide.show = false);
+      const selectSlide = this.slides[parseInt(event.key) - 1];
+      if(selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
 
-    // }
+    }
 
 
 

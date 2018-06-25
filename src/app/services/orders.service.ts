@@ -11,13 +11,29 @@ export class OrdersService {
 
   constructor(private apiService: ApiService, private electron: ElectronService) { }
 
-  getActive() {
+  allOrders(param) {
     const orders = this.apiService.loadCachedOrders();
-    return orders.filter(order => this.moment().isBetween(order.start_date, order.end_date));
+    let filtered: any = {};
+    filtered.type = param;
+    switch (param) {
+      case "active":
+        filtered.orders = orders.filter(order => this.moment().isBetween(order.start_date, order.end_date));
+      break;
+      case "upcoming":
+        filtered.orders = orders.filter(order => this.moment().isSameOrBefore(this.moment(order.start_date)));
+      break;
+      case "expired":
+        filtered.orders = orders.filter(order => this.moment().isAfter(this.moment(order.end_date)));
+      break;
+      case "test":
+      break;
+    }
+    return filtered;
   }
 
-  getOrders() {
-    return this.getActive().map( (order, index) => {
+  getOrders(param = 'active') {
+
+    return this.allOrders(param).orders.map( (order, index) => {
       return {
         id: order.id,
         order_id: order.order_id,

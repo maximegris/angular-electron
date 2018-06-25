@@ -10,23 +10,24 @@
                       <img src="../../assets/img/refresh.png" alt="" width="32px">
                   </a>
               </li>
-              <li>
+              <!-- <li>
                   <a href="#" class="blue">
                       <p>View Images on Website</p>
                   </a>
-              </li>
+              </li> -->
               <li>
-                  <a (click)="logout()" class="has-icon">
-                      <p>Logout</p>
+                  <a class="has-icon">
+                      <!-- <p>Logout</p> -->
+                      <p>Hi, {{ client }}</p>
                   </a>
               </li>
-              <!--<li>-->
-              <!--    <a href="#">-->
-              <!--        <p>logout</p>-->
-              <!--    </a>-->
-              <!--</li>-->
               <li>
-                  <a href="#" class="has-icon">
+                <a (click)="logout()">
+                  <p>logout</p>
+                </a>
+              </li>
+              <li>
+                  <a class="has-icon">
                       <p><span class="icon"><img src="../../assets/img/help.png" alt=""></span>Help</p>
                   </a>
               </li>

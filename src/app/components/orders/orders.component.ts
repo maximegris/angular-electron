@@ -11,18 +11,15 @@ import { ElectronService } from "../../providers/electron.service";
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
-  orders: any;
+  orders:  Order[];
+  orderType: string = 'active';
   thumbPath: string;
   fullPath: string = this.apiService.fullPath;
   moment: any = this.electron.moment;
   hideOrders: boolean = false;
   showSlideShow: boolean = false;
+  showModal: boolean = false;
   parentMessage = this.orders;
-  // slide = {
-  //   thumb_img_path: '',
-  //   show: '',
-  //   position: number
-  // }
   slides: Order[];
   positions: any;
 
@@ -53,29 +50,12 @@ export class OrdersComponent implements OnInit {
     this.orders[a].position = newPosition;
     this.orders[b].position = oldPosition;
     // this.orders[c].show = false;
-
     // this.orders[0].show = true;
-
     this.slides = this.orders;
-
-    // event.target.
-
-
-
-
-
-    // order.position = newPosition;
     console.log('a', a);
     console.log('b', b);
 
-
-    // order.position = 7;
-    // console.log(order);
-
     console.log('new slide order', this.slides);
-
-
-    // this.slides = this.orders;
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -128,9 +108,18 @@ export class OrdersComponent implements OnInit {
     return orders.filter(order => this.moment().isBetween(order.start_date, order.end_date));
   }
 
-  onNewOrders(orders: Order[]) {
+  onShowModal() {
+    console.log('show the modal');
+  }
+
+  onNewOrders(orders) {
     console.log(orders);
-    this.orders = orders;
+    this.orders = orders.orders;
+    this.orderType = orders.type;
+  }
+
+  displayModal(param) {
+    this.showModal = param;
   }
 
   // changeOrder() {
