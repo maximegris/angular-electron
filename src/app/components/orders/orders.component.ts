@@ -72,14 +72,18 @@ export class OrdersComponent implements OnInit {
     // console.log(this.apiService.cahceThumbs());
     // this.apiService.cacheOrders();
     // this.apiService.makeDirs();
-    // this.apiService.cahceThumbs();
-    // this.apiService.cacheFullImgs();
+    this.apiService.cacheThumbs();
+    this.apiService.cacheFullImgs();
     // this.apiService.getStuff();
     this.thumbPath = this.apiService.thumbPath;
 
-    this.orders = this.ordersService.getOrders();
-    // console.log(this.activeRentals());
-    this.slides = this.orders;
+    setTimeout(()=> {
+      this.orders = this.ordersService.getOrders();
+      // console.log(this.activeRentals());
+      this.slides = this.orders;
+    }, 5000)
+
+
 
     // console.log(Object.keys(this.orders));
 

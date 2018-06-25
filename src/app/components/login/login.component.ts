@@ -13,8 +13,8 @@ import { User } from "../../models/User";
 })
 export class LoginComponent implements OnInit {
   user: User = {
-    email: '',
-    password: ''
+    email: 'client1@admin.com',
+    password: 'password'
   }
   @ViewChild('userForm') form: any;
 

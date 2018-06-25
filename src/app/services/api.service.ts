@@ -60,11 +60,11 @@ export class ApiService {
 
         this.cacheOrders();
         this.makeDirs();
-        this.cacheThumbs();
-        this.cacheWatermarked();
-        this.cacheFullImgs();
+        setTimeout(()=>{
+            this.router.navigate(['home']);
+        }, 1000)
 
-        this.router.navigate(['home']);
+
       });
 
   }
@@ -89,12 +89,32 @@ export class ApiService {
 
   cacheOrders() {
     let store = new this.electronService.store();
-    this.getOrders().subscribe((orders: any) => {
+    this.getOrders().subscribe(
+      (orders: any) => {
       store.delete('order_data');
       store.set('order_data.last_download', new Date().toISOString());
       store.set('order_data.orders', orders.success);
     });
   }
+  // cacheOrders() {
+  //   let store = new this.electronService.store();
+
+  //   this.getOrders().subscribe({
+  //     next(orders: any) {
+  //       console.log(orders);
+  //       store.delete('order_data');
+  //       store.set('order_data.last_download', new Date().toISOString());
+  //       store.set('order_data.orders', orders.success);
+
+  //     },
+  //     complete() {
+
+  //       this.makeDirs();
+  //       this.cacheThumbs();
+  //       console.log('1st sequence finished.');
+  //     }
+  //   });
+  // }
 
   loadCachedOrders() {
     let store = new this.electronService.store();
@@ -162,6 +182,7 @@ export class ApiService {
     const orderImageCache = this.electronService.jetpack.dir(this.electronService.remote.app.getPath('userData') + '/' + 'orderCache');
     orderImageCache.dir('thumbs');
     orderImageCache.dir('full');
+    orderImageCache.dir('watermarked');
   }
 
   getClient() {
