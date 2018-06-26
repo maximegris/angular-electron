@@ -62,7 +62,7 @@ export class ApiService {
         store.set('user.token', res.success.token);
         store.set('user.details', res.success.user);
 
-        this.cacheOrders();
+        this.cacheOrders('user');
         this.makeDirs();
 
         // if(this.loginDone) {
@@ -94,10 +94,11 @@ export class ApiService {
         store.delete('user');
         store.delete('order_data');
         store.set('user.loggedIn', true);
+        store.set('order_key', code);
         store.set('user.token', res.success.token);
         store.set('user.details', res.success.user);
 
-        this.cacheOrders();
+        this.cacheOrders('key');
         this.makeDirs();
 
 
@@ -126,21 +127,29 @@ export class ApiService {
     this.router.navigate(['']);
   }
 
-  getOrders() {
+  getOrders(method) {
     let store = new this.electronService.store();
-    const httpOptions = {
-      headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    // const url = method === 'user-login' ? this.apiURL + 'user-orders' : this.apiURL + 'orders-key';
+    let url;
+    let httpOptions;
+
+    if(method === 'user') {
+      url = this.apiURL + 'user-orders';
+      httpOptions = {
+        headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'})
+      }
+    } else {
+      url = this.apiURL + 'orders-key';
+      httpOptions = {
+        headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key.code') })
+      }
     }
-    // return this.http.get('http://backdrops.localhost/api/user-orders', httpOptions).subscribe((res: any) => {
-    //   console.log(res);
-    //   store.set('orders', res.success);
-    // });
-    return this.http.get<Order[]>(this.apiURL + 'user-orders', httpOptions);
+    return this.http.get<Order[]>(url, httpOptions);
   }
 
-  cacheOrders() {
+  cacheOrders(method) {
     let store = new this.electronService.store();
-    this.getOrders().subscribe(
+    this.getOrders(method).subscribe(
       (orders: any) => {
       store.delete('order_data');
       store.set('order_data.last_download', new Date().toISOString());

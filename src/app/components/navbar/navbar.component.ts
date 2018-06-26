@@ -56,6 +56,10 @@ export class NavbarComponent implements OnInit {
     document.querySelector('app-modal').removeAttribute('hidden');
   }
 
+  reload() {
+    location.reload();
+  }
+
 
 
 
