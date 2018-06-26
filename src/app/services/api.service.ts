@@ -14,12 +14,15 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 export class ApiService {
-  local: boolean = false;
+  local: boolean = true;
   domain: string;
   apiURL: string;
   loggedIn: boolean;
   thumbPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/";
   fullPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/full/";
+  cacheReady: boolean = false;
+  cacheComplete: boolean = false;
+  loginDone: boolean = false;
 
   constructor(private http: HttpClient, private electronService: ElectronService, private router: Router) {
     let store = new this.electronService.store();
@@ -54,24 +57,72 @@ export class ApiService {
       httpOptions).subscribe((res: any) => {
         console.log(res);
         store.delete('user');
+        store.delete('order_data');
         store.set('user.loggedIn', true);
         store.set('user.token', res.success.token);
         store.set('user.details', res.success.user);
 
         this.cacheOrders();
         this.makeDirs();
-        setTimeout(()=>{
-            this.router.navigate(['home']);
-        }, 1000)
 
+        // if(this.loginDone) {
+          setTimeout(()=> {
+            if(this.cacheReady === true && this.cacheComplete === false ) {
+              this.cacheThumbs();
+              this.cacheWatermarked();
+              this.cacheFullImgs();
+            }
+            if(this.cacheComplete) {
+              this.router.navigate(['home']);
+            }
+            console.log(this.cacheReady, this.cacheComplete);
+          }, 3000);
+        // }
 
       });
 
   }
 
+  loginKey(code) {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    }
+    let store = new this.electronService.store();
+    this.http.post(this.apiURL + 'login-with-key',
+      code,
+      httpOptions).subscribe((res: any) => {
+        store.delete('user');
+        store.delete('order_data');
+        store.set('user.loggedIn', true);
+        store.set('user.token', res.success.token);
+        store.set('user.details', res.success.user);
+
+        this.cacheOrders();
+        this.makeDirs();
+
+
+        // if(this.loginDone) {
+          setTimeout(()=> {
+            if(this.cacheReady === true && this.cacheComplete === false ) {
+              this.cacheThumbs();
+              this.cacheWatermarked();
+              this.cacheFullImgs();
+            }
+            if(this.cacheComplete) {
+              this.router.navigate(['home']);
+            }
+            console.log(this.cacheReady, this.cacheComplete);
+          }, 3000);
+        // }
+
+      });
+  }
+
   logout() {
     let store = new this.electronService.store();
     store.set('user.loggedIn', false);
+
+    this.cacheComplete = false;
     this.router.navigate(['']);
   }
 
@@ -96,25 +147,6 @@ export class ApiService {
       store.set('order_data.orders', orders.success);
     });
   }
-  // cacheOrders() {
-  //   let store = new this.electronService.store();
-
-  //   this.getOrders().subscribe({
-  //     next(orders: any) {
-  //       console.log(orders);
-  //       store.delete('order_data');
-  //       store.set('order_data.last_download', new Date().toISOString());
-  //       store.set('order_data.orders', orders.success);
-
-  //     },
-  //     complete() {
-
-  //       this.makeDirs();
-  //       this.cacheThumbs();
-  //       console.log('1st sequence finished.');
-  //     }
-  //   });
-  // }
 
   loadCachedOrders() {
     let store = new this.electronService.store();
@@ -176,6 +208,8 @@ export class ApiService {
         })
 
     });
+    this.cacheComplete = true;
+    this.loginDone = false;
   }
 
   makeDirs() {
@@ -183,6 +217,8 @@ export class ApiService {
     orderImageCache.dir('thumbs');
     orderImageCache.dir('full');
     orderImageCache.dir('watermarked');
+    this.cacheReady = true;
+    this.loginDone = true;
   }
 
   getClient() {

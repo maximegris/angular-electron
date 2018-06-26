@@ -38,5 +38,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  onCodeSubmit(code) {
+    console.log(code.value)
+    this.apiService.loginKey({code: code.value});
+  }
+
 
 }

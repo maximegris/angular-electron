@@ -8,6 +8,7 @@ import { ElectronService } from "../providers/electron.service";
 })
 export class OrdersService {
   moment: any = this.electron.moment;
+  currentOrders: any;
 
   constructor(private apiService: ApiService, private electron: ElectronService) { }
 
