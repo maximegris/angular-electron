@@ -17,7 +17,7 @@
   "main": "main.js",
   "private": true,
   "scripts": {
-    "postinstall": "npx electron-builder install-app-deps",
+    "postinstall": "npx electron-builder install-app-deps && node postinstall",
     "ng": "ng",
     "start": "npm-run-all -p ng:serve electron:serve",
     "build": "npm run electron:tsc && ng build",
