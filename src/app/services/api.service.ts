@@ -14,7 +14,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 export class ApiService {
-  local: boolean = true;
+  local: boolean = false;
   domain: string;
   apiURL: string;
   loggedIn: boolean;

@@ -1,6 +1,6 @@
 <app-modal [hidden]="!showModal" (onShowModal)="displayModal($event)" ></app-modal>
 
-<app-slide-show [fullScreen]="showSlideShow" [slideOrders]="slides" [hidden]="!showSlideShow"></app-slide-show>
+<app-slide-show [newActive]="selectedOrder" [fullScreen]="showSlideShow" [slideOrders]="slides" [hidden]="!showSlideShow"></app-slide-show>
 
 <div [hidden]="hideOrders">
 <app-navbar (newOrders)="onNewOrders($event)" ></app-navbar>
@@ -9,7 +9,7 @@
   <div class="inner">
       <div class="item quarter" *ngFor="let order of orders">
           <div class="item-inner">
-              <figure><img class="update-slides-state" (click)=fullSreen($event) src="{{ 'file:///' + thumbPath + order.thumb_img_path.substring(order.thumb_img_path.lastIndexOf('/') + 1 )}}" alt=""></figure>
+              <figure><img class="update-slides-state" (click)="fullSreen($event, order)" src="{{ 'file:///' + thumbPath + order.thumb_img_path.substring(order.thumb_img_path.lastIndexOf('/') + 1 )}}" alt=""></figure>
               <div class="text">
                   <div class="full">
                       <p class="image-name">{{ order.name }}</p>
@@ -17,7 +17,7 @@
                   </div>
                   <div class="full" *ngIf="orderType === 'active'">
                       <p class="image-date">Valid until: <span>{{ order.end_date | date }}</span></p>
-                      <select class="update-slides-state" type="number" (change)="onKeyUp($event, order)" name="position">
+                      <select class="update-slides-state" type="number" (change)="onChange($event, order)" name="position">
                         <option class="" [selected]="order.position == 1 ? true : null" value="1">1</option>
                         <option [selected]="order.position == 2 ? true : null" value="2">2</option>
                         <option [selected]="order.position == 3 ? true : null" value="3">3</option>

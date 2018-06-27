@@ -22,19 +22,13 @@ export class OrdersComponent implements OnInit {
   parentMessage = this.orders;
   slides: Order[];
   positions: any;
+  selectedOrder: Order;
 
   // @Output() slides: EventEmitter<any> = new EventEmitter();
 
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) { }
 
-  onKeyUp(event, order) {
-
-    // this.changeOrder();
-    // console.log(event.target);
-
-    // let indexToSwop = event.target.selectedIndex;
-
-
+  onChange(event, order) {
     const oldPosition = order.position;
     const newPosition = parseInt(event.target.value);
 
@@ -76,7 +70,6 @@ export class OrdersComponent implements OnInit {
     // this.apiService.cacheFullImgs();
     // this.apiService.getStuff();
 
-
     this.thumbPath = this.apiService.thumbPath;
 
     setTimeout(()=> {
@@ -84,30 +77,19 @@ export class OrdersComponent implements OnInit {
       // console.log(this.activeRentals());
       this.slides = this.orders;
     }, 2000)
-
-
-
-    // console.log(Object.keys(this.orders));
-
   }
 
-  fullSreen(event) {
+  fullSreen(event, order) {
+    // console.log(order);
+    // this.orders[1].show = true;
+    // console.log(this.orders);
+
+    this.selectedOrder = order;
+
     this.hideOrders = true;
     this.showSlideShow = true;
     document.documentElement.webkitRequestFullScreen();
-    // const filepath = event.target.src;
-    // event.target.src = filepath.replace('thumbs', 'full');
-    // event.target.webkitRequestFullscreen();
-
   }
-
-  // slideNav(e) {
-  //   console.log(e);
-  //   if(e.key === "ArrowLeft") {
-  //     document.webkitExitFullscreen();
-  //   }
-  // }
-
 
   activeRentals() {
     const orders = this.apiService.loadCachedOrders();
@@ -128,22 +110,7 @@ export class OrdersComponent implements OnInit {
     this.showModal = param;
   }
 
-  // changeOrder() {
-  //   // this.slides.emit('test');
-  //   const slides = this.orders.map( (slide: any, index) => {
-  //     return {
-  //       thumb_img_path: slide.thumb_img_path,
-  //       show: false,
-  //       position: slide.position !== undefined ? slide.position : index + 1,
-  //       order_id: slide.order_id
-  //     }
-  //   }).sort((a, b) => a.position - b.position);
 
-  //   // show the first slide
-  //   slides[0].show = true;
-
-  //   this.slides = slides;
-  // }
 
 
 
