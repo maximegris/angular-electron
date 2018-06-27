@@ -16,6 +16,7 @@ export enum KEY_CODE {
   styleUrls: ['./slide-show.component.scss']
 })
 export class SlideShowComponent implements OnInit {
+  filePaths: any = this.apiService.filePaths;
   slides: Slide[];
   moment: any = this.electron.moment;
   fullPath: string = this.apiService.fullPath;
@@ -33,7 +34,7 @@ export class SlideShowComponent implements OnInit {
     console.log('slide click', event);
     if(event.target.className == 'update-slides-state') {
 
-      this.active = this.newActive.position - 1;
+      // this.active = this.newActive.position - 1;
 
       this.slides = this.activeRentals(this.newActive.position - 1);
 

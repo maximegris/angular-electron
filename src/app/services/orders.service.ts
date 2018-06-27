@@ -44,6 +44,8 @@ export class OrdersService {
         end_date: order.end_date,
         name: order.name,
         thumb_img_path: order.thumb_img_path,
+        file: order.file,
+        sku_number: order.sku_number,
         position: index + 1,
         show: false
       }

@@ -11,6 +11,7 @@ import { ElectronService } from "../../providers/electron.service";
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
+  filePaths: any = this.apiService.filePaths;
   orders:  Order[];
   orderType: string = 'active';
   thumbPath: string;
@@ -29,6 +30,7 @@ export class OrdersComponent implements OnInit {
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) { }
 
   onChange(event, order) {
+    console.log(order);
     const oldPosition = order.position;
     const newPosition = parseInt(event.target.value);
 

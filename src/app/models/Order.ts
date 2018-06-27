@@ -7,6 +7,8 @@ export interface Order {
   end_date: string,
   name: string,
   thumb_img_path: string,
+  file: string,
+  sku_number: string,
   position?: number,
   show?: boolean
 }

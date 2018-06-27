@@ -27,24 +27,12 @@ export class NavbarComponent implements OnInit {
     Array.from(document.querySelectorAll('.tab-item')).forEach( e => e.classList.remove('is-active'));
     event.target.classList.add('is-active');
 
-    // const orders = this.apiService.loadCachedOrders();
-    // let filtered: any = {};
-    // filtered.type = param;
-    // switch (param) {
-    //   case "active":
-    //     filtered.orders = orders.filter(order => this.moment().isBetween(order.start_date, order.end_date));
-    //   break;
-    //   case "upcoming":
-    //     filtered.orders = orders.filter(order => this.moment().isSameOrBefore(this.moment(order.start_date)));
-    //   break;
-    //   case "expired":
-    //     filtered.orders = orders.filter(order => this.moment().isAfter(this.moment(order.end_date)));
-    //   break;
-    //   case "test":
-    //   break;
-    // }
+    const orders = {
+      orders: this.ordersService.getOrders(param),
+      type: param
+    }
 
-    this.newOrders.emit(this.ordersService.allOrders(param));
+    this.newOrders.emit(orders);
   }
 
 

@@ -9,7 +9,7 @@
   <div class="inner">
       <div class="item quarter" *ngFor="let order of orders">
           <div class="item-inner">
-              <figure><img class="update-slides-state" (click)="fullSreen($event, order)" src="{{ 'file:///' + thumbPath + order.thumb_img_path.substring(order.thumb_img_path.lastIndexOf('/') + 1 )}}" alt=""></figure>
+              <figure><img class="update-slides-state" (click)="fullSreen($event, order)" src="{{ 'file:///' + filePaths.thumbs + order.file }}" alt=""></figure>
               <div class="text">
                   <div class="full">
                       <p class="image-name">{{ order.name }}</p>

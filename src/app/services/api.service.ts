@@ -14,7 +14,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 export class ApiService {
-  local: boolean = false;
+  filePaths: any;
+  local: boolean = true;
   domain: string;
   apiURL: string;
   loggedIn: boolean;
@@ -25,6 +26,11 @@ export class ApiService {
   loginDone: boolean = false;
 
   constructor(private http: HttpClient, private electronService: ElectronService, private router: Router) {
+    this.filePaths = {
+      thumbs: this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/",
+      full: this.electronService.remote.app.getPath('userData') + "/orderCache/full/",
+      watermarked: this.electronService.remote.app.getPath('userData') + "/orderCache/watermarked/"
+    }
     let store = new this.electronService.store();
     this.loggedIn = store.get('user.loggedIn');
     if(this.loggedIn === true) {
