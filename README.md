@@ -15,9 +15,8 @@ Bootstrap and package your project with Angular 6(+) and Electron (Typescript + 
 
 Currently runs with:
 
-- Angular v6.0.3
-- Angular-CLI v6.0.3
-- Electron v2.0.1
+- Angular v6.0.6
+- Electron v2.0.3
 - Electron Builder v20.13.4
 
 With this sample, you can :
@@ -64,7 +63,7 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 |Command|Description|
 |--|--|
-|`npm run ng:serve`| Execute the app in the browser |
+|`npm run ng:serve:web`| Execute the app in the browser |
 |`npm run build`| Build the app. Your built files are in the /dist folder. |
 |`npm run build:prod`| Build the app with Angular aot. Your built files are in the /dist folder. |
 |`npm run electron:local`| Builds your application and start electron
@@ -76,16 +75,8 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 ## Browser mode
 
-Maybe you want to execute the application in the browser (WITHOUT HOT RELOAD ACTUALLY...) ? You can do it with `npm run ng:serve`.  
+Maybe you want to execute the application in the browser with hot reload ? You can do it with `npm run ng:serve:web`.  
 Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
-
-## Error with nodejs third party packages
-
-Since Angular 6 does not provide an eject anymore, you can't configure your webpack config file to import node externals.
-
-An issue in [Angular repository](https://github.com/angular/angular-cli/issues/10681) is opened about this feature. 
-
-Please have a look at [Stack Overflow Post workaround](https://stackoverflow.com/questions/50234196/after-updating-from-angular-5-to-6-i-keep-getting-the-error-cant-resolve-timer) that may work in some cases. Or use branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5) and continue to eject your configuration file.
 
 ## Branch & Packages version
 
