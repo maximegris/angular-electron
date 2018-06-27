@@ -1,6 +1,6 @@
 <div class="slide-show">
   <div *ngFor="let slide of slides"  [hidden]="!slide.show" >
-      <img src="{{ 'file:///' + filePaths.full + slide.file }}" alt="">
+      <img src="{{ 'file:///' + slidePath + slide.file }}" alt="">
   </div>
 </div>
 

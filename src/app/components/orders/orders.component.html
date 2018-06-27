@@ -1,6 +1,12 @@
 <app-modal [hidden]="!showModal" (onShowModal)="displayModal($event)" ></app-modal>
 
-<app-slide-show [newActive]="selectedOrder" [fullScreen]="showSlideShow" [slideOrders]="slides" [hidden]="!showSlideShow"></app-slide-show>
+<app-slide-show
+  [newActive]="selectedOrder"
+  [fullScreen]="showSlideShow"
+  [slideOrders]="slides"
+  [orderType]="orderType"
+  [hidden]="!showSlideShow">
+</app-slide-show>
 
 <div [hidden]="hideOrders">
 <app-navbar (newOrders)="onNewOrders($event)" ></app-navbar>

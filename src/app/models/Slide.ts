@@ -3,5 +3,5 @@ export interface Slide {
   show: boolean,
   position: number,
   order_id: number,
-  file: string
+  file: any
 }

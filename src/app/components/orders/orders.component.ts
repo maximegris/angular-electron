@@ -106,6 +106,7 @@ export class OrdersComponent implements OnInit {
     console.log(orders);
     this.orders = orders.orders;
     this.orderType = orders.type;
+    this.slides = this.orders;
   }
 
   displayModal(param) {

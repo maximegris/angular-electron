@@ -19,13 +19,17 @@ export class SlideShowComponent implements OnInit {
   filePaths: any = this.apiService.filePaths;
   slides: Slide[];
   moment: any = this.electron.moment;
-  fullPath: string = this.apiService.fullPath;
+  slidePath: string;
   active: number = 0;
+  // OrderType: string;
+  @Input() orderType: string;
   @Input() newActive: any;
   @Input() slideOrders: any;
   @Input() fullScreen: any;
 
-  constructor(private apiService : ApiService, private electron: ElectronService) { }
+  constructor(private apiService : ApiService, private electron: ElectronService) {
+    console.log('slide active', this.newActive)
+  }
 
 
   @HostListener('window:click', ['$event'])
@@ -34,11 +38,18 @@ export class SlideShowComponent implements OnInit {
     console.log('slide click', event);
     if(event.target.className == 'update-slides-state') {
 
+      if(this.orderType === 'active') {
+        this.slidePath = this.filePaths.full;
+      } else {
+        this.slidePath = this.filePaths.watermarked;
+      }
+
       // this.active = this.newActive.position - 1;
+      this.active = this.newActive === undefined ? this.active : this.newActive.position - 1;
 
-      this.slides = this.activeRentals(this.newActive.position - 1);
+      this.slides = this.activeRentals(this.active);
 
-      console.log('current slides', this.slides, this.active);
+      // console.log('current slides', this.slides, this.active);
     }
   }
 
@@ -47,6 +58,7 @@ export class SlideShowComponent implements OnInit {
     // console.log(event);
     if(event.keyCode === 71) {
       console.log('newActive', this.newActive);
+      console.log('orderType', this.orderType);
       // this.slides = this.activeRentals(2);
       // this.activeRentals();
       console.log(this.slides);
