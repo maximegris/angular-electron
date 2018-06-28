@@ -58,6 +58,16 @@ header
                     &:hover
                         opacity: 0.8
                         cursor: pointer
+            .order-of-slides
+                float: none
+                clear: both
+                text-align: center
+                padding-top: 8px
+                p, select
+                    display: inline
+                select
+                    float: none !important
+                    margin-left: 5px
             .text
                 +clearfix
                 .full
@@ -76,21 +86,10 @@ header
                     font-size: 1.1em
                 .image-name
                     float: left
-                .skunumber
-                    position: absolute
-                    right: 0px
-                    top: -18px
-                    padding: 4px
-                    line-height: 10px
-                    background: $whitest
-                    +vendor-prefix('border-radius','5px 0px 0px 0px')
                 .image-date
                     float: left
                 .image-date-end, .image-days
-                    float: none
-                    text-align: center
-                    padding-top: 8px
-                    clear: both
+                    float: right
                 .button
                     float: right
                     button
