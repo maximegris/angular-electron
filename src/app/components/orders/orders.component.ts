@@ -35,20 +35,13 @@ export class OrdersComponent implements OnInit {
     console.log(order);
     const oldPosition = order.position;
     const newPosition = parseInt(event.target.value);
-
     const tempOrders = [...this.orders];
-
-    // let b = order.position
     const a = tempOrders.findIndex( el => el.position == oldPosition);
-    // this.orders[indexToSwop].position = b; //
     const b = tempOrders.findIndex( el => el.position == newPosition);
 
-    // const c = tempOrders.findIndex( el => el.show == true);
-    // console.log('to swop', this.orders[indexToSwop])
     this.orders[a].position = newPosition;
     this.orders[b].position = oldPosition;
-    // this.orders[c].show = false;
-    // this.orders[0].show = true;
+
     this.slides = this.orders;
     console.log('a', a);
     console.log('b', b);
@@ -58,7 +51,6 @@ export class OrdersComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    // console.log(event);
     if (event.key === 'Escape') {
       this.hideOrders = false;
       this.showSlideShow = false;
@@ -77,22 +69,20 @@ export class OrdersComponent implements OnInit {
     // this.thumbPath = this.apiService.thumbPath;
 
 
-    setTimeout(()=> {
+    // setTimeout(()=> {
       this.orders = this.ordersService.getOrders();
-      // console.log(this.activeRentals());
       this.slides = this.orders;
-      this.ordersLength = [];
 
+      this.ordersLength = [];
       for(let i = 1; i <= this.orders.length; i++) {
         this.ordersLength.push(i);
       }
-
 
       if(this.orders.length < 1) {
         this.noOrders = true;
       }
 
-    }, 2000)
+    // }, 2000)
   }
 
   fullSreen(event, order) {

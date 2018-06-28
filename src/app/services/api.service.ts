@@ -7,9 +7,6 @@ import { Router } from '@angular/router';
 import { Order } from "../models/Order";
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +21,8 @@ export class ApiService {
   cacheReady: boolean = false;
   cacheComplete: boolean = false;
   loginDone: boolean = false;
+  fullImgsComplete: boolean = false;
+  ready: boolean = false;
 
   constructor(private http: HttpClient, private electronService: ElectronService, private router: Router) {
     this.filePaths = {
@@ -69,20 +68,17 @@ export class ApiService {
         store.set('user.details', res.success.user);
 
         this.cacheOrders('user');
-        this.makeDirs();
+        // this.makeDirs();
 
         // if(this.loginDone) {
-          setTimeout(()=> {
-            if(this.cacheReady === true && this.cacheComplete === false ) {
-              this.cacheThumbs();
-              this.cacheWatermarked();
-              this.cacheFullImgs();
-            }
-            if(this.cacheComplete) {
-              this.router.navigate(['home']);
-            }
+          // setTimeout(()=> {
+            // if(this.ready) {
+            //   this.cacheThumbs();
+            //   this.cacheWatermarked();
+            //   this.cacheFullImgs();
+            // }
             console.log(this.cacheReady, this.cacheComplete);
-          }, 3000);
+          // }, 1000);
         // }
 
       });
@@ -116,7 +112,7 @@ export class ApiService {
               this.cacheFullImgs();
             }
             if(this.cacheComplete) {
-              this.router.navigate(['home']);
+              // this.router.navigate(['home']);
             }
             console.log(this.cacheReady, this.cacheComplete);
           }, 3000);
@@ -154,13 +150,27 @@ export class ApiService {
   }
 
   cacheOrders(method) {
-    let store = new this.electronService.store();
+    // let store = new this.electronService.store();
     this.getOrders(method).subscribe(
       (orders: any) => {
-      store.delete('order_data');
-      store.set('order_data.last_download', new Date().toISOString());
-      store.set('order_data.orders', orders.success);
+        this.storeStuff(orders);
+      // store.delete('order_data');
+      // store.set('order_data.last_download', new Date().toISOString());
+      // store.set('order_data.orders', orders.success);
     });
+
+
+  }
+  async storeStuff(orders) {
+    this.makeDirs();
+    let store = new this.electronService.store();
+    store.delete('order_data');
+      store.set('order_data.last_download', new Date().toISOString());
+      await store.set('order_data.orders', orders.success);
+
+      this.cacheThumbs();
+              this.cacheWatermarked();
+              this.cacheFullImgs();
   }
 
   loadCachedOrders() {
@@ -208,7 +218,9 @@ export class ApiService {
 
   cacheFullImgs() {
     const images = this.loadCachedOrders();
-    images.forEach(el => {
+    console.log('image length', images.length);
+    let count = 0;
+    images.forEach((el, index) => {
       const options = {
         url: this.domain + '/storage/images/full_images/' + el.thumb_img_path.substring(el.thumb_img_path.lastIndexOf('/') + 1),
         dest: this.electronService.remote.app.getPath('userData') + "/orderCache/full/"                  // Save to /path/to/dest/image.jpg
@@ -217,6 +229,12 @@ export class ApiService {
       this.electronService.imageDownloader.image(options)
         .then(({ filename, image }) => {
           console.log('File saved to', filename)
+          console.log('image index', index)
+          console.log('image count', count += 1)
+          if(count === images.length) {
+            this.router.navigate(['home']);
+          }
+
         })
         .catch((err) => {
           console.error(err)
@@ -232,6 +250,9 @@ export class ApiService {
     orderImageCache.dir('thumbs');
     orderImageCache.dir('full');
     orderImageCache.dir('watermarked');
+
+    this.ready = true;
+
     this.cacheReady = true;
     this.loginDone = true;
   }
