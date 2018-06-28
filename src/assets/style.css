@@ -1531,6 +1531,16 @@ header {
         .main .item .item-inner figure img:hover {
           opacity: 0.8;
           cursor: pointer; }
+      .main .item .item-inner .order-of-slides {
+        float: none;
+        clear: both;
+        text-align: center;
+        padding-top: 8px; }
+        .main .item .item-inner .order-of-slides p, .main .item .item-inner .order-of-slides select {
+          display: inline; }
+        .main .item .item-inner .order-of-slides select {
+          float: none !important;
+          margin-left: 5px; }
       .main .item .item-inner .text::after {
         clear: both;
         content: "";
@@ -1551,25 +1561,10 @@ header {
         font-size: 1.1em; }
       .main .item .item-inner .text .image-name {
         float: left; }
-      .main .item .item-inner .text .skunumber {
-        position: absolute;
-        right: 0px;
-        top: -18px;
-        padding: 4px;
-        line-height: 10px;
-        background: white;
-        -webkit-border-radius: 5px 0px 0px 0px;
-        -moz-border-radius: 5px 0px 0px 0px;
-        -ms-border-radius: 5px 0px 0px 0px;
-        -o-border-radius: 5px 0px 0px 0px;
-        border-radius: 5px 0px 0px 0px; }
       .main .item .item-inner .text .image-date {
         float: left; }
       .main .item .item-inner .text .image-date-end, .main .item .item-inner .text .image-days {
-        float: none;
-        text-align: center;
-        padding-top: 8px;
-        clear: both; }
+        float: right; }
       .main .item .item-inner .text .button {
         float: right; }
         .main .item .item-inner .text .button button {
