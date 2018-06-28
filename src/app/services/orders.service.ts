@@ -27,6 +27,21 @@ export class OrdersService {
         filtered.orders = orders.filter(order => this.moment().isAfter(this.moment(order.end_date)));
       break;
       case "test":
+        filtered.orders =
+          [
+            {
+              file: './assets/samples/1.jpg',
+              name: 'Toucan'
+            },
+            {
+              file: './assets/samples/2.jpg',
+              name: 'Ocean'
+            },
+            {
+              file: './assets/samples/3.jpg',
+              name: 'Village'
+            }
+          ];
       break;
     }
     return filtered;

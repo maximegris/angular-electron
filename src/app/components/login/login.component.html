@@ -17,7 +17,7 @@
 
       <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="form">
         <input
-          type="text"
+          type="email"
           [(ngModel)]="user.email"
           [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
           name="email"
@@ -30,7 +30,7 @@
         <div [hidden]="!userEmail.errors?.pattern" >Email invalid</div>
 
         <input
-          type="text"
+          type="password"
           [(ngModel)]="user.password"
           [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}"
           name="password"
@@ -48,23 +48,5 @@
       </form>
     </div>
   </section>
-  <div class="loader-overlay">
-      <div class="lds-inner">
-        <div class="lds-logo"></div>
-        <div class="lds-default">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-    </div>
+  <app-loader *ngIf="showLoader"></app-loader>
 </div>

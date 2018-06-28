@@ -9,52 +9,53 @@
 </app-slide-show>
 
 <div [hidden]="hideOrders">
-<app-navbar (newOrders)="onNewOrders($event)" ></app-navbar>
+  <app-navbar (newOrders)="onNewOrders($event)" ></app-navbar>
 
-<section class="main" [ngClass]="orderType + '-order-type'">
-  <div class="inner">
-      <div class="item quarter" *ngFor="let order of orders">
-          <div class="item-inner">
-              <figure><img class="update-slides-state" (click)="fullSreen($event, order)" src="{{ 'file:///' + filePaths.thumbs + order.file }}" alt=""></figure>
-              <div class="text">
-                  <div class="full">
-                      <p class="image-name">{{ order.name }}</p>
-                  </div>
-                  <div class="full" *ngIf="orderType === 'active'">
-                      <p class="image-date">Valid until: <span>{{ order.end_date | date }}</span></p>
-                      <p class="image-days">{{ moment.duration(moment(order.end_date).diff(moment(order.start_date))).asDays() }} Days Remaining</p>
-                  </div>
-                  <div class="full order-of-slides" *ngIf="orderType === 'active'">
-                      <p>Sequence position</p>
-                      <select class="update-slides-state" type="number" (change)="onChange($event, order)" name="position">
-                        <option class="" [selected]="order.position == 1 ? true : null" value="1">1</option>
-                        <option [selected]="order.position == 2 ? true : null" value="2">2</option>
-                        <option [selected]="order.position == 3 ? true : null" value="3">3</option>
-                        <option [selected]="order.position == 4 ? true : null" value="4">4</option>
-                        <option [selected]="order.position == 5 ? true : null" value="5">5</option>
-                        <option [selected]="order.position == 6 ? true : null" value="6">6</option>
-                        <option [selected]="order.position == 7 ? true : null" value="7">7</option>
-                        <option [selected]="order.position == 8 ? true : null" value="7">8</option>
-                        <option [selected]="order.position == 9 ? true : null" value="7">9</option>
-                      </select>                    
-                  </div>
+  <section class="main" [ngClass]="orderType + '-order-type'">
+    <div class="inner">
 
-                  <div class="full" *ngIf="orderType === 'upcoming'">
-                      <p class="image-date half">Start: <span>{{ order.start_date | date }}</span></p>
-                      <p class="image-date-end half">End: <span>{{ order.end_date | date }}</span></p>
-                  </div>
+        <div class="item quarter" *ngFor="let order of orders">
+            <div class="item-inner">
+                <figure>
+                  <img
+                    class="update-slides-state"
+                    (click)="fullSreen($event, order)"
+                    src="{{ orderType === 'test' ? order.file : 'file:///' + filePaths.thumbs + order.file }}"
+                  >
+                </figure>
+                <div class="text">
+                    <div class="full">
+                        <p class="image-name">{{ order.name }}</p>
+                    </div>
 
-                  <div class="full" *ngIf="orderType === 'expired'">
-                      <p class="image-date half">Expired: <span>{{ order.end_date | date }}</span></p>
-                      <div class="button half">
-                          <button class="primary">Rent it again</button>
-                      </div>
-                  </div>
+                    <div class="full" *ngIf="orderType === 'active'">
+                        <p class="image-date">Valid until: <span>{{ order.end_date | date }}</span></p>
+                        <p class="image-days">{{ moment.duration(moment(order.end_date).diff(moment(order.start_date))).asDays() }} Days Remaining</p>
+                    </div>
+                    <div class="full order-of-slides" *ngIf="orderType === 'active'">
+                        <p>Sequence position</p>
+                        <select class="update-slides-state" type="number" (change)="onChange($event, order)" name="position">
+                            <option *ngFor="let position of ordersLength" [selected]="order.position == position ? true : null" >{{ position }}</option>
+                        </select>
+                    </div>
 
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
+                    <div class="full" *ngIf="orderType === 'upcoming'">
+                        <p class="image-date half">Start: <span>{{ order.start_date | date }}</span></p>
+                        <p class="image-date-end half">End: <span>{{ order.end_date | date }}</span></p>
+                    </div>
+
+                    <div class="full" *ngIf="orderType === 'expired'">
+                        <p class="image-date half">Expired: <span>{{ order.end_date | date }}</span></p>
+                        <div class="button half">
+                            <button class="primary">Rent it again</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <p *ngIf="noOrders" >No images to display</p>
+    </div>
+  </section>
 </div>
 

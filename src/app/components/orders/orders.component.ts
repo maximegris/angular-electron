@@ -14,17 +14,18 @@ export class OrdersComponent implements OnInit {
   filePaths: any = this.apiService.filePaths;
   orders:  Order[];
   orderType: string = 'active';
-  thumbPath: string;
-  fullPath: string = this.apiService.fullPath;
+  // thumbPath: string;
+  // fullPath: string = this.apiService.fullPath;
   moment: any = this.electron.moment;
   hideOrders: boolean = false;
   showSlideShow: boolean = false;
   showModal: boolean = false;
-  parentMessage = this.orders;
+  // parentMessage = this.orders;
   slides: Order[];
   positions: any;
   selectedOrder: Order;
   ordersLength: any;
+  noOrders: boolean = false;
 
   // @Output() slides: EventEmitter<any> = new EventEmitter();
 
@@ -86,7 +87,11 @@ export class OrdersComponent implements OnInit {
         this.ordersLength.push(i);
       }
 
-      console.log(this.ordersLength);
+
+      if(this.orders.length < 1) {
+        this.noOrders = true;
+      }
+
     }, 2000)
   }
 
@@ -95,7 +100,12 @@ export class OrdersComponent implements OnInit {
     // this.orders[1].show = true;
     // console.log(this.orders);
 
+
     this.selectedOrder = order;
+
+    if(this.orderType === 'expired') {
+      return null;
+    }
 
     this.hideOrders = true;
     this.showSlideShow = true;

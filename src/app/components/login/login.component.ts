@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     email: 'client1@admin.com',
     password: 'password'
   }
+  showLoader: boolean = false;
   @ViewChild('userForm') form: any;
 
 
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit({value, valid}: {value: User, valid: boolean}) {
+    this.showLoader = true;
     if(!valid) {
       console.log('Form is not valid');
     } else {
