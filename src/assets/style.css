@@ -1621,7 +1621,15 @@ header {
     text-align: center;
     margin: 10px auto 0px auto; }
   .login .inner {
-    width: 525px; }
+    width: 525px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%); }
   .login input {
     width: 100%;
     background: transparent;
