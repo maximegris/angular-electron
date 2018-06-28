@@ -24,6 +24,7 @@ export class OrdersComponent implements OnInit {
   slides: Order[];
   positions: any;
   selectedOrder: Order;
+  ordersLength: any;
 
   // @Output() slides: EventEmitter<any> = new EventEmitter();
 
@@ -72,12 +73,20 @@ export class OrdersComponent implements OnInit {
     // this.apiService.cacheFullImgs();
     // this.apiService.getStuff();
 
-    this.thumbPath = this.apiService.thumbPath;
+    // this.thumbPath = this.apiService.thumbPath;
+
 
     setTimeout(()=> {
       this.orders = this.ordersService.getOrders();
       // console.log(this.activeRentals());
       this.slides = this.orders;
+      this.ordersLength = [];
+
+      for(let i = 1; i <= this.orders.length; i++) {
+        this.ordersLength.push(i);
+      }
+
+      console.log(this.ordersLength);
     }, 2000)
   }
 
