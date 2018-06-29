@@ -1,11 +1,11 @@
 {
   "name": "backdrop-projections",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Backdrop Projections",
-  "homepage": "",
+  "homepage": "http://",
   "author": {
     "name": "",
-    "email": ""
+    "email": "email@email.com"
   },
   "keywords": [
     "angular",

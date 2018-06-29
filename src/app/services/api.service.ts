@@ -12,15 +12,15 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class ApiService {
   filePaths: any;
-  local: boolean = true;
+  local: boolean = false;
   domain: string;
   apiURL: string;
   loggedIn: boolean;
-  thumbPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/";
-  fullPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/full/";
-  cacheReady: boolean = false;
-  cacheComplete: boolean = false;
-  loginDone: boolean = false;
+  // thumbPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/";
+  // fullPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/full/";
+  // cacheReady: boolean = false;
+  // cacheComplete: boolean = false;
+  // loginDone: boolean = false;
   fullImgsComplete: boolean = false;
   ready: boolean = false;
 
@@ -61,26 +61,13 @@ export class ApiService {
       user,
       httpOptions).subscribe((res: any) => {
         console.log(res);
-        store.delete('user');
-        store.delete('order_data');
+        // store.delete('user');
+        // store.delete('order_data');
+        store.clear();
         store.set('user.loggedIn', true);
         store.set('user.token', res.success.token);
         store.set('user.details', res.success.user);
-
         this.cacheOrders('user');
-        // this.makeDirs();
-
-        // if(this.loginDone) {
-          // setTimeout(()=> {
-            // if(this.ready) {
-            //   this.cacheThumbs();
-            //   this.cacheWatermarked();
-            //   this.cacheFullImgs();
-            // }
-            console.log(this.cacheReady, this.cacheComplete);
-          // }, 1000);
-        // }
-
       });
 
   }
@@ -93,39 +80,20 @@ export class ApiService {
     this.http.post(this.apiURL + 'login-with-key',
       code,
       httpOptions).subscribe((res: any) => {
-        store.delete('user');
-        store.delete('order_data');
+        // store.delete('user');
+        // store.delete('order_data');
+        store.clear();
         store.set('user.loggedIn', true);
         store.set('order_key', code);
         store.set('user.token', res.success.token);
         store.set('user.details', res.success.user);
-
         this.cacheOrders('key');
-        this.makeDirs();
-
-
-        // if(this.loginDone) {
-          setTimeout(()=> {
-            if(this.cacheReady === true && this.cacheComplete === false ) {
-              this.cacheThumbs();
-              this.cacheWatermarked();
-              this.cacheFullImgs();
-            }
-            if(this.cacheComplete) {
-              // this.router.navigate(['home']);
-            }
-            console.log(this.cacheReady, this.cacheComplete);
-          }, 3000);
-        // }
-
       });
   }
 
   logout() {
     let store = new this.electronService.store();
     store.set('user.loggedIn', false);
-
-    this.cacheComplete = false;
     this.router.navigate(['']);
   }
 
@@ -150,18 +118,14 @@ export class ApiService {
   }
 
   cacheOrders(method) {
-    // let store = new this.electronService.store();
     this.getOrders(method).subscribe(
       (orders: any) => {
-        this.storeStuff(orders);
-      // store.delete('order_data');
-      // store.set('order_data.last_download', new Date().toISOString());
-      // store.set('order_data.orders', orders.success);
+        this.storeOrders(orders);
     });
 
 
   }
-  async storeStuff(orders) {
+  async storeOrders(orders) {
     this.makeDirs();
     let store = new this.electronService.store();
     store.delete('order_data');
@@ -169,8 +133,8 @@ export class ApiService {
       await store.set('order_data.orders', orders.success);
 
       this.cacheThumbs();
-              this.cacheWatermarked();
-              this.cacheFullImgs();
+      this.cacheWatermarked();
+      this.cacheFullImgs();
   }
 
   loadCachedOrders() {
@@ -241,8 +205,8 @@ export class ApiService {
         })
 
     });
-    this.cacheComplete = true;
-    this.loginDone = false;
+    // this.cacheComplete = true;
+    // this.loginDone = false;
   }
 
   makeDirs() {
@@ -253,8 +217,8 @@ export class ApiService {
 
     this.ready = true;
 
-    this.cacheReady = true;
-    this.loginDone = true;
+    // this.cacheReady = true;
+    // this.loginDone = true;
   }
 
   getClient() {
