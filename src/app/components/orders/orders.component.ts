@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, EventEmitter, Output  } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter, Output, ViewChild  } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { OrdersService } from "../../services/orders.service";
 import { Order } from "../../models/Order";
@@ -14,20 +14,15 @@ export class OrdersComponent implements OnInit {
   filePaths: any = this.apiService.filePaths;
   orders:  Order[];
   orderType: string = 'active';
-  // thumbPath: string;
-  // fullPath: string = this.apiService.fullPath;
   moment: any = this.electron.moment;
   hideOrders: boolean = false;
   showSlideShow: boolean = false;
   showModal: boolean = false;
-  // parentMessage = this.orders;
   slides: Order[];
   positions: any;
   selectedOrder: Order;
   ordersLength: any;
   noOrders: boolean = false;
-
-  // @Output() slides: EventEmitter<any> = new EventEmitter();
 
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) { }
 
@@ -58,18 +53,6 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit() {
-    // document.addEventListener('keydown', this.slideNav);
-    // console.log(this.apiService.cahceThumbs());
-    // this.apiService.cacheOrders();
-    // this.apiService.makeDirs();
-    // this.apiService.cacheThumbs();
-    // this.apiService.cacheFullImgs();
-    // this.apiService.getStuff();
-
-    // this.thumbPath = this.apiService.thumbPath;
-
-
-    // setTimeout(()=> {
       this.orders = this.ordersService.getOrders();
       this.slides = this.orders;
 
@@ -79,17 +62,14 @@ export class OrdersComponent implements OnInit {
       }
 
       if(this.orders.length < 1) {
-        this.noOrders = true;
+        this.orderType = 'test';
+        this.orders = this.ordersService.getOrders('test');
+        this.slides = this.orders;
+        Array.from(document.querySelectorAll('.tab-item')).forEach( e => e.classList.remove('is-active'));
+        document.querySelectorAll('.tab-item')[3].classList.add('is-active');
       }
-
-    // }, 2000)
   }
-
   fullSreen(event, order) {
-    // console.log(order);
-    // this.orders[1].show = true;
-    // console.log(this.orders);
-
 
     this.selectedOrder = order;
 
@@ -121,13 +101,5 @@ export class OrdersComponent implements OnInit {
   displayModal(param) {
     this.showModal = param;
   }
-
-
-
-
-
-
-
-
 
 }

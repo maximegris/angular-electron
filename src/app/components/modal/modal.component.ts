@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppConfig } from '../../../environments/environment';
+import { ElectronService } from "../../providers/electron.service";
 
 @Component({
   selector: 'app-modal',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
+  public version: any;
 
-  constructor() { }
+  constructor(private electronService: ElectronService) { }
 
   ngOnInit() {
+    this.version = this.electronService.version;
   }
 
   hideModal() {
