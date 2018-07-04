@@ -85,7 +85,7 @@ export class ApiService {
     } else {
       url = this.apiURL + 'orders-key';
       httpOptions = {
-        headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key.code') })
+        headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key') })
       }
     }
     return this.http.get<Order[]>(url, httpOptions);

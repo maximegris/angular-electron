@@ -15,8 +15,8 @@ import { ElectronService } from "../../providers/electron.service";
 })
 export class LoginComponent implements OnInit {
   user: User = {
-    email: 'client5@admin.com',
-    password: 'password'
+    email: '',
+    password: ''
   }
   showLoader: boolean = false;
   showError: boolean = false;
@@ -40,9 +40,9 @@ export class LoginComponent implements OnInit {
       console.log('Form is not valid');
     } else {
       console.log(value);
+      this.showLoader = true;
       this.apiService.login({email: value.email, password: value.password}).subscribe(
         (res: any) => {
-          this.showLoader = true;
         store.clear();
         store.set('version', this.electronService.version);
         store.set('method', 'user');
@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
         this.apiService.cacheOrders('user');
       },
       (error) => {
+        this.showLoader = false;
         console.log('handle error', error);
         this.showError = true;
       }
@@ -64,12 +65,14 @@ export class LoginComponent implements OnInit {
   onCodeSubmit(code) {
     console.log(code.value)
     let store = new this.electronService.store();
+    this.showLoader = true;
     this.apiService.loginKey({code: code.value}).subscribe((res: any) => {
+      console.log(res);
       store.clear();
       store.set('version', this.electronService.version);
       store.set('method', 'key');
       store.set('user.loggedIn', true);
-      store.set('order_key', code);
+      store.set('order_key', code.value);
       store.set('user.token', res.success.token);
       store.set('user.details', res.success.user);
       this.apiService.cacheOrders('key');
@@ -77,6 +80,7 @@ export class LoginComponent implements OnInit {
     (error) => {
       console.log('handle error', error);
       this.showError = true;
+      this.showLoader = false;
     });
   }
 
