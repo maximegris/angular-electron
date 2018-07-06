@@ -13,7 +13,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class ApiService {
   filePaths: any;
-  local: boolean = true;
+  local: boolean = false;
   domain: string;
   apiURL: string;
   loggedIn: boolean;
@@ -78,8 +78,8 @@ export class ApiService {
     const details = {
       token: store.get('user.token'),
       platform: process.platform,
-      // version: this.electronService.version
-      version: '0.0.3'
+      version: this.electronService.version
+      // version: '0.0.3'
     }
 
     if(method === 'user') {
