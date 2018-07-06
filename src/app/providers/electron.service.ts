@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
 import { ipcRenderer, webFrame, remote } from 'electron';
@@ -9,8 +10,6 @@ import * as store from 'electron-store';
 import * as fsJetpack from 'fs-jetpack';
 import * as imageDownloader from 'image-downloader';
 import * as moment from 'moment';
-
-// import * as moment from 'angular-moment';
 
 @Injectable()
 export class ElectronService {
@@ -24,6 +23,7 @@ export class ElectronService {
   jetpack: any;
   imageDownloader: any;
   moment: any;
+  version: any;
 
   constructor() {
     // Conditional imports
@@ -37,17 +37,12 @@ export class ElectronService {
       this.fs = window.require('fs');
       this.imageDownloader = window.require('image-downloader');
       this.moment = window.require('moment');
-
+      this.version = require('../../../package.json').version;
     }
   }
 
   isElectron = () => {
     return window && window.process && window.process.type;
   }
-
-  // setValue() {
-  //   const store = new this.store();
-  //     store.set('test', 'img');
-  // }
 
 }

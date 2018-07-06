@@ -13,7 +13,7 @@
 
   <section class="main" [ngClass]="orderType + '-order-type'">
     <div class="inner">
-
+        <p *ngIf="orders.length < 1" >No images to display</p>
         <div class="item quarter" *ngFor="let order of orders">
             <div class="item-inner">
                 <figure>
@@ -21,7 +21,9 @@
                     class="update-slides-state"
                     (click)="fullSreen($event, order)"
                     src="{{ orderType === 'test' ? order.file : 'file:///' + filePaths.thumbs + order.file }}"
+                    draggable="false"
                   >
+                  <img *ngIf="order.file.split('.')[1].toLowerCase() === 'gif'" src="./assets/img/play.png" class="gif-play-btn">
                 </figure>
                 <div class="text">
                     <div class="full">
@@ -46,15 +48,15 @@
 
                     <div class="full" *ngIf="orderType === 'expired'">
                         <p class="image-date half">Expired: <span>{{ order.end_date | date }}</span></p>
-                        <div class="button half">
+                        <!-- <div class="button half">
                             <button class="primary">Rent it again</button>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
             </div>
         </div>
-        <p *ngIf="noOrders" >No images to display</p>
+
     </div>
   </section>
 </div>

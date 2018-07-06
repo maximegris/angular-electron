@@ -16,6 +16,8 @@
       <h6 class="white with-lines">or</h6>
       <h6 class="white">Login</h6>
 
+      <p [hidden]="!showError" class="white">Invalid login</p>
+
       <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="form">
         <input
           type="email"
@@ -27,8 +29,8 @@
           required
           pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
         />
-        <div [hidden]="!userEmail.errors?.required" >Email required</div>
-        <div [hidden]="!userEmail.errors?.pattern" >Email invalid</div>
+        <!-- <div class="invalid-feedback" [hidden]="!userEmail.errors?.required" >Email required</div>
+        <div class="invalid-feedback" [hidden]="!userEmail.errors?.pattern" >Email invalid</div> -->
 
         <input
           type="password"
@@ -40,8 +42,8 @@
           required
           minlength="2"
         />
-        <div [hidden]="!userPassword.errors?.required" >Password required</div>
-        <div [hidden]="!userPassword.errors?.minlength" >Password invalid</div>
+        <!-- <div class="invalid-feedback" [hidden]="!userPassword.errors?.required" >Password required</div>
+        <div class="invalid-feedback" [hidden]="!userPassword.errors?.minlength" >Password invalid</div> -->
 
         <div class="button">
           <button [disabled]="!userForm.form.valid" class="secondary">Login</button>

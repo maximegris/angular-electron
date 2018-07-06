@@ -1,8 +1,9 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Order } from '../../models/Order';
 import { ApiService } from "../../services/api.service";
 import { ElectronService } from "../../providers/electron.service";
 import { OrdersService } from "../../services/orders.service";
+import { viewClassName } from '@angular/compiler';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ export class NavbarComponent implements OnInit {
   moment: any = this.electron.moment;
   orders: any;
   client: string;
+  @ViewChild('testTab') testTab  : any;
 
   @Output() newOrders: EventEmitter<any> = new EventEmitter();
 
@@ -20,6 +22,10 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     // this.loadCached();
+    // this.testTab.nativeElement.dispatchEvent(new Event('click'));
+
+    // console.log('test-tab', this.testTab.nativeElement)
+
     this.client = this.apiService.getClient().name;
   }
 
@@ -45,22 +51,12 @@ export class NavbarComponent implements OnInit {
   }
 
   reload() {
-    location.reload();
+    this.apiService.reAuth();
+    setTimeout(function(){
+      location.reload();
+    }, 3000);
+    // location.reload();
   }
-
-
-
-
-
-
-
-  // loadCached(param) {
-  //   console.log(this.apiService.loadCachedOrders());
-  //   // this.apiService.loadCachedOrders().forEach(order => {
-  //     this.newOrders.emit(this.apiService.loadCachedOrders());
-  //   // });
-  // }
-
 
 
 }

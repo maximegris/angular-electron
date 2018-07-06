@@ -1,5 +1,5 @@
 {
-  "productName": "backdrop-projections",
+  "productName": "backdrop-projections-beta",
   "directories": {
     "output": "app-builds"
   },
@@ -22,7 +22,7 @@
   "win": {
     "icon": "dist",
     "target": [
-      "portable"
+      "nsis"
     ]
   },
   "mac": {

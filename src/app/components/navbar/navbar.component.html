@@ -45,7 +45,7 @@
                   <a (click)="filterOrders($event, 'expired')" class="tab-item">Expired Rentals</a>
               </li>
               <li class="quarter">
-                  <a (click)="filterOrders($event, 'test')" class="tab-item">Test Images</a>
+                  <a #testTab (click)="filterOrders($event, 'test')" class="tab-item">Test Images</a>
               </li>
           </ul>
       </div>

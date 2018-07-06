@@ -7,20 +7,16 @@ import { Router } from '@angular/router';
 import { Order } from "../models/Order";
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   filePaths: any;
-  local: boolean = true;
+  local: boolean = false;
   domain: string;
   apiURL: string;
   loggedIn: boolean;
-  thumbPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/";
-  fullPath: string = this.electronService.remote.app.getPath('userData') + "/orderCache/full/";
-  cacheReady: boolean = false;
-  cacheComplete: boolean = false;
-  loginDone: boolean = false;
   fullImgsComplete: boolean = false;
   ready: boolean = false;
 
@@ -28,7 +24,8 @@ export class ApiService {
     this.filePaths = {
       thumbs: this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/",
       full: this.electronService.remote.app.getPath('userData') + "/orderCache/full/",
-      watermarked: this.electronService.remote.app.getPath('userData') + "/orderCache/watermarked/"
+      watermarked: this.electronService.remote.app.getPath('userData') + "/orderCache/watermarked/",
+      app: this.electronService.remote.app.getAppPath()
     }
     let store = new this.electronService.store();
     this.loggedIn = store.get('user.loggedIn');
@@ -56,32 +53,8 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     }
-    let store = new this.electronService.store();
-    this.http.post(this.apiURL + 'login',
-      user,
-      httpOptions).subscribe((res: any) => {
-        console.log(res);
-        store.delete('user');
-        store.delete('order_data');
-        store.set('user.loggedIn', true);
-        store.set('user.token', res.success.token);
-        store.set('user.details', res.success.user);
-
-        this.cacheOrders('user');
-        // this.makeDirs();
-
-        // if(this.loginDone) {
-          // setTimeout(()=> {
-            // if(this.ready) {
-            //   this.cacheThumbs();
-            //   this.cacheWatermarked();
-            //   this.cacheFullImgs();
-            // }
-            console.log(this.cacheReady, this.cacheComplete);
-          // }, 1000);
-        // }
-
-      });
+    // let store = new this.electronService.store();
+    return this.http.post(this.apiURL + 'login', user, httpOptions);
 
   }
 
@@ -89,43 +62,12 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     }
-    let store = new this.electronService.store();
-    this.http.post(this.apiURL + 'login-with-key',
-      code,
-      httpOptions).subscribe((res: any) => {
-        store.delete('user');
-        store.delete('order_data');
-        store.set('user.loggedIn', true);
-        store.set('order_key', code);
-        store.set('user.token', res.success.token);
-        store.set('user.details', res.success.user);
-
-        this.cacheOrders('key');
-        this.makeDirs();
-
-
-        // if(this.loginDone) {
-          setTimeout(()=> {
-            if(this.cacheReady === true && this.cacheComplete === false ) {
-              this.cacheThumbs();
-              this.cacheWatermarked();
-              this.cacheFullImgs();
-            }
-            if(this.cacheComplete) {
-              // this.router.navigate(['home']);
-            }
-            console.log(this.cacheReady, this.cacheComplete);
-          }, 3000);
-        // }
-
-      });
+    return this.http.post(this.apiURL + 'login-with-key', code, httpOptions);
   }
 
   logout() {
     let store = new this.electronService.store();
     store.set('user.loggedIn', false);
-
-    this.cacheComplete = false;
     this.router.navigate(['']);
   }
 
@@ -143,25 +85,21 @@ export class ApiService {
     } else {
       url = this.apiURL + 'orders-key';
       httpOptions = {
-        headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key.code') })
+        headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key') })
       }
     }
     return this.http.get<Order[]>(url, httpOptions);
   }
 
   cacheOrders(method) {
-    // let store = new this.electronService.store();
     this.getOrders(method).subscribe(
       (orders: any) => {
-        this.storeStuff(orders);
-      // store.delete('order_data');
-      // store.set('order_data.last_download', new Date().toISOString());
-      // store.set('order_data.orders', orders.success);
+        this.storeOrders(orders);
     });
 
 
   }
-  async storeStuff(orders) {
+  async storeOrders(orders) {
     this.makeDirs();
     let store = new this.electronService.store();
     store.delete('order_data');
@@ -169,8 +107,8 @@ export class ApiService {
       await store.set('order_data.orders', orders.success);
 
       this.cacheThumbs();
-              this.cacheWatermarked();
-              this.cacheFullImgs();
+      this.cacheWatermarked();
+      this.cacheFullImgs();
   }
 
   loadCachedOrders() {
@@ -219,6 +157,9 @@ export class ApiService {
   cacheFullImgs() {
     const images = this.loadCachedOrders();
     console.log('image length', images.length);
+    if (images.length === 0) {
+      this.router.navigate(['home']);
+    }
     let count = 0;
     images.forEach((el, index) => {
       const options = {
@@ -241,8 +182,8 @@ export class ApiService {
         })
 
     });
-    this.cacheComplete = true;
-    this.loginDone = false;
+    // this.cacheComplete = true;
+    // this.loginDone = false;
   }
 
   makeDirs() {
@@ -250,11 +191,7 @@ export class ApiService {
     orderImageCache.dir('thumbs');
     orderImageCache.dir('full');
     orderImageCache.dir('watermarked');
-
     this.ready = true;
-
-    this.cacheReady = true;
-    this.loginDone = true;
   }
 
   getClient() {
@@ -265,25 +202,37 @@ export class ApiService {
     }
   }
 
-
-  getStuff() {
+  reAuth() {
     let store = new this.electronService.store();
-    const httpOptions = {
-      headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    const method = store.get('method');
+    if(method !== undefined) {
+      this.cacheOrders(method);
+    } else {
+      console.log('no auth method found')
     }
-
-
-    const options = {
-      url: 'http://backdrops.localhost/storage/images/thumbs/marguerite-daisy-beautiful-beauty_1528183491.jpg',
-      dest: this.electronService.remote.app.getPath('userData') + "/externalFiles/thumbs/"                  // Save to /path/to/dest/image.jpg
-    }
-
-    this.electronService.imageDownloader.image(options)
-      .then(({ filename, image }) => {
-        console.log('File saved to', filename)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
   }
+
+
+  // getStuff() {
+  //   let store = new this.electronService.store();
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'})
+  //   }
+
+
+  //   const options = {
+  //     url: 'http://backdrops.localhost/storage/images/thumbs/marguerite-daisy-beautiful-beauty_1528183491.jpg',
+  //     dest: this.electronService.remote.app.getPath('userData') + "/externalFiles/thumbs/"                  // Save to /path/to/dest/image.jpg
+  //   }
+
+  //   this.electronService.imageDownloader.image(options)
+  //     .then(({ filename, image }) => {
+  //       console.log('File saved to', filename)
+  //     })
+  //     .catch((err) => {
+  //       console.error(err)
+  //     })
+  // }
+
+
 }
