@@ -20,18 +20,22 @@ export class LoginComponent implements OnInit {
   }
   showLoader: boolean = false;
   showError: boolean = false;
+  errorMessage: string;
   @ViewChild('userForm') form: any;
 
 
   constructor(private apiService: ApiService,  private electronService: ElectronService) { }
 
   ngOnInit() {
+    console.log("Log Process Obj", process.platform);
+    let store = new this.electronService.store();
+    console.log(store);
+   }
 
-  }
+  // login(e) {
+  //   console.log(e);
 
-  login(e) {
-    console.log(e);
-  }
+  // }
 
   onSubmit({value, valid}: {value: User, valid: boolean}) {
     let store = new this.electronService.store();
@@ -44,17 +48,31 @@ export class LoginComponent implements OnInit {
       this.apiService.login({email: value.email, password: value.password}).subscribe(
         (res: any) => {
         store.clear();
+        store.set('platfrom', process.platform);
         store.set('version', this.electronService.version);
         store.set('method', 'user');
-        store.set('user.loggedIn', true);
+
         store.set('user.token', res.success.token);
         store.set('user.details', res.success.user);
-        this.apiService.cacheOrders('user');
+        // this.apiService.cacheOrders('user');
+        this.apiService.getOrders('user').subscribe(
+          (orders: any) => {
+            store.set('user.loggedIn', true);
+            this.apiService.storeOrders(orders);
+        },
+        (error) => {
+          this.showLoader = false;
+          console.log('handle error', error);
+          this.showError = true;
+          this.errorMessage = error.error.message;
+        });
+
       },
       (error) => {
         this.showLoader = false;
         console.log('handle error', error);
         this.showError = true;
+        this.errorMessage = 'Invalid login';
       }
 
     );
@@ -69,18 +87,33 @@ export class LoginComponent implements OnInit {
     this.apiService.loginKey({code: code.value}).subscribe((res: any) => {
       console.log(res);
       store.clear();
+      store.set('platfrom', process.platform);
       store.set('version', this.electronService.version);
       store.set('method', 'key');
-      store.set('user.loggedIn', true);
+
       store.set('order_key', code.value);
       store.set('user.token', res.success.token);
       store.set('user.details', res.success.user);
-      this.apiService.cacheOrders('key');
+      // this.apiService.cacheOrders('key');
+      this.apiService.getOrders('key').subscribe(
+        (orders: any) => {
+          store.set('user.loggedIn', true);
+          this.apiService.storeOrders(orders);
+      },
+      (error) => {
+        this.showLoader = false;
+        console.log('handle error', error);
+        this.showError = true;
+        this.errorMessage = error.error.message  + ' ' + error.error.url;
+      });
+
     },
     (error) => {
       console.log('handle error', error);
       this.showError = true;
       this.showLoader = false;
+      this.errorMessage = 'Invalid login';
+
     });
   }
 

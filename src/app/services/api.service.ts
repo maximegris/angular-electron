@@ -13,7 +13,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class ApiService {
   filePaths: any;
-  local: boolean = false;
+  local: boolean = true;
   domain: string;
   apiURL: string;
   loggedIn: boolean;
@@ -49,11 +49,11 @@ export class ApiService {
   }
 
   login(user: User) {
-
+    let store = new this.electronService.store();
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
     }
-    // let store = new this.electronService.store();
+
     return this.http.post(this.apiURL + 'login', user, httpOptions);
 
   }
@@ -73,19 +73,24 @@ export class ApiService {
 
   getOrders(method) {
     let store = new this.electronService.store();
-    // const url = method === 'user-login' ? this.apiURL + 'user-orders' : this.apiURL + 'orders-key';
     let url;
     let httpOptions;
+    const details = {
+      token: store.get('user.token'),
+      platform: process.platform,
+      // version: this.electronService.version
+      version: '0.0.3'
+    }
 
     if(method === 'user') {
       url = this.apiURL + 'user-orders';
       httpOptions = {
-        headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        headers: new HttpHeaders({'Authorization': 'Bearer ' + details.token, 'platform' : details.platform, 'version' : details.version, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'})
       }
     } else {
       url = this.apiURL + 'orders-key';
       httpOptions = {
-        headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key') })
+        headers: new HttpHeaders({'Authorization': 'Bearer ' + details.token, 'platform' : details.platform, 'version' : details.version, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key') })
       }
     }
     return this.http.get<Order[]>(url, httpOptions);
@@ -94,6 +99,7 @@ export class ApiService {
   cacheOrders(method) {
     this.getOrders(method).subscribe(
       (orders: any) => {
+        // console.log(orders);
         this.storeOrders(orders);
     });
 

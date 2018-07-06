@@ -15,7 +15,7 @@
       <h6 class="white with-lines">or</h6>
       <h6 class="white">Login</h6>
 
-      <p [hidden]="!showError" class="white">Invalid login</p>
+      <p [hidden]="!showError" class="white">{{ this.errorMessage }}</p>
 
       <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="form">
         <input
