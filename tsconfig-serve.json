@@ -1,7 +1,5 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -20,9 +18,11 @@
   },
   "include": [
     "main.ts",
-    "src/**/*"
+    "src/**/*",
+    "e2e/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }
