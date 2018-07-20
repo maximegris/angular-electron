@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Input, ViewChild } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { Order } from '../../models/Order';
 import { Slide } from '../../models/Slide';
@@ -21,6 +21,7 @@ export class SlideShowComponent implements OnInit {
   moment: any = this.electron.moment;
   slidePath: string;
   active: number = 0;
+  @ViewChild('slideMessage') slideMessage: any;
   // OrderType: string;
   @Input() orderType: string;
   @Input() newActive: any;
@@ -37,6 +38,16 @@ export class SlideShowComponent implements OnInit {
   clickEvent(event: any) {
     console.log('slide click', event);
     if(event.target.className == 'update-slides-state') {
+
+      this.slideMessage.nativeElement.hidden = false;
+
+      setTimeout(()=> {
+        this.slideMessage.nativeElement.hidden = true;
+      }, 3000);
+
+
+
+      console.log();
 
       if(this.orderType === 'active') {
         this.slidePath = this.filePaths.full;

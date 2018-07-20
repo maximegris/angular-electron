@@ -1,0 +1,8 @@
+change log:
+
+version 0.0.5
+- order status change to active, on download
+- app now checks for version number, when doing request,  we will be able to see this behavior in the next release, since the app and api are only tracking versions now
+- bug fix - when loading out of sync files, caused login main screen to break
+- added test images to be selected if account has no active orders
+- Gif images - thumbnails display with a play

@@ -2,3 +2,14 @@ img {
   width: 100%;
   height: auto;
 }
+
+.slide-message {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  z-index: 1;
+  color: white;
+  background: rgba(0, 0, 0, 0.43);
+  padding: 20px 30px;
+  font-weight: bold;
+}
