@@ -26,10 +26,29 @@ export class OrdersComponent implements OnInit {
 
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) { }
 
+  // onChange(event, order) {
+  //   console.log(order);
+  //   const oldPosition = order.position;
+  //   const newPosition = parseInt(event.target.value);
+  //   const tempOrders = [...this.orders];
+  //   const a = tempOrders.findIndex( el => el.position == oldPosition);
+  //   const b = tempOrders.findIndex( el => el.position == newPosition);
+
+  //   this.orders[a].position = newPosition;
+  //   this.orders[b].position = oldPosition;
+
+  //   this.slides = this.orders;
+  //   console.log('a', a);
+  //   console.log('b', b);
+
+  //   console.log('new slide order', this.slides);
+  // }
+
   onChange(event, order) {
     console.log(order);
     const oldPosition = order.position;
     const newPosition = parseInt(event.target.value);
+    console.log('new', newPosition);
     const tempOrders = [...this.orders];
     const a = tempOrders.findIndex( el => el.position == oldPosition);
     const b = tempOrders.findIndex( el => el.position == newPosition);

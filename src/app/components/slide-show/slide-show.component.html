@@ -1,5 +1,5 @@
 <div class="slide-show">
-  <div #slideMessage class="slide-message">Press 'Esc' to exit slideshow</div>
+  <div #slideMessage class="slide-message">Press 'Esc' to exit full screen mode</div>
   <div *ngFor="let slide of slides"  [hidden]="!slide.show" >
       <img src="{{ orderType === 'test' ? slide.file : 'file:///' + slidePath + slide.file }}" draggable="false">
   </div>
