@@ -39,6 +39,7 @@
   "dependencies": {
     "@angular/animations": "^6.0.7",
     "angular-moment": "^1.2.0",
+    "chokidar": "^2.0.4",
     "electron-store": "^2.0.0",
     "fs-jetpack": "^1.3.0",
     "image-downloader": "^3.4.1",

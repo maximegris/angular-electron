@@ -61,6 +61,7 @@ export class OrdersComponent implements OnInit {
     console.log('b', b);
 
     console.log('new slide order', this.slides);
+    ///
   }
 
   @HostListener('window:keyup', ['$event'])
