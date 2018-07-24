@@ -13,7 +13,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class ApiService {
   filePaths: any;
-  local: boolean = true;
+  local: boolean = false;
   domain: string;
   apiURL: string;
   loggedIn: boolean;
