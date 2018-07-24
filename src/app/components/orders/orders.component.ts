@@ -30,6 +30,7 @@ export class OrdersComponent implements OnInit {
   //   console.log(order);
   //   const oldPosition = order.position;
   //   const newPosition = parseInt(event.target.value);
+  //   console.log('new', newPosition);
   //   const tempOrders = [...this.orders];
   //   const a = tempOrders.findIndex( el => el.position == oldPosition);
   //   const b = tempOrders.findIndex( el => el.position == newPosition);
@@ -42,26 +43,46 @@ export class OrdersComponent implements OnInit {
   //   console.log('b', b);
 
   //   console.log('new slide order', this.slides);
+  //   ///
   // }
 
   onChange(event, order) {
-    console.log(order);
-    const oldPosition = order.position;
-    const newPosition = parseInt(event.target.value);
-    console.log('new', newPosition);
-    const tempOrders = [...this.orders];
-    const a = tempOrders.findIndex( el => el.position == oldPosition);
-    const b = tempOrders.findIndex( el => el.position == newPosition);
+    const pos = parseInt(event.target.value) - 1;
 
-    this.orders[a].position = newPosition;
-    this.orders[b].position = oldPosition;
+    const arr = [...this.orders];
 
+    let fresh = [];
+    for (let i = 0; i < arr.length; i++) {
+      if(arr[i].id !== order.id) {
+        fresh.push(arr[i]);
+      }
+    }
+    
+    let final = [];
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+      if(pos === i) {
+        count++;
+        order.position = i + 1;
+        final.push(order);
+        if(fresh[i] !== undefined) {
+            fresh[i].position = count + 1;
+            final.push(fresh[i]);
+        }
+          
+      } else {
+        if(fresh[i] !== undefined) {
+          fresh[i].position = count + 1;
+          final.push(fresh[i]);
+        }
+      }
+      count++;
+    }
+  
+    this.orders = final;
     this.slides = this.orders;
-    console.log('a', a);
-    console.log('b', b);
 
-    console.log('new slide order', this.slides);
-    ///
+    console.log("ReOrdered", final);
   }
 
   @HostListener('window:keyup', ['$event'])
