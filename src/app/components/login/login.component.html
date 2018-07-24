@@ -17,6 +17,8 @@
       <h6 class="white">Login</h6>
 
       <p [hidden]="!showError" class="white">{{ this.errorMessage }}</p>
+      
+      <p [hidden]="!showError" class="white"><a href="{{ this.updateUrl }}" target="_blank">Backdrop Projections Desktop App</a></p>
 
       <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="form">
         <input

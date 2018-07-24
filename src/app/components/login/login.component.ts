@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   showLoader: boolean = false;
   showError: boolean = false;
   errorMessage: any;
+  updateUrl: any;
   @ViewChild('userForm') form: any;
 
 
@@ -65,6 +66,7 @@ export class LoginComponent implements OnInit {
           console.log('handle error', error);
           this.showError = true;
           this.errorMessage = error.error.message;
+          this.updateUrl = error.error.url !== undefined ? error.error.url : '';
         });
 
       },
