@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     console.log("Log Process Obj", process.platform);
     let store = new this.electronService.store();
-    const latest = store.get('latest_version');
-    if(!latest) {
-      this.showError = true;
-      this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${store.get('latest_version_url')}">here</a> for our latest version`;
-    }
+    // const latest = store.get('latest_version');
+    // if(!latest) {
+    //   this.showError = true;
+    //   this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${store.get('latest_version_url')}">here</a> for our latest version`;
+    // }
     // console.log(store);
     // console.log(this.errorBox);
    }
@@ -72,14 +72,15 @@ export class LoginComponent implements OnInit {
         (error) => {
           this.showLoader = false;
           console.log('handle error', error);
-          this.showError = true;
+
           if(error.status === 426) {
-            this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
+            // this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
             store.set('user.loggedIn', true);
             store.set('latest_version', false);
             store.set('latest_version_url', error.error.url);
             this.router.navigate(['home']);
           } else {
+            this.showError = true;
             this.errorMessage = error.error.message;
           }
         });
@@ -121,14 +122,15 @@ export class LoginComponent implements OnInit {
       (error) => {
         this.showLoader = false;
         console.log('handle error', error);
-        this.showError = true;
+
         if(error.status === 426) {
-            this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
+            // this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
             store.set('user.loggedIn', true);
             store.set('latest_version', false);
             store.set('latest_version_url', error.error.url);
             this.router.navigate(['home']);
           } else {
+            this.showError = true;
             this.errorMessage = error.error.message;
           }
       });
