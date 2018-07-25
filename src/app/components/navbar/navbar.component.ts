@@ -14,7 +14,11 @@ export class NavbarComponent implements OnInit {
   moment: any = this.electron.moment;
   orders: any;
   client: string;
+  showError: boolean = false;
+  errorMessage: any;
   @ViewChild('testTab') testTab  : any;
+  @ViewChild('errorBox') errorBox: any;
+  @ViewChild('header') header: any;
 
   @Output() newOrders: EventEmitter<any> = new EventEmitter();
 
@@ -25,6 +29,11 @@ export class NavbarComponent implements OnInit {
     // this.testTab.nativeElement.dispatchEvent(new Event('click'));
 
     // console.log('test-tab', this.testTab.nativeElement)
+    let store = new this.electron.store();
+    const latestVersion = store.get('latest_version');
+    if(!latestVersion) {
+      this.showUpdateMsg();
+    }
 
     this.client = this.apiService.getClient().name;
   }
@@ -50,12 +59,51 @@ export class NavbarComponent implements OnInit {
     document.querySelector('app-modal').removeAttribute('hidden');
   }
 
+  // reload() {
+  //   this.apiService.reAuth();
+  //   setTimeout(function(){
+  //     location.reload();
+  //   }, 3000);
+  // }
+
   reload() {
-    this.apiService.reAuth();
-    setTimeout(function(){
-      location.reload();
-    }, 3000);
-    // location.reload();
+    let store = new this.electron.store();
+    store.get('method');
+    const method = store.get('method');
+    if(method !== undefined) {
+      this.apiService.getOrders(method).subscribe(
+        (orders: any) => {
+          this.apiService.storeOrders(orders);
+          store.set('latest_version', true);
+          setTimeout(function(){
+            location.reload();
+          }, 3000);
+      },
+      (error) => {
+        console.log('handle error', error);
+        this.showError = true;
+        this.header.nativeElement.style.paddingTop = '65px';
+        if(error.status === 426) {
+          this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
+          store.set('user.loggedIn', true);
+          store.set('latest_version', false);
+          store.set('latest_version_url', error.error.url);
+          // this.router.navigate(['home']);
+        } else {
+          this.errorMessage = error.error.message;
+        }
+      });
+    } else {
+      console.log('no auth method found')
+    }
+  }
+
+  showUpdateMsg() {
+    this.showError = true;
+    this.header.nativeElement.style.paddingTop = '65px';
+    let store = new this.electron.store();
+    const url = store.get('latest_version_url');
+    this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${url}">here</a> for our latest version`;
   }
 
 

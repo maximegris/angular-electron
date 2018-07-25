@@ -1,6 +1,6 @@
 <div class="login">
   <section class="main">
-      <!-- <div class="notification">This app is out of date</div> -->
+      <div #errorBox [hidden]="!showError" class="notification-alt">{{ this.errorMessage }}</div>
     <div class="inner">
       <div class="full centered">
         <img src="./assets/img/logo-white@2x.png" alt="" class="logo" height="100px">
@@ -16,9 +16,10 @@
       <h6 class="white with-lines">or</h6>
       <h6 class="white">Login</h6>
 
-      <p [hidden]="!showError" class="white">{{ this.errorMessage }}</p>
-      
-      <p [hidden]="!showError" class="white"><a href="{{ this.updateUrl }}" target="_blank">Backdrop Projections Desktop App</a></p>
+
+      <!-- <p [hidden]="!showError" class="white">{{ this.errorMessage }}</p> -->
+
+      <!-- <p [hidden]="!showError" class="white"><a href="{{ this.updateUrl }}" target="_blank">Backdrop Projections Desktop App</a></p> -->
 
       <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="form">
         <input

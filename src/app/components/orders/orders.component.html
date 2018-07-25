@@ -12,6 +12,7 @@
   <app-navbar (newOrders)="onNewOrders($event)" ></app-navbar>
 
   <section class="main" [ngClass]="orderType + '-order-type'">
+
     <div class="inner">
         <p *ngIf="orders.length < 1" >No images to display</p>
         <div class="item quarter" *ngFor="let order of orders">

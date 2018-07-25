@@ -1,5 +1,6 @@
-<header>
+<header #header>
   <div class="inner-large">
+        <div #errorBox [hidden]="!showError" class="notification-alt">{{ this.errorMessage }}</div>
       <div class="half">
           <img src="./assets/img/logo@2x.png" alt="" class="logo" height="70px">
       </div>

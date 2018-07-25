@@ -4,4 +4,20 @@ input.is-invalid {
 .invalid-feedback {
   visibility: hidden;
 }
+.notification-alt {
+  width: 96%;
+  height: auto;
+  padding: 10px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -48%;
+  z-index: 1;
+  border: 1px solid red;
+  text-align: center;
+  border-radius: 6px;
+  background: #E52A6F;
+  color: white;
+  font-weight: bold;
+}
 

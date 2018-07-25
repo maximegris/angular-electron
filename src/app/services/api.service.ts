@@ -112,9 +112,9 @@ export class ApiService {
       store.set('order_data.last_download', new Date().toISOString());
       await store.set('order_data.orders', orders.success);
 
-      this.cacheThumbs();
-      this.cacheWatermarked();
-      this.cacheFullImgs();
+      await this.cacheThumbs();
+      await this.cacheWatermarked();
+      await this.cacheFullImgs();
   }
 
   loadCachedOrders() {
@@ -208,15 +208,18 @@ export class ApiService {
     }
   }
 
-  reAuth() {
-    let store = new this.electronService.store();
-    const method = store.get('method');
-    if(method !== undefined) {
-      this.cacheOrders(method);
-    } else {
-      console.log('no auth method found')
-    }
-  }
+  // reAuth() {
+  //   let store = new this.electronService.store();
+  //   store.get('method');
+  //   const method = store.get('method');
+  //   if(method !== undefined) {
+  //     this.cacheOrders(method);
+  //   } else {
+  //     console.log('no auth method found')
+  //   }
+  // }
+
+
 
 
   // getStuff() {

@@ -23,14 +23,21 @@ export class LoginComponent implements OnInit {
   errorMessage: any;
   updateUrl: any;
   @ViewChild('userForm') form: any;
+  @ViewChild('errorBox') errorBox: any;
 
 
-  constructor(private apiService: ApiService,  private electronService: ElectronService) { }
+  constructor(private apiService: ApiService,  private electronService: ElectronService, private router: Router) { }
 
   ngOnInit() {
     console.log("Log Process Obj", process.platform);
     let store = new this.electronService.store();
-    console.log(store);
+    const latest = store.get('latest_version');
+    if(!latest) {
+      this.showError = true;
+      this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${store.get('latest_version_url')}">here</a> for our latest version`;
+    }
+    // console.log(store);
+    // console.log(this.errorBox);
    }
 
   // login(e) {
@@ -48,7 +55,7 @@ export class LoginComponent implements OnInit {
       this.showLoader = true;
       this.apiService.login({email: value.email, password: value.password}).subscribe(
         (res: any) => {
-        store.clear();
+        // store.clear();
         store.set('platfrom', process.platform);
         store.set('version', this.electronService.version);
         store.set('method', 'user');
@@ -59,14 +66,22 @@ export class LoginComponent implements OnInit {
         this.apiService.getOrders('user').subscribe(
           (orders: any) => {
             store.set('user.loggedIn', true);
+            store.set('latest_version', true);
             this.apiService.storeOrders(orders);
         },
         (error) => {
           this.showLoader = false;
           console.log('handle error', error);
           this.showError = true;
-          this.errorMessage = error.error.message;
-          this.updateUrl = error.error.url !== undefined ? error.error.url : '';
+          if(error.status === 426) {
+            this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
+            store.set('user.loggedIn', true);
+            store.set('latest_version', false);
+            store.set('latest_version_url', error.error.url);
+            this.router.navigate(['home']);
+          } else {
+            this.errorMessage = error.error.message;
+          }
         });
 
       },
@@ -88,7 +103,7 @@ export class LoginComponent implements OnInit {
     this.showLoader = true;
     this.apiService.loginKey({code: code.value}).subscribe((res: any) => {
       console.log(res);
-      store.clear();
+      // store.clear();
       store.set('platfrom', process.platform);
       store.set('version', this.electronService.version);
       store.set('method', 'key');
@@ -100,13 +115,22 @@ export class LoginComponent implements OnInit {
       this.apiService.getOrders('key').subscribe(
         (orders: any) => {
           store.set('user.loggedIn', true);
+          store.set('latest_version', true);
           this.apiService.storeOrders(orders);
       },
       (error) => {
         this.showLoader = false;
         console.log('handle error', error);
         this.showError = true;
-        this.errorMessage = error.error.message;
+        if(error.status === 426) {
+            this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
+            store.set('user.loggedIn', true);
+            store.set('latest_version', false);
+            store.set('latest_version_url', error.error.url);
+            this.router.navigate(['home']);
+          } else {
+            this.errorMessage = error.error.message;
+          }
       });
 
     },
