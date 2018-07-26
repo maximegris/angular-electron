@@ -79,7 +79,6 @@ export class ApiService {
       token: store.get('user.token'),
       platform: process.platform,
       version: this.electronService.version
-      // version: '0.0.3'
     }
 
     if(method === 'user') {
@@ -188,8 +187,6 @@ export class ApiService {
         })
 
     });
-    // this.cacheComplete = true;
-    // this.loginDone = false;
   }
 
   makeDirs() {
@@ -208,40 +205,6 @@ export class ApiService {
     }
   }
 
-  // reAuth() {
-  //   let store = new this.electronService.store();
-  //   store.get('method');
-  //   const method = store.get('method');
-  //   if(method !== undefined) {
-  //     this.cacheOrders(method);
-  //   } else {
-  //     console.log('no auth method found')
-  //   }
-  // }
-
-
-
-
-  // getStuff() {
-  //   let store = new this.electronService.store();
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({'Authorization': 'Bearer ' + store.get('user.token'), 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'})
-  //   }
-
-
-  //   const options = {
-  //     url: 'http://backdrops.localhost/storage/images/thumbs/marguerite-daisy-beautiful-beauty_1528183491.jpg',
-  //     dest: this.electronService.remote.app.getPath('userData') + "/externalFiles/thumbs/"                  // Save to /path/to/dest/image.jpg
-  //   }
-
-  //   this.electronService.imageDownloader.image(options)
-  //     .then(({ filename, image }) => {
-  //       console.log('File saved to', filename)
-  //     })
-  //     .catch((err) => {
-  //       console.error(err)
-  //     })
-  // }
 
 
 }

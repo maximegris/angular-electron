@@ -31,9 +31,16 @@ export class NavbarComponent implements OnInit {
     // console.log('test-tab', this.testTab.nativeElement)
     let store = new this.electron.store();
     const latestVersion = store.get('latest_version');
-    if(!latestVersion) {
-      this.showUpdateMsg();
+    const actualVersion = this.electron.version;
+    console.log( 'storedLatest:', latestVersion, 'actual:', this.electron.version)
+    console.log(actualVersion < latestVersion);
+
+    if(actualVersion < latestVersion) {
+      // if(!islatestVersion) {
+        this.showUpdateMsg();
+      // }
     }
+
 
     this.client = this.apiService.getClient().name;
   }
@@ -59,13 +66,6 @@ export class NavbarComponent implements OnInit {
     document.querySelector('app-modal').removeAttribute('hidden');
   }
 
-  // reload() {
-  //   this.apiService.reAuth();
-  //   setTimeout(function(){
-  //     location.reload();
-  //   }, 3000);
-  // }
-
   reload() {
     let store = new this.electron.store();
     store.get('method');
@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit {
       this.apiService.getOrders(method).subscribe(
         (orders: any) => {
           this.apiService.storeOrders(orders);
-          store.set('latest_version', true);
+          // store.set('latest_version', true);
           setTimeout(function(){
             location.reload();
           }, 3000);
@@ -86,7 +86,7 @@ export class NavbarComponent implements OnInit {
         if(error.status === 426) {
           this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
           store.set('user.loggedIn', true);
-          store.set('latest_version', false);
+          store.set('latest_version', error.error.version);
           store.set('latest_version_url', error.error.url);
           // this.router.navigate(['home']);
         } else {

@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         this.apiService.getOrders('user').subscribe(
           (orders: any) => {
             store.set('user.loggedIn', true);
-            store.set('latest_version', true);
+            // store.set('latest_version', true);
             this.apiService.storeOrders(orders);
         },
         (error) => {
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
           if(error.status === 426) {
             // this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
             store.set('user.loggedIn', true);
-            store.set('latest_version', false);
+            store.set('latest_version', error.error.version);
             store.set('latest_version_url', error.error.url);
             this.router.navigate(['home']);
           } else {
@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
       this.apiService.getOrders('key').subscribe(
         (orders: any) => {
           store.set('user.loggedIn', true);
-          store.set('latest_version', true);
+          // store.set('latest_version', true);
           this.apiService.storeOrders(orders);
       },
       (error) => {
@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
         if(error.status === 426) {
             // this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
             store.set('user.loggedIn', true);
-            store.set('latest_version', false);
+            store.set('latest_version', error.error.version);
             store.set('latest_version_url', error.error.url);
             this.router.navigate(['home']);
           } else {
