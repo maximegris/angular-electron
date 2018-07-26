@@ -36,8 +36,7 @@
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run postinstall:web && ng e2e"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "0.6.3",
     "@angular/cli": "6.0.5",
@@ -63,7 +62,7 @@
     "electron-reload": "1.2.2",
     "jasmine-core": "3.1.0",
     "jasmine-spec-reporter": "4.2.1",
-    "karma": "2.0.2",
+    "karma": "^2.0.5",
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage-istanbul-reporter": "2.0.0",
     "karma-jasmine": "1.1.2",
