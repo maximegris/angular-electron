@@ -1,7 +1,7 @@
 {
   "productName": "angular-electron",
   "directories": {
-    "output": "app-builds"
+    "output": "release/"
   },
     "files": [
         "**/*",

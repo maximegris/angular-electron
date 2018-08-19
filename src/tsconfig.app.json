@@ -10,7 +10,7 @@
     "src/test.ts",
     "**/*.spec.ts",
     "dist",
-    "app-builds",
+    "release",
     "node_modules"
   ]
 }
