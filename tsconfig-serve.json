@@ -17,9 +17,7 @@
     ]
   },
   "include": [
-    "main.ts",
-    "src/**/*",
-    "e2e/**/*"
+    "main.ts"
   ],
   "exclude": [
     "node_modules",

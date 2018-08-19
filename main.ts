@@ -2,7 +2,8 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-import {interval} from 'rxjs';
+import { of } from 'rxjs';
+import { timeout } from 'rxjs/operators';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -23,7 +24,8 @@ function createWindow() {
 
   if (serve) {
     require('electron-reload')(__dirname, {
-     electron: require(`${__dirname}/node_modules/electron`)});
+      electron: require(`${__dirname}/node_modules/electron`)
+    });
     win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(url.format({
@@ -43,7 +45,8 @@ function createWindow() {
     win = null;
   });
 
-  interval(1000).subscribe(val => console.log(`ES5 works fine : @${val}s`));
+  of(2000).pipe(timeout(1000))
+    .subscribe(val => console.log(`ES5 works fine : @${val}`));
 }
 
 try {
