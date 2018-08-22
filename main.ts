@@ -2,9 +2,6 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-import { of } from 'rxjs';
-import { timeout } from 'rxjs/operators';
-
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
@@ -45,8 +42,6 @@ function createWindow() {
     win = null;
   });
 
-  of(2000).pipe(timeout(1000))
-    .subscribe(val => console.log(`ES5 works fine : @${val}`));
 }
 
 try {
