@@ -75,7 +75,7 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 ## You want to use a specific lib (like rxjs) in electron main thread ?
 
-You can to this! Just by importing your library in npm dependencies (not devDependencies) with `npm install --save`. It will be loaded by electron during build phase and added to the final package. Then use your librairy by importing it in `main.ts` file. Easy no ?
+You can to this! Just by importing your library in npm dependencies (not devDependencies) with `npm install --save`. It will be loaded by electron during build phase and added to the final package. Then use your library by importing it in `main.ts` file. Easy no ?
 
 ## Browser mode
 
