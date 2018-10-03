@@ -36,8 +36,7 @@
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run postinstall:web && ng e2e"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "0.6.3",
     "@angular/cli": "6.1.2",
@@ -58,7 +57,7 @@
     "@types/node": "8.9.4",
     "codelyzer": "4.2.1",
     "core-js": "2.5.6",
-    "electron": "2.0.7",
+    "electron": "^3.0.2",
     "electron-builder": "20.28.1",
     "electron-reload": "1.2.2",
     "jasmine-core": "3.1.0",
