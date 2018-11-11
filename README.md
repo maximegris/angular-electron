@@ -86,7 +86,8 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 
 - Angular 4 & Electron 1 : Branch [angular4](https://github.com/maximegris/angular-electron/tree/angular4)
 - Angular 5 & Electron 1 : Branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5)
-- Angular 6 & Electron 2 : (master)
+- Angular 6 & Electron 3 : Branch [angular5](https://github.com/maximegris/angular-electron/tree/angular6)
+- Angular 7 & Electron 3 : (master)
 
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
 [build]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
