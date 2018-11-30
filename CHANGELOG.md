@@ -1,6 +1,17 @@
+## 5.1.0 (2018-11-30)
+
+* fix/ typo Angular 7 ([fde371f](https://github.com/maximegris/angular-electron/commit/fde371f))
+* fix/ typo README ([723233c](https://github.com/maximegris/angular-electron/commit/723233c))
+* fix/ typo script npm electron:windows ([45bab44](https://github.com/maximegris/angular-electron/commit/45bab44))
+* ref/ remve npx - fix vulnerabilities ([41aeb57](https://github.com/maximegris/angular-electron/commit/41aeb57))
+* update README ([f146d5d](https://github.com/maximegris/angular-electron/commit/f146d5d))
+
+
+
 ## 5.0.0 (2018-11-11)
 
 * Fix typos in README file ([0440ee9](https://github.com/maximegris/angular-electron/commit/0440ee9))
+* ref/ Generate changelog ([a89b3ce](https://github.com/maximegris/angular-electron/commit/a89b3ce))
 * ref/ Upgrade to Angular 7 ([315a79b](https://github.com/maximegris/angular-electron/commit/315a79b))
 * Update electron-builder.json files rule ([82c7bcf](https://github.com/maximegris/angular-electron/commit/82c7bcf))
 * Update Version Electron 2 to 3 #hacktoberfest ([f083328](https://github.com/maximegris/angular-electron/commit/f083328))
