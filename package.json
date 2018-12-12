@@ -32,7 +32,7 @@
     "electron:local": "npm run build:prod && electron .",
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
-    "electron:mac": "npm run build:prod && npx electron-builder build --mac",
+    "electron:mac": "npm run build:prod && npx electron-builder build --mac && CSC_link=/Users/david/Sites/backdrop-projections-app-electron/Certificates.p12 && CSC_KEY_PASSWORD=gogekian",
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run postinstall:web && ng e2e"
   },
