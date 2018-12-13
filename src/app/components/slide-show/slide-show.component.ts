@@ -44,7 +44,7 @@ export class SlideShowComponent implements OnInit {
       setTimeout(()=> {
         this.slideMessage.nativeElement.hidden = true;
       }, 3000);
-
+      document.body.style.backgroundColor = "black";
 
 
       console.log();
@@ -88,6 +88,7 @@ export class SlideShowComponent implements OnInit {
     }
     if (event.key === 'Escape') {
       this.active = 0;
+      document.body.style.backgroundColor = "white";
     }
     if(event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105 ) {
       console.log('numpad');
