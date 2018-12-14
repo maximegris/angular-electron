@@ -37,7 +37,7 @@ export class ApiService {
       this.domain = 'http://backdrops.localhost';
     } else {
       // this.domain = 'http://backdrop-projections.ninja-staging.co.za';
-      this.domain = 'http://backdropslive.forge.ninja-staging.co.za';
+      this.domain = 'https://backdropslive.forge.ninja-staging.co.za';
     }
     this.apiURL = this.domain + '/api/';
   }

@@ -32,15 +32,15 @@ export class OrdersService {
           [
             {
               file: './assets/samples/1.jpg',
-              name: 'Toucan'
+              name: 'Mystic Forest 3'
             },
             {
               file: './assets/samples/2.jpg',
-              name: 'Ocean'
+              name: 'Paris Opera House 1'
             },
             {
               file: './assets/samples/3.jpg',
-              name: 'Village'
+              name: 'NY Skyline 1'
             }
           ];
       break;
