@@ -40,6 +40,8 @@
   "dependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.10.0",
+    "@angular/animations": "^7.1.4",
+    "@angular/cdk": "^7.2.0",
     "@angular/cli": "7.0.6",
     "@angular/common": "7.1.1",
     "@angular/compiler": "7.1.1",
@@ -48,6 +50,7 @@
     "@angular/forms": "7.1.1",
     "@angular/http": "7.1.1",
     "@angular/language-service": "7.1.1",
+    "@angular/material": "^7.2.0",
     "@angular/platform-browser": "7.1.1",
     "@angular/platform-browser-dynamic": "7.1.1",
     "@angular/router": "7.1.1",
@@ -77,6 +80,7 @@
     "typescript": "3.1.6",
     "wait-on": "3.2.0",
     "webdriver-manager": "12.1.0",
+    "wijmo": "^5.20183.550",
     "zone.js": "0.8.26"
   }
 }
