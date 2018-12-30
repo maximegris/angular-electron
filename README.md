@@ -1,4 +1,4 @@
-[![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/)
+[![Angular Logo](https://www.vectorlogo.zone/logos/angular/angular-icon.svg)](https://angular.io/) [![Electron Logo](https://www.vectorlogo.zone/logos/electronjs/electronjs-icon.svg)](https://electronjs.org/)
 
 [![Travis Build Status][build-badge]][build]
 [![Dependencies Status][dependencyci-badge]][dependencyci]
@@ -15,8 +15,8 @@ Bootstrap and package your project with Angular 7 and Electron (Typescript + SAS
 
 Currently runs with:
 
-- Angular v7.0.3
-- Electron v3.0.2
+- Angular v7.1.4
+- Electron v4.0.0
 - Electron Builder v20.28.1
 
 With this sample, you can :
@@ -42,7 +42,7 @@ npm install
 There is an issue with `yarn` and `node_modules` that are only used in electron on the backend when the application is built by the packager. Please use `npm` as dependencies manager.
 
 
-If you want to generate Angular components with Angular-cli , you **MUST** install `@angular/cli` in npm global context.  
+If you want to generate Angular components with Angular-cli , you **MUST** install `@angular/cli` in npm global context.
 Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed a previous version of `angular-cli`.
 
 ``` bash
@@ -51,12 +51,12 @@ npm install -g @angular/cli
 
 ## To build for development
 
-- **in a terminal window** -> npm start  
+- **in a terminal window** -> npm start
 
 Voila! You can use your Angular + Electron app in a local development environment with hot reload !
 
-The application code is managed by `main.ts`. In this sample, the app runs with a simple Angular App (http://localhost:4200) and an Electron window.  
-The Angular component contains an example of Electron and NodeJS native lib import.  
+The application code is managed by `main.ts`. In this sample, the app runs with a simple Angular App (http://localhost:4200) and an Electron window.
+The Angular component contains an example of Electron and NodeJS native lib import.
 You can disable "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.ts`.
 
 ## Included Commands
@@ -79,7 +79,7 @@ You can do this! Just by importing your library in npm dependencies (not devDepe
 
 ## Browser mode
 
-Maybe you want to execute the application in the browser with hot reload ? You can do it with `npm run ng:serve:web`.  
+Maybe you want to execute the application in the browser with hot reload ? You can do it with `npm run ng:serve:web`.
 Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
 
 ## Branch & Packages version
