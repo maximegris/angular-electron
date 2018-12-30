@@ -5,7 +5,10 @@
 /tmp
 /out-tsc
 /app-builds
+/release
 main.js
+src/**/*.js
+*.js.map
 
 # dependencies
 /node_modules
@@ -38,6 +41,7 @@ package-lock.json
 
 # e2e
 /e2e/*.js
+!/e2e/protractor.conf.js
 /e2e/*.map
 
 # System Files

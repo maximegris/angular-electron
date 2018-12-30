@@ -11,14 +11,13 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 5(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 7 and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v5.2.5
-- Angular-CLI v1.6.4
-- Electron v1.8.2
-- Electron Builder v20.0.4
+- Angular v7.0.3
+- Electron v3.0.2
+- Electron Builder v20.28.1
 
 With this sample, you can :
 
@@ -58,19 +57,13 @@ Voila! You can use your Angular + Electron app in a local development environmen
 
 The application code is managed by `main.ts`. In this sample, the app runs with a simple Angular App (http://localhost:4200) and an Electron window.  
 The Angular component contains an example of Electron and NodeJS native lib import.  
-You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.ts`.
-
-## Manage your environment variables
-
-- Using local variables :  `npm start` or `cross-env ENV=local npm start`
-- Using development variables :  `cross-env ENV=dev npm start`
-- Using production variables  :  `cross-env ENV=prod npm start`
+You can disable "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.ts`.
 
 ## Included Commands
 
 |Command|Description|
 |--|--|
-|`npm run ng:serve`| Execute the app in the browser |
+|`npm run ng:serve:web`| Execute the app in the browser |
 |`npm run build`| Build the app. Your built files are in the /dist folder. |
 |`npm run build:prod`| Build the app with Angular aot. Your built files are in the /dist folder. |
 |`npm run electron:local`| Builds your application and start electron
@@ -80,16 +73,21 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 **Your application is optimised. Only /dist folder and node dependencies are included in the executable.**
 
+## You want to use a specific lib (like rxjs) in electron main thread ?
+
+You can do this! Just by importing your library in npm dependencies (not devDependencies) with `npm install --save`. It will be loaded by electron during build phase and added to the final package. Then use your library by importing it in `main.ts` file. Easy no ?
+
 ## Browser mode
 
-Maybe you want to execute the application in the browser (WITHOUT HOT RELOAD ACTUALLY...) ? You can do it with `npm run ng:serve`.  
+Maybe you want to execute the application in the browser with hot reload ? You can do it with `npm run ng:serve:web`.  
 Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
 
-## Contributors
+## Branch & Packages version
 
-[<img alt="Maxime GRIS" src="https://avatars2.githubusercontent.com/u/10827551?v=3&s=117" width="117">](https://github.com/maximegris) |
-:---:
-|[Maxime GRIS](https://github.com/maximegris)|
+- Angular 4 & Electron 1 : Branch [angular4](https://github.com/maximegris/angular-electron/tree/angular4)
+- Angular 5 & Electron 1 : Branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5)
+- Angular 6 & Electron 3 : Branch [angular6](https://github.com/maximegris/angular-electron/tree/angular6)
+- Angular 7 & Electron 3 : (master)
 
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
 [build]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
