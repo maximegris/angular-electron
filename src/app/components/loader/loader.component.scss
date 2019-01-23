@@ -1,3 +1,9 @@
 .loader-overlay {
   display: block;
+  .progress {
+    position: absolute;
+    top: 62%;
+    left: 47%;
+    color: white;
+  }
 }

@@ -28,8 +28,10 @@ export class SlideShowComponent implements OnInit {
   @Input() slideOrders: any;
   @Input() fullScreen: any;
 
-  constructor(private apiService : ApiService, private electron: ElectronService) {
+  constructor(private apiService: ApiService, private electron: ElectronService) {
     console.log('slide active', this.newActive)
+    console.log('slides', this.slides)
+
   }
 
 
@@ -37,17 +39,17 @@ export class SlideShowComponent implements OnInit {
 
   clickEvent(event: any) {
     console.log('slide click', event);
-    if(event.target.className == 'update-slides-state') {
+    if (event.target.className == 'update-slides-state') {
 
       this.slideMessage.nativeElement.hidden = false;
 
-      setTimeout(()=> {
+      setTimeout(() => {
         this.slideMessage.nativeElement.hidden = true;
       }, 3000);
 
       console.log();
 
-      if(this.orderType === 'active') {
+      if (this.orderType === 'active') {
         this.slidePath = this.filePaths.full;
         document.body.style.backgroundColor = "black";
       } else {
@@ -66,7 +68,7 @@ export class SlideShowComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     // console.log(event);
-    if(event.keyCode === 71) {
+    if (event.keyCode === 71) {
       console.log('newActive', this.newActive);
       console.log('orderType', this.orderType);
       // this.slides = this.activeRentals(2);
@@ -74,14 +76,14 @@ export class SlideShowComponent implements OnInit {
       console.log(this.slides);
     }
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
-      if(this.active < this.slides.length - 1) {
-        this.slides.forEach( slide => slide.show = false);
+      if (this.active < this.slides.length - 1) {
+        this.slides.forEach(slide => slide.show = false);
         this.slides[this.active += 1].show = true;
       }
     }
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-      if(this.active > 0) {
-        this.slides.forEach( slide => slide.show = false);
+      if (this.active > 0) {
+        this.slides.forEach(slide => slide.show = false);
         this.slides[this.active -= 1].show = true;
       }
     }
@@ -89,11 +91,11 @@ export class SlideShowComponent implements OnInit {
       this.active = 0;
       document.body.style.backgroundColor = "white";
     }
-    if(event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105 ) {
+    if (event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105) {
       console.log('numpad');
-      this.slides.forEach( slide => slide.show = false);
+      this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[parseInt(event.key) - 1];
-      if(selectSlide !== undefined) {
+      if (selectSlide !== undefined) {
         selectSlide.show = true;
       }
     }
@@ -105,7 +107,7 @@ export class SlideShowComponent implements OnInit {
   activeRentals(active) {
     const slides = this.slideOrders.sort((a, b) => a.position - b.position);
 
-    for(let i = 0; i < slides.length; i++) {
+    for (let i = 0; i < slides.length; i++) {
       slides[i].show = false;
     }
 
@@ -115,6 +117,7 @@ export class SlideShowComponent implements OnInit {
     return slides;
 
   }
+
 
 
 

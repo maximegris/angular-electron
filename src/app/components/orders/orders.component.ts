@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, EventEmitter, Output, ViewChild  } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { OrdersService } from "../../services/orders.service";
 import { Order } from "../../models/Order";
@@ -12,7 +12,7 @@ import { ElectronService } from "../../providers/electron.service";
 })
 export class OrdersComponent implements OnInit {
   filePaths: any = this.apiService.filePaths;
-  orders:  Order[];
+  orders: Order[];
   orderType: string = 'active';
   moment: any = this.electron.moment;
   hideOrders: boolean = false;
@@ -26,100 +26,46 @@ export class OrdersComponent implements OnInit {
 
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) { }
 
-  // onChange(event, order) {
-  //   console.log(order);
-  //   const oldPosition = order.position;
-  //   const newPosition = parseInt(event.target.value);
-  //   console.log('new', newPosition);
-  //   const tempOrders = [...this.orders];
-  //   const a = tempOrders.findIndex( el => el.position == oldPosition);
-  //   const b = tempOrders.findIndex( el => el.position == newPosition);
 
-  //   this.orders[a].position = newPosition;
-  //   this.orders[b].position = oldPosition;
-
-  //   this.slides = this.orders;
-  //   console.log('a', a);
-  //   console.log('b', b);
-
-  //   console.log('new slide order', this.slides);
-  //   ///
-  // }
-
-  onChange(event, order) {
-    const pos = parseInt(event.target.value) - 1;
-
-    const arr = [...this.orders];
-
-    let fresh = [];
-    for (let i = 0; i < arr.length; i++) {
-      if(arr[i].id !== order.id) {
-        fresh.push(arr[i]);
-      }
-    }
-    
-    let final = [];
-    let count = 0;
-    for (let i = 0; i < arr.length; i++) {
-      if(pos === i) {
-        count++;
-        order.position = i + 1;
-        final.push(order);
-        if(fresh[i] !== undefined) {
-            fresh[i].position = count + 1;
-            final.push(fresh[i]);
-        }
-          
-      } else {
-        if(fresh[i] !== undefined) {
-          fresh[i].position = count + 1;
-          final.push(fresh[i]);
-        }
-      }
-      count++;
-    }
-  
-    this.orders = final;
-    this.slides = this.orders;
-
-    console.log("ReOrdered", final);
-  }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       this.hideOrders = false;
       this.showSlideShow = false;
+      document.body.classList.remove('overflow');
     }
   }
 
   ngOnInit() {
-      this.orders = this.ordersService.getOrders();
+    this.orders = this.ordersService.getOrders();
+    this.slides = this.orders;
+    console.log('this.orders', this.orders)
+
+    this.ordersLength = [];
+    for (let i = 1; i <= this.orders.length; i++) {
+      this.ordersLength.push(i);
+    }
+
+    if (this.orders.length < 1) {
+      this.orderType = 'test';
+      this.orders = this.ordersService.getOrders('test');
       this.slides = this.orders;
-
-      this.ordersLength = [];
-      for(let i = 1; i <= this.orders.length; i++) {
-        this.ordersLength.push(i);
-      }
-
-      if(this.orders.length < 1) {
-        this.orderType = 'test';
-        this.orders = this.ordersService.getOrders('test');
-        this.slides = this.orders;
-        Array.from(document.querySelectorAll('.tab-item')).forEach( e => e.classList.remove('is-active'));
-        document.querySelectorAll('.tab-item')[3].classList.add('is-active');
-      }
+      Array.from(document.querySelectorAll('.tab-item')).forEach(e => e.classList.remove('is-active'));
+      document.querySelectorAll('.tab-item')[3].classList.add('is-active');
+    }
   }
   fullSreen(event, order) {
 
     this.selectedOrder = order;
 
-    if(this.orderType === 'expired') {
+    if (this.orderType === 'expired') {
       return null;
     }
 
     this.hideOrders = true;
     this.showSlideShow = true;
+    document.body.classList.add('overflow');
     document.documentElement.webkitRequestFullScreen();
   }
 
@@ -141,6 +87,45 @@ export class OrdersComponent implements OnInit {
 
   displayModal(param) {
     this.showModal = param;
+  }
+
+  onChange(event, order) {
+    const pos = parseInt(event.target.value) - 1;
+
+    const arr = [...this.orders];
+
+    let fresh = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].id !== order.id) {
+        fresh.push(arr[i]);
+      }
+    }
+
+    let final = [];
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+      if (pos === i) {
+        count++;
+        order.position = i + 1;
+        final.push(order);
+        if (fresh[i] !== undefined) {
+          fresh[i].position = count + 1;
+          final.push(fresh[i]);
+        }
+
+      } else {
+        if (fresh[i] !== undefined) {
+          fresh[i].position = count + 1;
+          final.push(fresh[i]);
+        }
+      }
+      count++;
+    }
+
+    this.orders = final;
+    this.slides = this.orders;
+
+    console.log("ReOrdered", final);
   }
 
 }

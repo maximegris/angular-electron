@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service';
 
 
 @Component({
@@ -7,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent implements OnInit {
-
-  constructor() { }
+  percentage: any = '0%'
+  constructor(public api: ApiService) {
+    this.api.progressLoading.subscribe(
+      (res) => this.percentage = res
+      // (res) => console.log(res)
+    )
+  }
 
   ngOnInit() {
+
   }
 
 }

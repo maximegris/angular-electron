@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { User } from '../models/User';
 import { ElectronService } from "../providers/electron.service";
 import { Router } from '@angular/router';
 import { Order } from "../models/Order";
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Injectable({
@@ -13,12 +14,15 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class ApiService {
   filePaths: any;
-  local: boolean = false;
+  env: string = null;
   domain: string;
   apiURL: string;
   loggedIn: boolean;
   fullImgsComplete: boolean = false;
   ready: boolean = false;
+  progressLoading: Subject<any> = new Subject();
+  latest_version: any = null;
+  latest_version_url: any = null;
 
   constructor(private http: HttpClient, private electronService: ElectronService, private router: Router) {
     this.filePaths = {
@@ -29,17 +33,24 @@ export class ApiService {
     }
     let store = new this.electronService.store();
     this.loggedIn = store.get('user.loggedIn');
-    if(this.loggedIn === true) {
+    if (this.loggedIn === true) {
       this.router.navigate(['home']);
     }
 
-    if(this.local) {
+    if (this.env == 'local') {
       this.domain = 'http://backdrops.localhost';
+    } else if (this.env == 'staging') {
+      this.domain = 'https://api.backdrops.ninja-staging.co.za';
     } else {
-      // this.domain = 'http://backdrop-projections.ninja-staging.co.za';
       this.domain = 'https://backdropslive.forge.ninja-staging.co.za';
     }
     this.apiURL = this.domain + '/api/';
+  }
+
+  progress(array: Array<any>, index: number): any {
+    const total = array.length;
+    const percentage = index / total * 100;
+    return `${Math.round(percentage)}%`;
   }
 
   api(route) {
@@ -50,9 +61,8 @@ export class ApiService {
   }
 
   login(user: User) {
-    let store = new this.electronService.store();
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
     }
 
     return this.http.post(this.apiURL + 'login', user, httpOptions);
@@ -61,7 +71,7 @@ export class ApiService {
 
   loginKey(code) {
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
     }
     return this.http.post(this.apiURL + 'login-with-key', code, httpOptions);
   }
@@ -82,18 +92,19 @@ export class ApiService {
       version: this.electronService.version
     }
 
-    if(method === 'user') {
+    if (method === 'user') {
       url = this.apiURL + 'user-orders';
       httpOptions = {
-        headers: new HttpHeaders({'Authorization': 'Bearer ' + details.token, 'platform' : details.platform, 'version' : details.version, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + details.token, 'platform': details.platform, 'version': details.version, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*' })
       }
     } else {
       url = this.apiURL + 'orders-key';
       httpOptions = {
-        headers: new HttpHeaders({'Authorization': 'Bearer ' + details.token, 'platform' : details.platform, 'version' : details.version, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key') })
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + details.token, 'platform': details.platform, 'version': details.version, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key') })
       }
     }
-    return this.http.get<Order[]>(url, httpOptions);
+    return this.http.get<Order[]>(url, httpOptions)
+
   }
 
   cacheOrders(method) {
@@ -101,7 +112,7 @@ export class ApiService {
       (orders: any) => {
         // console.log(orders);
         this.storeOrders(orders);
-    });
+      });
 
 
   }
@@ -109,12 +120,12 @@ export class ApiService {
     this.makeDirs();
     let store = new this.electronService.store();
     store.delete('order_data');
-      store.set('order_data.last_download', new Date().toISOString());
-      await store.set('order_data.orders', orders.success);
+    store.set('order_data.last_download', new Date().toISOString());
+    await store.set('order_data.orders', orders.success);
 
-      await this.cacheThumbs();
-      await this.cacheWatermarked();
-      await this.cacheFullImgs();
+    await this.cacheThumbs();
+    await this.cacheWatermarked();
+    await this.cacheFullImgs();
   }
 
   loadCachedOrders() {
@@ -145,7 +156,7 @@ export class ApiService {
     const images = this.loadCachedOrders();
     images.forEach(el => {
       const options = {
-        url: this.domain + '/storage/images/watermarked/' + el.file,
+        url: `${this.domain}/storage/${el.watermark_img_path}`,
         dest: this.electronService.remote.app.getPath('userData') + "/orderCache/watermarked/"                  // Save to /path/to/dest/image.jpg
       }
 
@@ -169,7 +180,7 @@ export class ApiService {
     let count = 0;
     images.forEach((el, index) => {
       const options = {
-        url: this.domain + '/storage/images/full_images/' + el.thumb_img_path.substring(el.thumb_img_path.lastIndexOf('/') + 1),
+        url: `${this.domain}/storage/${el.img_path}`,
         dest: this.electronService.remote.app.getPath('userData') + "/orderCache/full/"                  // Save to /path/to/dest/image.jpg
       }
 
@@ -178,7 +189,8 @@ export class ApiService {
           console.log('File saved to', filename)
           console.log('image index', index)
           console.log('image count', count += 1)
-          if(count === images.length) {
+          this.progressLoading.next(this.progress(images, count))
+          if (count === images.length) {
             this.router.navigate(['home']);
           }
 
@@ -189,6 +201,8 @@ export class ApiService {
 
     });
   }
+
+
 
   makeDirs() {
     const orderImageCache = this.electronService.jetpack.dir(this.electronService.remote.app.getPath('userData') + '/' + 'orderCache');
@@ -201,8 +215,8 @@ export class ApiService {
   getClient() {
     let store = new this.electronService.store();
     const user = store.get('user.details');
-    if(user !== undefined) {
-        return user;
+    if (user !== undefined) {
+      return user;
     }
   }
 

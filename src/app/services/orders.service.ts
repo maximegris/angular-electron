@@ -20,13 +20,13 @@ export class OrdersService {
     switch (param) {
       case "active":
         filtered.orders = orders.filter(order => this.moment().isBetween(order.start_date, order.end_date));
-      break;
+        break;
       case "upcoming":
         filtered.orders = orders.filter(order => this.moment().isSameOrBefore(this.moment(order.start_date)));
-      break;
+        break;
       case "expired":
         filtered.orders = orders.filter(order => this.moment().isAfter(this.moment(order.end_date)));
-      break;
+        break;
       case "test":
         filtered.orders =
           [
@@ -43,14 +43,14 @@ export class OrdersService {
               name: 'NY Skyline 1'
             }
           ];
-      break;
+        break;
     }
     return filtered;
   }
 
   getOrders(param = 'active') {
 
-    return this.allOrders(param).orders.map( (order, index) => {
+    return this.allOrders(param).orders.map((order, index) => {
       return {
         id: order.id,
         order_id: order.order_id,
@@ -59,6 +59,7 @@ export class OrdersService {
         start_date: order.start_date,
         end_date: order.end_date,
         name: order.name,
+        type: order.type,
         thumb_img_path: order.thumb_img_path,
         file: order.file,
         sku_number: order.sku_number,
