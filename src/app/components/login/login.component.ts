@@ -15,8 +15,8 @@ import { ElectronService } from "../../providers/electron.service";
 })
 export class LoginComponent implements OnInit {
   user: User = {
-    email: 'client1@admin.com',
-    password: 'password'
+    email: '',
+    password: ''
   }
   showLoader: boolean = false;
   showError: boolean = false;
@@ -30,21 +30,7 @@ export class LoginComponent implements OnInit {
   constructor(private apiService: ApiService, private electronService: ElectronService, private router: Router) { }
 
   ngOnInit() {
-    console.log("Log Process Obj", process.platform);
-    let store = new this.electronService.store();
-    // const latest = store.get('latest_version');
-    // if(!latest) {
-    //   this.showError = true;
-    //   this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${store.get('latest_version_url')}">here</a> for our latest version`;
-    // }
-    // console.log(store);
-    // console.log(this.errorBox);
   }
-
-  // login(e) {
-  //   console.log(e);
-
-  // }
 
   onSubmit({ value, valid }: { value: User, valid: boolean }) {
     let store = new this.electronService.store();
@@ -63,11 +49,11 @@ export class LoginComponent implements OnInit {
 
           store.set('user.token', res.success.token);
           store.set('user.details', res.success.user);
-          // this.apiService.cacheOrders('user');
           this.apiService.getOrders('user').subscribe(
             (orders: any) => {
               store.set('user.loggedIn', true);
-              // store.set('latest_version', true);
+              this.apiService.latest_version = null;
+              this.apiService.latest_version_url = null;
               this.apiService.storeOrders(orders);
             },
             (error) => {
@@ -75,12 +61,9 @@ export class LoginComponent implements OnInit {
               console.log('handle error', error);
 
               if (error.status === 426) {
-                // this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
                 store.set('user.loggedIn', true);
-                // store.set('latest_version', error.error.version);
                 this.apiService.latest_version = error.error.version;
                 this.apiService.latest_version_url = error.error.url;
-                // store.set('latest_version_url', error.error.url);
                 this.router.navigate(['home']);
               } else {
                 this.showError = true;
@@ -107,7 +90,6 @@ export class LoginComponent implements OnInit {
     this.showLoader = true;
     this.apiService.loginKey({ code: code.value }).subscribe((res: any) => {
       console.log(res);
-      // store.clear();
       store.set('platfrom', process.platform);
       store.set('version', this.electronService.version);
       store.set('method', 'key');
@@ -115,11 +97,11 @@ export class LoginComponent implements OnInit {
       store.set('order_key', code.value);
       store.set('user.token', res.success.token);
       store.set('user.details', res.success.user);
-      // this.apiService.cacheOrders('key');
       this.apiService.getOrders('key').subscribe(
         (orders: any) => {
           store.set('user.loggedIn', true);
-          // store.set('latest_version', true);
+          this.apiService.latest_version = null;
+          this.apiService.latest_version_url = null;
           this.apiService.storeOrders(orders);
         },
         (error) => {
@@ -127,10 +109,9 @@ export class LoginComponent implements OnInit {
           console.log('handle error', error);
 
           if (error.status === 426) {
-            // this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
             store.set('user.loggedIn', true);
-            store.set('latest_version', error.error.version);
-            store.set('latest_version_url', error.error.url);
+            this.apiService.latest_version = error.error.version;
+            this.apiService.latest_version_url = error.error.url;
             this.router.navigate(['home']);
           } else {
             this.showError = true;
@@ -144,7 +125,6 @@ export class LoginComponent implements OnInit {
         this.showError = true;
         this.showLoader = false;
         this.errorMessage = 'Invalid login';
-
       });
   }
 

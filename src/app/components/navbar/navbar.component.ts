@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, NgZone } from '@angular/core';
 import { Order } from '../../models/Order';
 import { ApiService } from "../../services/api.service";
 import { ElectronService } from "../../providers/electron.service";
@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
 
   @Output() newOrders: EventEmitter<any> = new EventEmitter();
 
-  constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) { }
+  constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService, public zone: NgZone) { }
 
   ngOnInit() {
     const latestVersion = this.apiService.latest_version;
@@ -31,11 +31,8 @@ export class NavbarComponent implements OnInit {
     console.log(actualVersion < latestVersion);
 
     if (actualVersion < latestVersion) {
-      // if(!islatestVersion) {
       this.showUpdateMsg();
-      // }
     }
-
 
     this.client = this.apiService.getClient().name;
   }
@@ -68,21 +65,22 @@ export class NavbarComponent implements OnInit {
     if (method !== undefined) {
       this.apiService.getOrders(method).subscribe(
         (orders: any) => {
+          // this.zone.run(() => {
+          //   this.apiService.storeOrders(orders);
+          // });
+
           this.apiService.storeOrders(orders);
-          // store.set('latest_version', true);
-          setTimeout(function () {
-            location.reload();
-          }, 3000);
+
+          this.apiService.latest_version = null;
+          this.apiService.latest_version_url = null;
         },
         (error) => {
           console.log('handle error', error);
           this.showError = true;
-          this.header.nativeElement.style.paddingTop = '65px';
           if (error.status === 426) {
-            this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a href="${error.error.url}">here</a> for our latest version`;
             store.set('user.loggedIn', true);
-            store.set('latest_version', error.error.version);
-            store.set('latest_version_url', error.error.url);
+            this.apiService.latest_version = error.error.version;
+            this.apiService.latest_version_url = error.error.url;
             // this.router.navigate(['home']);
           } else {
             this.errorMessage = error.error.message;

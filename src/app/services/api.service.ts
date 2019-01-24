@@ -1,4 +1,4 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable, Output, EventEmitter, NgZone } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -24,7 +24,7 @@ export class ApiService {
   latest_version: any = null;
   latest_version_url: any = null;
 
-  constructor(private http: HttpClient, private electronService: ElectronService, private router: Router) {
+  constructor(private http: HttpClient, private electronService: ElectronService, private router: Router, public zone: NgZone) {
     this.filePaths = {
       thumbs: this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/",
       full: this.electronService.remote.app.getPath('userData') + "/orderCache/full/",

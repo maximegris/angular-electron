@@ -1,54 +1,48 @@
 <header #header>
-  <div class="inner-large">
+    <div class="inner-large">
         <div #errorBox [hidden]="!showError" class="notification-alt">{{ this.errorMessage }}</div>
-      <div class="half">
-          <img src="./assets/img/logo@2x.png" alt="" class="logo" height="70px">
-      </div>
-      <div class="half">
-          <ul class="header-buttons">
-              <li>
-                  <a (click)="reload()" class="refresh">
-                      <img src="./assets/img/refresh.png" alt="" width="32px">
-                  </a>
-              </li>
-              <!-- <li>
-                  <a href="#" class="blue">
-                      <p>View Images on Website</p>
-                  </a>
-              </li> -->
-              <li>
-                  <a class="has-icon">
-                      <!-- <p>Logout</p> -->
-                      <p>Hi, {{ client }}</p>
-                  </a>
-              </li>
-              <li>
-                <a (click)="logout()">
-                  <p>Logout</p>
-                </a>
-              </li>
-              <li>
-                  <a (click)="showModal()" class="has-icon">
-                      <p><span class="icon"><img src="./assets/img/help.png" alt=""></span>Help</p>
-                  </a>
-              </li>
-          </ul>
-      </div>
-      <div class="full tab-container">
-          <ul class="tabs">
-              <li class="quarter">
-                  <a (click)="filterOrders($event, 'active')" class="is-active tab-item">Active Rentals</a>
-              </li>
-              <li class="quarter">
-                  <a (click)="filterOrders($event, 'upcoming')" class="tab-item">Upcoming Rentals</a>
-              </li>
-              <li class="quarter">
-                  <a (click)="filterOrders($event, 'expired')" class="tab-item">Expired Rentals</a>
-              </li>
-              <li class="quarter">
-                  <a #testTab (click)="filterOrders($event, 'test')" class="tab-item">Test Images</a>
-              </li>
-          </ul>
-      </div>
-  </div>
+        <div class="half">
+            <img src="./assets/img/logo@2x.png" alt="" class="logo" height="70px">
+        </div>
+        <div class="half">
+            <ul class="header-buttons">
+                <li>
+                    <a (click)="reload()" class="refresh">
+                        <img src="./assets/img/refresh.png" alt="" width="32px">
+                    </a>
+                </li>
+                <li>
+                    <a class="has-icon">
+                        <p>Hi, {{ client }}</p>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="logout()">
+                        <p>Logout</p>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="showModal()" class="has-icon">
+                        <p><span class="icon"><img src="./assets/img/help.png" alt=""></span>Help</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="full tab-container">
+            <ul class="tabs">
+                <li class="quarter">
+                    <a (click)="filterOrders($event, 'active')" class="is-active tab-item">Active Rentals</a>
+                </li>
+                <li class="quarter">
+                    <a (click)="filterOrders($event, 'upcoming')" class="tab-item">Upcoming Rentals</a>
+                </li>
+                <li class="quarter">
+                    <a (click)="filterOrders($event, 'expired')" class="tab-item">Expired Rentals</a>
+                </li>
+                <li class="quarter">
+                    <a #testTab (click)="filterOrders($event, 'test')" class="tab-item">Test Images</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </header>

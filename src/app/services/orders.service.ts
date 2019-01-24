@@ -32,15 +32,18 @@ export class OrdersService {
           [
             {
               file: './assets/samples/1.jpg',
-              name: 'Mystic Forest 3'
+              name: 'Mystic Forest 3',
+              type: 'image'
             },
             {
               file: './assets/samples/2.jpg',
-              name: 'Paris Opera House 1'
+              name: 'Paris Opera House 1',
+              type: 'image'
             },
             {
               file: './assets/samples/3.jpg',
-              name: 'NY Skyline 1'
+              name: 'NY Skyline 1',
+              type: 'image'
             }
           ];
         break;
