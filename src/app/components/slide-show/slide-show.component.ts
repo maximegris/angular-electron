@@ -51,17 +51,13 @@ export class SlideShowComponent implements OnInit {
 
       if (this.orderType === 'active') {
         this.slidePath = this.filePaths.full;
-        document.body.style.backgroundColor = "black";
       } else {
         this.slidePath = this.filePaths.watermarked;
       }
-      document.body.style.backgroundColor = "white";
-      // this.active = this.newActive.position - 1;
+      document.body.style.backgroundColor = "black";
       this.active = this.newActive === undefined ? this.active : this.newActive.position - 1;
 
       this.slides = this.activeRentals(this.active);
-
-      // console.log('current slides', this.slides, this.active);
     }
   }
 
