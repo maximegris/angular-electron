@@ -3,6 +3,7 @@ os:
   - osx
 language: node_js
 node_js:
+  - 10
   - 8
 sudo: required
 addons:
