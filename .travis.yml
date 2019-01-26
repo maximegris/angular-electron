@@ -11,7 +11,7 @@ install:
   - npm set progress=false
   - npm install
 script:
-  - ng lint
+  - npm run lint
   - npm run test
   - npm run e2e
   - npm run build

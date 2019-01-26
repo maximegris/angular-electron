@@ -33,6 +33,7 @@
     "electron:linux": "npm run build:prod && electron-builder build --linux",
     "electron:windows": "npm run build:prod && electron-builder build --windows",
     "electron:mac": "npm run build:prod && electron-builder build --mac",
+    "lint": "ng lint",
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run postinstall:web && ng e2e",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
