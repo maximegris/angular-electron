@@ -58,38 +58,38 @@ export class NavbarComponent implements OnInit {
     document.querySelector('app-modal').removeAttribute('hidden');
   }
 
-  reload() {
-    let store = new this.electron.store();
-    store.get('method');
-    const method = store.get('method');
-    if (method !== undefined) {
-      this.apiService.getOrders(method).subscribe(
-        (orders: any) => {
-          // this.zone.run(() => {
-          //   this.apiService.storeOrders(orders);
-          // });
+  // reload() {
+  //   let store = new this.electron.store();
+  //   store.get('method');
+  //   const method = store.get('method');
+  //   if (method !== undefined) {
+  //     this.apiService.getOrders(method).subscribe(
+  //       (orders: any) => {
+  //         // this.zone.run(() => {
+  //         //   this.apiService.storeOrders(orders);
+  //         // });
 
-          this.apiService.storeOrders(orders);
+  //         this.apiService.storeOrders(orders);
 
-          this.apiService.latest_version = null;
-          this.apiService.latest_version_url = null;
-        },
-        (error) => {
-          console.log('handle error', error);
-          this.showError = true;
-          if (error.status === 426) {
-            store.set('user.loggedIn', true);
-            this.apiService.latest_version = error.error.version;
-            this.apiService.latest_version_url = error.error.url;
-            // this.router.navigate(['home']);
-          } else {
-            this.errorMessage = error.error.message;
-          }
-        });
-    } else {
-      console.log('no auth method found')
-    }
-  }
+  //         this.apiService.latest_version = null;
+  //         this.apiService.latest_version_url = null;
+  //       },
+  //       (error) => {
+  //         console.log('handle error', error);
+  //         this.showError = true;
+  //         if (error.status === 426) {
+  //           store.set('user.loggedIn', true);
+  //           this.apiService.latest_version = error.error.version;
+  //           this.apiService.latest_version_url = error.error.url;
+  //           // this.router.navigate(['home']);
+  //         } else {
+  //           this.errorMessage = error.error.message;
+  //         }
+  //       });
+  //   } else {
+  //     console.log('no auth method found')
+  //   }
+  // }
 
   showUpdateMsg() {
     this.showError = true;

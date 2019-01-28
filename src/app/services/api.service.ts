@@ -14,7 +14,7 @@ import { Order } from "../models/Order";
 })
 export class ApiService {
   filePaths: any;
-  env: string = null;
+  env: string = 'local';
   domain: string;
   apiURL: string;
   loggedIn: boolean;
@@ -60,12 +60,13 @@ export class ApiService {
     return this.domain + '/storage';
   }
 
-  login(user: User) {
+  async login(user: User) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
     }
 
-    return this.http.post(this.apiURL + 'login', user, httpOptions);
+    let response = await this.http.post<any>(this.apiURL + 'login', user, httpOptions).toPromise();
+    return response;
 
   }
 
@@ -82,7 +83,7 @@ export class ApiService {
     this.router.navigate(['']);
   }
 
-  getOrders(method) {
+  async getOrders(method) {
     let store = new this.electronService.store();
     let url;
     let httpOptions;
@@ -103,19 +104,20 @@ export class ApiService {
         headers: new HttpHeaders({ 'Authorization': 'Bearer ' + details.token, 'platform': details.platform, 'version': details.version, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key') })
       }
     }
-    return this.http.get<Order[]>(url, httpOptions)
+    const response = await this.http.get<any>(url, httpOptions).toPromise();
+    return response;
 
   }
 
-  cacheOrders(method) {
-    this.getOrders(method).subscribe(
-      (orders: any) => {
-        // console.log(orders);
-        this.storeOrders(orders);
-      });
+  // cacheOrders(method) {
+  //   this.getOrders(method).subscribe(
+  //     (orders: any) => {
+  //       // console.log(orders);
+  //       this.storeOrders(orders);
+  //     });
 
 
-  }
+  // }
   async storeOrders(orders) {
     this.makeDirs();
     let store = new this.electronService.store();
