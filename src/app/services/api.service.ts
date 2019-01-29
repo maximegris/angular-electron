@@ -68,6 +68,14 @@ export class ApiService {
     let response = await this.http.post<any>(this.apiURL + 'login', user, httpOptions).toPromise();
     return response;
 
+    // try {
+    //   let response = await this.http.post<any>(this.apiURL + 'login', user, httpOptions).toPromise();
+    //   return response;
+    // } catch (err) {
+    //   console.log(err)
+    //   throw 'Login Error';
+    // }
+
   }
 
   loginKey(code) {
@@ -104,7 +112,11 @@ export class ApiService {
         headers: new HttpHeaders({ 'Authorization': 'Bearer ' + details.token, 'platform': details.platform, 'version': details.version, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*', 'code': store.get('order_key') })
       }
     }
-    const response = await this.http.get<any>(url, httpOptions).toPromise();
+    const response = await this.http.get<any>(url, httpOptions)
+      .toPromise()
+      .catch(err => {
+
+      })
     return response;
 
   }

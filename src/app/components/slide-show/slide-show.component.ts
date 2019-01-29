@@ -38,7 +38,7 @@ export class SlideShowComponent implements OnInit {
   @HostListener('window:click', ['$event'])
 
   clickEvent(event: any) {
-    console.log('slide click', event);
+    // console.log('slide click', event);
     if (event.target.className == 'update-slides-state') {
 
       this.slideMessage.nativeElement.hidden = false;
@@ -47,7 +47,6 @@ export class SlideShowComponent implements OnInit {
         this.slideMessage.nativeElement.hidden = true;
       }, 3000);
 
-      console.log();
 
       if (this.orderType === 'active') {
         this.slidePath = this.filePaths.full;

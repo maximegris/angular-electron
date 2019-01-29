@@ -14,7 +14,8 @@
             <div class="item quarter" *ngFor="let order of orders">
                 <div class="item-inner">
                     <figure>
-                        <img class="update-slides-state" (click)="fullSreen($event, order)" src="{{ orderType === 'test' ? order.file : 'file:///' + filePaths.thumbs + order.file.split('.')[0] + '.jpg' }}"
+                        <img [className]="orderType !== 'expired' ? 'update-slides-state' : 'null'" (click)="fullSreen($event, order)"
+                            src="{{ orderType === 'test' ? order.file : 'file:///' + filePaths.thumbs + order.file.split('.')[0] + '.jpg' }}"
                             draggable="false">
                         <img *ngIf="order.file.split('.')[1].toLowerCase() === 'gif'" src="./assets/img/play.png" class="gif-play-btn">
                     </figure>

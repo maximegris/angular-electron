@@ -48,31 +48,40 @@ export class LoginComponent implements OnInit {
       console.log('Form is not valid');
     } else {
       console.log(value);
+      this.showLoader = true;
 
       // Login route
       const user = await this.apiService.login({ email: value.email, password: value.password })
-      console.log(user)
+        .catch(err => {
+          console.log('login component fail', err)
+          this.showLoader = false;
+          this.showError = true;
+          this.errorMessage = 'Invalid login';
+        })
 
-      // persist credentials
-      const store = await this.store.set({
-        'platfrom': process.platform,
-        'version': this.electronService.version,
-        'method': 'user',
-        'user.token': user.success.token,
-        'user.details': user.success.user
-      })
-      console.log(store)
+      if (user) {
+        console.log('User Login', user)
 
-      const orders = await this.download.getOrders()
+        // persist credentials
+        const store = await this.store.set({
+          'platfrom': process.platform,
+          'version': this.electronService.version,
+          'method': 'user',
+          'user.token': user.success.token,
+          'user.details': user.success.user
+        })
+        console.log(store)
 
-      console.log(orders)
+        const orders = this.download.getOrders()
+          .catch(err => console.log(err))
+
+        // console.log(orders)
 
 
+        // console.log('done')
+        // this.router.navigate(['home']);
+      }
 
-      // const persist = await this.saveUserDetails(user)
-      // console.log('store', store.get('user.details'))
-
-      console.log('done')
 
 
     }

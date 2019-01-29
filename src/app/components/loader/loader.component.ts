@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { DownloadService } from '../../services/download.service';
 
 
 @Component({
@@ -9,10 +10,9 @@ import { ApiService } from '../../services/api.service';
 })
 export class LoaderComponent implements OnInit {
   percentage: any = '0%'
-  constructor(public api: ApiService) {
-    this.api.progressLoading.subscribe(
-      (res) => this.percentage = res
-      // (res) => console.log(res)
+  constructor(private download: DownloadService) {
+    this.download.progressLoading.subscribe(
+      (res) => this.percentage = res.percentage
     )
   }
 
