@@ -21,13 +21,13 @@ export class DownloadService {
     console.log('new service')
   }
 
-  async processDownloads() {
+  async processDownloads(method: string) {
     // get orders
     // #1 api call
     // #2 persist data
     // #3 get file size api call
     // #4 call download method
-    const ordersResponse: any = await this.apiService.getOrders('user');
+    const ordersResponse: any = await this.apiService.getOrders(method);
 
     if (ordersResponse) {
       const store = await this.store.set({

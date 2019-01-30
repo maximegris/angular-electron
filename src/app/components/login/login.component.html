@@ -1,6 +1,6 @@
 <div class="login">
   <section class="main">
-      <div #errorBox [hidden]="!showError" class="notification-alt">{{ this.errorMessage }}</div>
+    <div #errorBox [hidden]="!showError" class="notification-alt">{{ this.errorMessage }}</div>
     <div class="inner">
       <div class="full centered">
         <img src="./assets/img/logo-white@2x.png" alt="" class="logo" height="100px">
@@ -8,9 +8,9 @@
       <h1 class="white">Welcome!</h1>
       <h6 class="white">Enter Activation Code Below</h6>
       <div class="form">
-        <input #code type="text" name="activation" id="activation" placeholder="Activation Code" />
+        <input type="text" [(ngModel)]="code" id="activation" placeholder="Activation Code" />
         <div class="button">
-          <button (click)="onCodeSubmit(code)" class="primary">Submit</button>
+          <button (click)="onSubmit(code, 'code')" class="primary">Submit</button>
         </div>
       </div>
       <h6 class="white with-lines">or</h6>
@@ -21,30 +21,14 @@
 
       <!-- <p [hidden]="!showError" class="white"><a href="{{ this.updateUrl }}" target="_blank">Backdrop Projections Desktop App</a></p> -->
 
-      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="form">
-        <input
-          type="email"
-          [(ngModel)]="user.email"
-          [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
-          name="email"
-          placeholder="Email"
-          #userEmail="ngModel"
-          required
-          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-        />
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm, 'user')" class="form">
+        <input type="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
+          name="email" placeholder="Email" #userEmail="ngModel" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" />
         <!-- <div class="invalid-feedback" [hidden]="!userEmail.errors?.required" >Email required</div>
         <div class="invalid-feedback" [hidden]="!userEmail.errors?.pattern" >Email invalid</div> -->
 
-        <input
-          type="password"
-          [(ngModel)]="user.password"
-          [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}"
-          name="password"
-          placeholder="Password"
-          #userPassword="ngModel"
-          required
-          minlength="2"
-        />
+        <input type="password" [(ngModel)]="user.password" [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}"
+          name="password" placeholder="Password" #userPassword="ngModel" required minlength="2" />
         <!-- <div class="invalid-feedback" [hidden]="!userPassword.errors?.required" >Password required</div>
         <div class="invalid-feedback" [hidden]="!userPassword.errors?.minlength" >Password invalid</div> -->
 

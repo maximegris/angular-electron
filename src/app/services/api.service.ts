@@ -60,21 +60,17 @@ export class ApiService {
     return this.domain + '/storage';
   }
 
-  async login(user: User) {
+  async login(form: any, method: string) {
+
+    const endpoint = method === 'user' ? 'login' : 'login-with-key';
+
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
     }
 
-    let response = await this.http.post<any>(this.apiURL + 'login', user, httpOptions).toPromise();
+    let response = await this.http.post<any>(this.apiURL + endpoint, form, httpOptions).toPromise();
     return response;
-
-    // try {
-    //   let response = await this.http.post<any>(this.apiURL + 'login', user, httpOptions).toPromise();
-    //   return response;
-    // } catch (err) {
-    //   console.log(err)
-    //   throw 'Login Error';
-    // }
 
   }
 
