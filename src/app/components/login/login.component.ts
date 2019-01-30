@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.download.test()
   }
 
   async onSubmit(data: any, method: string) {
