@@ -62,24 +62,24 @@ export class LoginComponent implements OnInit {
       if (user) {
         console.log('User Login', user)
 
-        // persist credentials
+        // persist credentials store.set('user.loggedIn', true);
         const store = await this.store.set({
           'platfrom': process.platform,
           'version': this.electronService.version,
           'method': 'user',
           'user.token': user.success.token,
-          'user.details': user.success.user
+          'user.details': user.success.user,
+          'user.loggedIn': true
         })
         console.log(store)
 
-        const orders = this.download.getOrders()
-          .catch(err => console.log(err))
+        const orders = await this.download.processDownloads()
 
-        // console.log(orders)
+        console.log(orders)
 
 
-        // console.log('done')
-        // this.router.navigate(['home']);
+        console.log('done')
+        this.router.navigate(['home']);
       }
 
 

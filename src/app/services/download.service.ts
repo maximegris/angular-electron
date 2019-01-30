@@ -21,7 +21,7 @@ export class DownloadService {
     console.log('new service')
   }
 
-  async getOrders() {
+  async processDownloads() {
     // get orders
     // #1 api call
     // #2 persist data
@@ -29,22 +29,24 @@ export class DownloadService {
     // #4 call download method
     const ordersResponse: any = await this.apiService.getOrders('user');
 
-    const store = await this.store.set({
-      'order_data.orders': ordersResponse.success
-    })
+    if (ordersResponse) {
+      const store = await this.store.set({
+        'user.loggedIn': true,
+        'order_data.orders': ordersResponse.success
+      })
 
-    console.log('store orders', store)
+      console.log('store orders', store)
 
-    const listToDownload = this.getDownloadList(ordersResponse.success);
+      const listToDownload = this.getDownloadList(ordersResponse.success);
 
-    const downloadInit = await this.startDownload(listToDownload);
+      const downloadInit = await this.startDownload(listToDownload);
 
-    this.totalBytes = 0;
-    this.receivedBytes = 0;
+      this.totalBytes = 0;
+      this.receivedBytes = 0;
+      return ordersResponse;
+    }
 
 
-
-    return ordersResponse;
   }
 
   getDownloadList(orders) {

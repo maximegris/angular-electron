@@ -115,7 +115,12 @@ export class ApiService {
     const response = await this.http.get<any>(url, httpOptions)
       .toPromise()
       .catch(err => {
-
+        if (err.status === 426) {
+          this.latest_version = err.error.version;
+          this.latest_version_url = err.error.url;
+          console.log(err)
+          console.log('api version', this.latest_version)
+        }
       })
     return response;
 
