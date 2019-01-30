@@ -1,12 +1,8 @@
 import { Injectable, Output, EventEmitter, NgZone } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
-import { User } from '../models/User';
 import { ElectronService } from "../providers/electron.service";
 import { Router } from '@angular/router';
-import { Order } from "../models/Order";
 
 
 @Injectable({
@@ -63,22 +59,12 @@ export class ApiService {
   async login(form: any, method: string) {
 
     const endpoint = method === 'user' ? 'login' : 'login-with-key';
-
-
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
     }
 
     let response = await this.http.post<any>(this.apiURL + endpoint, form, httpOptions).toPromise();
     return response;
-
-  }
-
-  loginKey(code) {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
-    }
-    return this.http.post(this.apiURL + 'login-with-key', code, httpOptions);
   }
 
   logout() {
@@ -122,110 +108,23 @@ export class ApiService {
 
   }
 
-  // cacheOrders(method) {
-  //   this.getOrders(method).subscribe(
-  //     (orders: any) => {
-  //       // console.log(orders);
-  //       this.storeOrders(orders);
-  //     });
-
-
-  // }
-  async storeOrders(orders) {
-    this.makeDirs();
-    let store = new this.electronService.store();
-    store.delete('order_data');
-    store.set('order_data.last_download', new Date().toISOString());
-    await store.set('order_data.orders', orders.success);
-
-    await this.cacheThumbs();
-    await this.cacheWatermarked();
-    await this.cacheFullImgs();
-  }
-
   loadCachedOrders() {
     let store = new this.electronService.store();
     return store.get('order_data.orders');
   }
 
-  cacheThumbs() {
-    const images = this.loadCachedOrders();
-    images.forEach(el => {
-      const options = {
-        url: this.domain + '/storage' + el.thumb_img_path,
-        dest: this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/"                  // Save to /path/to/dest/image.jpg
-      }
+  // async storeOrders(orders) {
+  //   this.makeDirs();
+  //   let store = new this.electronService.store();
+  //   store.delete('order_data');
+  //   store.set('order_data.last_download', new Date().toISOString());
+  //   await store.set('order_data.orders', orders.success);
 
-      this.electronService.imageDownloader.image(options)
-        .then(({ filename, image }) => {
-          console.log('File saved to', filename)
-        })
-        .catch((err) => {
-          console.error(err)
-        })
+  //   await this.cacheThumbs();
+  //   await this.cacheWatermarked();
+  //   await this.cacheFullImgs();
+  // }
 
-    });
-  }
-
-  cacheWatermarked() {
-    const images = this.loadCachedOrders();
-    images.forEach(el => {
-      const options = {
-        url: `${this.domain}/storage/${el.watermark_img_path}`,
-        dest: this.electronService.remote.app.getPath('userData') + "/orderCache/watermarked/"                  // Save to /path/to/dest/image.jpg
-      }
-
-      this.electronService.imageDownloader.image(options)
-        .then(({ filename, image }) => {
-          console.log('File saved to', filename)
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-
-    });
-  }
-
-  cacheFullImgs() {
-    const images = this.loadCachedOrders();
-    console.log('image length', images.length);
-    if (images.length === 0) {
-      this.router.navigate(['home']);
-    }
-    let count = 0;
-    images.forEach((el, index) => {
-      const options = {
-        url: `${this.domain}/storage/${el.img_path}`,
-        dest: this.electronService.remote.app.getPath('userData') + "/orderCache/full/"                  // Save to /path/to/dest/image.jpg
-      }
-
-      this.electronService.imageDownloader.image(options)
-        .then(({ filename, image }) => {
-          console.log('File saved to', filename)
-          console.log('image index', index)
-          console.log('image count', count += 1)
-          this.progressLoading.next(this.progress(images, count))
-          if (count === images.length) {
-            this.router.navigate(['home']);
-          }
-
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-
-    });
-  }
-
-
-
-  makeDirs() {
-    const orderImageCache = this.electronService.jetpack.dir(this.electronService.remote.app.getPath('userData') + '/' + 'orderCache');
-    orderImageCache.dir('thumbs');
-    orderImageCache.dir('full');
-    orderImageCache.dir('watermarked');
-    this.ready = true;
-  }
 
   getClient() {
     let store = new this.electronService.store();

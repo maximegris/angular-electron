@@ -4,6 +4,9 @@ import { ApiService } from "../../services/api.service";
 import { ElectronService } from "../../providers/electron.service";
 import { OrdersService } from "../../services/orders.service";
 import { viewClassName } from '@angular/compiler';
+import { DownloadService } from '../../services/download.service';
+import { StorageService } from '../../services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +25,15 @@ export class NavbarComponent implements OnInit {
 
   @Output() newOrders: EventEmitter<any> = new EventEmitter();
 
-  constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService, public zone: NgZone) { }
+  constructor(
+    private apiService: ApiService,
+    private electron: ElectronService,
+    private ordersService: OrdersService,
+    public zone: NgZone,
+    private download: DownloadService,
+    private store: StorageService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     const latestVersion = this.apiService.latest_version;
@@ -35,6 +46,7 @@ export class NavbarComponent implements OnInit {
     }
 
     this.client = this.apiService.getClient().name;
+
   }
 
   filterOrders(event, param) {
@@ -56,6 +68,13 @@ export class NavbarComponent implements OnInit {
 
   showModal() {
     document.querySelector('app-modal').removeAttribute('hidden');
+  }
+
+  async reload() {
+    this.router.navigate(['loading']);
+    const orders = await this.download.processDownloads(this.store.get('method'))
+    this.router.navigate(['home']);
+    console.log(orders)
   }
 
   // reload() {

@@ -34,6 +34,7 @@ export class OrdersComponent implements OnInit {
       this.hideOrders = false;
       this.showSlideShow = false;
       document.body.classList.remove('overflow');
+      document.body.style.backgroundColor = "white";
     }
   }
 
@@ -65,6 +66,7 @@ export class OrdersComponent implements OnInit {
 
     this.hideOrders = true;
     this.showSlideShow = true;
+    document.body.style.backgroundColor = "black";
     document.body.classList.add('overflow');
     document.documentElement.webkitRequestFullScreen();
   }

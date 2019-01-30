@@ -27,6 +27,7 @@ export class DownloadService {
     // #2 persist data
     // #3 get file size api call
     // #4 call download method
+    this.makeDirs()
     const ordersResponse: any = await this.apiService.getOrders(method);
 
     if (ordersResponse) {
@@ -39,10 +40,11 @@ export class DownloadService {
 
       const listToDownload = this.getDownloadList(ordersResponse.success);
 
-      const downloadInit = await this.startDownload(listToDownload);
+      await this.startDownload(listToDownload);
 
       this.totalBytes = 0;
       this.receivedBytes = 0;
+      console.log('download complete')
       return ordersResponse;
     }
 
@@ -127,5 +129,12 @@ export class DownloadService {
         resolve();
       });
     });
+  }
+
+  makeDirs() {
+    const orderImageCache = this.electron.jetpack.dir(this.electron.remote.app.getPath('userData') + '/' + 'orderCache');
+    orderImageCache.dir('thumbs');
+    orderImageCache.dir('full');
+    orderImageCache.dir('watermarked');
   }
 }

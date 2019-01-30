@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from '../providers/electron.service';
+import { retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class StorageService {
 
   }
 
-  set(object) {
+  set(object: any) {
     const store = new this.electron.store();
     const promise = new Promise((resolve, reject) => {
       for (let prop in object) {
@@ -20,5 +21,10 @@ export class StorageService {
       resolve();
     });
     return promise;
+  }
+
+  get(key: string) {
+    const store = new this.electron.store();
+    return store.get(key)
   }
 }

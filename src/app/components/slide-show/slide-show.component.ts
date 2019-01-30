@@ -53,7 +53,7 @@ export class SlideShowComponent implements OnInit {
       } else {
         this.slidePath = this.filePaths.watermarked;
       }
-      document.body.style.backgroundColor = "black";
+
       this.active = this.newActive === undefined ? this.active : this.newActive.position - 1;
 
       this.slides = this.activeRentals(this.active);
@@ -84,7 +84,7 @@ export class SlideShowComponent implements OnInit {
     }
     if (event.key === 'Escape') {
       this.active = 0;
-      document.body.style.backgroundColor = "white";
+
     }
     if (event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105) {
       console.log('numpad');
