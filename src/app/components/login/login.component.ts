@@ -17,8 +17,8 @@ import { StorageService } from '../../services/storage.service';
 })
 export class LoginComponent implements OnInit {
   user: User = {
-    email: 'client1@admin.com',
-    password: 'password'
+    email: '',
+    password: ''
   }
   code: any = '';
   showLoader: boolean = false;
