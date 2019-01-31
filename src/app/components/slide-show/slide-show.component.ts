@@ -1,9 +1,10 @@
-import { Component, OnInit, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, Input, ViewChild, ViewChildren, ElementRef } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { Order } from '../../models/Order';
 import { Slide } from '../../models/Slide';
 import { Observable } from 'rxjs';
 import { ElectronService } from "../../providers/electron.service";
+import { enterView } from '@angular/core/src/render3/instructions';
 
 export enum KEY_CODE {
   RIGHT_ARROW = 39,
@@ -27,8 +28,9 @@ export class SlideShowComponent implements OnInit {
   @Input() newActive: any;
   @Input() slideOrders: any;
   @Input() fullScreen: any;
+  // @ViewChildren(Counter) counters: QueryList<Counter>;
 
-  constructor(private apiService: ApiService, private electron: ElectronService) {
+  constructor(private apiService: ApiService, private electron: ElectronService, private el: ElementRef) {
     console.log('slide active', this.newActive)
     console.log('slides', this.slides)
 
@@ -57,6 +59,14 @@ export class SlideShowComponent implements OnInit {
       this.active = this.newActive === undefined ? this.active : this.newActive.position - 1;
 
       this.slides = this.activeRentals(this.active);
+
+      // Fix for video pausing when re-ordering
+      const videoTags = Array.from(document.querySelectorAll('video'));
+      if (videoTags.length > 0) {
+        videoTags.forEach(vide => vide.play())
+      }
+      console.log('tags', videoTags)
+
     }
   }
 
@@ -87,6 +97,9 @@ export class SlideShowComponent implements OnInit {
 
     }
     if (event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105) {
+      if (parseInt(event.key) > this.slides.length) {
+        return;
+      }
       console.log('numpad');
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[parseInt(event.key) - 1];

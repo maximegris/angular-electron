@@ -65,6 +65,7 @@ export class OrdersService {
         type: order.type,
         thumb_img_path: order.thumb_img_path,
         file: order.file,
+        media_type: order.type,
         sku_number: order.sku_number,
         position: index + 1,
         show: false

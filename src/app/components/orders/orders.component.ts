@@ -80,6 +80,7 @@ export class OrdersComponent implements OnInit {
     console.log('show the modal');
   }
 
+
   onNewOrders(orders) {
     console.log(orders);
     this.orders = orders.orders;

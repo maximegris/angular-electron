@@ -1,24 +1,24 @@
 {
-  "productName": "Backdrop-Projections",
+  "productName": "Backdrop-Projections_staging",
   "directories": {
     "output": "app-builds"
   },
-    "files": [
-        "**/*",
-        "!*.ts",
-        "!*.code-workspace",
-        "!LICENSE.md",
-        "!package.json",
-        "!package-lock.json",
-        "!src/",
-        "!e2e/",
-        "!hooks/",
-        "!.angular-cli.json",
-        "!_config.yml",
-        "!karma.conf.js",
-        "!tsconfig.json",
-        "!tslint.json"
-    ],
+  "files": [
+    "**/*",
+    "!*.ts",
+    "!*.code-workspace",
+    "!LICENSE.md",
+    "!package.json",
+    "!package-lock.json",
+    "!src/",
+    "!e2e/",
+    "!hooks/",
+    "!.angular-cli.json",
+    "!_config.yml",
+    "!karma.conf.js",
+    "!tsconfig.json",
+    "!tslint.json"
+  ],
   "win": {
     "icon": "dist",
     "target": [
