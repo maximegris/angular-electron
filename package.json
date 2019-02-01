@@ -37,7 +37,11 @@
     "e2e": "npm run postinstall:web && ng e2e",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
-  "dependencies": {},
+  "dependencies": {
+    "js-sha256": "^0.9.0",
+    "qz-tray": "^2.0.4",
+    "sha256": "^0.2.0"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.11.4",
     "@angular/cli": "7.1.4",

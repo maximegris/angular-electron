@@ -13,6 +13,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { ElectronService } from './providers/electron.service';
+import { QzService } from './services/qz.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 
@@ -43,7 +44,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [ElectronService],
+  providers: [ElectronService, QzService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
