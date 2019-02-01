@@ -65,9 +65,11 @@ export class OrdersComponent implements OnInit {
       document.querySelectorAll('.tab-item')[3].classList.add('is-active');
     }
   }
-  fullSreen(event, order) {
+  fullScreen(event, order) {
 
     this.selectedOrder = order;
+
+    // console.log('Selected order', order);
 
     if (this.orderType === 'expired') {
       return null;
@@ -77,7 +79,9 @@ export class OrdersComponent implements OnInit {
     this.showSlideShow = true;
     document.body.style.backgroundColor = "black";
     document.body.classList.add('overflow');
-    document.documentElement.webkitRequestFullScreen();
+
+
+    // document.documentElement.webkitRequestFullScreen();
   }
 
   activeRentals() {

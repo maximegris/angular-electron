@@ -13,14 +13,15 @@
             <p *ngIf="orders.length < 1">No images to display</p>
             <div class="item quarter" *ngFor="let order of orders">
                 <div class="item-inner">
-                    <figure>
-                        <img [className]="orderType !== 'expired' ? 'update-slides-state' : 'null'" (click)="fullSreen($event, order)"
-                            src="{{ orderType === 'test' ? order.file : 'file:///' + filePaths.thumbs + order.file.split('.')[0] + '.jpg' }}"
+                    <!-- [className]="orderType !== 'expired' ? 'update-slides-state' : 'null'" -->
+                    <figure class="update-slides-state" (click)="fullScreen($event, order)">
+                        <img class="update-slides-state" src="{{ orderType === 'test' ? order.file : 'file:///' + filePaths.thumbs + order.file.split('.')[0] + '.jpg' }}"
                             draggable="false">
                         <img *ngIf="order.file.split('.')[1].toLowerCase() === 'gif'" src="./assets/img/play-white-alt.png"
-                            class="gif-play-btn">
+                            class="gif-play-btn update-slides-state" draggable="false">
 
-                        <img *ngIf="order.media_type === 'video'" src="./assets/img/play-white-alt.png" class="gif-play-btn">
+                        <img *ngIf="order.media_type === 'video'" src="./assets/img/play-white-alt.png" class="gif-play-btn update-slides-state"
+                            draggable="false">
                     </figure>
                     <div class="text">
                         <div class="full">

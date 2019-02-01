@@ -41,7 +41,9 @@ export class SlideShowComponent implements OnInit {
 
   clickEvent(event: any) {
     // console.log('slide click', event);
-    if (event.target.className == 'update-slides-state') {
+    if (event.target.classList.contains('update-slides-state')) {
+
+      // console.log('slide active', this.newActive);
 
       this.slideMessage.nativeElement.hidden = false;
 
