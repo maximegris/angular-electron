@@ -1,5 +1,5 @@
 {
-  "name": "angular-electron",
+  "name": "qz-tray-angular-electron",
   "version": "5.1.0",
   "description": "Angular 7 with Electron (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
