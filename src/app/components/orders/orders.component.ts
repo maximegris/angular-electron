@@ -1,10 +1,14 @@
-import { Component, OnInit, HostListener, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter, Output, ViewChild, Directive, ElementRef } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { OrdersService } from "../../services/orders.service";
 import { Order } from "../../models/Order";
 import { Slide } from "../../models/Slide";
 import { ElectronService } from "../../providers/electron.service";
 
+// @Directive({
+//   selector: '[thumb]',
+//   exportAs: 'thumb',
+// })
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -23,7 +27,7 @@ export class OrdersComponent implements OnInit {
   selectedOrder: Order;
   ordersLength: any;
   noOrders: boolean = false;
-
+  // @ViewChild('thumb') thumb: ElementRef;
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) { }
 
 
@@ -36,6 +40,11 @@ export class OrdersComponent implements OnInit {
       document.body.classList.remove('overflow');
       document.body.style.backgroundColor = "white";
     }
+  }
+
+  triggerThumb(thumb) {
+    console.log(thumb)
+    return thumb.click()
   }
 
   ngOnInit() {

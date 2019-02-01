@@ -19,6 +19,7 @@
                             draggable="false">
                         <img *ngIf="order.file.split('.')[1].toLowerCase() === 'gif'" src="./assets/img/play-white-alt.png"
                             class="gif-play-btn">
+
                         <img *ngIf="order.media_type === 'video'" src="./assets/img/play-white-alt.png" class="gif-play-btn">
                     </figure>
                     <div class="text">
