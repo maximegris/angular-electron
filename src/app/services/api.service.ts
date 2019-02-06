@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ApiService {
   filePaths: any;
-  env: string = 'staging';
+  env: string = 'local';
   domain: string;
   apiURL: string;
   loggedIn: boolean;
@@ -22,9 +22,9 @@ export class ApiService {
 
   constructor(private http: HttpClient, private electronService: ElectronService, private router: Router, public zone: NgZone) {
     this.filePaths = {
-      thumbs: this.electronService.remote.app.getPath('userData') + "/orderCache/thumbs/",
-      full: this.electronService.remote.app.getPath('userData') + "/orderCache/full/",
-      watermarked: this.electronService.remote.app.getPath('userData') + "/orderCache/watermarked/",
+      thumbs: this.electronService.remote.app.getPath('userData') + "/.orderCache/thumbs/",
+      full: this.electronService.remote.app.getPath('userData') + "/.orderCache/full/",
+      watermarked: this.electronService.remote.app.getPath('userData') + "/.orderCache/watermarked/",
       app: this.electronService.remote.app.getAppPath()
     }
     let store = new this.electronService.store();

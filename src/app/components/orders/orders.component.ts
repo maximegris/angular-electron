@@ -81,7 +81,7 @@ export class OrdersComponent implements OnInit {
     document.body.classList.add('overflow');
 
 
-    // document.documentElement.webkitRequestFullScreen();
+    document.documentElement.webkitRequestFullScreen();
   }
 
   activeRentals() {
