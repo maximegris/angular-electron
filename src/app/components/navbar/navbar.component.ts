@@ -63,7 +63,8 @@ export class NavbarComponent implements OnInit {
 
 
   logout() {
-    this.apiService.logout();
+    this.download.deleteStorage()
+      .then(() => this.apiService.logout())
   }
 
   showModal() {

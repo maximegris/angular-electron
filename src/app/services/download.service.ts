@@ -132,9 +132,13 @@ export class DownloadService {
   }
 
   makeDirs() {
-    const orderImageCache = this.electron.jetpack.dir(this.electron.remote.app.getPath('userData') + '/' + 'orderCache');
+    const orderImageCache = this.electron.jetpack.dir(this.electron.remote.app.getPath('userData') + '/' + '.orderCache');
     orderImageCache.dir('thumbs');
     orderImageCache.dir('full');
     orderImageCache.dir('watermarked');
+  }
+
+  deleteStorage() {
+    return this.electron.jetpack.removeAsync(this.electron.remote.app.getPath('userData') + '/' + '.orderCache');
   }
 }
