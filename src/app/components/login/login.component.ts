@@ -36,7 +36,14 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private download: DownloadService,
     private store: StorageService
-  ) { }
+  ) {
+    if (this.apiService.env === 'local') {
+      this.user = {
+        email: 'client1@admin.com',
+        password: 'password'
+      }
+    }
+  }
 
   ngOnInit() {
   }

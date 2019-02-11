@@ -24,6 +24,7 @@ export class ApiService {
     this.filePaths = {
       thumbs: this.electronService.remote.app.getPath('userData') + "/.orderCache/thumbs/",
       full: this.electronService.remote.app.getPath('userData') + "/.orderCache/full/",
+      tmp: this.electronService.os.tmpdir() + '/dropstmp/',
       watermarked: this.electronService.remote.app.getPath('userData') + "/.orderCache/watermarked/",
       app: this.electronService.remote.app.getAppPath()
     }
@@ -65,6 +66,11 @@ export class ApiService {
 
     let response = await this.http.post<any>(this.apiURL + endpoint, form, httpOptions).toPromise();
     return response;
+  }
+
+  async testDL() {
+    let response = await this.http.get<any>(this.apiURL + 'file-dl').toPromise();
+    console.log(response)
   }
 
   logout() {

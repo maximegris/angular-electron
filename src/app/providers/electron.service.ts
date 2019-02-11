@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 import { ipcRenderer, webFrame, remote } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
+import * as os from 'os';
+import * as crypto from 'crypto';
 import * as store from 'electron-store';
 import * as fsJetpack from 'fs-jetpack';
 import * as imageDownloader from 'image-downloader';
@@ -26,6 +28,8 @@ export class ElectronService {
   moment: any;
   version: any;
   request: typeof request;
+  os: typeof os;
+  crypto: typeof crypto;
 
   constructor() {
     // Conditional imports
@@ -41,6 +45,8 @@ export class ElectronService {
       this.moment = window.require('moment');
       this.version = require('../../../package.json').version;
       this.request = window.require('request');
+      this.os = window.require('os');
+      this.crypto = window.require('crypto');
     }
   }
 

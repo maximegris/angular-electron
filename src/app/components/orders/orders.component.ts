@@ -28,7 +28,10 @@ export class OrdersComponent implements OnInit {
   ordersLength: any;
   noOrders: boolean = false;
   // @ViewChild('thumb') thumb: ElementRef;
-  constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) { }
+  constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) {
+    // this.apiService.testDL()
+    // console.log()
+  }
 
 
 
@@ -82,6 +85,8 @@ export class OrdersComponent implements OnInit {
 
 
     document.documentElement.webkitRequestFullScreen();
+
+
   }
 
   activeRentals() {

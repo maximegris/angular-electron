@@ -27,6 +27,9 @@ export class DownloadService {
     // #2 persist data
     // #3 get file size api call
     // #4 call download method
+
+    // this.makeTmpDir();
+
     this.makeDirs()
     const ordersResponse: any = await this.apiService.getOrders(method);
 
@@ -54,12 +57,13 @@ export class DownloadService {
   getDownloadList(orders) {
     const urls = [];
     const { thumbs, full, watermarked } = this.apiService.filePaths;
-    const api = this.apiService.domain + '/storage';
+    const storage = this.apiService.domain + '/storage';
+    const secureStorge = this.apiService.apiURL + 'file-dl/';
     for (let order of orders) {
       this.totalBytes += order.total_bytes
-      urls.push({ remoteFile: api + order.img_path, localFile: full + order.file })
-      urls.push({ remoteFile: api + order.thumb_img_path, localFile: thumbs + this.getFilenameFromUrl(order.thumb_img_path) })
-      urls.push({ remoteFile: api + order.watermark_img_path, localFile: watermarked + order.file })
+      urls.push({ remoteFile: secureStorge + order.image_id, localFile: full + order.file, encryption: true })
+      urls.push({ remoteFile: storage + order.thumb_img_path, localFile: thumbs + this.getFilenameFromUrl(order.thumb_img_path), encryption: false })
+      urls.push({ remoteFile: storage + order.watermark_img_path, localFile: watermarked + order.file, encryption: false })
     }
     console.log(urls)
     console.log(this.totalBytes)
@@ -74,10 +78,11 @@ export class DownloadService {
 
     try {
       const files = orders.map((order, index) => {
-        const { remoteFile, localFile } = order
+        const { remoteFile, localFile, encryption } = order
         const file = this.downloadFile({
           remoteFile,
           localFile,
+          encryption,
           onProgress: () => {
             this.progressLoading.next(this.progress(index))
           }
@@ -108,15 +113,27 @@ export class DownloadService {
   }
 
   downloadFile(configuration) {
+    const key = '14189dc35ae35e75ff31d7502e245cd9bc7803838fbfd5c773cdcd79b8a28bbd';
+    const cipher = this.electron.crypto.createCipher('aes-256-cbc', key);
+
     return new Promise((resolve, reject) => {
 
-      var req = this.electron.request({
+      const req = this.electron.request({
         method: 'GET',
         uri: configuration.remoteFile
       });
 
-      var out = this.electron.fs.createWriteStream(configuration.localFile);
-      req.pipe(out);
+      const out = this.electron.fs.createWriteStream(configuration.localFile);
+      const tmpURI = this.electron.os.tmpdir() + '/dropstmp/' + this.getFilenameFromUrl(configuration.localFile);
+      const tmp = this.electron.fs.createWriteStream(tmpURI);
+      // console.log('temp_path', tmp)
+      if (configuration.encryption) {
+        req.pipe(tmp);
+        req.pipe(cipher).pipe(out);
+      } else {
+        req.pipe(out);
+      }
+
 
       req.on('data', (chunk) => {
         // Update the received bytes
@@ -131,8 +148,12 @@ export class DownloadService {
     });
   }
 
+  makeTmpDir() {
+    this.electron.jetpack.dir(this.electron.os.tmpdir() + '/' + 'dropstmp');
+  }
+
   makeDirs() {
-    const orderImageCache = this.electron.jetpack.dir(this.electron.remote.app.getPath('userData') + '/' + 'orderCache');
+    const orderImageCache = this.electron.jetpack.dir(this.electron.remote.app.getPath('userData') + '/' + '.orderCache');
     orderImageCache.dir('thumbs');
     orderImageCache.dir('full');
     orderImageCache.dir('watermarked');
