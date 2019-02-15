@@ -31,7 +31,7 @@ export class ApiService {
     let store = new this.electronService.store();
     this.loggedIn = store.get('user.loggedIn');
     if (this.loggedIn === true) {
-      this.router.navigate(['home']);
+      // this.router.navigate(['home']);
     }
 
     if (this.env == 'local') {

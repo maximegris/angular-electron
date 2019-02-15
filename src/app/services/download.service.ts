@@ -3,6 +3,7 @@ import { ElectronService } from '../providers/electron.service';
 import { ApiService } from './api.service';
 import { StorageService } from './storage.service';
 import { Subject } from 'rxjs';
+import { PathLike } from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +15,47 @@ export class DownloadService {
   progressLoading: Subject<any> = new Subject();
 
   constructor(private electron: ElectronService, private apiService: ApiService, private store: StorageService) {
+    // this.decryptFile({
+    //   inputPath: '/home/stuart/.config/backdrop-projections/.orderCache/full/green-lord-of-the-rings_1547797433.jpg',
+    //   outputPath: '/home/stuart/.config/backdrop-projections/.orderCache/TESTgreen-lord-of-the-rings_1547797433.jpg'
+    // })
 
+    // this.decryptStoredFiles()
   }
 
   test() {
     console.log('new service')
   }
 
+  async decryptStoredFiles() {
+    this.makeTmpDir();
+    let store = new this.electron.store();
+    const orders = store.get('order_data.orders');
+    // console.log('Decrypt', this.listOfStoredFiles(orders))
+    // const files = await this.listOfStoredFiles(orders)
+    // console.log('Decrypt Done!');
+    // return files;
+    const { full, tmp } = this.apiService.filePaths;
+    const paths = orders.map(order => this.decryptFile({ inputPath: full + order.file, outputPath: tmp + order.file }));
+
+    const files = await Promise.all(paths);
+    return files;
+
+  }
+
+  async listOfStoredFiles(orders: any[]) {
+    // const paths = [];
+    const { full, tmp } = this.apiService.filePaths;
+    const paths = orders.map(order => this.decryptFile({ inputPath: full + order.file, outputPath: tmp + order.file }));
+
+    const files = await Promise.all(paths);
+    return files;
+  }
+
   async processDownloads(method: string) {
-    // get orders
-    // #1 api call
-    // #2 persist data
-    // #3 get file size api call
-    // #4 call download method
+    this.makeTmpDir();
+    this.makeDirs();
 
-    // this.makeTmpDir();
-
-    this.makeDirs()
     const ordersResponse: any = await this.apiService.getOrders(method);
 
     if (ordersResponse) {
@@ -112,7 +137,7 @@ export class DownloadService {
     }
   }
 
-  downloadFile(configuration) {
+  downloadFile(configuration: { remoteFile: string, localFile: PathLike, encryption: boolean, onProgress: Function }) {
     const key = '14189dc35ae35e75ff31d7502e245cd9bc7803838fbfd5c773cdcd79b8a28bbd';
     const cipher = this.electron.crypto.createCipher('aes-256-cbc', key);
 
@@ -148,6 +173,24 @@ export class DownloadService {
     });
   }
 
+  decryptFile(config: { inputPath: PathLike, outputPath: PathLike }): Promise<{}> {
+    return new Promise<{}>((resolve, reject) => {
+      var key = '14189dc35ae35e75ff31d7502e245cd9bc7803838fbfd5c773cdcd79b8a28bbd';
+      var cipher = this.electron.crypto.createDecipher('aes-256-cbc', key);
+
+      var input = this.electron.fs.createReadStream(config.inputPath); // existing file
+      var output = this.electron.fs.createWriteStream(config.outputPath); // new file
+
+      input.pipe(cipher).pipe(output);
+
+      output.on('finish', () => {
+        resolve()
+        console.log('Decrypted file written to disk!');
+
+      });
+    })
+  }
+
   makeTmpDir() {
     this.electron.jetpack.dir(this.electron.os.tmpdir() + '/' + 'dropstmp');
   }
@@ -157,5 +200,15 @@ export class DownloadService {
     orderImageCache.dir('thumbs');
     orderImageCache.dir('full');
     orderImageCache.dir('watermarked');
+  }
+
+  async deleteStorage() {
+    const deletePath = await this.electron.jetpack.removeAsync(this.electron.remote.app.getPath('userData') + '/' + '.orderCache');
+    return deletePath;
+  }
+
+  async deleteTmp() {
+    const deletePath = await this.electron.jetpack.removeAsync(this.electron.os.tmpdir() + '/' + 'dropstmp');
+    return deletePath;
   }
 }

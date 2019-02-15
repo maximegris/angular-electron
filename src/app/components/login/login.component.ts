@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     private download: DownloadService,
     private store: StorageService
   ) {
+    this.loadOrdersIfLoggedIn();
     if (this.apiService.env === 'local') {
       this.user = {
         email: 'client1@admin.com',
@@ -46,6 +47,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  loadOrdersIfLoggedIn() {
+    const loggedIn = this.store.get('user.loggedIn');
+    console.log('loggedIn', loggedIn)
+    if (loggedIn) {
+      this.download.decryptStoredFiles()
+        .then(() => this.router.navigate(['home']))
+    }
   }
 
   async onSubmit(data: any, method: string) {

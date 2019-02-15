@@ -48,6 +48,14 @@ export class ElectronService {
       this.os = window.require('os');
       this.crypto = window.require('crypto');
     }
+    let win = this.remote.getCurrentWindow()
+    win.addListener('close', (e) => {
+      this.jetpack.remove(this.os.tmpdir() + '/' + 'dropstmp');
+    })
+
+
+
+    console.log('Remote', win);
   }
 
   isElectron = () => {
