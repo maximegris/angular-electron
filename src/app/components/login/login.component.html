@@ -15,27 +15,23 @@
       </div>
       <h6 class="white with-lines">or</h6>
       <h6 class="white">Login</h6>
-
-
-      <!-- <p [hidden]="!showError" class="white">{{ this.errorMessage }}</p> -->
-
-      <!-- <p [hidden]="!showError" class="white"><a href="{{ this.updateUrl }}" target="_blank">Backdrop Projections Desktop App</a></p> -->
-
       <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm, 'user')" class="form">
         <input type="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
-          name="email" placeholder="Email" #userEmail="ngModel" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" />
-        <!-- <div class="invalid-feedback" [hidden]="!userEmail.errors?.required" >Email required</div>
-        <div class="invalid-feedback" [hidden]="!userEmail.errors?.pattern" >Email invalid</div> -->
-
-        <input type="password" [(ngModel)]="user.password" [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}"
-          name="password" placeholder="Password" #userPassword="ngModel" required minlength="2" />
-        <!-- <div class="invalid-feedback" [hidden]="!userPassword.errors?.required" >Password required</div>
-        <div class="invalid-feedback" [hidden]="!userPassword.errors?.minlength" >Password invalid</div> -->
-
+          name="email" placeholder="Email" #userEmail="ngModel" required
+          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" />
+        <input type="password" [(ngModel)]="user.password"
+          [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}" name="password" placeholder="Password"
+          #userPassword="ngModel" required minlength="2" />
         <div class="button">
           <button [disabled]="!userForm.form.valid" class="secondary">Login</button>
         </div>
       </form>
+      <div class="button">
+        <button (click)="apiService.launchPage('/forgotPassword')" class="primary">Forgot Password</button>
+      </div>
+      <div class="button">
+        <button (click)="apiService.launchPage('/signup')" class="primary">Register</button>
+      </div>
     </div>
   </section>
   <app-loader *ngIf="showLoader"></app-loader>

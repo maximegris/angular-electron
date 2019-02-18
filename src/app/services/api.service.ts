@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class ApiService {
   filePaths: any;
   env: string = 'staging';
-  domain: string;
+  domain: string; // API
   apiURL: string;
   loggedIn: boolean;
   fullImgsComplete: boolean = false;
@@ -19,6 +19,7 @@ export class ApiService {
   progressLoading: Subject<any> = new Subject();
   latest_version: any = null;
   latest_version_url: any = null;
+  webSite: string;
 
   constructor(private http: HttpClient, private electronService: ElectronService, private router: Router, public zone: NgZone) {
     this.filePaths = {
@@ -34,13 +35,31 @@ export class ApiService {
     }
 
     if (this.env == 'local') {
-      this.domain = 'http://backdrops.localhost';
+      this.domain = 'http://backdrops.localhost'; // API
+      this.webSite = 'https://backdrops.ninja-staging.co.za';
     } else if (this.env == 'staging') {
-      this.domain = 'https://api.backdrops.ninja-staging.co.za';
+      this.domain = 'https://api.backdrops.ninja-staging.co.za'; // API
+      this.webSite = 'https://backdrops.ninja-staging.co.za';
     } else {
-      this.domain = 'https://backdropslive.forge.ninja-staging.co.za';
+      this.domain = 'https://backdropslive.forge.ninja-staging.co.za'; // API
+      this.webSite = 'https://backdrops.ninja-staging.co.za';
     }
     this.apiURL = this.domain + '/api/';
+  }
+
+  launchPage(path: string = '') {
+    console.log('platform', process.platform)
+    let uri = this.webSite + path;
+    console.log(uri)
+    let execStr: string;
+    if (process.platform === 'win32') {
+      execStr = 'start ' + uri;
+    } else if (process.platform === 'darwin') {
+      execStr = 'open ' + uri;
+    } else { // *linux
+      execStr = 'xdg-open ' + uri;
+    }
+    this.electronService.childProcess.execSync(execStr);
   }
 
   progress(array: Array<any>, index: number): any {
