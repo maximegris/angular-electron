@@ -26,11 +26,13 @@
           <button [disabled]="!userForm.form.valid" class="secondary">Login</button>
         </div>
       </form>
-      <div class="button">
-        <button (click)="apiService.launchPage('/forgotPassword')" class="primary">Forgot Password</button>
-      </div>
-      <div class="button">
-        <button (click)="apiService.launchPage('/signup')" class="primary">Register</button>
+      <div class="btn-group">
+        <div class="button">
+          <button (click)="apiService.launchPage('/forgotPassword')" class="primary">Forgot Password</button>
+        </div>
+        <div class="button">
+          <button (click)="apiService.launchPage('/signup')" class="primary">Create an account</button>
+        </div>
       </div>
     </div>
   </section>

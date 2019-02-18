@@ -21,3 +21,17 @@ input.is-invalid {
   font-weight: bold;
 }
 
+.btn-group {
+  .button {
+    width: 50%;
+    float: left;
+    &:first-child {
+      padding-right: 10px;
+    }
+    &:last-child {
+      padding-left: 10px;
+    }
+  }
+
+}
+
