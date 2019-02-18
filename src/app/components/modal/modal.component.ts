@@ -11,7 +11,7 @@ import { ApiService } from '../../services/api.service';
 export class ModalComponent implements OnInit {
   public version: any;
 
-  constructor(private electronService: ElectronService, private api: ApiService) { }
+  constructor(private electronService: ElectronService, public api: ApiService) { }
 
   ngOnInit() {
     this.version = this.electronService.version;
