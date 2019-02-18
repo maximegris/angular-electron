@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private apiService: ApiService,
+    public apiService: ApiService,
     private electronService: ElectronService,
     private router: Router,
     private download: DownloadService,
