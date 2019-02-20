@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
-import { ipcRenderer, webFrame, remote } from 'electron';
+import { ipcRenderer, webFrame, remote, clipboard } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -30,6 +30,7 @@ export class ElectronService {
   request: typeof request;
   os: typeof os;
   crypto: typeof crypto;
+  clipboard: typeof clipboard;
 
   constructor() {
     // Conditional imports
@@ -38,6 +39,7 @@ export class ElectronService {
       this.webFrame = window.require('electron').webFrame;
       this.remote = window.require('electron').remote;
       this.childProcess = window.require('child_process');
+      this.clipboard = window.require('electron').clipboard;
       this.store = window.require('electron-store');
       this.jetpack = window.require('fs-jetpack');
       this.fs = window.require('fs');
@@ -53,13 +55,25 @@ export class ElectronService {
       this.jetpack.remove(this.os.tmpdir() + '/' + 'dropstmp');
     })
 
+    this.monitorClipboard();
 
-
-    console.log('Remote', win);
   }
 
   isElectron = () => {
     return window && window.process && window.process.type;
+  }
+
+  monitorClipboard() {
+    let empty;
+    setInterval(() => {
+      empty = clipboard.readImage().isEmpty();
+      if (!empty) {
+        console.log('ClipBoard', empty)
+        clipboard.clear();
+        console.log('clipboard cleared')
+      }
+
+    }, 500);
   }
 
 }

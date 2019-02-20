@@ -34,13 +34,19 @@ export class OrdersComponent implements OnInit {
 
 
 
-  @HostListener('window:keyup', ['$event'])
+  @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       this.hideOrders = false;
       this.showSlideShow = false;
       document.body.classList.remove('overflow');
       document.body.style.backgroundColor = "white";
+    }
+
+
+    if (event.shiftKey && event.metaKey) { // Mac screen shot protection
+      document.body.style.visibility = 'hidden';
+      setTimeout(() => { document.body.style.visibility = 'visible'; }, 1000);
     }
   }
 
