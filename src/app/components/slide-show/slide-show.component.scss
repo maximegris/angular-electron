@@ -1,6 +1,5 @@
 img, video {
-  width: auto !important;
-  height: 100% !important;
+  height: 100vh;
 }
 
 
@@ -14,16 +13,3 @@ img, video {
   padding: 20px 30px;
   font-weight: bold;
 }
-
-
-
-
-
-// .slide-show {
-//   overflow: hidden;
-// }
-// video {
-//   ::-webkit-scrollbar {
-//     display: none;
-//     }
-// }

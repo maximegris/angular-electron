@@ -8,3 +8,12 @@ figure {
   width: 64px;
   height: 64px;
 }
+
+.item-inner {
+  @media screen and (max-width: 1360px){
+    height: 260px !important;
+  }
+  @media screen and (max-width: 1200px){
+    height: 240px !important;
+  }
+}

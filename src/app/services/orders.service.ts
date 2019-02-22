@@ -37,12 +37,12 @@ export class OrdersService {
             },
             {
               file: './assets/samples/2.jpg',
-              name: 'Paris Opera House 1',
+              name: 'Street Mall 1',
               type: 'image'
             },
             {
               file: './assets/samples/3.jpg',
-              name: 'NY Skyline 1',
+              name: 'Atlanta Skyline',
               type: 'image'
             }
           ];

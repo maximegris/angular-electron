@@ -45,6 +45,11 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  daysRemaining(order) {
+    const days = this.moment.duration(this.moment(order.end_date).diff(this.moment(order.start_date))).asDays();
+    return Math.floor(days);
+  }
+
   triggerThumb(thumb) {
     console.log(thumb)
     return thumb.click()

@@ -132,19 +132,6 @@ export class ApiService {
     return store.get('order_data.orders');
   }
 
-  // async storeOrders(orders) {
-  //   this.makeDirs();
-  //   let store = new this.electronService.store();
-  //   store.delete('order_data');
-  //   store.set('order_data.last_download', new Date().toISOString());
-  //   await store.set('order_data.orders', orders.success);
-
-  //   await this.cacheThumbs();
-  //   await this.cacheWatermarked();
-  //   await this.cacheFullImgs();
-  // }
-
-
   getClient() {
     let store = new this.electronService.store();
     const user = store.get('user.details');
