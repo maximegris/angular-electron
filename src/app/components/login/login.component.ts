@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private apiService: ApiService,
+    public apiService: ApiService,
     private electronService: ElectronService,
     private router: Router,
     private download: DownloadService,
@@ -90,12 +90,17 @@ export class LoginComponent implements OnInit {
       console.log(store)
 
       const orders = await this.download.processDownloads(method)
+      if (orders) {
+        console.log(orders)
+        console.log('done')
+        this.router.navigate(['home']);
+      } else {
+        this.showLoader = false;
+        this.showError = true;
+        this.errorMessage = 'There was a problem connecting to the Backdrop Projections server.';
+      }
 
-      console.log(orders)
 
-
-      console.log('done')
-      this.router.navigate(['home']);
 
     }
   }

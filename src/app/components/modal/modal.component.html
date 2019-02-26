@@ -6,15 +6,16 @@
 		<div class="logo">
 			<img src="./assets/img/logo@2x.png" width="260px">
 		</div>
-		<p>Version {{ version }}</p>
-  	</div>
-  	<div class="bottom">
-  		<p>Support Tel: <span><a href="tel: 1-858-300-2100">1-858-300-2100</a></span></p>
-  		<p>Support Email: <span><a href="mailto: support@backdropprojections.com">support@backdropprojections.com</a></span></p>
-		<!-- <div class="button">
-			<a href="#" class="primary">
-				View Online Help Guides
-			</a>
-		</div> -->
-  	</div>
+		<p>Version {{ version }} {{api.env}}</p>
+	</div>
+	<div class="bottom">
+		<p>Support Tel: <span><a href="tel: 1-858-300-2100">1-858-300-2100</a></span></p>
+		<p>Support Email: <span><a href="mailto: support@backdropprojections.com">support@backdropprojections.com</a></span>
+		</p>
+		<div class="button">
+			<button (click)="api.launchPage()" class="primary">
+				View Website
+			</button>
+		</div>
+	</div>
 </div>

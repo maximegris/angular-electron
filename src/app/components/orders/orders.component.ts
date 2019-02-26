@@ -27,9 +27,10 @@ export class OrdersComponent implements OnInit {
   selectedOrder: Order;
   ordersLength: any;
   noOrders: boolean = false;
+  domain: string;
   // @ViewChild('thumb') thumb: ElementRef;
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) {
-
+    this.domain = this.apiService.domain;
   }
 
 
@@ -50,9 +51,29 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  daysRemaining(order) {
+    const days = this.moment.duration(this.moment(order.end_date).diff(this.moment(order.start_date))).asDays();
+    return Math.floor(days);
+  }
+
   triggerThumb(thumb) {
     console.log(thumb)
     return thumb.click()
+  }
+
+  rePurchase(order) {
+    console.log('platform', process.platform)
+    let uri = this.apiService.webSite + '/productDetails\\;id=' + order.image_id
+    console.log(uri)
+    let execStr;
+    if (process.platform === 'win32') {
+      execStr = 'start ' + uri;
+    } else if (process.platform === 'darwin') {
+      execStr = 'open ' + uri;
+    } else { // *linux
+      execStr = 'xdg-open ' + uri;
+    }
+    this.electron.childProcess.execSync(execStr);
   }
 
   ngOnInit() {
