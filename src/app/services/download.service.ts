@@ -100,7 +100,6 @@ export class DownloadService {
   }
 
   async startDownload(orders) {
-
     try {
       const files = orders.map((order, index) => {
         const { remoteFile, localFile, encryption } = order
@@ -145,7 +144,8 @@ export class DownloadService {
 
       const req = this.electron.request({
         method: 'GET',
-        uri: configuration.remoteFile
+        uri: configuration.remoteFile,
+        headers: { 'Authorization': 'Bearer ' + this.store.get('user.token') }
       });
 
       const out = this.electron.fs.createWriteStream(configuration.localFile);
