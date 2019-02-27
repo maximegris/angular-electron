@@ -18,7 +18,6 @@ import { ElectronService } from './providers/electron.service';
 import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -34,7 +33,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     WebviewDirective,
     NavbarComponent,
     LoginComponent,

@@ -1,4 +1,3 @@
-import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from "./components/login/login.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { NgModule } from '@angular/core';
