@@ -49,7 +49,9 @@ function createWindow() {
           { role: 'paste' },
           { role: 'pasteandmatchstyle' },
           { role: 'delete' },
-          { role: 'selectall' }
+          { role: 'selectall' },
+          { type: 'separator' },
+          { role: 'quit' }
         ]
       }
     ]));
