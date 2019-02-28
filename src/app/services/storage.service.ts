@@ -15,7 +15,6 @@ export class StorageService {
     const store = new this.electron.store();
     const promise = new Promise((resolve, reject) => {
       for (let prop in object) {
-        // console.log(object[prop])
         store.set(prop, object[prop]);
       }
       resolve();
