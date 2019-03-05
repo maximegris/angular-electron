@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
   @ViewChild('userForm') form: any;
   @ViewChild('errorBox') errorBox: any;
 
-
   constructor(
     public apiService: ApiService,
     private electronService: ElectronService,
@@ -46,8 +45,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   loadOrdersIfLoggedIn() {
     const loggedIn = this.store.get('user.loggedIn');
@@ -58,14 +56,19 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+  * @desc : Used for logging in with key or username & pass
+  * @param data : form data
+  * @param method : only 'code' or 'user' - used to determine which API route to use
+  */
   async onSubmit(data: any, method: string) {
+
     console.log(data, method)
 
     const formValue = method === 'user' ? data.value : { code: data };
 
     this.showLoader = true;
 
-    // Login route { email: data.value.email, password: data.value.password }
     const user = await this.apiService.login(formValue, method)
       .catch(err => {
         console.log('login component fail', err)
@@ -77,7 +80,6 @@ export class LoginComponent implements OnInit {
     if (user) {
       console.log('User Login', user)
 
-      // persist credentials store.set('user.loggedIn', true);
       const store = await this.store.set({
         'platfrom': process.platform,
         'version': this.electronService.version,
@@ -99,8 +101,6 @@ export class LoginComponent implements OnInit {
         this.showError = true;
         this.errorMessage = 'There was a problem connecting to the Backdrop Projections server.';
       }
-
-
 
     }
   }

@@ -5,10 +5,6 @@ import { Order } from "../../models/Order";
 import { Slide } from "../../models/Slide";
 import { ElectronService } from "../../providers/electron.service";
 
-// @Directive({
-//   selector: '[thumb]',
-//   exportAs: 'thumb',
-// })
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -28,7 +24,6 @@ export class OrdersComponent implements OnInit {
   ordersLength: any;
   noOrders: boolean = false;
   domain: string;
-  // @ViewChild('thumb') thumb: ElementRef;
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) {
     this.domain = this.apiService.domain;
   }
@@ -52,7 +47,10 @@ export class OrdersComponent implements OnInit {
   }
 
   daysRemaining(order) {
-    const days = this.moment.duration(this.moment(order.end_date).diff(this.moment(order.start_date))).asDays();
+    const days = this.moment
+      .duration(this.moment(order.end_date)
+        .diff(this.moment(order.start_date)))
+      .asDays();
     return Math.floor(days);
   }
 
@@ -61,6 +59,10 @@ export class OrdersComponent implements OnInit {
     return thumb.click()
   }
 
+  /**
+   * @desc : Launches a link to repurchase, in an external browser
+   * @param order
+   */
   rePurchase(order) {
     console.log('platform', process.platform)
     let uri = this.apiService.webSite + '/productDetails\\;id=' + order.image_id
@@ -76,16 +78,23 @@ export class OrdersComponent implements OnInit {
     this.electron.childProcess.execSync(execStr);
   }
 
+  /**
+   * @desc : call getOrders() method, builds all the order properties,
+   * this.orders represents both the thumbnails and slides that are loaded,
+   * Only clicking on the UI tabs can change the definition of this.orders
+   */
   ngOnInit() {
     this.orders = this.ordersService.getOrders();
     this.slides = this.orders;
     console.log('this.orders', this.orders)
 
+    /** @desc : used to determine the length of the sequence dropdown in the Ui */
     this.ordersLength = [];
     for (let i = 1; i <= this.orders.length; i++) {
       this.ordersLength.push(i);
     }
 
+    /** @desc : if no orders - then show test tab immediately */
     if (this.orders.length < 1) {
       this.orderType = 'test';
       this.orders = this.ordersService.getOrders('test');
@@ -94,25 +103,24 @@ export class OrdersComponent implements OnInit {
       document.querySelectorAll('.tab-item')[3].classList.add('is-active');
     }
   }
+
+  /**
+   * @desc : Called when user clicks on thumbnail,
+   * Sets a selected order, then displays the slide show
+   * @param event : Click Event
+   * @param order
+   */
   fullScreen(event, order) {
-
     this.selectedOrder = order;
-
-    // console.log('Selected order', order);
-
     if (this.orderType === 'expired') {
       return null;
     }
-
     this.hideOrders = true;
     this.showSlideShow = true;
+    let document: any = window.document;
     document.body.style.backgroundColor = "black";
     document.body.classList.add('overflow');
-
-
     document.documentElement.webkitRequestFullScreen();
-
-
   }
 
   activeRentals() {
@@ -136,6 +144,11 @@ export class OrdersComponent implements OnInit {
     this.showModal = param;
   }
 
+  /**
+   * @desc : Sets the order to the position selected
+   * @param event : Change event
+   * @param order
+   */
   onChange(event, order) {
     const pos = parseInt(event.target.value) - 1;
 

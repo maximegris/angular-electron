@@ -49,6 +49,12 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  /**
+   * @desc : Called when you click on the main UI tabs
+   * @param event : Javascript Event
+   * @param param : Active | Upcoming | Expired | Test
+   * @returns : Emmits filtered orders to the Orders component
+   */
   filterOrders(event, param) {
     Array.from(document.querySelectorAll('.tab-item')).forEach(e => e.classList.remove('is-active'));
     event.target.classList.add('is-active');
@@ -72,6 +78,11 @@ export class NavbarComponent implements OnInit {
     document.querySelector('app-modal').removeAttribute('hidden');
   }
 
+  /**
+   * @desc : Called in navbar to refresh orders,
+   * Used to update UI if user orders were updated server-side
+   * Fetches the user orders and stores them, then redirects to the 'home' route
+   */
   async reload() {
     this.router.navigate(['loading']);
     const orders = await this.download.processDownloads(this.store.get('method'))

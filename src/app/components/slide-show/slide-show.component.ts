@@ -4,7 +4,6 @@ import { Order } from '../../models/Order';
 import { Slide } from '../../models/Slide';
 import { Observable } from 'rxjs';
 import { ElectronService } from "../../providers/electron.service";
-import { enterView } from '@angular/core/src/render3/instructions';
 
 export enum KEY_CODE {
   RIGHT_ARROW = 39,
@@ -23,22 +22,23 @@ export class SlideShowComponent implements OnInit {
   slidePath: string;
   active: number = 0;
   @ViewChild('slideMessage') slideMessage: any;
-  // OrderType: string;
   @Input() orderType: string;
   @Input() newActive: any;
   @Input() slideOrders: any;
   @Input() fullScreen: any;
-  // @ViewChildren(Counter) counters: QueryList<Counter>;
 
   constructor(private apiService: ApiService, private electron: ElectronService, private el: ElementRef) {
     console.log('slide active', this.newActive)
     console.log('slides', this.slides)
-
   }
 
 
-  @HostListener('window:click', ['$event'])
 
+  /**
+   * @desc : listens for a click event on one of the thumbnails,
+   * Initiates the slide show
+   */
+  @HostListener('window:click', ['$event'])
   clickEvent(event: any) {
     // console.log('slide click', event);
     if (event.target.classList.contains('update-slides-state')) {
@@ -67,19 +67,21 @@ export class SlideShowComponent implements OnInit {
       if (videoTags.length > 0) {
         videoTags.forEach(vide => vide.play())
       }
-      console.log('tags', videoTags)
 
     }
   }
 
+  /**
+   * @desc : Controls navigation through the slide show,
+   * Arrow keys, digits and escape key may be used
+   * @param event
+   */
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     // console.log(event);
     if (event.keyCode === 71) {
       console.log('newActive', this.newActive);
       console.log('orderType', this.orderType);
-      // this.slides = this.activeRentals(2);
-      // this.activeRentals();
       console.log(this.slides);
     }
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
@@ -114,18 +116,19 @@ export class SlideShowComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * @desc : sorts the slides based on the thumbnail order
+   * @param active
+   */
   activeRentals(active) {
     const slides = this.slideOrders.sort((a, b) => a.position - b.position);
 
     for (let i = 0; i < slides.length; i++) {
       slides[i].show = false;
     }
-
     // show the first slide
     slides[active].show = true;
-
     return slides;
-
   }
 
 

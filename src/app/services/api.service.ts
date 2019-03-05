@@ -22,6 +22,12 @@ export class ApiService {
   webSite: string;
 
   constructor(private http: HttpClient, private electronService: ElectronService, private router: Router, public zone: NgZone) {
+    this.setFilePaths();
+    this.setEnvVariables();
+
+  }
+
+  setFilePaths() {
     this.filePaths = {
       thumbs: this.electronService.remote.app.getPath('userData') + "/.orderCache/thumbs/",
       full: this.electronService.remote.app.getPath('userData') + "/.orderCache/full/",
@@ -29,12 +35,9 @@ export class ApiService {
       watermarked: this.electronService.remote.app.getPath('userData') + "/.orderCache/watermarked/",
       app: this.electronService.remote.app.getAppPath()
     }
-    let store = new this.electronService.store();
-    this.loggedIn = store.get('user.loggedIn');
-    if (this.loggedIn === true) {
-      // this.router.navigate(['home']);
-    }
+  }
 
+  setEnvVariables() {
     if (this.env == 'local') {
       this.domain = 'http://backdrops.localhost'; // API
       this.webSite = 'https://backdrops.ninja-staging.co.za';
@@ -48,6 +51,11 @@ export class ApiService {
     this.apiURL = this.domain + '/api/';
   }
 
+  /**
+   *
+   * @desc : Used to launch in app link in an external browser
+   * @param {string} [path='']
+   */
   launchPage(path: string = '') {
     console.log('platform', process.platform)
     let uri = this.webSite + path;
@@ -76,7 +84,13 @@ export class ApiService {
     return this.domain + '/storage';
   }
 
-  async login(form: any, method: string) {
+  /**
+  * @desc : Used for logging in with key or username & pass
+  * @param form : form data
+  * @param method : only 'code' or 'user' - used to determine which API route to use
+  * @returns Promise
+  */
+  async login(form: any, method: string): Promise<any> {
 
     const endpoint = method === 'user' ? 'login' : 'login-with-key';
     const httpOptions = {
@@ -87,18 +101,22 @@ export class ApiService {
     return response;
   }
 
-  async testDL() {
-    let response = await this.http.get<any>(this.apiURL + 'file-dl').toPromise();
-    console.log(response)
-  }
-
   logout() {
     let store = new this.electronService.store();
     store.set('user.loggedIn', false);
     this.router.navigate(['']);
   }
 
-  async getOrders(method) {
+  /**
+   * @desc : Get user orders,
+   * send app version,
+   * only returns if you have latest app version,
+   * else return the latest version with the url to download it
+   * @route GET /user-orders
+   * @param method : only 'code' or 'user' - used to determine which API route to use
+   * @returns Promise
+   */
+  async getOrders(method: string): Promise<any> {
     let store = new this.electronService.store();
     let url;
     let httpOptions;

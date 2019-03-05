@@ -35,8 +35,10 @@ function createWindow() {
     }));
   }
 
+  /**
+   * @desc : Create our menu entries so that we can use MAC shortcuts
+   */
   if (process.platform === 'darwin') {
-    // Create our menu entries so that we can use MAC shortcuts
     Menu.setApplicationMenu(Menu.buildFromTemplate([
       {
         label: 'Edit',

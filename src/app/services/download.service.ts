@@ -8,19 +8,19 @@ import { PathLike } from 'fs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DownloadService {
+
   orders: any;
   totalBytes: any = 0;
   receivedBytes: any = 0;
   progressLoading: Subject<any> = new Subject();
 
-  constructor(private electron: ElectronService, private apiService: ApiService, private store: StorageService) {
-  }
-
-  test() {
-    console.log('new service')
-  }
-
+  constructor(private electron: ElectronService, private apiService: ApiService, private store: StorageService) { }
+  /**
+   * @desc : Used at login to retrive a list of encrypted file paths,
+   * Each file is decrypted and stored in the apps local storage folder
+   */
   async decryptStoredFiles() {
     this.makeTmpDir();
     let store = new this.electron.store();
@@ -33,14 +33,11 @@ export class DownloadService {
 
   }
 
-  async listOfStoredFiles(orders: any[]) {
-    const { full, tmp } = this.apiService.filePaths;
-    const paths = orders.map(order => this.decryptFile({ inputPath: full + order.file, outputPath: tmp + order.file }));
-
-    const files = await Promise.all(paths);
-    return files;
-  }
-
+  /**
+   * @desc : Called after login or reloading (nabvbar),
+   * Gets the orders, formats the URLs for download the runs each download until complete
+   * @param method : only 'code' or 'user' - used to determine which API route to use
+   */
   async processDownloads(method: string) {
     this.makeTmpDir();
     this.makeDirs();
@@ -68,6 +65,10 @@ export class DownloadService {
 
   }
 
+  /**
+   * @desc : takes in a list of order objects and returns a download list
+   * @param orders : array of orders returned from the API
+   */
   getDownloadList(orders) {
     const urls = [];
     const { thumbs, full, watermarked } = this.apiService.filePaths;
@@ -88,6 +89,10 @@ export class DownloadService {
     return url.substring(url.lastIndexOf('/') + 1);
   }
 
+  /**
+   * @input formatted download list
+   * @param orders - Processes download URIs with the downloadFile() method
+   */
   async startDownload(orders) {
     try {
       const files = orders.map((order, index) => {
@@ -125,6 +130,12 @@ export class DownloadService {
     }
   }
 
+  /**
+   * @desc : Makes an API request to download and srtore a single File,
+   * Files may optionally be encrypted
+   * Each download increments the total download progress
+   * @param configuration : Object with File's remote and local details
+   */
   downloadFile(configuration: { remoteFile: string, localFile: PathLike, encryption: boolean, onProgress: Function }) {
     const key = '14189dc35ae35e75ff31d7502e245cd9bc7803838fbfd5c773cdcd79b8a28bbd';
     const cipher = this.electron.crypto.createCipher('aes-256-cbc', key);
@@ -148,7 +159,6 @@ export class DownloadService {
         req.pipe(out);
       }
 
-
       req.on('data', (chunk) => {
         // Update the received bytes
         this.receivedBytes += chunk.length;
@@ -162,6 +172,10 @@ export class DownloadService {
     });
   }
 
+  /**
+   * @desc : Decrypt and store a single file
+   * @param config
+   */
   decryptFile(config: { inputPath: PathLike, outputPath: PathLike }): Promise<{}> {
     return new Promise<{}>((resolve, reject) => {
       var key = '14189dc35ae35e75ff31d7502e245cd9bc7803838fbfd5c773cdcd79b8a28bbd';
@@ -180,10 +194,16 @@ export class DownloadService {
     })
   }
 
+  /**
+   * @desc : Make a temporary OS folder, only while app is open, to store decrypted files
+   */
   makeTmpDir() {
     this.electron.jetpack.dir(this.electron.os.tmpdir() + '/' + 'dropstmp');
   }
 
+  /**
+   * @desc : Make permanent OS storage folder - Full image files are encrypted
+   */
   makeDirs() {
     const orderImageCache = this.electron.jetpack.dir(this.electron.remote.app.getPath('userData') + '/' + '.orderCache');
     orderImageCache.dir('thumbs');

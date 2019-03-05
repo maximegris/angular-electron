@@ -42,7 +42,7 @@ npm install
 There is an issue with `yarn` and `node_modules` that are only used in electron on the backend when the application is built by the packager. Please use `npm` as dependencies manager.
 
 
-If you want to generate Angular components with Angular-cli , you **MUST** install `@angular/cli` in npm global context.  
+If you want to generate Angular components with Angular-cli , you **MUST** install `@angular/cli` in npm global context.
 Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed a previous version of `angular-cli`.
 
 ``` bash
@@ -51,12 +51,12 @@ npm install -g @angular/cli
 
 ## To build for development
 
-- **in a terminal window** -> npm start  
+- **in a terminal window** -> npm start
 
 Voila! You can use your Angular + Electron app in a local development environment with hot reload !
 
-The application code is managed by `main.ts`. In this sample, the app runs with a simple Angular App (http://localhost:4200) and an Electron window.  
-The Angular component contains an example of Electron and NodeJS native lib import.  
+The application code is managed by `main.ts`. In this sample, the app runs with a simple Angular App (http://localhost:4200) and an Electron window.
+The Angular component contains an example of Electron and NodeJS native lib import.
 You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.ts`.
 
 ## Included Commands
@@ -75,14 +75,14 @@ You can desactivate "Developer Tools" by commenting `win.webContents.openDevTool
 
 ## Browser mode
 
-Maybe you want to execute the application in the browser with hot reload ? You can do it with `npm run ng:serve:web`.  
+Maybe you want to execute the application in the browser with hot reload ? You can do it with `npm run ng:serve:web`.
 Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
 
 ## Branch & Packages version
 
 - Angular 4 & Electron 1 : Branch [angular4](https://github.com/maximegris/angular-electron/tree/angular4)
 - Angular 5 & Electron 1 : Branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5)
-- Angular 6 & Electron 2 : (master)
+- Angular 6 & Electron 2 : (master) 
 
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
 [build]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
@@ -98,3 +98,49 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 [github-star]: https://github.com/maximegris/angular-electron/stargazers
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20angular-electron!%20https://github.com/maximegris/angular-electron%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/maximegris/angular-electron.svg?style=social
+
+# Documentation
+
+## Tech Stack
+Angular transplanted into an Electron project.
+
+## Files and Storage
+Files can be stored in the user data folder, this can be accessed with an electron method, `electron.remote.app.getPath('userData');`
+
+All files associated with an order are stored in this location as well as a `config.json` file that stored login information and order details. A folder called `.orderCache` is generated when the app starts.
+
+Temporary files are stored using `electron.os.tmpdir() + '/' + 'dropstmp';`
+This will return a path to the OS's temp folder, files for the app can be found under `/dropstmp`
+
+## Important Files
+- `src/app/providors/electron.service.ts` - This file is responsible for importing node modules from the electron project into Angular. So if you need to add some plugin i.e. fs-jetpack from NPM, then you import it here to use in another component. Its a kind of bridge between Electron and Angular.
+- `package.json` - Here we can change the build number, amongst all the other normal things.
+- `electron-builder.json` - The build name can be changed from here aswell as specifying the build output types.
+- `main.ts` - High level configuration can be found here such as the title bar menu settings.
+
+## Development
+
+
+## Building for Windows and Mac
+- Windows build command: `npm run electron:windows`
+- Mac build command: `npm run electron:mac`
+
+## Code Signing
+#### Windows:
+- Still processing the the Certificate in 2019 - To be confirmed
+
+#### Mac:
+App signing is performed every time you run `npm run electron:mac`  
+The following files necessary to sign the app, keep these safe:
+- `Certificates.p12`
+- `Release.key`
+
+---
+
+## App Feature Overview
+### Login & download orders
+Login can be performed either by using a key associated with an order or the regular username and password. These authentication requests both go to `'POST: /login'` and `'POST: /login-with-key'` API endpoints respectivley.  
+
+The Bearer token is stored in the `config.json` in the app's local storage folder, that can be called using `electron.remote.app.getPath('userData');`
+
+Following authentication a call to either `'GET: /user-orders'` or `'GET: /user-orders'` 

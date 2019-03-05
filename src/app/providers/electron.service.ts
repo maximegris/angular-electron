@@ -50,6 +50,9 @@ export class ElectronService {
       this.os = window.require('os');
       this.crypto = window.require('crypto');
     }
+    /**
+     * @desc : on app close, delete the decrypted files from the OS temp directory
+     */
     let win = this.remote.getCurrentWindow()
     win.addListener('close', (e) => {
       this.jetpack.remove(this.os.tmpdir() + '/' + 'dropstmp');
@@ -63,6 +66,10 @@ export class ElectronService {
     return window && window.process && window.process.type;
   }
 
+  /**
+   * @desc : Monitors clipboard for any Image objects,
+   * If the app is open it will always clear the clipboard of Images
+   */
   monitorClipboard() {
     let empty;
     setInterval(() => {
