@@ -10,7 +10,6 @@ import * as os from 'os';
 import * as crypto from 'crypto';
 import * as store from 'electron-store';
 import * as fsJetpack from 'fs-jetpack';
-import * as imageDownloader from 'image-downloader';
 import * as moment from 'moment';
 import { request } from 'request';
 
@@ -43,7 +42,6 @@ export class ElectronService {
       this.store = window.require('electron-store');
       this.jetpack = window.require('fs-jetpack');
       this.fs = window.require('fs');
-      this.imageDownloader = window.require('image-downloader');
       this.moment = window.require('moment');
       this.version = require('../../../package.json').version;
       this.request = window.require('request');

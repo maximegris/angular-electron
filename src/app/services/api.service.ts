@@ -13,9 +13,6 @@ export class ApiService {
   env: string = 'staging';
   domain: string; // API
   apiURL: string;
-  loggedIn: boolean;
-  fullImgsComplete: boolean = false;
-  ready: boolean = false;
   progressLoading: Subject<any> = new Subject();
   latest_version: any = null;
   latest_version_url: any = null;

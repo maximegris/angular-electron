@@ -105,8 +105,19 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 
 # Documentation
 
+Definitions:  
+- **UserData** Folder : Path where the app can store files on the OS separate from the app itself. This path can be called through the `electron.remote.app.getPath('userData')` method.  
+
 ## Tech Stack
 Angular transplanted into an Electron project.
+
+## Dependancies in use
+- `clipboard` - Built in electron module, used to monitor the clipboard
+- `store` - Package to easily read/write data to the config.json in the userData folder
+- `fs-jetpack` - Package that creates/deletes directories
+- `moment` - moment.js - time and date library
+- `request` - An http client
+- `os` - Built in electron module
 
 ## Files and Storage
 Files can be stored in the user data folder, this can be accessed with an electron method, `electron.remote.app.getPath('userData');`
@@ -142,8 +153,6 @@ The following files necessary to sign the app, keep these safe:
 ---
 
 ## App Feature Overview
-Definitions:  
-- **UserData** Folder : Path where the app can store files on the OS separate from the app itself. This path can be called through the `electron.remote.app.getPath('userData')` method.  
 
 ### Login
 Login can be performed either by using a key associated with an order or the regular username and password. These authentication requests both go to `'POST: /login'` and `'POST: /login-with-key'` API endpoints respectivley.  
@@ -168,6 +177,47 @@ A call to either `'GET: /user-orders'` or `'GET: /orders-key'` can be made depen
 ## Core Classes Explained
 
 ### API Service : `src/app/services/api.service.ts`
+#### Class Properties
+- `filePaths: any` - Object containing local paths to the stored thumbnail, watermarked, full images and temporary files. 
+- `env: string = 'staging'` - For setting the API URL and the website URL. can be set to one of the following values: 'local' | 'staging' | null or undefined. When set to null or undefined, api calls will be made to the production API.
+- `domain: string` - The base domain for the API
+- `apiURL: string` - The full url for the API
+- `progressLoading: Subject<any> = new Subject()` - An observable value for monitoring the progress of an initiated download.
+- `latest_version: any = null` - Set by the API response when the app version is out of date
+- `latest_version_url: any = null` -  Set by the API response when the app version is out of date
+- `webSite: string` - The URL to the customer website
+
+#### Methods
+- Note that all api service methods return promises and not observables.
+
+Login:
+```
+/**
+* @desc : Used for logging in with key or username & pass
+* @param form : form data
+* @param method : only 'code' or 'user' - used to determine which API route to use
+* @returns Promise
+*/  
+
+async login(form: any, method: string): Promise<any>
+```
+
+Get Orders:  
+```
+/**
+  * @desc : Get user orders,
+  * send app version,
+  * only returns if you have latest app version,
+  * else return the latest version with the url to download it
+  * @route GET /user-orders
+  * @param method : only 'code' or 'user' - used to determine which API route to use
+  * @returns Promise
+  */  
+  
+async getOrders(method: string): Promise<any> 
+```
+
+
 ### Download Service : `src/app/services/download.service.ts`
 ### Orders Component : `src/app/components/orders/orders.component.ts`
 
