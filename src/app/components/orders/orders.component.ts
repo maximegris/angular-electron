@@ -64,7 +64,7 @@ export class OrdersComponent implements OnInit {
    */
   rePurchase(order) {
     console.log('platform', process.platform)
-    let uri = this.apiService.webSite + '/productDetails\\;id=' + order.image_id
+    let uri = this.apiService.webSite + '/productDetails\;id=' + order.image_id
     console.log(uri)
     let execStr;
     if (process.platform === 'win32') {
