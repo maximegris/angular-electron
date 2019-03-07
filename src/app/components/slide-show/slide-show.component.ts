@@ -131,6 +131,17 @@ export class SlideShowComponent implements OnInit {
     return slides;
   }
 
+  setImgSrc(orderType, slide) {
+    switch (orderType) {
+      case 'upcoming':
+        return 'file:///' + this.apiService.filePaths.watermarked + slide.file
+      case 'test':
+        return slide.file;
+      default:
+        return 'file:///' + this.apiService.filePaths.tmp + slide.file
+    }
+  }
+
 
 
 

@@ -1,12 +1,9 @@
 <div class="slide-show">
   <div #slideMessage class="slide-message">Press 'Esc' to exit full screen mode</div>
   <div class="slide-container" *ngFor="let slide of slides" [hidden]="!slide.show">
-    <img *ngIf="slide.type == 'image'"
-      src="{{ orderType === 'test' ? slide.file : 'file:///' + apiService.filePaths.tmp + slide.file }}"
-      draggable="false">
+    <img *ngIf="slide.type == 'image'" src="{{ setImgSrc(orderType, slide) }}" draggable="false">
     <video *ngIf="slide.type == 'video'" autoplay loop>
-      <source src="{{ orderType === 'test' ? slide.file : 'file:///' + apiService.filePaths.tmp + slide.file }}"
-        type="video/mp4">
+      <source src="{{ setImgSrc(orderType, slide) }}" type="video/mp4">
     </video>
   </div>
 </div>
