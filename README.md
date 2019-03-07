@@ -164,6 +164,8 @@ Following authentication or clicking refresh (see orders component) an API call 
 
 A call to either `'GET: /user-orders'` or `'GET: /orders-key'` can be made depending on the login type used. i.e. key or username&password. Files are then stored in the userData folder.
 
+<img src="docs/bd-login-download.png" alt="drawing" width="800"/>
+
 ### Image Copy Protection
 - On Windows the clipboard is monitored, if an image file is detected then the clipboard is immidietly cleared
 - Mac - The SHIFT+CMD key  combination will hide the document body of the app for 1 second.
@@ -174,7 +176,7 @@ A call to either `'GET: /user-orders'` or `'GET: /orders-key'` can be made depen
 
 ---
 
-## Core Classes Explained
+## Core Classes
 
 ### API Service : `src/app/services/api.service.ts`
 #### Class Properties
@@ -182,7 +184,6 @@ A call to either `'GET: /user-orders'` or `'GET: /orders-key'` can be made depen
 - `env: string = 'staging'` - For setting the API URL and the website URL. can be set to one of the following values: 'local' | 'staging' | null or undefined. When set to null or undefined, api calls will be made to the production API.
 - `domain: string` - The base domain for the API
 - `apiURL: string` - The full url for the API
-- `progressLoading: Subject<any> = new Subject()` - An observable value for monitoring the progress of an initiated download.
 - `latest_version: any = null` - Set by the API response when the app version is out of date
 - `latest_version_url: any = null` -  Set by the API response when the app version is out of date
 - `webSite: string` - The URL to the customer website
@@ -192,18 +193,22 @@ A call to either `'GET: /user-orders'` or `'GET: /orders-key'` can be made depen
 
 Login:
 ```
+async login(form: any, method: string): Promise<any>  
+
 /**
-* @desc : Used for logging in with key or username & pass
-* @param form : form data
-* @param method : only 'code' or 'user' - used to determine which API route to use
-* @returns Promise
+  * @desc : Used for logging in with key or username & pass
+  * @param form : form data
+  * @param method : only 'code' or 'user' - used to determine which API route to use
+  * @returns Promise
 */  
 
-async login(form: any, method: string): Promise<any>
+
 ```
 
 Get Orders:  
 ```
+async getOrders(method: string): Promise<any>  
+
 /**
   * @desc : Get user orders,
   * send app version,
@@ -212,17 +217,114 @@ Get Orders:
   * @route GET /user-orders
   * @param method : only 'code' or 'user' - used to determine which API route to use
   * @returns Promise
-  */  
-  
-async getOrders(method: string): Promise<any> 
+*/  
 ```
 
 
 ### Download Service : `src/app/services/download.service.ts`
+#### Class Properties
+- `orders: any` - array of order objects
+- `totalBytes: any = 0` - Set total byte size of the download
+- `receivedBytes: any = 0` - Set the received bytes of the download
+- `progressLoading: Subject<any> = new Subject()` - An observable value for monitoring the progress of an initiated download.
+
+#### Methods
+```
+Initialize download process
+/**
+  * @desc : Called after login or reloading (nabvbar),
+  * Gets the orders, formats the URLs for download the runs each download until complete
+  * @param method : only 'code' or 'user' - used to determine which API route to use
+*/  
+
+async processDownloads(method: string)
+```
+Generate download list:
+```
+/**
+  * @desc : takes in a list of order objects and returns a download list
+  * @param orders : array of orders returned from the API
+*/  
+
+getDownloadList(orders)
+```
+Resolve Downloads:
+```
+/**
+  * @input formatted download list
+  * @param orders - Processes download URIs with the downloadFile() method
+*/  
+
+async startDownload(orders)
+```
+Download Single File:
+```
+/**
+  * @desc : Makes an API request to download and srtore a single File,
+  * Files may optionally be encrypted
+  * Each download increments the total download progress
+  * @param configuration : Object with File's remote and local details
+  */  
+
+downloadFile(configuration: { remoteFile: string, localFile: PathLike, encryption: boolean, onProgress: Function })
+```
+
+```
+/**
+  * @desc : Decrypt and store a single file
+  * @param config
+  */  
+
+decryptFile(config: { inputPath: PathLike, outputPath: PathLike }): Promise<{}>
+```
+
 ### Orders Component : `src/app/components/orders/orders.component.ts`
+#### Class Properties
+- `filePaths: any = this.apiService.filePaths`
+- `orders: Order[]`
+- `orderType: string = 'active'` - refers to the current tab selected in the UI
+- `moment: any = this.electron.moment` - Moment.js
+- `hideOrders: boolean = false` - Hide the Orders template
+- `showSlideShow: boolean = false` - Show the slideshow template
+- `showModal: boolean = false` - Show the Modal template
+- `slides: Order[]` - Images in the slide show
+- `selectedOrder: Order` - Stores the selected slide/order when thumbnail is clicked
+- `ordersLength: any` - The ammount of slides/orders - for the 'sequence' dropdowns
+- `noOrders: boolean = false`
+- `domain: string` - Set to the domain of the API
 
+Initialize:
+```
+/**
+  * @desc : call getOrders() method, builds all the order properties,
+  * this.orders represents both the thumbnails and slides that are loaded,
+  * Only clicking on the UI tabs can change the definition of this.orders
+  */
+ngOnInit()
+```
+<img src="docs/bd-orders-template.png" alt="drawing" width="600"/>
 
+Trigger SlideShow mode:
+```
+/**
+  * @desc : Called when user clicks on thumbnail,
+  * Sets a selected order, then displays the slide show
+  * @param event : Click Event
+  * @param order
+  */
+fullScreen(event, order)
+```
+<img src="docs/bd-orders-slideshow.png" alt="drawing" width="600"/>
 
+Change slide sequence:
+```
+/**
+  * @desc : Sets the order to the position selected
+  * @param event : Change event
+  * @param order
+  */
+onChange(event, order)
+```
 
 
 

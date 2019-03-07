@@ -19,7 +19,6 @@ export class OrdersComponent implements OnInit {
   showSlideShow: boolean = false;
   showModal: boolean = false;
   slides: Order[];
-  positions: any;
   selectedOrder: Order;
   ordersLength: any;
   noOrders: boolean = false;
