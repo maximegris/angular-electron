@@ -192,7 +192,7 @@ A call to either `'GET: /user-orders'` or `'GET: /orders-key'` can be made depen
 - Note that all api service methods return promises and not observables.
 
 Login:
-```
+```javascript
 async login(form: any, method: string): Promise<any>  
 
 /**
@@ -206,7 +206,7 @@ async login(form: any, method: string): Promise<any>
 ```
 
 Get Orders:  
-```
+```javascript
 async getOrders(method: string): Promise<any>  
 
 /**
@@ -230,7 +230,7 @@ async getOrders(method: string): Promise<any>
 
 #### Methods
 Initialize download process
-```
+```javascript
 async processDownloads(method: string)  
 
 /**
@@ -240,7 +240,7 @@ async processDownloads(method: string)
 */  
 ```
 Generate download list:
-```  
+```javascript
 getDownloadList(orders)  
 
 /**
@@ -249,7 +249,7 @@ getDownloadList(orders)
 */  
 ```
 Resolve Downloads:
-```
+```javascript
 async startDownload(orders)  
 
 /**
@@ -258,7 +258,7 @@ async startDownload(orders)
 */  
 ```
 Download Single File:
-```
+```javascript
 downloadFile(configuration: { remoteFile: string, localFile: PathLike, encryption: boolean, onProgress: Function })  
 
 /**
@@ -268,8 +268,8 @@ downloadFile(configuration: { remoteFile: string, localFile: PathLike, encryptio
   * @param configuration : Object with File's remote and local details
   */  
 ```
-
-```
+Decrypt a single file
+```javascript
 decryptFile(config: { inputPath: PathLike, outputPath: PathLike }): Promise<{}>   
 
 /**
@@ -294,7 +294,7 @@ decryptFile(config: { inputPath: PathLike, outputPath: PathLike }): Promise<{}>
 - `domain: string` - Set to the domain of the API
 
 Initialize:
-```
+```javascript
 ngOnInit()  
 
 /**
@@ -306,7 +306,7 @@ ngOnInit()
 <img src="docs/bd-orders-template.png" alt="drawing" width="600"/>
 
 Trigger SlideShow mode:
-```
+```javascript
 fullScreen(event, order)  
 
 /**
@@ -320,7 +320,7 @@ fullScreen(event, order)
 <img src="docs/bd-orders-slideshow.png" alt="drawing" width="600"/>
 
 Change slide sequence:
-```
+```javascript
 onChange(event, order)  
 
 /**
