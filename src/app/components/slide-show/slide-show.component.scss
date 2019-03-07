@@ -1,8 +1,18 @@
+// img, video {
+//   height: 100vh !important;
+//   width: auto !important;
+// }
+
 img, video {
-  height: 100vh !important;
-  width: auto !important;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
+.slide-show {
+  position: relative;
+  height: 100vh;
+}
 
 .slide-message {
   position: absolute;

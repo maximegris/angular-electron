@@ -99,6 +99,10 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20angular-electron!%20https://github.com/maximegris/angular-electron%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/maximegris/angular-electron.svg?style=social
 
+
+---
+
+
 # Documentation
 
 ## Tech Stack
@@ -138,9 +142,38 @@ The following files necessary to sign the app, keep these safe:
 ---
 
 ## App Feature Overview
-### Login & download orders
+Definitions:  
+- **UserData** Folder : Path where the app can store files on the OS separate from the app itself. This path can be called through the `electron.remote.app.getPath('userData')` method.  
+
+### Login
 Login can be performed either by using a key associated with an order or the regular username and password. These authentication requests both go to `'POST: /login'` and `'POST: /login-with-key'` API endpoints respectivley.  
 
-The Bearer token is stored in the `config.json` in the app's local storage folder, that can be called using `electron.remote.app.getPath('userData');`
+The Bearer token is stored in the `config.json` in the userData folder.
 
-Following authentication a call to either `'GET: /user-orders'` or `'GET: /user-orders'` 
+### Downloading Orders
+Following authentication or clicking refresh (see orders component) an API call is made to get all orders.  
+
+A call to either `'GET: /user-orders'` or `'GET: /orders-key'` can be made depending on the login type used. i.e. key or username&password. Files are then stored in the userData folder.
+
+### Image Copy Protection
+- On Windows the clipboard is monitored, if an image file is detected then the clipboard is immidietly cleared
+- Mac - The SHIFT+CMD key  combination will hide the document body of the app for 1 second.
+- The full resoloution images are encrypted with `aes-256-cbc`.
+- Full resoloution images are decrypted and stored in the OS's temp directory while the app is open. The OS's global temporary directory can be called through `electron.os.tmpdir()`, the app will create a folder called `'dropstmp'`.
+- Loggin out of the app will trigger a delete of both the userData and temporary OS folder.
+
+
+---
+
+## Core Classes Explained
+
+### API Service : `src/app/services/api.service.ts`
+### Download Service : `src/app/services/download.service.ts`
+### Orders Component : `src/app/components/orders/orders.component.ts`
+
+
+
+
+
+
+
