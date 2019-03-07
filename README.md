@@ -229,53 +229,53 @@ async getOrders(method: string): Promise<any>
 - `progressLoading: Subject<any> = new Subject()` - An observable value for monitoring the progress of an initiated download.
 
 #### Methods
-```
 Initialize download process
+```
+async processDownloads(method: string)  
+
 /**
   * @desc : Called after login or reloading (nabvbar),
   * Gets the orders, formats the URLs for download the runs each download until complete
   * @param method : only 'code' or 'user' - used to determine which API route to use
 */  
-
-async processDownloads(method: string)
 ```
 Generate download list:
-```
+```  
+getDownloadList(orders)  
+
 /**
   * @desc : takes in a list of order objects and returns a download list
   * @param orders : array of orders returned from the API
 */  
-
-getDownloadList(orders)
 ```
 Resolve Downloads:
 ```
+async startDownload(orders)  
+
 /**
   * @input formatted download list
   * @param orders - Processes download URIs with the downloadFile() method
 */  
-
-async startDownload(orders)
 ```
 Download Single File:
 ```
+downloadFile(configuration: { remoteFile: string, localFile: PathLike, encryption: boolean, onProgress: Function })  
+
 /**
   * @desc : Makes an API request to download and srtore a single File,
   * Files may optionally be encrypted
   * Each download increments the total download progress
   * @param configuration : Object with File's remote and local details
   */  
-
-downloadFile(configuration: { remoteFile: string, localFile: PathLike, encryption: boolean, onProgress: Function })
 ```
 
 ```
+decryptFile(config: { inputPath: PathLike, outputPath: PathLike }): Promise<{}>   
+
 /**
   * @desc : Decrypt and store a single file
   * @param config
   */  
-
-decryptFile(config: { inputPath: PathLike, outputPath: PathLike }): Promise<{}>
 ```
 
 ### Orders Component : `src/app/components/orders/orders.component.ts`
@@ -295,35 +295,39 @@ decryptFile(config: { inputPath: PathLike, outputPath: PathLike }): Promise<{}>
 
 Initialize:
 ```
+ngOnInit()  
+
 /**
   * @desc : call getOrders() method, builds all the order properties,
   * this.orders represents both the thumbnails and slides that are loaded,
   * Only clicking on the UI tabs can change the definition of this.orders
   */
-ngOnInit()
 ```
 <img src="docs/bd-orders-template.png" alt="drawing" width="600"/>
 
 Trigger SlideShow mode:
 ```
+fullScreen(event, order)  
+
 /**
   * @desc : Called when user clicks on thumbnail,
   * Sets a selected order, then displays the slide show
   * @param event : Click Event
   * @param order
   */
-fullScreen(event, order)
+
 ```
 <img src="docs/bd-orders-slideshow.png" alt="drawing" width="600"/>
 
 Change slide sequence:
 ```
+onChange(event, order)  
+
 /**
   * @desc : Sets the order to the position selected
   * @param event : Change event
   * @param order
   */
-onChange(event, order)
 ```
 
 
