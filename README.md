@@ -8,10 +8,14 @@
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
+# Table of Contents
+### [Introduction](#introduction) - Notes from the Angular + Electron Package Creator
+### [Documentation](#documentation) - Backdrop Projections App Documentation
 
+<a name="introduction"></a>
 # Introduction
 
-[Documentation](#documentation)
+
 
 Bootstrap and package your project with Angular 6(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
