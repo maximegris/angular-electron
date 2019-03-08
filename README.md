@@ -111,6 +111,12 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 <a name="documentation"></a>
 # Documentation
 
+## Resources
+[Angular-Electron Docs](https://github.com/maximegris/angular-electron) - Check the issues section if you have a strange bug
+[Electron Docs](https://electronjs.org/docs)  - Very useful, everything you could possibly need to know about Electron
+[Node Docs](https://nodejs.org/en/docs/)  - Important since electrons backend runs on Node, useful for seeing how the File System API works
+[Angular Docs](https://angular.io/docs) - Because the entire front-end is angular based, things like observables, http requests, templates, etc.
+
 Definitions:  
 - **UserData** Folder : Path where the app can store files on the OS separate from the app itself. This path can be called through the `electron.remote.app.getPath('userData')` method.  
 

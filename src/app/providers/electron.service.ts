@@ -12,6 +12,7 @@ import * as store from 'electron-store';
 import * as fsJetpack from 'fs-jetpack';
 import * as moment from 'moment';
 import { request } from 'request';
+import * as fsExtra from 'fs-extra';
 
 @Injectable()
 export class ElectronService {
@@ -30,6 +31,7 @@ export class ElectronService {
   os: typeof os;
   crypto: typeof crypto;
   clipboard: typeof clipboard;
+  fsExtra: typeof fsExtra;
 
   constructor() {
     // Conditional imports
@@ -47,6 +49,7 @@ export class ElectronService {
       this.request = window.require('request');
       this.os = window.require('os');
       this.crypto = window.require('crypto');
+      this.fsExtra = window.require('fs-extra');
     }
     /**
      * @desc : on app close, delete the decrypted files from the OS temp directory

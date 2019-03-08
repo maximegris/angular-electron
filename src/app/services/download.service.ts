@@ -217,7 +217,14 @@ export class DownloadService {
   }
 
   async deleteTmp() {
-    const deletePath = await this.electron.jetpack.removeAsync(this.electron.os.tmpdir() + '/' + 'dropstmp');
-    return deletePath;
+
+    try {
+      await this.electron.fsExtra.emptyDir(this.electron.os.tmpdir() + '/' + 'dropstmp')
+      console.log('success!')
+    } catch (err) {
+      console.error(err)
+    }
+    // const deletePath = await this.electron.jetpack.removeAsync(this.electron.os.tmpdir() + '/' + 'dropstmp');
+    // return deletePath;
   }
 }
