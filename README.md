@@ -11,6 +11,8 @@
 
 # Introduction
 
+[title](#documentation)
+
 Bootstrap and package your project with Angular 6(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
@@ -103,7 +105,7 @@ Note that you can't use Electron or NodeJS native libraries in this case. Please
 ---
 
 
-# Documentation
+# Documentation {#documentation}
 
 Definitions:  
 - **UserData** Folder : Path where the app can store files on the OS separate from the app itself. This path can be called through the `electron.remote.app.getPath('userData')` method.  
