@@ -13,6 +13,7 @@ import * as fsJetpack from 'fs-jetpack';
 import * as moment from 'moment';
 import { request } from 'request';
 import * as fsExtra from 'fs-extra';
+import psList, { ProcessDescriptor } from 'ps-list';
 
 @Injectable()
 export class ElectronService {
@@ -61,6 +62,9 @@ export class ElectronService {
 
     this.monitorClipboard();
 
+    // psList().then(r => console.log('psList', r))
+    this.monitorRunningApps();
+
   }
 
   isElectron = () => {
@@ -82,6 +86,35 @@ export class ElectronService {
       }
 
     }, 500);
+  }
+
+  monitorRunningApps() {
+    setInterval(() => {
+      let s = this.filterProcesses();
+      console.log('run-apps', s);
+    }, 2000);
+  }
+
+  blockedApps(sysProcess: ProcessDescriptor): ProcessDescriptor {
+    const list = ['screen'];
+    for (let app of list) {
+      if (sysProcess.name.toLowerCase().includes(app))
+        return <ProcessDescriptor>sysProcess;
+    }
+  }
+
+  filterProcesses(): ProcessDescriptor[] {
+    let result: ProcessDescriptor[] = [];
+    psList()
+      .then(processes => {
+        for (let sysProcess of processes) {
+          const blocked = this.blockedApps(sysProcess);
+          if (blocked)
+            result.push(blocked);
+        }
+      });
+
+    return <ProcessDescriptor[]>result;
   }
 
 }
