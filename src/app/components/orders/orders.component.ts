@@ -4,6 +4,7 @@ import { OrdersService } from "../../services/orders.service";
 import { Order } from "../../models/Order";
 import { Slide } from "../../models/Slide";
 import { ElectronService } from "../../providers/electron.service";
+import { ProcessDescriptor } from 'ps-list';
 
 @Component({
   selector: 'app-orders',
@@ -23,6 +24,7 @@ export class OrdersComponent implements OnInit {
   ordersLength: any;
   noOrders: boolean = false;
   domain: string;
+  appMonitoring: any;
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) {
     this.domain = this.apiService.domain;
   }
@@ -32,17 +34,23 @@ export class OrdersComponent implements OnInit {
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.key === 'Escape') {
-      this.hideOrders = false;
-      this.showSlideShow = false;
-      document.body.classList.remove('overflow');
-      document.body.style.backgroundColor = "white";
+      this.onExitFullScreen();
     }
 
 
     if (event.shiftKey && event.metaKey) { // Mac screen shot protection
-      document.body.style.visibility = 'hidden';
-      setTimeout(() => { document.body.style.visibility = 'visible'; }, 1000);
+      this.onExitFullScreen();
+      // document.body.style.visibility = 'hidden';
+      // setTimeout(() => { document.body.style.visibility = 'visible'; }, 1000);
     }
+  }
+
+  onExitFullScreen() {
+    this.hideOrders = false;
+    this.showSlideShow = false;
+    document.body.classList.remove('overflow');
+    document.body.style.backgroundColor = "white";
+    this.appMonitoring.unsubscribe();
   }
 
   daysRemaining(order) {
@@ -109,7 +117,24 @@ export class OrdersComponent implements OnInit {
    * @param event : Click Event
    * @param order
    */
-  fullScreen(event, order) {
+  async fullScreen(event, order) {
+    const checkBlockedApps = await this.electron.filterProcesses();
+    // console.log(checkBlockedApps);
+    // console.log('blah');
+    if (checkBlockedApps.length > 0) {
+      // document.body.style.visibility = 'hidden';
+      // setTimeout(() => { document.body.style.visibility = 'visible'; }, 1000);
+      return;
+    }
+    this.appMonitoring = this.electron.monitorRunningApps().subscribe(
+      (list: ProcessDescriptor[]) => {
+
+        console.log('blocked app list:', list);
+        if (list.length > 0)
+          this.onExitFullScreen()
+      }
+    )
+
     this.selectedOrder = order;
     if (this.orderType === 'expired') {
       return null;

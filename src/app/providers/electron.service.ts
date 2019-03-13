@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { Observable } from 'rxjs';
 
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
@@ -62,8 +62,7 @@ export class ElectronService {
 
     this.monitorClipboard();
 
-    // psList().then(r => console.log('psList', r))
-    this.monitorRunningApps();
+    // this.monitorRunningApps();
 
   }
 
@@ -76,7 +75,7 @@ export class ElectronService {
    * If the app is open it will always clear the clipboard of Images
    */
   monitorClipboard() {
-    let empty;
+    let empty: boolean;
     setInterval(() => {
       empty = clipboard.readImage().isEmpty();
       if (!empty) {
@@ -89,32 +88,34 @@ export class ElectronService {
   }
 
   monitorRunningApps() {
-    setInterval(() => {
-      let s = this.filterProcesses();
-      console.log('run-apps', s);
-    }, 2000);
+    const studentsObservable = new Observable(observer => {
+      setInterval(async () => {
+        let s = await this.filterProcesses();
+        observer.next(s);
+      }, 2000);
+    });
+
+    return studentsObservable;
   }
 
   blockedApps(sysProcess: ProcessDescriptor): ProcessDescriptor {
-    const list = ['screen'];
+    const list = ['screensho', 'snippingtool'];
     for (let app of list) {
       if (sysProcess.name.toLowerCase().includes(app))
         return <ProcessDescriptor>sysProcess;
     }
   }
 
-  filterProcesses(): ProcessDescriptor[] {
+  async filterProcesses(): Promise<ProcessDescriptor[]> {
     let result: ProcessDescriptor[] = [];
-    psList()
-      .then(processes => {
-        for (let sysProcess of processes) {
-          const blocked = this.blockedApps(sysProcess);
-          if (blocked)
-            result.push(blocked);
-        }
-      });
 
-    return <ProcessDescriptor[]>result;
+    for (let sysProcess of await psList()) {
+      const blocked = this.blockedApps(sysProcess);
+      if (blocked)
+        result.push(blocked);
+    }
+
+    return await result;
   }
 
 }
