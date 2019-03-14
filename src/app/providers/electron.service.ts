@@ -14,6 +14,9 @@ import * as moment from 'moment';
 import { request } from 'request';
 import * as fsExtra from 'fs-extra';
 import psList, { ProcessDescriptor } from 'ps-list';
+// import * as bannedApps from '../../../banned-apps.json';
+
+const bannedApps = require('../../../banned-apps.json');
 
 @Injectable()
 export class ElectronService {
@@ -33,6 +36,7 @@ export class ElectronService {
   crypto: typeof crypto;
   clipboard: typeof clipboard;
   fsExtra: typeof fsExtra;
+  blocked: any = {};
 
   constructor() {
     // Conditional imports
@@ -61,6 +65,8 @@ export class ElectronService {
     })
 
     this.monitorClipboard();
+
+    // console.log('bannedApps', bannedApps);
 
     // this.monitorRunningApps();
 
@@ -99,11 +105,21 @@ export class ElectronService {
   }
 
   blockedApps(sysProcess: ProcessDescriptor): ProcessDescriptor {
-    const list = ['screensho', 'snippingtool'];
+    const list = this.getBlackListed();
     for (let app of list) {
-      if (sysProcess.name.toLowerCase().includes(app))
+      if (sysProcess.name.toLowerCase().includes(app.toLowerCase()))
+
         return <ProcessDescriptor>sysProcess;
     }
+  }
+
+  getBlackListed(): string[] {
+    if (process.platform === 'win32')
+      return bannedApps.win;
+    else if (process.platform === 'darwin')
+      return bannedApps.mac;
+    else
+      return ['screensho']; // linux :)
   }
 
   async filterProcesses(): Promise<ProcessDescriptor[]> {
@@ -111,8 +127,14 @@ export class ElectronService {
 
     for (let sysProcess of await psList()) {
       const blocked = this.blockedApps(sysProcess);
-      if (blocked)
+      if (blocked) {
+        this.blocked = {
+          exists: true,
+          msg: `Please close ${sysProcess.name} while in the slideshow`
+        }
         result.push(blocked);
+      }
+
     }
 
     return await result;

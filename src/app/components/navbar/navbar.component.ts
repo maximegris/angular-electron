@@ -100,5 +100,15 @@ export class NavbarComponent implements OnInit {
     this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a target="_blank" href="${url}">here</a> for our latest version`;
   }
 
+  showBlockedAppMessage() {
+    this.showError = this.electron.blocked.exists;
+    this.header.nativeElement.style.paddingTop = '65px';
+    this.errorBox.nativeElement.innerHTML = this.electron.blocked.msg;
+    setTimeout(() => {
+      this.showError = false;
+      this.header.nativeElement.style.paddingTop = '10px';
+    }, 5000)
+  }
+
 
 }

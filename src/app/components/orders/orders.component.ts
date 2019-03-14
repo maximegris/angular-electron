@@ -5,6 +5,7 @@ import { Order } from "../../models/Order";
 import { Slide } from "../../models/Slide";
 import { ElectronService } from "../../providers/electron.service";
 import { ProcessDescriptor } from 'ps-list';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-orders',
@@ -25,6 +26,8 @@ export class OrdersComponent implements OnInit {
   noOrders: boolean = false;
   domain: string;
   appMonitoring: any;
+  @ViewChild('nav') nav;
+
   constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) {
     this.domain = this.apiService.domain;
   }
@@ -51,6 +54,9 @@ export class OrdersComponent implements OnInit {
     document.body.classList.remove('overflow');
     document.body.style.backgroundColor = "white";
     this.appMonitoring.unsubscribe();
+
+
+
   }
 
   daysRemaining(order) {
@@ -119,19 +125,19 @@ export class OrdersComponent implements OnInit {
    */
   async fullScreen(event, order) {
     const checkBlockedApps = await this.electron.filterProcesses();
-    // console.log(checkBlockedApps);
-    // console.log('blah');
     if (checkBlockedApps.length > 0) {
-      // document.body.style.visibility = 'hidden';
-      // setTimeout(() => { document.body.style.visibility = 'visible'; }, 1000);
+      this.nav.showBlockedAppMessage()
       return;
     }
     this.appMonitoring = this.electron.monitorRunningApps().subscribe(
       (list: ProcessDescriptor[]) => {
 
         console.log('blocked app list:', list);
-        if (list.length > 0)
+        if (list.length > 0) {
+          this.nav.showBlockedAppMessage()
           this.onExitFullScreen()
+        }
+
       }
     )
 
