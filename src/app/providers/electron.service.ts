@@ -13,7 +13,7 @@ import * as fsJetpack from 'fs-jetpack';
 import * as moment from 'moment';
 import { request } from 'request';
 import * as fsExtra from 'fs-extra';
-import psList, { ProcessDescriptor } from 'ps-list';
+// import psList, { ProcessDescriptor } from 'ps-list';
 // import * as bannedApps from '../../../banned-apps.json';
 
 const bannedApps = require('../../../banned-apps.json');
@@ -93,51 +93,51 @@ export class ElectronService {
     }, 500);
   }
 
-  monitorRunningApps() {
-    const studentsObservable = new Observable(observer => {
-      setInterval(async () => {
-        let s = await this.filterProcesses();
-        observer.next(s);
-      }, 2000);
-    });
+  // monitorRunningApps() {
+  //   const studentsObservable = new Observable(observer => {
+  //     setInterval(async () => {
+  //       let s = await this.filterProcesses();
+  //       observer.next(s);
+  //     }, 2000);
+  //   });
 
-    return studentsObservable;
-  }
+  //   return studentsObservable;
+  // }
 
-  blockedApps(sysProcess: ProcessDescriptor): ProcessDescriptor {
-    const list = this.getBlackListed();
-    for (let app of list) {
-      if (sysProcess.name.toLowerCase().includes(app.toLowerCase()))
+  // blockedApps(sysProcess: ProcessDescriptor): ProcessDescriptor {
+  //   const list = this.getBlackListed();
+  //   for (let app of list) {
+  //     if (sysProcess.name.toLowerCase().includes(app.toLowerCase()))
 
-        return <ProcessDescriptor>sysProcess;
-    }
-  }
+  //       return <ProcessDescriptor>sysProcess;
+  //   }
+  // }
 
-  getBlackListed(): string[] {
-    if (process.platform === 'win32')
-      return bannedApps.win;
-    else if (process.platform === 'darwin')
-      return bannedApps.mac;
-    else
-      return ['screensho']; // linux :)
-  }
+  // getBlackListed(): string[] {
+  //   if (process.platform === 'win32')
+  //     return bannedApps.win;
+  //   else if (process.platform === 'darwin')
+  //     return bannedApps.mac;
+  //   else
+  //     return ['screensho']; // linux :)
+  // }
 
-  async filterProcesses(): Promise<ProcessDescriptor[]> {
-    let result: ProcessDescriptor[] = [];
+  // async filterProcesses(): Promise<ProcessDescriptor[]> {
+  //   let result: ProcessDescriptor[] = [];
 
-    for (let sysProcess of await psList()) {
-      const blocked = this.blockedApps(sysProcess);
-      if (blocked) {
-        this.blocked = {
-          exists: true,
-          msg: `Please close ${sysProcess.name} while in the slideshow`
-        }
-        result.push(blocked);
-      }
+  //   for (let sysProcess of await psList()) {
+  //     const blocked = this.blockedApps(sysProcess);
+  //     if (blocked) {
+  //       this.blocked = {
+  //         exists: true,
+  //         msg: `Please close ${sysProcess.name} while in the slideshow`
+  //       }
+  //       result.push(blocked);
+  //     }
 
-    }
+  //   }
 
-    return await result;
-  }
+  //   return await result;
+  // }
 
 }

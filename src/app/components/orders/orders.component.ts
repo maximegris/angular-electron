@@ -53,7 +53,7 @@ export class OrdersComponent implements OnInit {
     this.showSlideShow = false;
     document.body.classList.remove('overflow');
     document.body.style.backgroundColor = "white";
-    this.appMonitoring.unsubscribe();
+    // this.appMonitoring.unsubscribe();
 
 
 
@@ -124,22 +124,22 @@ export class OrdersComponent implements OnInit {
    * @param order
    */
   async fullScreen(event, order) {
-    const checkBlockedApps = await this.electron.filterProcesses();
-    if (checkBlockedApps.length > 0) {
-      this.nav.showBlockedAppMessage()
-      return;
-    }
-    this.appMonitoring = this.electron.monitorRunningApps().subscribe(
-      (list: ProcessDescriptor[]) => {
+    // const checkBlockedApps = await this.electron.filterProcesses();
+    // if (checkBlockedApps.length > 0) {
+    //   this.nav.showBlockedAppMessage()
+    //   return;
+    // }
+    // this.appMonitoring = this.electron.monitorRunningApps().subscribe(
+    //   (list: ProcessDescriptor[]) => {
 
-        console.log('blocked app list:', list);
-        if (list.length > 0) {
-          this.nav.showBlockedAppMessage()
-          this.onExitFullScreen()
-        }
+    //     console.log('blocked app list:', list);
+    //     if (list.length > 0) {
+    //       this.nav.showBlockedAppMessage()
+    //       this.onExitFullScreen()
+    //     }
 
-      }
-    )
+    //   }
+    // )
 
     this.selectedOrder = order;
     if (this.orderType === 'expired') {
