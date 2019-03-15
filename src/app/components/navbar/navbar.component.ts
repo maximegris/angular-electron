@@ -70,7 +70,9 @@ export class NavbarComponent implements OnInit {
 
   async logout() {
     await this.download.deleteStorage()
-    await this.download.deleteTmp()
+    if (process.platform === 'darwin') {
+      await this.download.deleteTmp()
+    }
     /* Delete temp, not working on Win, disabled
     // await this.download.deleteTmp()
     */
