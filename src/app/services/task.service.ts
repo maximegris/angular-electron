@@ -5,30 +5,33 @@ import { ElectronService } from '../providers/electron.service';
   providedIn: 'root'
 })
 export class TaskService {
+  tasks: any[];
 
   constructor(private electron: ElectronService) {
     console.log('Task Service running')
-    if (process.platform === 'win32') {
-      this.electron.tasklist().then(tasks => {
-        console.log(tasks);
-      });
-    } else {
-      this.electron.psNode.lookup({}, function (err, resultList) {
-        if (err) {
-          throw new Error(err);
-        }
+    this.getRunningTasks()
+      .then(tasks => console.log(tasks))
+      .catch(err => new Error(err))
+  }
 
-        var process = resultList[0];
 
-        if (process) {
-
-          console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
-        }
-        else {
-          console.log('No such process found!');
-        }
-      });
-    }
+  getRunningTasks() {
+    return new Promise((resolve, reject) => {
+      if (process.platform === 'win32') {
+        this.electron.tasklist()
+          .then(tasks => {
+            resolve(tasks);
+          })
+          .catch(err => reject(err))
+      } else {
+        this.electron.psNode.lookup({}, function (err, tasks) {
+          if (err) {
+            reject(err)
+          }
+          resolve(tasks);
+        });
+      }
+    });
   }
 
 
