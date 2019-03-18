@@ -4,7 +4,7 @@ import { OrdersService } from "../../services/orders.service";
 import { Order } from "../../models/Order";
 import { Slide } from "../../models/Slide";
 import { ElectronService } from "../../providers/electron.service";
-import { ProcessDescriptor } from 'ps-list';
+// import { ProcessDescriptor } from 'ps-list';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
