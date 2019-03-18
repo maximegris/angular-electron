@@ -13,6 +13,9 @@ import * as fsJetpack from 'fs-jetpack';
 import * as moment from 'moment';
 import { request } from 'request';
 import * as fsExtra from 'fs-extra';
+import psNode from 'ps-node';
+import tasklist from 'tasklist';
+
 // import psList, { ProcessDescriptor } from 'ps-list';
 // import * as bannedApps from '../../../banned-apps.json';
 
@@ -37,6 +40,8 @@ export class ElectronService {
   clipboard: typeof clipboard;
   fsExtra: typeof fsExtra;
   blocked: any = {};
+  psNode: typeof psNode;
+  tasklist: typeof tasklist;
 
   constructor() {
     // Conditional imports
@@ -55,6 +60,8 @@ export class ElectronService {
       this.os = window.require('os');
       this.crypto = window.require('crypto');
       this.fsExtra = window.require('fs-extra');
+      this.psNode = window.require('ps-node');
+      this.tasklist = window.require('tasklist');
     }
     /**
      * @desc : on app close, delete the decrypted files from the OS temp directory

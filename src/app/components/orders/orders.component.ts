@@ -6,6 +6,7 @@ import { Slide } from "../../models/Slide";
 import { ElectronService } from "../../providers/electron.service";
 // import { ProcessDescriptor } from 'ps-list';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-orders',
@@ -28,8 +29,14 @@ export class OrdersComponent implements OnInit {
   appMonitoring: any;
   @ViewChild('nav') nav;
 
-  constructor(private apiService: ApiService, private electron: ElectronService, private ordersService: OrdersService) {
+  constructor(
+    private apiService: ApiService,
+    private electron: ElectronService,
+    private ordersService: OrdersService,
+    private task: TaskService
+  ) {
     this.domain = this.apiService.domain;
+
   }
 
 
