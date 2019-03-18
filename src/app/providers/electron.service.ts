@@ -42,7 +42,7 @@ export class ElectronService {
   blocked: any = {};
   psNode: typeof psNode;
   tasklist: typeof tasklist;
-
+  bannedApps;
   constructor() {
     // Conditional imports
     if (this.isElectron()) {
@@ -62,6 +62,7 @@ export class ElectronService {
       this.fsExtra = window.require('fs-extra');
       this.psNode = window.require('ps-node');
       this.tasklist = window.require('tasklist');
+      this.bannedApps = bannedApps;
     }
     /**
      * @desc : on app close, delete the decrypted files from the OS temp directory

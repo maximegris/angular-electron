@@ -7,6 +7,7 @@ import { viewClassName } from '@angular/compiler';
 import { DownloadService } from '../../services/download.service';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-navbar',
@@ -32,7 +33,8 @@ export class NavbarComponent implements OnInit {
     public zone: NgZone,
     private download: DownloadService,
     private store: StorageService,
-    private router: Router
+    private router: Router,
+    private task: TaskService
   ) { }
 
   ngOnInit() {
@@ -103,9 +105,9 @@ export class NavbarComponent implements OnInit {
   }
 
   showBlockedAppMessage() {
-    this.showError = this.electron.blocked.exists;
+    this.showError = this.task.blocked.exists;
     this.header.nativeElement.style.paddingTop = '65px';
-    this.errorBox.nativeElement.innerHTML = this.electron.blocked.msg;
+    this.errorBox.nativeElement.innerHTML = this.task.blocked.msg;
     setTimeout(() => {
       this.showError = false;
       this.header.nativeElement.style.paddingTop = '10px';
