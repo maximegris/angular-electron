@@ -94,11 +94,11 @@ export class TaskService {
         result.push(blocked);
       }
     }
-    const wait = await result;
+    const complete = await result;
     const t4 = performance.now();
     console.log('filterProcesses call time (ms.): ', this.round((t4 - t3)))
 
-    return wait;
+    return complete
   }
 
 
