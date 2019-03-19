@@ -7,6 +7,7 @@ import { ElectronService } from "../../providers/electron.service";
 // import { ProcessDescriptor } from 'ps-list';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { TaskService } from '../../services/task.service';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-orders',
@@ -138,14 +139,13 @@ export class OrdersComponent implements OnInit {
     }
     this.appMonitoring = this.task.monitorRunningApps().subscribe(
       (list: any[]) => {
-
         console.log('blocked app list:', list);
         if (list.length > 0) {
           this.nav.showBlockedAppMessage()
           this.onExitFullScreen()
         }
-
-      }
+      },
+      (err) => console.log('App monitoring failed', err)
     )
 
     this.selectedOrder = order;

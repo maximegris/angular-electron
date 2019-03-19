@@ -34,11 +34,13 @@ export class TaskService {
   }
 
   monitorRunningApps() {
+    let interval;
     const processObservable = new Observable(observer => {
-      setInterval(async () => {
+      interval = setInterval(async () => {
         let s = await this.filterProcesses();
         observer.next(s);
       }, 2000);
+      return { unsubscribe() { clearInterval(interval) } };
     });
 
     return processObservable;
@@ -66,14 +68,22 @@ export class TaskService {
     else if (process.platform === 'darwin')
       return this.electron.bannedApps.mac;
     else
-      return ['screensho']; // linux :)
+      return ['screenshot']; // linux :)
+  }
+
+  round(num: number): number {
+    return <number>Math.round(num * 10) / 10;
   }
 
   async filterProcesses() {
     let result: any[] = [];
 
+    const t1 = performance.now();
     const tasks = await this.getRunningTasks();
+    const t2 = performance.now();
+    console.log('getRunningTasks call time (ms.): ', this.round((t2 - t1)))
 
+    const t3 = performance.now();
     for (let sysProcess of tasks) {
       const blocked = this.blockedApps(sysProcess);
       if (blocked) {
@@ -83,10 +93,12 @@ export class TaskService {
         }
         result.push(blocked);
       }
-
     }
+    const wait = await result;
+    const t4 = performance.now();
+    console.log('filterProcesses call time (ms.): ', this.round((t4 - t3)))
 
-    return await result;
+    return wait;
   }
 
 
