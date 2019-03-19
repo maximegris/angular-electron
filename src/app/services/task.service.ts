@@ -47,7 +47,7 @@ export class TaskService {
   }
 
   blockedApps(sysProcess) {
-    const list = this.getBlackListed();
+    const list = this.electron.bannedApps.list
     for (let app of list) {
       if (this.getSysProcess(sysProcess).toLowerCase().includes(app.toLowerCase()))
         return sysProcess;
@@ -60,15 +60,6 @@ export class TaskService {
     } else {
       return sysProcess.command;
     }
-  }
-
-  getBlackListed(): string[] {
-    if (process.platform === 'win32')
-      return this.electron.bannedApps.win;
-    else if (process.platform === 'darwin')
-      return this.electron.bannedApps.mac;
-    else
-      return ['screenshot']; // linux :)
   }
 
   round(num: number): number {
@@ -89,7 +80,7 @@ export class TaskService {
       if (blocked) {
         this.blocked = {
           exists: true,
-          msg: `Please close ${this.getSysProcess(blocked)} while in the slideshow`
+          msg: `Please close ${this.getSysProcess(blocked).split("/").pop()} while in the slideshow`
         }
         result.push(blocked);
       }

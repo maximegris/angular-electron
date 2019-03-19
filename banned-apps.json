@@ -1,8 +1,22 @@
 {
-  "win": [
-    "SnippingTool.exe"
-  ],
-  "mac": [
-    "Preview"
+  "list": [
+    "screenshot",
+    "printscreen",
+    "snippingtool",
+    "sharex",
+    "picpick",
+    "skitch",
+    "snagit",
+    "captor",
+    "preview",
+    "lightshot",
+    "greenshot",
+    "snapdraw",
+    "gadwin",
+    "ember",
+    "nimbus",
+    "marker",
+    "tinygrab",
+    "tinytake"
   ]
 }
