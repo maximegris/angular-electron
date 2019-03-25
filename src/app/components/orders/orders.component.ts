@@ -28,6 +28,7 @@ export class OrdersComponent implements OnInit {
   noOrders: boolean = false;
   domain: string;
   appMonitoring: any;
+  clipboardMonitoring: any;
   @ViewChild('nav') nav;
 
   constructor(
@@ -62,9 +63,8 @@ export class OrdersComponent implements OnInit {
     document.body.classList.remove('overflow');
     document.body.style.backgroundColor = "white";
     this.appMonitoring.unsubscribe();
-
-
-
+    this.clipboardMonitoring.unsubscribe();
+    this.electron.remote.getCurrentWindow().setFullScreen(false);
   }
 
   daysRemaining(order) {
@@ -147,6 +147,7 @@ export class OrdersComponent implements OnInit {
       },
       (err) => console.log('App monitoring failed', err)
     )
+    this.clipboardMonitoring = this.task.monitorClipboard().subscribe()
 
     this.selectedOrder = order;
     if (this.orderType === 'expired') {
@@ -157,7 +158,10 @@ export class OrdersComponent implements OnInit {
     let document: any = window.document;
     document.body.style.backgroundColor = "black";
     document.body.classList.add('overflow');
-    document.documentElement.webkitRequestFullScreen();
+    // document.documentElement.webkitRequestFullScreen();
+    // document.webkitRequestFullScreen();
+    this.electron.remote.getCurrentWindow().setFullScreen(true)
+    console.log('FULLSCREEN')
   }
 
   activeRentals() {

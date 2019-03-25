@@ -141,6 +141,7 @@ export class ApiService {
           this.latest_version_url = err.error.url;
           console.log(err)
           console.log('api version', this.latest_version)
+          return Promise.reject(err);
         }
       })
     return response;

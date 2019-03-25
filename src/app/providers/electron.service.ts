@@ -43,6 +43,7 @@ export class ElectronService {
   psNode: typeof psNode;
   tasklist: typeof tasklist;
   bannedApps;
+
   constructor() {
     // Conditional imports
     if (this.isElectron()) {
@@ -72,12 +73,7 @@ export class ElectronService {
       this.jetpack.remove(this.os.tmpdir() + '/' + 'dropstmp');
     })
 
-    this.monitorClipboard();
-
-    // console.log('bannedApps', bannedApps);
-
-    // this.monitorRunningApps();
-
+    // this.monitorClipboard();
   }
 
   isElectron = () => {
@@ -88,64 +84,17 @@ export class ElectronService {
    * @desc : Monitors clipboard for any Image objects,
    * If the app is open it will always clear the clipboard of Images
    */
-  monitorClipboard() {
-    let empty: boolean;
-    setInterval(() => {
-      empty = clipboard.readImage().isEmpty();
-      if (!empty) {
-        console.log('ClipBoard', empty)
-        clipboard.clear();
-        console.log('clipboard cleared')
-      }
-
-    }, 500);
-  }
-
-  // monitorRunningApps() {
-  //   const studentsObservable = new Observable(observer => {
-  //     setInterval(async () => {
-  //       let s = await this.filterProcesses();
-  //       observer.next(s);
-  //     }, 2000);
-  //   });
-
-  //   return studentsObservable;
-  // }
-
-  // blockedApps(sysProcess: ProcessDescriptor): ProcessDescriptor {
-  //   const list = this.getBlackListed();
-  //   for (let app of list) {
-  //     if (sysProcess.name.toLowerCase().includes(app.toLowerCase()))
-
-  //       return <ProcessDescriptor>sysProcess;
-  //   }
-  // }
-
-  // getBlackListed(): string[] {
-  //   if (process.platform === 'win32')
-  //     return bannedApps.win;
-  //   else if (process.platform === 'darwin')
-  //     return bannedApps.mac;
-  //   else
-  //     return ['screensho']; // linux :)
-  // }
-
-  // async filterProcesses(): Promise<ProcessDescriptor[]> {
-  //   let result: ProcessDescriptor[] = [];
-
-  //   for (let sysProcess of await psList()) {
-  //     const blocked = this.blockedApps(sysProcess);
-  //     if (blocked) {
-  //       this.blocked = {
-  //         exists: true,
-  //         msg: `Please close ${sysProcess.name} while in the slideshow`
-  //       }
-  //       result.push(blocked);
+  // monitorClipboard() {
+  //   let empty: boolean;
+  //   setInterval(() => {
+  //     empty = clipboard.readImage().isEmpty();
+  //     if (!empty) {
+  //       console.log('ClipBoard', empty)
+  //       clipboard.clear();
+  //       console.log('clipboard cleared')
   //     }
 
-  //   }
-
-  //   return await result;
+  //   }, 500);
   // }
 
 }

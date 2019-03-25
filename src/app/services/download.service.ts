@@ -41,27 +41,28 @@ export class DownloadService {
   async processDownloads(method: string) {
     this.makeTmpDir();
     this.makeDirs();
+    try {
+      const ordersResponse: any = await this.apiService.getOrders(method)
+      if (ordersResponse) {
+        const store = await this.store.set({
+          'user.loggedIn': true,
+          'order_data.orders': ordersResponse.success
+        })
 
-    const ordersResponse: any = await this.apiService.getOrders(method);
+        console.log('store orders', store)
 
-    if (ordersResponse) {
-      const store = await this.store.set({
-        'user.loggedIn': true,
-        'order_data.orders': ordersResponse.success
-      })
+        const listToDownload = this.getDownloadList(ordersResponse.success);
 
-      console.log('store orders', store)
+        await this.startDownload(listToDownload);
 
-      const listToDownload = this.getDownloadList(ordersResponse.success);
-
-      await this.startDownload(listToDownload);
-
-      this.totalBytes = 0;
-      this.receivedBytes = 0;
-      console.log('download complete')
-      return ordersResponse;
+        this.totalBytes = 0;
+        this.receivedBytes = 0;
+        console.log('download complete')
+        return ordersResponse;
+      }
+    } catch (err) {
+      return Promise.reject(err)
     }
-
 
   }
 

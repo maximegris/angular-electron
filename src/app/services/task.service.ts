@@ -39,11 +39,33 @@ export class TaskService {
       interval = setInterval(async () => {
         let s = await this.filterProcesses();
         observer.next(s);
-      }, 2000);
+      }, 500);
       return { unsubscribe() { clearInterval(interval) } };
     });
 
     return processObservable;
+  }
+
+  monitorClipboard() {
+    let interval;
+    const clipboardObservable = new Observable(observer => {
+      let empty: boolean;
+
+      interval = setInterval(() => {
+        console.log('CLIPBOARD MONITORING')
+        empty = this.electron.clipboard.readImage().isEmpty();
+        observer.next(empty);
+        if (!empty) {
+          console.log('ClipBoard', empty)
+          this.electron.clipboard.clear();
+          console.log('clipboard cleared')
+        }
+      }, 500);
+
+      return { unsubscribe() { clearInterval(interval) } };
+    });
+
+    return clipboardObservable;
   }
 
   blockedApps(sysProcess) {

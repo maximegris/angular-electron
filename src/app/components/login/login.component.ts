@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
     private store: StorageService
   ) {
     this.loadOrdersIfLoggedIn();
+    this.user = {
+      email: 'client1@admin.com',
+      password: 'password'
+    }
     if (this.apiService.env === 'local') {
       this.user = {
         email: 'client1@admin.com',
@@ -89,17 +93,21 @@ export class LoginComponent implements OnInit {
         'user.loggedIn': true,
         'order_key': method === 'code' ? data : null
       })
-      console.log(store)
 
-      const orders = await this.download.processDownloads(method)
-      if (orders) {
+      try {
+        const orders = await this.download.processDownloads(method)
         console.log(orders)
         console.log('done')
         this.router.navigate(['home']);
-      } else {
-        this.showLoader = false;
-        this.showError = true;
-        this.errorMessage = 'There was a problem connecting to the Backdrop Projections server.';
+      } catch (err) {
+        if (err.status === 426) {
+          console.log('Login Component [APP VERSION OUT OF DATE]', err)
+          this.router.navigate(['home']);
+        } else {
+          this.showLoader = false;
+          this.showError = true;
+          this.errorMessage = 'There was a problem connecting to the Backdrop Projections server.';
+        }
       }
 
     }
