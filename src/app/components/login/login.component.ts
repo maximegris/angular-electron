@@ -37,10 +37,6 @@ export class LoginComponent implements OnInit {
     private store: StorageService
   ) {
     this.loadOrdersIfLoggedIn();
-    this.user = {
-      email: 'client1@admin.com',
-      password: 'password'
-    }
     if (this.apiService.env === 'local') {
       this.user = {
         email: 'client1@admin.com',
