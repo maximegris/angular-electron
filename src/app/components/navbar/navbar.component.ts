@@ -100,7 +100,7 @@ export class NavbarComponent implements OnInit {
   showUpdateMsg() {
     this.showError = true;
     this.header.nativeElement.style.paddingTop = '65px';
-    const url = this.apiService.latest_version_url;
+    const url = this.apiService.webSite+'/downloadApp';
     this.errorBox.nativeElement.innerHTML = `Your app is out of date, please click <a target="_blank" href="${url}">here</a> for our latest version`;
   }
 

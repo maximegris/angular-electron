@@ -132,6 +132,8 @@ export class OrdersComponent implements OnInit {
    * @param order
    */
   async fullScreen(event, order) {
+    // console.log(order);
+    // alert(order);
     const checkBlockedApps = await this.task.filterProcesses();
     if (checkBlockedApps.length > 0) {
       this.nav.showBlockedAppMessage()
