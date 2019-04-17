@@ -29,6 +29,7 @@ export class OrdersComponent implements OnInit {
   domain: string;
   appMonitoring: any;
   clipboardMonitoring: any;
+  imageIndex: any;
   @ViewChild('nav') nav;
 
   constructor(
@@ -131,9 +132,9 @@ export class OrdersComponent implements OnInit {
    * @param event : Click Event
    * @param order
    */
-  async fullScreen(event, order) {
-    // console.log(order);
-    // alert(order);
+  async fullScreen(event, order , index) {
+    sessionStorage.setItem('index' , index);
+    this.imageIndex = index;
     const checkBlockedApps = await this.task.filterProcesses();
     if (checkBlockedApps.length > 0) {
       this.nav.showBlockedAppMessage()

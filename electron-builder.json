@@ -21,6 +21,9 @@
   ],
   "win": {
     "icon": "dist",
+    "certificateFile": "C:/Users/Jade-Ninja/Desktop/BPCert.pfx",
+    "certificatePassword": "8T7tiiZMNuPTLpkE",
+    "publisherName": "Backdrop Projections",
     "target": [
       "nsis"
     ]

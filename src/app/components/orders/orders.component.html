@@ -1,7 +1,7 @@
 <app-modal [hidden]="!showModal" (onShowModal)="displayModal($event)"></app-modal>
 
 <app-slide-show [newActive]="selectedOrder" [fullScreen]="showSlideShow" [slideOrders]="slides" [orderType]="orderType"
-    [hidden]="!showSlideShow">
+    [hidden]="!showSlideShow" [imageIndex]='imageIndex'>
 </app-slide-show>
 
 <div [hidden]="hideOrders">
@@ -11,10 +11,10 @@
 
         <div class="inner">
             <p *ngIf="orders.length < 1">No images to display</p>
-            <div class="item quarter" *ngFor="let order of orders">
+            <div class="item quarter" *ngFor="let order of orders;let i =index">
                 <div class="item-inner">
                     <!-- [className]="orderType !== 'expired' ? 'update-slides-state' : 'null'" -->
-                    <figure class="update-slides-state" (click)="fullScreen($event, order)">
+                    <figure class="update-slides-state" (click)="fullScreen($event, order , i)">
                         <img class="update-slides-state"
                             src="{{ orderType === 'test' ? order.file : 'file:///' + filePaths.thumbs + order.file.split('.')[0] + '.jpg' }}"
                             draggable="false">

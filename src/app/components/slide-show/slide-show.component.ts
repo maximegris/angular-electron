@@ -26,6 +26,7 @@ export class SlideShowComponent implements OnInit {
   @Input() newActive: any;
   @Input() slideOrders: any;
   @Input() fullScreen: any;
+  @Input() imageIndex: any;
 
   constructor(private apiService: ApiService, private electron: ElectronService, private el: ElementRef) {
     console.log('slide active', this.newActive)
@@ -39,7 +40,7 @@ export class SlideShowComponent implements OnInit {
    * Initiates the slide show
    */
   @HostListener('window:click', ['$event'])
-  clickEvent(event: any) {
+  clickEvent(event: any , imageIndex) {
     // console.log('slide click', event);
     if (event.target.classList.contains('update-slides-state')) {
 
@@ -58,7 +59,8 @@ export class SlideShowComponent implements OnInit {
         this.slidePath = this.filePaths.watermarked;
       }
 
-      this.active = this.newActive === undefined ? this.active : this.newActive.position - 1;
+      // this.active = this.newActive === undefined ? this.active : this.newActive.position - 1;
+      this.active = Number(sessionStorage.getItem('index'));
 
       this.slides = this.activeRentals(this.active);
 
