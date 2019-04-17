@@ -92,12 +92,19 @@ export class OrdersComponent implements OnInit {
     let execStr;
     if (process.platform === 'win32') {
       execStr = 'start ' + uri;
+      this.electron.childProcess.execSync(execStr);
     } else if (process.platform === 'darwin') {
-      execStr = 'open ' + uri;
+      const open = require('electron-open-url');
+      open({
+        target: uri,
+        fallback: true
+      });
+      // execStr = 'open ' + uri;
     } else { // *linux
       execStr = 'xdg-open ' + uri;
+      this.electron.childProcess.execSync(execStr);
     }
-    this.electron.childProcess.execSync(execStr);
+
   }
 
   /**
