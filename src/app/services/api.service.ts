@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ApiService {
   filePaths: any;
-  env: string = 'staging';
+  env: any = null;
   domain: string; // API
   apiURL: string;
   latest_version: any = null;
