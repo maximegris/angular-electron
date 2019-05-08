@@ -3,11 +3,13 @@ os:
   - osx
 language: node_js
 node_js:
-  - 10
-  - 8
+  - '12'
+  - '11'
+  - '10'
+dist: xenial
 sudo: required
 addons:
-    chrome: stable
+  chrome: stable
 before_script:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start; fi
 install:
