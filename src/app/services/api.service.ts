@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ApiService {
   filePaths: any;
-  env: string = 'staging';
+  env: any = null;
   domain: string; // API
   apiURL: string;
   latest_version: any = null;
@@ -41,8 +41,8 @@ export class ApiService {
       this.domain = 'https://api.backdrops.ninja-staging.co.za'; // API
       this.webSite = 'https://backdrops.ninja-staging.co.za';
     } else {
-      this.domain = 'https://backdropslive.forge.ninja-staging.co.za'; // API
-      this.webSite = 'https://backdrops.ninja-staging.co.za';
+      this.domain = 'https://api.backdropprojections.com'; // API
+      this.webSite = 'https://backdropprojections.com';
     }
     this.apiURL = this.domain + '/api/';
   }
