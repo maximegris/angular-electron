@@ -1,5 +1,22 @@
+## 6.0.0 (2019-05-31)
+
+* bump angular version ([7a564a0](https://github.com/maximegris/angular-electron/commit/7a564a0))
+* Fix Travis CI link ([10aaa4c](https://github.com/maximegris/angular-electron/commit/10aaa4c))
+* Not gitignore src/karma.conf.js ([7599320](https://github.com/maximegris/angular-electron/commit/7599320))
+* ref/ upgrade Angular 8 and Electron 5 ([92334cf](https://github.com/maximegris/angular-electron/commit/92334cf))
+* update versions and prepare for electron 5 ([07a5786](https://github.com/maximegris/angular-electron/commit/07a5786))
+* version bump ([bb1d6bb](https://github.com/maximegris/angular-electron/commit/bb1d6bb))
+* feat(CI): update Ubuntu and Node versions in Travis ([e0ff557](https://github.com/maximegris/angular-electron/commit/e0ff557))
+* fix: type conflicts ([a2971bf](https://github.com/maximegris/angular-electron/commit/a2971bf))
+* fix(e2e): add mocha types ([20e1e89](https://github.com/maximegris/angular-electron/commit/20e1e89))
+* fix(e2e): without devTools ([2581983](https://github.com/maximegris/angular-electron/commit/2581983)), closes [/github.com/electron/spectron/issues/174#issuecomment-319242097](https://github.com//github.com/electron/spectron/issues/174/issues/issuecomment-319242097)
+* chore: Spectron for e2e tests ([901438a](https://github.com/maximegris/angular-electron/commit/901438a))
+
+
+
 ## 5.1.0 (2018-11-30)
 
+* [Bumped Version] 5.1.0 ([b790e12](https://github.com/maximegris/angular-electron/commit/b790e12))
 * fix/ typo Angular 7 ([fde371f](https://github.com/maximegris/angular-electron/commit/fde371f))
 * fix/ typo README ([723233c](https://github.com/maximegris/angular-electron/commit/723233c))
 * fix/ typo script npm electron:windows ([45bab44](https://github.com/maximegris/angular-electron/commit/45bab44))
