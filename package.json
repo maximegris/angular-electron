@@ -80,7 +80,7 @@
     "webdriver-manager": "12.1.0",
     "zone.js": "0.9.1"
   },
-  "engines" : {
-    "node" : ">=10.9.0"
+  "engines": {
+    "node": ">=10.9.0"
   }
 }
