@@ -15,15 +15,17 @@ Bootstrap and package your project with Angular 7 and Electron (Typescript + SAS
 
 Currently runs with:
 
-- Angular v7.2.0
-- Electron v4.0.0
-- Electron Builder v20.28.1
+- Angular v8.0.0
+- Electron v5.0.2
+- Electron Builder v20.41.0
 
 With this sample, you can :
 
 - Run your app in a local development environment with Electron & Hot reload
 - Run your app in a production environment
 - Package your app into an executable file for Linux, Windows & Mac
+
+/!\ Angular 8.0 CLI needs Node 10.9 or later to work.
 
 ## Getting Started
 
@@ -80,14 +82,15 @@ You can do this! Just by importing your library in npm dependencies (not devDepe
 ## Browser mode
 
 Maybe you want to execute the application in the browser with hot reload ? You can do it with `npm run ng:serve:web`.
-Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
+**Note that you can't use Electron or NodeJS native libraries in this case.** Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
 
 ## Branch & Packages version
 
 - Angular 4 & Electron 1 : Branch [angular4](https://github.com/maximegris/angular-electron/tree/angular4)
 - Angular 5 & Electron 1 : Branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5)
 - Angular 6 & Electron 3 : Branch [angular6](https://github.com/maximegris/angular-electron/tree/angular6)
-- Angular 7 & Electron 3 : (master)
+- Angular 7 & Electron 3 : Branch [angular7](https://github.com/maximegris/angular-electron/tree/angular7)
+- Angular 8 & Electron 4 : (master)
 
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
 [build]: https://travis-ci.org/maximegris/angular-electron
