@@ -1,5 +1,6 @@
 ## 6.0.0 (2019-05-31)
 
+* [Bumped Version] 6.0.0 ([fb719ab](https://github.com/maximegris/angular-electron/commit/fb719ab))
 * bump angular version ([7a564a0](https://github.com/maximegris/angular-electron/commit/7a564a0))
 * Fix Travis CI link ([10aaa4c](https://github.com/maximegris/angular-electron/commit/10aaa4c))
 * Not gitignore src/karma.conf.js ([7599320](https://github.com/maximegris/angular-electron/commit/7599320))
