@@ -38,7 +38,7 @@
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.800.0",
+    "@angular-devkit/build-angular": "0.800.0",
     "@angular/cli": "8.0.1",
     "@angular/common": "8.0.0",
     "@angular/compiler": "8.0.0",
@@ -69,7 +69,7 @@
     "karma-coverage-istanbul-reporter": "2.0.4",
     "karma-jasmine": "2.0.1",
     "karma-jasmine-html-reporter": "1.4.0",
-    "mocha": "6.0.2",
+    "mocha": "6.1.2",
     "npm-run-all": "4.1.5",
     "rxjs": "6.5.2",
     "spectron": "5.0.0",
@@ -78,7 +78,7 @@
     "typescript": "3.4.5",
     "wait-on": "3.2.0",
     "webdriver-manager": "12.1.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "0.9.1"
   },
   "engines" : {
     "node" : ">=10.9.0"
