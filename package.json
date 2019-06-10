@@ -35,7 +35,8 @@
     "electron:mac": "npm run build:prod && electron-builder build --mac",
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run build:prod && mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts",
-    "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+    "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "lint": "ng lint"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.800.0",
