@@ -113,6 +113,14 @@ export class SlideShowComponent implements OnInit {
         selectSlide.show = true;
       }
     }
+        // Stop video when moving to new image/video or when closing video
+        let videos = document.getElementsByClassName('videocheck');
+
+        for(var i = 0; i < videos.length; i++)
+        {
+          console.log((<HTMLVideoElement>videos[i]).src);
+          (<HTMLVideoElement>videos[i]).currentTime = 0;
+        }
   }
 
   ngOnInit() {
