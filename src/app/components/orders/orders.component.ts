@@ -8,6 +8,7 @@ import { ElectronService } from "../../providers/electron.service";
 import { NavbarComponent } from '../navbar/navbar.component';
 import { TaskService } from '../../services/task.service';
 import { error } from '@angular/compiler/src/util';
+import { session } from 'electron';
 
 @Component({
   selector: 'app-orders',
@@ -141,6 +142,11 @@ export class OrdersComponent implements OnInit {
    */
   async fullScreen(event, order , index) {
     sessionStorage.setItem('index' , index);
+    
+    if (order.media_type === 'video') {
+      sessionStorage.setItem('video_id' , order.image_id)
+    }
+
     this.imageIndex = index;
     const checkBlockedApps = await this.task.filterProcesses();
     if (checkBlockedApps.length > 0) {

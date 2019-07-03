@@ -21,6 +21,7 @@ export class SlideShowComponent implements OnInit {
   moment: any = this.electron.moment;
   slidePath: string;
   active: number = 0;
+  videoID = Number(sessionStorage.getItem('video_id'));
   @ViewChild('slideMessage') slideMessage: any;
   @Input() orderType: string;
   @Input() newActive: any;
@@ -40,7 +41,7 @@ export class SlideShowComponent implements OnInit {
    * Initiates the slide show
    */
   @HostListener('window:click', ['$event'])
-  clickEvent(event: any , imageIndex) {
+  clickEvent(event: any, imageIndex) {
     // console.log('slide click', event);
     if (event.target.classList.contains('update-slides-state')) {
 
@@ -65,10 +66,17 @@ export class SlideShowComponent implements OnInit {
       this.slides = this.activeRentals(this.active);
 
       // Fix for video pausing when re-ordering
-      const videoTags = Array.from(document.querySelectorAll('video'));
-      if (videoTags.length > 0) {
-        videoTags.forEach(vide => vide.play())
-      }
+      // const videoTags = Array.from(document.querySelectorAll('video'));
+      // if (videoTags.length > 0) {
+      //   videoTags.forEach(vide => vide.play())
+      // }
+      setTimeout(() => {
+        if (this.slides[this.active]['media_type'] === 'video') {
+          let video = document.getElementById('video' + Number(sessionStorage.getItem('video_id')));
+          (<HTMLVideoElement>video).play();
+        }
+      }, 1000);
+
 
     }
   }
@@ -89,18 +97,62 @@ export class SlideShowComponent implements OnInit {
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
       if (this.active < this.slides.length - 1) {
         this.slides.forEach(slide => slide.show = false);
+        this.slides.forEach(slide => slide.show = false);
         this.slides[this.active += 1].show = true;
+
+        if (this.videoID !== Number(this.slides[this.active]['image_id'])) {
+          const videoTags = Array.from(document.querySelectorAll('video'));
+          if (videoTags.length > 0) {
+            videoTags.forEach(vide => vide.pause())
+            videoTags.forEach(vide => vide.currentTime = 0)
+          }
+        }
+        if (this.slides[this.active]['media_type'] === 'video') {
+          sessionStorage.setItem('video_id', this.slides[this.active]['image_id']);
+
+          this.videoID = Number(sessionStorage.getItem('video_id'))
+          let video = document.getElementById('video' + this.videoID);
+          (<HTMLVideoElement>video).play();
+        }
+
       }
     }
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
       if (this.active > 0) {
         this.slides.forEach(slide => slide.show = false);
         this.slides[this.active -= 1].show = true;
+        if (this.videoID !== Number(this.slides[this.active]['image_id'])) {
+          const videoTags = Array.from(document.querySelectorAll('video'));
+          if (videoTags.length > 0) {
+            videoTags.forEach(vide => vide.pause())
+            videoTags.forEach(vide => vide.currentTime = 0)
+          }
+        }
+
+        if (this.slides[this.active]['media_type'] === 'video') {
+          sessionStorage.setItem('video_id', this.slides[this.active]['image_id']);
+
+
+
+
+          this.videoID = Number(sessionStorage.getItem('video_id'))
+          let video = document.getElementById('video' + this.videoID);
+
+          (<HTMLVideoElement>video).play();
+        }
+
+
       }
     }
     if (event.key === 'Escape') {
       this.active = 0;
-
+      const videoTags = Array.from(document.querySelectorAll('video'));
+      if (videoTags.length > 0) {
+        videoTags.forEach(vide => vide.pause())
+        videoTags.forEach(vide => vide.currentTime = 0)
+        sessionStorage.setItem('video_id', '0');
+        this.videoID = 0;
+      }
     }
     if (event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105) {
       if (parseInt(event.key) > this.slides.length) {
@@ -113,14 +165,7 @@ export class SlideShowComponent implements OnInit {
         selectSlide.show = true;
       }
     }
-        // Stop video when moving to new image/video or when closing video
-        let videos = document.getElementsByClassName('videocheck');
 
-        for(var i = 0; i < videos.length; i++)
-        {
-          console.log((<HTMLVideoElement>videos[i]).src);
-          (<HTMLVideoElement>videos[i]).currentTime = 0;
-        }
   }
 
   ngOnInit() {
