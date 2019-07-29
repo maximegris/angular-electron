@@ -9,12 +9,9 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
-      imports: [
-        TranslateModule.forRoot()
-      ]
-    })
-    .compileComponents();
+      declarations: [HomeComponent],
+      imports: [TranslateModule.forRoot()]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -29,6 +26,8 @@ describe('HomeComponent', () => {
 
   it('should render title in a h1 tag', async(() => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('PAGES.HOME.TITLE');
+    expect(compiled.querySelector('h1').textContent).toContain(
+      'PAGES.HOME.TITLE'
+    );
   }));
 });
