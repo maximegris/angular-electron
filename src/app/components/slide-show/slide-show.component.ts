@@ -154,17 +154,221 @@ export class SlideShowComponent implements OnInit {
         this.videoID = 0;
       }
     }
-
+    // Pause/Play video with spacebar 
     if (this.slides[this.active]['media_type'] === 'video') {
       let video = document.getElementById('video' + Number(sessionStorage.getItem('video_id')));
-        if (event.keyCode == 32) {
-          if ((<HTMLVideoElement>video).paused)
+      if (event.keyCode == 32) {
+        if ((<HTMLVideoElement>video).paused)
           (<HTMLVideoElement>video).play();
-          else
+        else
           (<HTMLVideoElement>video).pause();
-        }
+      }
     }
 
+
+    // Shift + 0 goes to slide 10
+    if (event.shiftKey && event.keyCode == 48 || event.shiftKey && event.keyCode == 96) {
+      if (this.slides[9] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[9];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[9]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[9]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+    }
+
+    // Shift + 1 goes to slide 11
+    if (event.shiftKey && event.keyCode == 49 || event.shiftKey && event.keyCode == 97) {
+      if (this.slides[10] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[10];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[10]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[10]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+    }
+
+    // Shift + 2 goes to slide 12
+    if (event.shiftKey && event.keyCode == 50 || event.shiftKey && event.keyCode == 98) {
+      if (this.slides[11] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[11];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[11]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[11]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+    }
+
+    // Shift + 3 goes to slide 13
+    if (event.shiftKey && event.keyCode == 51 || event.shiftKey && event.keyCode == 99) {
+      if (this.slides[12] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[12];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[12]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[12]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+    }
+
+    // Shift + 4 goes to slide 14
+    if (event.shiftKey && event.keyCode == 52 || event.shiftKey && event.keyCode == 100) {
+      if (this.slides[13] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[13];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[13]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[13]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+
+      return;
+    }
+
+    // Shift + 5 goes to slide 15
+    if (event.shiftKey && event.keyCode == 53 || event.shiftKey && event.keyCode == 101) {
+      if (this.slides[14] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[14];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[14]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[14]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+    }
+
+    // Shift + 6 goes to slide 16
+    if (event.shiftKey && event.keyCode == 54 || event.shiftKey && event.keyCode == 102) {
+      if (this.slides[15] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[15];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[15]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[15]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+    }
+
+    // Shift + 7 goes to slide 17
+    if (event.shiftKey && event.keyCode == 55 || event.shiftKey && event.keyCode == 103) {
+      if (this.slides[16] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[16];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[16]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[16]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+      
+    }
+
+    // Shift + 8 goes to slide 18
+    if (event.shiftKey && event.keyCode == 56 || event.shiftKey && event.keyCode == 104) {
+      if (this.slides[17] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[17];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[17]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[17]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+    }
+
+    // Shift + 9 goes to slide 19
+    if (event.shiftKey && event.keyCode == 57 || event.shiftKey && event.keyCode == 105) {
+      if (this.slides[18] === undefined) {
+        return;
+      }
+      this.slides.forEach(slide => slide.show = false);
+      const selectSlide = this.slides[18];
+      if (selectSlide !== undefined) {
+        selectSlide.show = true;
+      }
+      if (this.slides[18]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[18]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+      return;
+    }
+
+    // slides 1 - 9
     if (event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105) {
       if (parseInt(event.key) > this.slides.length) {
         return;
