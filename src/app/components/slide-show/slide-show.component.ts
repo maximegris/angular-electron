@@ -154,6 +154,17 @@ export class SlideShowComponent implements OnInit {
         this.videoID = 0;
       }
     }
+
+    if (this.slides[this.active]['media_type'] === 'video') {
+      let video = document.getElementById('video' + Number(sessionStorage.getItem('video_id')));
+        if (event.keyCode == 32) {
+          if ((<HTMLVideoElement>video).paused)
+          (<HTMLVideoElement>video).play();
+          else
+          (<HTMLVideoElement>video).pause();
+        }
+    }
+
     if (event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode >= 97 && event.keyCode <= 105) {
       if (parseInt(event.key) > this.slides.length) {
         return;
