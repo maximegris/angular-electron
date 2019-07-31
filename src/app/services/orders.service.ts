@@ -68,7 +68,8 @@ export class OrdersService {
         media_type: order.type,
         sku_number: order.sku_number,
         position: index + 1,
-        show: false
+        show: false,
+        loop: order.loop
       }
     })
   }

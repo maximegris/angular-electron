@@ -2,7 +2,7 @@
   <div #slideMessage class="slide-message">Press 'Esc' to exit full screen mode</div>
   <div class="slide-container" *ngFor="let slide of slides" [hidden]="!slide.show">
     <img *ngIf="slide.type == 'image'" src="{{ setImgSrc(orderType, slide) }}" draggable="false">
-    <video class="videocheck"  id="{{'video'+slide.image_id}}" *ngIf="slide.type == 'video'"  loop>
+    <video class="videocheck"  id="{{'video'+slide.image_id}}" *ngIf="slide.type == 'video'" [loop]="slide.loop === 'true' ? 'true' : ''">
       <source src="{{ setImgSrc(orderType, slide) }}" type="video/mp4">
     </video>
   </div>

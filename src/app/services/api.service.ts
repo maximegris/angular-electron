@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ApiService {
   filePaths: any;
-  env: string = 'staging';
+  env: string = 'local';
   domain: string; // API
   apiURL: string;
   latest_version: any = null;
@@ -35,7 +35,7 @@ export class ApiService {
 
   setEnvVariables() {
     if (this.env == 'local') {
-      this.domain = 'http://backdrops.localhost'; // API
+      this.domain = 'http://backdrops.test'; // API
       this.webSite = 'https://backdrops.ninja-staging.co.za';
     } else if (this.env == 'staging') {
       this.domain = 'https://api.backdrops.ninja-staging.co.za'; // API
