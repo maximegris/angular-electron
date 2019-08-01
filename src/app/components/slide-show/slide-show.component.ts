@@ -167,7 +167,7 @@ export class SlideShowComponent implements OnInit {
 
 
     // Shift + 0 goes to slide 10
-    if (event.shiftKey && event.keyCode == 48 || event.shiftKey && event.keyCode == 96) {
+    if (event.shiftKey && event.keyCode == 48 || event.shiftKey && event.keyCode == 96 || event.keyCode == 48 || event.keyCode == 96) {
       if (this.slides[9] === undefined) {
         return;
       }
