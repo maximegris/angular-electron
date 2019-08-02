@@ -22,6 +22,7 @@ export class SlideShowComponent implements OnInit {
   slidePath: string;
   active: number = 0;
   videoID = Number(sessionStorage.getItem('video_id'));
+  lastKeyCode: number;
   @ViewChild('slideMessage') slideMessage: any;
   @Input() orderType: string;
   @Input() newActive: any;
@@ -165,12 +166,31 @@ export class SlideShowComponent implements OnInit {
       }
     }
 
+    if (event.shiftKey && event.keyCode !== this.lastKeyCode) {
+      if (this.videoID !== Number(this.slides[this.active]['image_id'])) {
+        const videoTags = Array.from(document.querySelectorAll('video'));
+        if (videoTags.length > 0) {
+          videoTags.forEach(vide => vide.pause())
+          videoTags.forEach(vide => vide.currentTime = 0)
+        }
+      }
+      if (this.slides[this.active]['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', this.slides[this.active]['image_id']);
+
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        if ((<HTMLVideoElement>video).paused) {
+          (<HTMLVideoElement>video).play();
+        }
+      }
+    }
 
     // Shift + 0 goes to slide 10
     if (event.shiftKey && event.keyCode == 48 || event.shiftKey && event.keyCode == 96 || event.keyCode == 48 || event.keyCode == 96) {
       if (this.slides[9] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[9];
       if (selectSlide !== undefined) {
@@ -191,6 +211,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[10] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[10];
       if (selectSlide !== undefined) {
@@ -211,6 +232,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[11] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[11];
       if (selectSlide !== undefined) {
@@ -218,7 +240,6 @@ export class SlideShowComponent implements OnInit {
       }
       if (this.slides[11]['media_type'] === 'video') {
         sessionStorage.setItem('video_id', this.slides[11]['image_id']);
-
         this.videoID = Number(sessionStorage.getItem('video_id'))
         let video = document.getElementById('video' + this.videoID);
         (<HTMLVideoElement>video).play();
@@ -231,6 +252,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[12] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[12];
       if (selectSlide !== undefined) {
@@ -251,6 +273,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[13] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[13];
       if (selectSlide !== undefined) {
@@ -272,6 +295,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[14] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[14];
       if (selectSlide !== undefined) {
@@ -292,6 +316,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[15] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[15];
       if (selectSlide !== undefined) {
@@ -312,6 +337,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[16] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[16];
       if (selectSlide !== undefined) {
@@ -325,7 +351,7 @@ export class SlideShowComponent implements OnInit {
         (<HTMLVideoElement>video).play();
       }
       return;
-      
+
     }
 
     // Shift + 8 goes to slide 18
@@ -333,6 +359,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[17] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[17];
       if (selectSlide !== undefined) {
@@ -353,6 +380,7 @@ export class SlideShowComponent implements OnInit {
       if (this.slides[18] === undefined) {
         return;
       }
+      this.lastKeyCode = event.keyCode;
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[18];
       if (selectSlide !== undefined) {
@@ -376,6 +404,22 @@ export class SlideShowComponent implements OnInit {
       console.log('numpad');
       this.slides.forEach(slide => slide.show = false);
       const selectSlide = this.slides[parseInt(event.key) - 1];
+
+      if (this.videoID !== Number(selectSlide['image_id'])) {
+        const videoTags = Array.from(document.querySelectorAll('video'));
+        if (videoTags.length > 0) {
+          videoTags.forEach(vide => vide.pause())
+          videoTags.forEach(vide => vide.currentTime = 0)
+        }
+      }
+
+      if (selectSlide['media_type'] === 'video') {
+        sessionStorage.setItem('video_id', selectSlide['image_id']);
+        this.videoID = Number(sessionStorage.getItem('video_id'))
+        let video = document.getElementById('video' + this.videoID);
+        (<HTMLVideoElement>video).play();
+      }
+
       if (selectSlide !== undefined) {
         selectSlide.show = true;
       }
