@@ -1,5 +1,19 @@
+## 6.1.0 (2019-08-15)
+
+* [DELETE]: vscode settings removed ([becc9b4](https://github.com/maximegris/angular-electron/commit/becc9b4))
+* [UPDATE]: Typescript version fixes ([a284c23](https://github.com/maximegris/angular-electron/commit/a284c23))
+* Angular src restructured as modular as per angular official guidelines, .travis.yml support added fo ([5983703](https://github.com/maximegris/angular-electron/commit/5983703))
+* Corejs path updates ([88056d6](https://github.com/maximegris/angular-electron/commit/88056d6))
+* Electron 6.0.0 ([1aef350](https://github.com/maximegris/angular-electron/commit/1aef350))
+* fix/ Version Electron in README ([acf0d4f](https://github.com/maximegris/angular-electron/commit/acf0d4f))
+* misc/ upgrade Angular 8.2 / Spectron 7 ([6e2211f](https://github.com/maximegris/angular-electron/commit/6e2211f))
+* Update dependencies ([bd51f28](https://github.com/maximegris/angular-electron/commit/bd51f28))
+
+
+
 ## <small>6.0.1 (2019-05-31)</small>
 
+* [Bumped Version] 6.0.1 ([4f9cef3](https://github.com/maximegris/angular-electron/commit/4f9cef3))
 * ref/ strict version build-angular & zonejs ([5a24b56](https://github.com/maximegris/angular-electron/commit/5a24b56))
 * ref/ strict version codelyzer ([6ede0c8](https://github.com/maximegris/angular-electron/commit/6ede0c8))
 
@@ -10,6 +24,7 @@
 * [Bumped Version] 6.0.0 ([fb719ab](https://github.com/maximegris/angular-electron/commit/fb719ab))
 * Add CI for macOS. ([3ba02e3](https://github.com/maximegris/angular-electron/commit/3ba02e3))
 * bump angular version ([7a564a0](https://github.com/maximegris/angular-electron/commit/7a564a0))
+* bump tslint & codelyzer versions, update tslint rules & alphabetize ([8425cdc](https://github.com/maximegris/angular-electron/commit/8425cdc))
 * Fix Travis CI link ([10aaa4c](https://github.com/maximegris/angular-electron/commit/10aaa4c))
 * Not gitignore src/karma.conf.js ([7599320](https://github.com/maximegris/angular-electron/commit/7599320))
 * ref/ upgrade Angular 8 and Electron 5 ([92334cf](https://github.com/maximegris/angular-electron/commit/92334cf))
