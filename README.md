@@ -15,8 +15,8 @@ Bootstrap and package your project with Angular 8 and Electron (Typescript + SAS
 
 Currently runs with:
 
-- Angular v8.1.3
-- Electron v6.0.2
+- Angular v8.2.8
+- Electron v6.0.10
 - Electron Builder v21.2.0
 
 With this sample, you can :
@@ -25,7 +25,7 @@ With this sample, you can :
 - Run your app in a production environment
 - Package your app into an executable file for Linux, Windows & Mac
 
-/!\ Angular 8.0 CLI needs Node 10.9 or later to work.
+/!\ Angular 8.x CLI needs Node 10.9 or later to work.
 
 ## Getting Started
 
