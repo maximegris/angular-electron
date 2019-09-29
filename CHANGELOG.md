@@ -1,5 +1,14 @@
+## 6.2.0 (2019-09-29)
+
+* [Bumped Version] 6.2.0 ([8838e0e](https://github.com/maximegris/angular-electron/commit/8838e0e))
+* misc/ add Stale to close unactive issues ([398bdf1](https://github.com/maximegris/angular-electron/commit/398bdf1))
+* Upgrade Angular 8.2.8 & Electron 6.0.10 ([2ecda63](https://github.com/maximegris/angular-electron/commit/2ecda63))
+
+
+
 ## 6.1.0 (2019-08-15)
 
+* [Bumped Version] 6.1.0 ([b47c594](https://github.com/maximegris/angular-electron/commit/b47c594))
 * [DELETE]: vscode settings removed ([becc9b4](https://github.com/maximegris/angular-electron/commit/becc9b4))
 * [UPDATE]: Typescript version fixes ([a284c23](https://github.com/maximegris/angular-electron/commit/a284c23))
 * Angular src restructured as modular as per angular official guidelines, .travis.yml support added fo ([5983703](https://github.com/maximegris/angular-electron/commit/5983703))
