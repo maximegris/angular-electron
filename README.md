@@ -15,8 +15,8 @@ Bootstrap and package your project with Angular 8 and Electron (Typescript + SAS
 
 Currently runs with:
 
-- Angular v8.2.8
-- Electron v6.0.10
+- Angular v8.2.12
+- Electron v7.0.0
 - Electron Builder v21.2.0
 
 With this sample, you can :
