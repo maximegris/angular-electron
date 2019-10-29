@@ -9,7 +9,7 @@
       "projectType": "application",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist",
             "index": "src/index.html",
@@ -27,7 +27,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "./angular.webpack.js"
+            }
           },
           "configurations": {
             "dev": {
@@ -44,6 +47,23 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "dev-web": {
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.web.ts"
                 }
               ]
             },
@@ -67,13 +87,16 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "angular-electron:build"
           },
           "configurations": {
             "dev": {
               "browserTarget": "angular-electron:build:dev"
+            },
+            "dev-web": {
+              "browserTarget": "angular-electron:build:dev-web"
             },
             "production": {
               "browserTarget": "angular-electron:build:production"
@@ -87,7 +110,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/custom-webpack:karma",
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills-test.ts",
@@ -104,7 +127,11 @@
               "src/favicon.icns",
               "src/favicon.256x256.png",
               "src/favicon.512x512.png"
-            ]
+            ],
+            "customWebpackConfig": {
+              "path": "./angular.webpack.js",
+              "target": "web"
+            }
           }
         },
         "lint": {
