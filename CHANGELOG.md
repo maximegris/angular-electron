@@ -1,8 +1,7 @@
 ## <small>6.3.1 (2019-11-01)</small>
 
-* [Bumped Version]  6.3.1 ([66e8cc8](https://github.com/maximegris/angular-electron/commit/66e8cc8))
+* [Bumped Version]  6.3.1 ([671b6a3](https://github.com/maximegris/angular-electron/commit/671b6a3))
 * #395 - require is not defined ([c4b2cb6](https://github.com/maximegris/angular-electron/commit/c4b2cb6)), closes [#395](https://github.com/maximegris/angular-electron/issues/395)
-* misc/ import FormsModule ([017011a](https://github.com/maximegris/angular-electron/commit/017011a))
 
 
 
