@@ -15,10 +15,5 @@
     "parserOptions": {
         "tsconfigRootDir": "."
     },
-    "plugins": ["@typescript-eslint"],
-        "rules": {
-        "no-empty-function": ["warn"],
-        "@typescript-eslint/no-empty-function": ["warn"],
-        "@typescript-eslint/no-var-requires": ["warn"]
-    }
+    "plugins": ["@typescript-eslint"]
 }
