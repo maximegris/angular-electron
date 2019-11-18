@@ -10,8 +10,6 @@ dist: xenial
 sudo: required
 services:
   - xvfb
-addons:
-  chrome: stable
 before_script:
   - export DISPLAY=:99.0
 install:
