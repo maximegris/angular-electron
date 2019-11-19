@@ -1,7 +1,24 @@
+## 6.4.0 (2019-11-19)
+
+* #412 change selector of WebviewDirective ([76e7918](https://github.com/maximegris/angular-electron/commit/76e7918)), closes [#412](https://github.com/maximegris/angular-electron/issues/412)
+* eslint-migration ([7637f45](https://github.com/maximegris/angular-electron/commit/7637f45))
+* eslint-migration - disable warnings/errors ([99e7ec0](https://github.com/maximegris/angular-electron/commit/99e7ec0))
+* eslint-migration - fix removed translation import ([2f64f37](https://github.com/maximegris/angular-electron/commit/2f64f37))
+* eslint-migration - remove tslint.json configuration ([3c1f9f6](https://github.com/maximegris/angular-electron/commit/3c1f9f6))
+* karma-electron ([21f97fd](https://github.com/maximegris/angular-electron/commit/21f97fd))
+* karma-electron - remove chrome deps for travis ([0f09907](https://github.com/maximegris/angular-electron/commit/0f09907))
+* misc/ add npmrc ([9d94f9c](https://github.com/maximegris/angular-electron/commit/9d94f9c))
+* misc/ typo README ([d52b03a](https://github.com/maximegris/angular-electron/commit/d52b03a))
+* permissive eslint rules to remove linter warnings ([964b57f](https://github.com/maximegris/angular-electron/commit/964b57f))
+* require is not defined ([632c454](https://github.com/maximegris/angular-electron/commit/632c454))
+
+
+
 ## <small>6.3.1 (2019-11-01)</small>
 
 * [Bumped Version]  6.3.1 ([671b6a3](https://github.com/maximegris/angular-electron/commit/671b6a3))
 * #395 - require is not defined ([c4b2cb6](https://github.com/maximegris/angular-electron/commit/c4b2cb6)), closes [#395](https://github.com/maximegris/angular-electron/issues/395)
+* changelog ([39b0bca](https://github.com/maximegris/angular-electron/commit/39b0bca))
 
 
 
