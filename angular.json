@@ -130,7 +130,7 @@
             ],
             "customWebpackConfig": {
               "path": "./angular.webpack.js",
-              "target": "web"
+              "target": "electron-renderer"
             }
           }
         },
