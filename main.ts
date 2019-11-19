@@ -24,7 +24,6 @@ function createWindow(): BrowserWindow {
   });
 
   if (serve) {
-    /* eslint "@typescript-eslint/no-var-requires": 0 */
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
