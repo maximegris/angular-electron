@@ -1,5 +1,6 @@
 [![Angular Logo](https://www.vectorlogo.zone/logos/angular/angular-icon.svg)](https://angular.io/) [![Electron Logo](https://www.vectorlogo.zone/logos/electronjs/electronjs-icon.svg)](https://electronjs.org/)
 
+![Maintained][maintained-badge]
 [![Travis Build Status][build-badge]][build]
 [![Make a pull request][prs-badge]][prs]
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE.md)
@@ -14,8 +15,8 @@ Bootstrap and package your project with Angular 8 and Electron (Typescript + SAS
 
 Currently runs with:
 
-- Angular v8.2.12
-- Electron v7.0.0
+- Angular v8.2.14
+- Electron v7.1.7
 - Electron Builder v21.2.0
 
 With this sample, you can :
@@ -91,9 +92,9 @@ Maybe you want to execute the application in the browser with hot reload ? Just 
 - Angular 7 & Electron 3 : Branch [angular7](https://github.com/maximegris/angular-electron/tree/angular7)
 - Angular 8 & Electron 7 : (master)
 
-[build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
+[build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master&style=style=flat-square
 [build]: https://travis-ci.org/maximegris/angular-electron
-[license-badge]: https://img.shields.io/badge/license-Apache2-blue.svg?style=flat
+[license-badge]: https://img.shields.io/badge/license-Apache2-blue.svg?style=style=flat-square
 [license]: https://github.com/maximegris/angular-electron/blob/master/LICENSE.md
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
@@ -103,3 +104,4 @@ Maybe you want to execute the application in the browser with hot reload ? Just 
 [github-star]: https://github.com/maximegris/angular-electron/stargazers
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20angular-electron!%20https://github.com/maximegris/angular-electron%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/maximegris/angular-electron.svg?style=social
+[maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
