@@ -1,5 +1,14 @@
+## <small>6.4.1 (2019-12-25)</small>
+
+* feat/ update Electron (7.1.2) ([3d76ff5](https://github.com/maximegris/angular-electron/commit/3d76ff5))
+* reef/ update stale bot ([671b7c9](https://github.com/maximegris/angular-electron/commit/671b7c9))
+* ref/ remove usunsed files ([9bf5824](https://github.com/maximegris/angular-electron/commit/9bf5824))
+
+
+
 ## 6.4.0 (2019-11-19)
 
+* [Bumped Version] 6.4.0 ([fac9eef](https://github.com/maximegris/angular-electron/commit/fac9eef))
 * #412 change selector of WebviewDirective ([76e7918](https://github.com/maximegris/angular-electron/commit/76e7918)), closes [#412](https://github.com/maximegris/angular-electron/issues/412)
 * eslint-migration ([7637f45](https://github.com/maximegris/angular-electron/commit/7637f45))
 * eslint-migration - disable warnings/errors ([99e7ec0](https://github.com/maximegris/angular-electron/commit/99e7ec0))
@@ -46,6 +55,7 @@
 * [DELETE]: vscode settings removed ([becc9b4](https://github.com/maximegris/angular-electron/commit/becc9b4))
 * [UPDATE]: Typescript version fixes ([a284c23](https://github.com/maximegris/angular-electron/commit/a284c23))
 * Angular src restructured as modular as per angular official guidelines, .travis.yml support added fo ([5983703](https://github.com/maximegris/angular-electron/commit/5983703))
+* bump tslint & codelyzer versions, update tslint rules & alphabetize ([8425cdc](https://github.com/maximegris/angular-electron/commit/8425cdc))
 * Corejs path updates ([88056d6](https://github.com/maximegris/angular-electron/commit/88056d6))
 * Electron 6.0.0 ([1aef350](https://github.com/maximegris/angular-electron/commit/1aef350))
 * fix/ Version Electron in README ([acf0d4f](https://github.com/maximegris/angular-electron/commit/acf0d4f))
@@ -57,24 +67,23 @@
 ## <small>6.0.1 (2019-05-31)</small>
 
 * [Bumped Version] 6.0.1 ([4f9cef3](https://github.com/maximegris/angular-electron/commit/4f9cef3))
+* Add CI for macOS. ([3ba02e3](https://github.com/maximegris/angular-electron/commit/3ba02e3))
 * ref/ strict version build-angular & zonejs ([5a24b56](https://github.com/maximegris/angular-electron/commit/5a24b56))
 * ref/ strict version codelyzer ([6ede0c8](https://github.com/maximegris/angular-electron/commit/6ede0c8))
+* Remove Node.js v12. ([ccbf6cd](https://github.com/maximegris/angular-electron/commit/ccbf6cd))
+* Run CI for Node.js version 10 ([2538965](https://github.com/maximegris/angular-electron/commit/2538965))
+* Use service xvfb. ([4db31e3](https://github.com/maximegris/angular-electron/commit/4db31e3))
 
 
 
 ## 6.0.0 (2019-05-31)
 
 * [Bumped Version] 6.0.0 ([fb719ab](https://github.com/maximegris/angular-electron/commit/fb719ab))
-* Add CI for macOS. ([3ba02e3](https://github.com/maximegris/angular-electron/commit/3ba02e3))
 * bump angular version ([7a564a0](https://github.com/maximegris/angular-electron/commit/7a564a0))
-* bump tslint & codelyzer versions, update tslint rules & alphabetize ([8425cdc](https://github.com/maximegris/angular-electron/commit/8425cdc))
 * Fix Travis CI link ([10aaa4c](https://github.com/maximegris/angular-electron/commit/10aaa4c))
 * Not gitignore src/karma.conf.js ([7599320](https://github.com/maximegris/angular-electron/commit/7599320))
 * ref/ upgrade Angular 8 and Electron 5 ([92334cf](https://github.com/maximegris/angular-electron/commit/92334cf))
-* Remove Node.js v12. ([ccbf6cd](https://github.com/maximegris/angular-electron/commit/ccbf6cd))
-* Run CI for Node.js version 10 ([2538965](https://github.com/maximegris/angular-electron/commit/2538965))
 * update versions and prepare for electron 5 ([07a5786](https://github.com/maximegris/angular-electron/commit/07a5786))
-* Use service xvfb. ([4db31e3](https://github.com/maximegris/angular-electron/commit/4db31e3))
 * version bump ([bb1d6bb](https://github.com/maximegris/angular-electron/commit/bb1d6bb))
 * feat(CI): update Ubuntu and Node versions in Travis ([e0ff557](https://github.com/maximegris/angular-electron/commit/e0ff557))
 * fix: type conflicts ([a2971bf](https://github.com/maximegris/angular-electron/commit/a2971bf))
@@ -144,12 +153,18 @@
 * misc/ remove unused packages ([a7e33b6](https://github.com/maximegris/angular-electron/commit/a7e33b6))
 * misc/ update Changelog ([b758122](https://github.com/maximegris/angular-electron/commit/b758122))
 * ref/ upgrade angular to 6.0.3 ([e7fac6e](https://github.com/maximegris/angular-electron/commit/e7fac6e))
+* refactor: update electron, electron-builder to latest (2.0.2, 20.14.7) ([f19e6ee](https://github.com/maximegris/angular-electron/commit/f19e6ee))
+* refactor: upgrade to NodeJS 8, Angular 6, CLI 6, Electron 2.0, RxJS 6.1 ([e37efdb](https://github.com/maximegris/angular-electron/commit/e37efdb))
+* refactor(hooks): replace hooks to ng-cli fileReplacements logic ([c940037](https://github.com/maximegris/angular-electron/commit/c940037))
+* fix(test): create polyfills-test.ts for karma test & setup Travis CI ([7fbc68c](https://github.com/maximegris/angular-electron/commit/7fbc68c))
+* fix(travis): set progress to false (speed up npm) ([be48531](https://github.com/maximegris/angular-electron/commit/be48531))
 
 
 
 ## <small>3.4.1 (2018-05-25)</small>
 
 * misc/ update changelog ([70b359f](https://github.com/maximegris/angular-electron/commit/70b359f))
+* Modify electron builder configuration to remove source code and tests ([0cf6899](https://github.com/maximegris/angular-electron/commit/0cf6899))
 * version 3.4.1 ([308ea9c](https://github.com/maximegris/angular-electron/commit/308ea9c))
 
 
@@ -157,16 +172,10 @@
 ## 3.4.0 (2018-05-25)
 
 * misc/ update changelog ([7d5eeb3](https://github.com/maximegris/angular-electron/commit/7d5eeb3))
-* Modify electron builder configuration to remove source code and tests ([0cf6899](https://github.com/maximegris/angular-electron/commit/0cf6899))
 * ref/ remove contributors ([6dc97a1](https://github.com/maximegris/angular-electron/commit/6dc97a1))
 * The file is unused  ([05c9e39](https://github.com/maximegris/angular-electron/commit/05c9e39))
 * Translation issue ([35354b1](https://github.com/maximegris/angular-electron/commit/35354b1))
 * version 3.4.0 ([06d6b0f](https://github.com/maximegris/angular-electron/commit/06d6b0f))
-* refactor: update electron, electron-builder to latest (2.0.2, 20.14.7) ([f19e6ee](https://github.com/maximegris/angular-electron/commit/f19e6ee))
-* refactor: upgrade to NodeJS 8, Angular 6, CLI 6, Electron 2.0, RxJS 6.1 ([e37efdb](https://github.com/maximegris/angular-electron/commit/e37efdb))
-* refactor(hooks): replace hooks to ng-cli fileReplacements logic ([c940037](https://github.com/maximegris/angular-electron/commit/c940037))
-* fix(test): create polyfills-test.ts for karma test & setup Travis CI ([7fbc68c](https://github.com/maximegris/angular-electron/commit/7fbc68c))
-* fix(travis): set progress to false (speed up npm) ([be48531](https://github.com/maximegris/angular-electron/commit/be48531))
 
 
 
@@ -246,6 +255,7 @@
 
 ## 2.4.0 (2017-12-08)
 
+* Use HttpClientModule ([5704e2e](https://github.com/maximegris/angular-electron/commit/5704e2e))
 * version 2.4.0 ([0437b33](https://github.com/maximegris/angular-electron/commit/0437b33))
 
 
@@ -253,7 +263,6 @@
 ## 2.3.0 (2017-12-04)
 
 * add ngx translate ([facda37](https://github.com/maximegris/angular-electron/commit/facda37))
-* Use HttpClientModule ([5704e2e](https://github.com/maximegris/angular-electron/commit/5704e2e))
 
 
 
@@ -293,6 +302,7 @@
 
 * Add buffer to externals ([7e797f0](https://github.com/maximegris/angular-electron/commit/7e797f0))
 * Edit a typo on README ([956a2bc](https://github.com/maximegris/angular-electron/commit/956a2bc))
+* Fix #55 , and also added functionality for scripts global building ([012a894](https://github.com/maximegris/angular-electron/commit/012a894)), closes [#55](https://github.com/maximegris/angular-electron/issues/55)
 * Fix #55 removed bootstraps.css which for example purpose before. ([41445eb](https://github.com/maximegris/angular-electron/commit/41445eb)), closes [#55](https://github.com/maximegris/angular-electron/issues/55)
 * License MIT ([73494b7](https://github.com/maximegris/angular-electron/commit/73494b7))
 * Migrate to Angular 5 ([3a3ffe1](https://github.com/maximegris/angular-electron/commit/3a3ffe1))
@@ -308,7 +318,6 @@
 
 ## <small>1.8.1 (2017-09-22)</small>
 
-* Fix #55 , and also added functionality for scripts global building ([012a894](https://github.com/maximegris/angular-electron/commit/012a894)), closes [#55](https://github.com/maximegris/angular-electron/issues/55)
 * ref/ add package-lock in gitignore ([4edd98d](https://github.com/maximegris/angular-electron/commit/4edd98d))
 * remove package-lock ([8e98627](https://github.com/maximegris/angular-electron/commit/8e98627))
 * upgrade angular version 4.4.3 ([10d0f87](https://github.com/maximegris/angular-electron/commit/10d0f87))
