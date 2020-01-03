@@ -25,6 +25,8 @@ With this sample, you can :
 - Run your app in a production environment
 - Package your app into an executable file for Linux, Windows & Mac
 
+/!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
+
 /!\ Angular 8.x CLI needs Node 10.9 or later to works correctly.
 
 ## Getting Started
