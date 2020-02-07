@@ -40,9 +40,9 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "8.2.0",
-    "@angular-devkit/build-angular": "0.803.21",
+    "@angular-devkit/build-angular": "0.803.25",
     "@angular-eslint/builder": "0.0.1-alpha.17",
-    "@angular/cli": "8.3.21",
+    "@angular/cli": "8.3.25",
     "@angular/common": "8.2.14",
     "@angular/compiler": "8.2.14",
     "@angular/compiler-cli": "8.2.14",
