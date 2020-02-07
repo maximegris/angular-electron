@@ -1,7 +1,7 @@
 {
   "name": "angular-electron",
   "version": "7.0.0",
-  "description": "Angular 8 with Electron (Typescript + SASS + Hot Reload)",
+  "description": "Angular 9 with Electron (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
     "name": "Maxime GRIS",
@@ -21,7 +21,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
-    "start": "npm-run-all -p ng:serve electron:serve",
+    "start": "npm-run-all -p electron:serve ng:serve",
     "build": "npm run electron:serve-tsc && ng build",
     "build:dev": "npm run build -- -c dev",
     "build:prod": "npm run build -- -c production",
@@ -39,27 +39,27 @@
     "lint": "ng lint"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "8.2.0",
-    "@angular-devkit/build-angular": "0.803.25",
-    "@angular-eslint/builder": "0.0.1-alpha.17",
-    "@angular/cli": "8.3.25",
-    "@angular/common": "8.2.14",
-    "@angular/compiler": "8.2.14",
-    "@angular/compiler-cli": "8.2.14",
-    "@angular/core": "8.2.14",
-    "@angular/forms": "8.2.14",
-    "@angular/language-service": "8.2.14",
-    "@angular/platform-browser": "8.2.14",
-    "@angular/platform-browser-dynamic": "8.2.14",
-    "@angular/router": "8.2.14",
-    "@ngx-translate/core": "11.0.1",
+    "@angular-builders/custom-webpack": "8.4.1",
+    "@angular-devkit/build-angular": "0.900.1",
+    "@angular-eslint/builder": "0.0.1-alpha.18",
+    "@angular/cli": "9.0.1",
+    "@angular/common": "9.0.0",
+    "@angular/compiler": "9.0.0",
+    "@angular/compiler-cli": "9.0.0",
+    "@angular/core": "9.0.0",
+    "@angular/forms": "9.0.0",
+    "@angular/language-service": "9.0.0",
+    "@angular/platform-browser": "9.0.0",
+    "@angular/platform-browser-dynamic": "9.0.0",
+    "@angular/router": "9.0.0",
+    "@ngx-translate/core": "12.0.0",
     "@ngx-translate/http-loader": "4.0.0",
     "@types/jasmine": "3.3.16",
     "@types/jasminewd2": "2.0.8",
     "@types/mocha": "5.2.7",
-    "@types/node": "12.6.9",
-    "@typescript-eslint/eslint-plugin": "2.8.0",
-    "@typescript-eslint/parser": "2.8.0",
+    "@types/node": "12.11.1",
+    "@typescript-eslint/eslint-plugin": "2.19.0",
+    "@typescript-eslint/parser": "2.19.0",
     "chai": "4.2.0",
     "codelyzer": "5.1.2",
     "conventional-changelog-cli": "2.0.32",
@@ -67,8 +67,8 @@
     "electron": "8.0.0",
     "electron-builder": "22.3.2",
     "electron-reload": "1.5.0",
-    "eslint": "6.6.0",
-    "eslint-plugin-import": "2.18.2",
+    "eslint": "6.8.0",
+    "eslint-plugin-import": "2.20.1",
     "jasmine-core": "3.4.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "4.2.0",
@@ -78,15 +78,18 @@
     "karma-jasmine-html-reporter": "1.4.2",
     "mocha": "6.2.2",
     "npm-run-all": "4.1.5",
-    "rxjs": "6.5.3",
-    "spectron": "9.0.0",
+    "rxjs": "6.5.4",
+    "spectron": "10.0.1",
     "ts-node": "8.3.0",
-    "typescript": "3.5.3",
-    "wait-on": "3.3.0",
+    "typescript": "3.7.5",
+    "wait-on": "4.0.0",
     "webdriver-manager": "12.1.7",
-    "zone.js": "0.9.1"
+    "zone.js": "0.10.2"
   },
   "engines": {
-    "node": ">=10.9.0"
+    "node": ">=10.13.0"
+  },
+  "dependencies": {
+    "tslib": "1.10.0"
   }
 }
