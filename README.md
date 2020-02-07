@@ -15,8 +15,8 @@ Bootstrap and package your project with Angular 8 and Electron (Typescript + SAS
 
 Currently runs with:
 
-- Angular v8.2.14
-- Electron v7.1.7
+- Angular v9.0.0
+- Electron v8.0.0
 - Electron Builder v21.2.0
 
 With this sample, you can :
@@ -92,7 +92,8 @@ Maybe you want to execute the application in the browser with hot reload ? Just 
 - Angular 5 & Electron 1 : Branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5)
 - Angular 6 & Electron 3 : Branch [angular6](https://github.com/maximegris/angular-electron/tree/angular6)
 - Angular 7 & Electron 3 : Branch [angular7](https://github.com/maximegris/angular-electron/tree/angular7)
-- Angular 8 & Electron 7 : (master)
+- Angular 8 & Electron 7 : Branch [angular7](https://github.com/maximegris/angular-electron/tree/angular8)
+- Angular 9 & Electron 8 : (master)
 
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master&style=style=flat-square
 [build]: https://travis-ci.org/maximegris/angular-electron
