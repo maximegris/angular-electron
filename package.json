@@ -34,7 +34,7 @@
     "electron:windows": "npm run build:prod && electron-builder build --windows",
     "electron:mac": "npm run build:prod && electron-builder build --mac",
     "test": "ng test",
-    "e2e": "npm run build:prod && mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts",
+    "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "lint": "ng lint"
   },
@@ -64,6 +64,7 @@
     "codelyzer": "5.1.2",
     "conventional-changelog-cli": "2.0.32",
     "core-js": "3.1.4",
+    "cross-env": "7.0.0",
     "electron": "8.0.0",
     "electron-builder": "22.3.2",
     "electron-reload": "1.5.0",
