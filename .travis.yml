@@ -4,7 +4,6 @@ os:
 language: node_js
 node_js:
   - '12'
-  - '11'
   - '10'
 dist: xenial
 sudo: required
