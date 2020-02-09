@@ -1,6 +1,18 @@
+## 7.0.0 (2020-02-09)
+
+* cast isElectron to boolean #429 ([ee06695](https://github.com/maximegris/angular-electron/commit/ee06695)), closes [#429](https://github.com/maximegris/angular-electron/issues/429)
+* feat/ update angular 8 deps ([7df49ff](https://github.com/maximegris/angular-electron/commit/7df49ff))
+* feat/ update to Angular 9 & Electron 8 ([a304034](https://github.com/maximegris/angular-electron/commit/a304034))
+* fix/ e2e tests ([395d2da](https://github.com/maximegris/angular-electron/commit/395d2da))
+* hot reload note ([28e1854](https://github.com/maximegris/angular-electron/commit/28e1854))
+* ref/ upgrade electron to v8 ([320ce2f](https://github.com/maximegris/angular-electron/commit/320ce2f))
+
+
+
 ## <small>6.4.1 (2019-12-25)</small>
 
 * feat/ update Electron (7.1.2) ([3d76ff5](https://github.com/maximegris/angular-electron/commit/3d76ff5))
+* misc/ maj changelog ([eb46727](https://github.com/maximegris/angular-electron/commit/eb46727))
 * reef/ update stale bot ([671b7c9](https://github.com/maximegris/angular-electron/commit/671b7c9))
 * ref/ remove usunsed files ([9bf5824](https://github.com/maximegris/angular-electron/commit/9bf5824))
 
