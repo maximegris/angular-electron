@@ -1,5 +1,14 @@
+## <small>7.0.1 (2020-02-22)</small>
+
+* [Bumped Version] 7.0.1 ([30ba669](https://github.com/maximegris/angular-electron/commit/30ba669))
+* misc/ upgrade Angular 9.0.2 & Electron 8.0.1 ([174b36f](https://github.com/maximegris/angular-electron/commit/174b36f))
+* ref/ travis test node 10 & 12 ([8b7ee5b](https://github.com/maximegris/angular-electron/commit/8b7ee5b))
+
+
+
 ## 7.0.0 (2020-02-09)
 
+* [Bumped Version] 7.0.0 ([0f304d2](https://github.com/maximegris/angular-electron/commit/0f304d2))
 * cast isElectron to boolean #429 ([ee06695](https://github.com/maximegris/angular-electron/commit/ee06695)), closes [#429](https://github.com/maximegris/angular-electron/issues/429)
 * feat/ update angular 8 deps ([7df49ff](https://github.com/maximegris/angular-electron/commit/7df49ff))
 * feat/ update to Angular 9 & Electron 8 ([a304034](https://github.com/maximegris/angular-electron/commit/a304034))
