@@ -5,5 +5,5 @@
 
 export const AppConfig = {
   production: false,
-  environment: 'DEV'
+  environment: 'WEB'
 };
