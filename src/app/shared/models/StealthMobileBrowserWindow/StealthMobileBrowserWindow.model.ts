@@ -1,0 +1,2 @@
+import { remote } from 'electron';
+

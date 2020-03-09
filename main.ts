@@ -7,16 +7,14 @@ const args = process.argv.slice(1),
     serve = args.some(val => val === '--serve');
 
 function createWindow(): BrowserWindow {
-
+  app.allowRendererProcessReuse = true;
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height,
+    width: size.width * .75,
+    height: size.height * .75,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,

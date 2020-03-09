@@ -90,5 +90,9 @@
   },
   "engines": {
     "node": ">=10.13.0"
+  },
+  "dependencies": {
+    "@angular/fire": "5.4.2",
+    "firebase": "7.10.0"
   }
 }
