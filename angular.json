@@ -21,7 +21,7 @@
               "src/favicon.ico",
               "src/favicon.png",
               "src/favicon.icns",
-              "src/favicon.256x256.png",
+              "src/favicon.192x192.png",
               "src/favicon.512x512.png"
             ],
             "styles": [
@@ -125,7 +125,7 @@
               "src/favicon.ico",
               "src/favicon.png",
               "src/favicon.icns",
-              "src/favicon.256x256.png",
+              "src/favicon.192x192.png",
               "src/favicon.512x512.png"
             ],
             "customWebpackConfig": {

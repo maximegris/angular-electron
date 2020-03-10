@@ -26,7 +26,7 @@
     ]
   },
   "mac": {
-    "icon": "dist",
+    "icon": "dist/favicon.512x512.png",
     "target": [
       "dmg"
     ]
