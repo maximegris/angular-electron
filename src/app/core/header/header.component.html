@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" *ngIf="true">
+    <span>SECURITY APP</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onProfileClick()">Profile</button>
+        <button mat-menu-item (click)="false">Log Out</button>
+    </mat-menu>
+</mat-toolbar>
