@@ -24,20 +24,16 @@
     "certificateFile": "C:/Users/Jade-Ninja/Desktop/BPCert.pfx",
     "certificatePassword": "8T7tiiZMNuPTLpkE",
     "publisherName": "Backdrop Projections",
-    "target": [
-      "nsis"
-    ]
+    "target": ["nsis"]
   },
   "mac": {
     "icon": "dist",
-    "target": [
-      "dmg"
-    ]
+    "hardenedRuntime": true,
+    "entitlements": "./build/entitlements.mac.inherit.plist",
+    "target": ["dmg"]
   },
   "linux": {
     "icon": "dist",
-    "target": [
-      "AppImage"
-    ]
+    "target": ["AppImage"]
   }
 }

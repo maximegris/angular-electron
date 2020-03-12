@@ -1,6 +1,6 @@
 {
   "name": "backdrop-projections",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "Backdrop-Projections",
   "homepage": "http://",
   "author": {
@@ -32,7 +32,7 @@
     "electron:local": "npm run build:prod && electron .",
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
-    "electron:mac": "npm run build:prod && npx electron-builder build --mac && CSC_link=/Users/david/Sites/backdrop-projections-app-electron/Certificates.p12 && CSC_KEY_PASSWORD=gogekian",
+    "electron:mac": "npm run build:prod && npx electron-builder build --mac && CSC_link=/Applications/electron/backdrop-projections-app-electron/Certificates.p12 && CSC_KEY_PASSWORD=gogekian",
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run postinstall:web && ng e2e"
   },
@@ -68,7 +68,8 @@
     "codelyzer": "4.2.1",
     "core-js": "2.5.6",
     "electron": "^3.1.8",
-    "electron-builder": "20.28.1",
+    "electron-builder": "20.41.0",
+    "electron-notarize": "^0.2.1",
     "electron-reload": "1.2.2",
     "jasmine-core": "3.1.0",
     "jasmine-spec-reporter": "4.2.1",
