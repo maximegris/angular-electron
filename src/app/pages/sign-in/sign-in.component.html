@@ -1,1 +1,22 @@
-<p>sign-in works!</p>
+<div class="container">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="pat@example.com" [formControl]="singInForm.get('email')" required>
+        <mat-error *ngIf="isFormInvalid('email')">Please enter your login email.</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="singInForm.get('password')" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="isFormInvalid('password')">Please enter a valid password.</mat-error>
+    </mat-form-field>
+
+
+    <button mat-raised-button color="primary" (click)="logIn()">Sign In</button>
+
+</div>

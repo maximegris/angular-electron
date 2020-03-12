@@ -20,7 +20,10 @@ export class DiaryService {
         public ngZone: NgZone, // NgZone service to remove outside scope warning
         private authService: AuthService
     ) {
-        this.diaryEntryCollection = afs.collection<DiaryEntry>('diaryEntries', ref => ref.orderBy('createdTime', 'asc'));
+    }
+
+    public start() {
+        this.diaryEntryCollection = this.afs.collection<DiaryEntry>('diaryEntries', ref => ref.orderBy('createdTime', 'asc'));
         this.diaryEntries = this.diaryEntryCollection.valueChanges();
     }
 

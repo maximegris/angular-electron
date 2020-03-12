@@ -41,7 +41,9 @@ export class AuthService {
                 localStorage.setItem('user', null);
                 JSON.parse(localStorage.getItem('user'));
             }
-        })
+        }, error => {
+            console.log(error);
+        });
     }
 
     // Sign in with email/password
@@ -125,10 +127,13 @@ export class AuthService {
 
     // Sign out
     SignOut() {
-        return this.afAuth.auth.signOut().then(() => {
-            localStorage.removeItem('user');
-            this.router.navigate(['sign-in']);
-        })
+        return this.afAuth.auth.signOut()
+            .then(() => {
+                localStorage.removeItem('user');
+                this.router.navigate(['sign-in']);
+            }).catch((err) => {
+                console.log(err);
+            })
     }
 
     getUserFullName() {

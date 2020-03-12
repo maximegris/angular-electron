@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" *ngIf="true">
+<mat-toolbar color="primary" *ngIf="authService.isLoggedIn">
     <span>SECURITY APP</span>
     <span class="example-spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -6,6 +6,6 @@
     </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="onProfileClick()">Profile</button>
-        <button mat-menu-item (click)="false">Log Out</button>
+        <button mat-menu-item (click)="onLogOutClick()">Log Out</button>
     </mat-menu>
 </mat-toolbar>
