@@ -1,18 +1,19 @@
-.container {
-    height: 100%;
-    display: flex;
-    align-items: center;
+.wrapper {
+    display: grid;
+    grid-template-columns: 25% 25% 25%;
+    grid-gap: 10px;
+    background-color: #fff;
+    color: #444;
     justify-content: center;
+    margin-top: 10px;
 
-    background: url(../../../assets/background.jpg) no-repeat center fixed;
-    -webkit-background-size: cover;
-    /* pour anciens Chrome et Safari */
-    background-size: cover;
-    /* version standardisée */
-
-    .title {
-        color: white;
-        margin: 0;
-        padding: 50px 20px;
+    .box {
+        background-color: #444;
+        color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        font-size: 150%;
+        height: 200px;
+        cursor: pointer;
     }
 }

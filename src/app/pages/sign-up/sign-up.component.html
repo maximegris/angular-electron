@@ -1,1 +1,63 @@
-<p>sign-up works!</p>
+<form class="container" [formGroup]="signUpForm" autocomplete="off" novalidate>
+
+    <h3 class="mb-5">Sign Up</h3>
+
+    <mat-form-field class="fill">
+        <mat-label>Enter your first name</mat-label>
+        <input matInput placeholder="John" [formControl]="signUpForm.get('firstName')" required>
+        <mat-error *ngIf="isFormInvalid('firstName')">Please enter your first name.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="fill">
+        <mat-label>Enter your last name</mat-label>
+        <input matInput placeholder="Doe" [formControl]="signUpForm.get('lastName')" required>
+        <mat-error *ngIf="isFormInvalid('lastName')">Please enter your last name.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="fill">
+        <mat-label>Enter your date of birth</mat-label>
+        <input matInput placeholder="01/01/23" [formControl]="signUpForm.get('dob')" required>
+        <mat-error *ngIf="isFormInvalid('dob')">Please enter a valid date of birth.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="fill">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="Ex. pat@example.com" [formControl]="signUpForm.get('email')" required>
+        <mat-error *ngIf="isFormInvalid('email')">Please enter a valid email.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="fill">
+        <mat-label>Enter your mobile phone number</mat-label>
+        <span matPrefix>+1 &nbsp;</span>
+        <input type="tel" matInput placeholder="555-555-1234" [formControl]="signUpForm.get('mobilePhone')" required>
+        <mat-error *ngIf="isFormInvalid('mobilePhone')">Please enter a valid phone number.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'"  [formControl]="signUpForm.get('password')" required>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="isFormInvalid('password')">Please enter a valid valid password.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="fill">
+        <mat-label>Re-enter your password</mat-label>
+        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" [formControl]="signUpForm.get('confirm')" required>
+        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">
+            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="isFormInvalid('confirm')">Please re-enter your password.</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="mt-2" (click)="singUp()">Sign Up</button>
+
+    <div class="mt-2">
+        <span class="or"><span class="orInner">Or</span></span>
+    </div>
+
+    <div class="mt-2">
+        <span>Already Have an account?<a class="redirect" routerLink="/sign-in"> Sign In</a></span>
+    </div>
+</form>

@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" *ngIf="authService.isLoggedIn">
-    <span>SECURITY APP</span>
+    <span class="home" (click)="onHomeClick()">SECURITY APP</span>
     <span class="example-spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">account_circle</mat-icon>

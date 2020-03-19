@@ -48,3 +48,7 @@ package-lock.json
 # System Files
 .DS_Store
 Thumbs.db
+
+# Current Project
+/src/environments/*.ts
+electron-builder.json

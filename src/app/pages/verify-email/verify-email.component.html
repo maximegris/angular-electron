@@ -1,1 +1,14 @@
-<p>verify-email works!</p>
+<div class="container">
+
+    <h3 class="mb-5">Thank You for Registering</h3>
+
+    <p class="text-center">We have sent a confirmation email to <strong>{{authService.userData?.email}}</strong>.</p>
+    <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
+
+    <button mat-raised-button color="primary" class="mt-2" (click)="resendEmail()">Resend Verification Email</button>
+
+    <div class="mt-2">
+        <span>Go back to?<a class="redirect" routerLink="/sign-in"> Sign in</a></span>
+    </div>
+
+</div>

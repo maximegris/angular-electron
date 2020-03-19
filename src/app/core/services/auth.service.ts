@@ -137,6 +137,6 @@ export class AuthService {
     }
 
     getUserFullName() {
-        return this.currentUserDetails.firstName + ' ' + this.currentUserDetails.middleName + ' ' + this.currentUserDetails.lastName;
+        return this.currentUserDetails.firstName + ' ' + this.currentUserDetails.lastName;
     }
 }

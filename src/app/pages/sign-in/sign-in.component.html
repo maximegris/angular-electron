@@ -1,15 +1,17 @@
-<div class="container">
+<form class="container" [formGroup]="singInForm" autocomplete="off" novalidate>
 
-    <mat-form-field appearance="fill">
+    <h3 class="mb-5">Sign In</h3>
+
+    <mat-form-field class="fill">
         <mat-label>Enter your email</mat-label>
-        <input matInput placeholder="pat@example.com" [formControl]="singInForm.get('email')" required>
+        <input matInput placeholder="pat@example.com" [formControl]="singInForm.get('email')">
         <mat-error *ngIf="isFormInvalid('email')">Please enter your login email.</mat-error>
     </mat-form-field>
 
 
-    <mat-form-field appearance="fill">
+    <mat-form-field class="fill">
         <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="singInForm.get('password')" required>
+        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="singInForm.get('password')">
         <button mat-icon-button matSuffix (click)="hide = !hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
@@ -17,6 +19,17 @@
     </mat-form-field>
 
 
-    <button mat-raised-button color="primary" (click)="logIn()">Sign In</button>
+    <button mat-raised-button color="primary" class="mt-2" (click)="logIn()">Sign In</button>
 
-</div>
+    <div class="mt-2">
+        <span class="or"><span class="orInner">Or</span></span>
+    </div>
+
+    <div class="mt-2">
+        <a class="redirect" routerLink="/forgot-password">Forgot Password?</a>
+    </div>
+
+    <div class="mt-2">
+        <span>Don't have an account?<a class="redirect" routerLink="/sign-up"> Sign Up</a></span>
+    </div>
+</form>
