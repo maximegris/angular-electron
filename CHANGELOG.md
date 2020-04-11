@@ -1,6 +1,18 @@
+## <small>7.0.2 (2020-04-11)</small>
+
+* [Bumped Version] 7.0.2 ([c4c36f6](https://github.com/maximegris/angular-electron/commit/c4c36f6))
+* Fix a typo in README.md ([86ac910](https://github.com/maximegris/angular-electron/commit/86ac910))
+* misc/ maj angular 9.1.1 & electron 8.2.1 ([061e01e](https://github.com/maximegris/angular-electron/commit/061e01e))
+* misc/ maj eslint dep ([09fc1f7](https://github.com/maximegris/angular-electron/commit/09fc1f7))
+* moved all app icons to assets/icons folder ([7d6bb69](https://github.com/maximegris/angular-electron/commit/7d6bb69))
+* ref/ set allowRendererProcessReuse to true ([7c5c43b](https://github.com/maximegris/angular-electron/commit/7c5c43b))
+
+
+
 ## <small>7.0.1 (2020-02-22)</small>
 
-* [Bumped Version] 7.0.1 ([30ba669](https://github.com/maximegris/angular-electron/commit/30ba669))
+* [Bumped Version] 7.0.1 ([7a84ca0](https://github.com/maximegris/angular-electron/commit/7a84ca0))
+* fix/ README dependencies version ([7276d96](https://github.com/maximegris/angular-electron/commit/7276d96))
 * misc/ upgrade Angular 9.0.2 & Electron 8.0.1 ([174b36f](https://github.com/maximegris/angular-electron/commit/174b36f))
 * ref/ travis test node 10 & 12 ([8b7ee5b](https://github.com/maximegris/angular-electron/commit/8b7ee5b))
 
