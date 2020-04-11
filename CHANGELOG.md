@@ -1,5 +1,6 @@
 ## <small>7.0.3 (2020-04-11)</small>
 
+* [Bumped Version] 7.0.3 ([6206066](https://github.com/maximegris/angular-electron/commit/6206066))
 * fix/ polyfills in tsconfig ([cf4f172](https://github.com/maximegris/angular-electron/commit/cf4f172))
 
 
