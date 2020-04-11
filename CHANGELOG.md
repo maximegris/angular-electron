@@ -1,7 +1,14 @@
+## <small>7.0.3 (2020-04-11)</small>
+
+* fix/ polyfills in tsconfig ([cf4f172](https://github.com/maximegris/angular-electron/commit/cf4f172))
+
+
+
 ## <small>7.0.2 (2020-04-11)</small>
 
 * [Bumped Version] 7.0.2 ([c4c36f6](https://github.com/maximegris/angular-electron/commit/c4c36f6))
 * Fix a typo in README.md ([86ac910](https://github.com/maximegris/angular-electron/commit/86ac910))
+* misc/ Changelog ([67437ba](https://github.com/maximegris/angular-electron/commit/67437ba))
 * misc/ maj angular 9.1.1 & electron 8.2.1 ([061e01e](https://github.com/maximegris/angular-electron/commit/061e01e))
 * misc/ maj eslint dep ([09fc1f7](https://github.com/maximegris/angular-electron/commit/09fc1f7))
 * moved all app icons to assets/icons folder ([7d6bb69](https://github.com/maximegris/angular-electron/commit/7d6bb69))
