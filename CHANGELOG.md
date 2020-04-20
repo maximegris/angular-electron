@@ -1,7 +1,15 @@
+## <small>7.0.4 (2020-04-20)</small>
+
+* ref/ make app reloading/working with and without usehash routing strategy ([386ce67](https://github.com/maximegris/angular-electron/commit/386ce67))
+* Transparent background issue fix for Linux ([4c0c169](https://github.com/maximegris/angular-electron/commit/4c0c169))
+
+
+
 ## <small>7.0.3 (2020-04-11)</small>
 
 * [Bumped Version] 7.0.3 ([6206066](https://github.com/maximegris/angular-electron/commit/6206066))
 * fix/ polyfills in tsconfig ([cf4f172](https://github.com/maximegris/angular-electron/commit/cf4f172))
+* misc/ changelog ([19f6027](https://github.com/maximegris/angular-electron/commit/19f6027))
 
 
 
