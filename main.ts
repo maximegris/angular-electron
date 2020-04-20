@@ -4,7 +4,7 @@ import * as url from 'url';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
-    serve = args.some(val => val === '--serve');
+  serve = args.some(val => val === '--serve');
 
 function createWindow(): BrowserWindow {
 
