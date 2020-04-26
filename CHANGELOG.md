@@ -1,5 +1,12 @@
+## <small>7.0.5 (2020-04-26)</small>
+
+* Upgrade Angular 9.1.3 & Electron 8.2.3 ([00b9d43](https://github.com/maximegris/angular-electron/commit/00b9d43))
+
+
+
 ## <small>7.0.4 (2020-04-20)</small>
 
+* [Bumped Version] 7.0.4 ([dbce7a0](https://github.com/maximegris/angular-electron/commit/dbce7a0))
 * ref/ make app reloading/working with and without usehash routing strategy ([386ce67](https://github.com/maximegris/angular-electron/commit/386ce67))
 * Transparent background issue fix for Linux ([4c0c169](https://github.com/maximegris/angular-electron/commit/4c0c169))
 
