@@ -1,5 +1,13 @@
+## 7.1.0 (2020-05-02)
+
+* feat/ VSCode : add Debugging config for man process (#465) + Karma ([acc62d9](https://github.com/maximegris/angular-electron/commit/acc62d9)), closes [#465](https://github.com/maximegris/angular-electron/issues/465)
+* fix/ Karma configuration to debug easily  ([273e752](https://github.com/maximegris/angular-electron/commit/273e752))
+
+
+
 ## <small>7.0.5 (2020-04-26)</small>
 
+* [Bumped Version] 7.0.5 ([63eed52](https://github.com/maximegris/angular-electron/commit/63eed52))
 * Upgrade Angular 9.1.3 & Electron 8.2.3 ([00b9d43](https://github.com/maximegris/angular-electron/commit/00b9d43))
 
 
