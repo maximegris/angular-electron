@@ -1,5 +1,12 @@
+## <small>7.2.1 (2020-06-20)</small>
+
+* ref/ keep only 1 eslint config ([e942747](https://github.com/maximegris/angular-electron/commit/e942747))
+
+
+
 ## 7.2.0 (2020-06-20)
 
+* [Bumped Version] 7.2.0 ([a98a84a](https://github.com/maximegris/angular-electron/commit/a98a84a))
 * feat/ merge electron-builder npm scripts ([ddd92b3](https://github.com/maximegris/angular-electron/commit/ddd92b3))
 * fix/ ng lint with eslint ([92d7419](https://github.com/maximegris/angular-electron/commit/92d7419))
 * misc/ upgrade Electron (9.0.4) / Angular (9.1.11) ([21f7401](https://github.com/maximegris/angular-electron/commit/21f7401))
