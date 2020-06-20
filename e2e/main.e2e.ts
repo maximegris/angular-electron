@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {SpectronClient} from 'spectron';
+import { expect } from 'chai';
+import { SpectronClient } from 'spectron';
 
 import commonSetup from './common-setup';
 

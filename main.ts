@@ -25,7 +25,6 @@ function createWindow(): BrowserWindow {
 
   if (serve) {
 
-    require('devtron').install();
     win.webContents.openDevTools();
 
     require('electron-reload')(__dirname, {

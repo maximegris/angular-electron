@@ -2,7 +2,8 @@
     "extends": "../.eslintrc.json",
     "parserOptions": {
         "project": [
-          "e2e/tsconfig.e2e.json"
+          "src/tsconfig.app.json",
+          "src/tsconfig.spec.json"
         ]
     }
 }
