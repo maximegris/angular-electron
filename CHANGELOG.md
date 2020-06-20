@@ -1,5 +1,15 @@
+## 7.2.0 (2020-06-20)
+
+* feat/ merge electron-builder npm scripts ([ddd92b3](https://github.com/maximegris/angular-electron/commit/ddd92b3))
+* fix/ ng lint with eslint ([92d7419](https://github.com/maximegris/angular-electron/commit/92d7419))
+* misc/ upgrade Electron (9.0.4) / Angular (9.1.11) ([21f7401](https://github.com/maximegris/angular-electron/commit/21f7401))
+* ref/ electron remote deprecated ([a8628fc](https://github.com/maximegris/angular-electron/commit/a8628fc))
+
+
+
 ## 7.1.0 (2020-05-02)
 
+* [Bumped Version] 7.1.0 ([8dffcea](https://github.com/maximegris/angular-electron/commit/8dffcea))
 * feat/ VSCode : add Debugging config for man process (#465) + Karma ([acc62d9](https://github.com/maximegris/angular-electron/commit/acc62d9)), closes [#465](https://github.com/maximegris/angular-electron/issues/465)
 * fix/ Karma configuration to debug easily  ([273e752](https://github.com/maximegris/angular-electron/commit/273e752))
 
