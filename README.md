@@ -27,7 +27,7 @@ With this sample, you can :
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
 
-/!\ Angular 9.x CLI needs Node 10.13 or later to works correctly.
+/!\ Angular 9.x CLI needs Node 10.13 or later to work correctly.
 
 ## Getting Started
 
