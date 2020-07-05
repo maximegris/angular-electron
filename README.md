@@ -15,8 +15,8 @@ Bootstrap and package your project with Angular 9 and Electron 8 (Typescript + S
 
 Currently runs with:
 
-- Angular v9.1.11
-- Electron v9.0.4
+- Angular v10.0.2
+- Electron v9.0.5
 - Electron Builder v22.7.0
 
 With this sample, you can :
@@ -27,7 +27,7 @@ With this sample, you can :
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
 
-/!\ Angular 9.x CLI needs Node 10.13 or later to work correctly.
+/!\ Angular 10.x CLI needs Node 10.13 or later to work correctly.
 
 ## Getting Started
 
@@ -91,7 +91,8 @@ Maybe you want to execute the application in the browser with hot reload ? Just 
 - Angular 6 & Electron 3 : Branch [angular6](https://github.com/maximegris/angular-electron/tree/angular6)
 - Angular 7 & Electron 3 : Branch [angular7](https://github.com/maximegris/angular-electron/tree/angular7)
 - Angular 8 & Electron 7 : Branch [angular8](https://github.com/maximegris/angular-electron/tree/angular8)
-- Angular 9 & Electron 9 : (master)
+- Angular 9 & Electron 7 : Branch [angular9](https://github.com/maximegris/angular-electron/tree/angular9)
+- Angular 10 & Electron 9 : (master)
 
 [build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master&style=style=flat-square
 [build]: https://travis-ci.org/maximegris/angular-electron
