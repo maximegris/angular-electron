@@ -11,12 +11,12 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 9 and Electron 8 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 10 and Electron 9 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v9.1.11
-- Electron v9.0.4
+- Angular v10.0.3
+- Electron v9.1.0
 - Electron Builder v22.7.0
 
 With this sample, you can :
@@ -27,7 +27,7 @@ With this sample, you can :
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
 
-/!\ Angular 9.x CLI needs Node 10.13 or later to work correctly.
+/!\ Angular 10.x CLI needs Node 10.13 or later to work correctly.
 
 ## Getting Started
 
