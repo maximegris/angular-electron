@@ -11,12 +11,12 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 9 and Electron 8 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 10 and Electron 8 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v10.0.2
-- Electron v9.0.5
+- Angular v10.0.3
+- Electron v9.1.0
 - Electron Builder v22.7.0
 
 With this sample, you can :
