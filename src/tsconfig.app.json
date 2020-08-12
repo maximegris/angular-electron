@@ -7,8 +7,8 @@
     "types": []
   },
   "include": [
-    "**/*.ts",
-
+    "main.ts",
+    "polyfill.ts"
   ],
   "exclude": [
     "**/*.spec.ts"
