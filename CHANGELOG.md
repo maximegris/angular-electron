@@ -1,5 +1,12 @@
+## <small>8.0.2 (2020-08-12)</small>
+
+* fix/ require error with nodeIntegration = false ([61c5c6b](https://github.com/maximegris/angular-electron/commit/61c5c6b))
+
+
+
 ## <small>8.0.1 (2020-08-12)</small>
 
+* [Bumped Version] 8.0.1 ([e032729](https://github.com/maximegris/angular-electron/commit/e032729))
 * fix/ eslint on main.ts file ([4b17ab6](https://github.com/maximegris/angular-electron/commit/4b17ab6))
 * misc/ remove warinng npm start ( tsconfg.app include key) ([8a73b4a](https://github.com/maximegris/angular-electron/commit/8a73b4a))
 * misc/ upgrade Angular ([a1ef40d](https://github.com/maximegris/angular-electron/commit/a1ef40d))
