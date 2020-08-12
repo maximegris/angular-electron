@@ -1,6 +1,9 @@
-## <small>8.0.2 (2020-08-12)</small>
+## <small>8.0.3 (2020-08-12)</small>
 
+* [Bumped Version] 8.0.2 ([84598a5](https://github.com/maximegris/angular-electron/commit/84598a5))
+* fix/ e2e tests with Spectron ([472afc8](https://github.com/maximegris/angular-electron/commit/472afc8))
 * fix/ require error with nodeIntegration = false ([61c5c6b](https://github.com/maximegris/angular-electron/commit/61c5c6b))
+* misc/ Upgrade Angular (10.0.9) and Electron (9.2.0) ([e3d2fca](https://github.com/maximegris/angular-electron/commit/e3d2fca))
 
 
 

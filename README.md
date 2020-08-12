@@ -15,8 +15,8 @@ Bootstrap and package your project with Angular 10 and Electron 8 (Typescript + 
 
 Currently runs with:
 
-- Angular v10.0.7
-- Electron v9.1.2
+- Angular v10.0.9
+- Electron v9.2.0
 - Electron Builder v22.8.0
 
 With this sample, you can :
@@ -83,6 +83,17 @@ YES! You can do it! Just by importing your library in npm dependencies section (
 
 Maybe you want to execute the application in the browser with hot reload ? Just run `npm run ng:serve:web`.
 **Note that you can't use Electron or NodeJS native libraries in this case.** Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
+
+# E2E Testing
+
+E2E Test scripts can be found in `e2e` folder.
+
+|Command|Description|
+|--|--|
+|`npm run e2e`| Execute end to end tests |
+
+Note: To make it work behind a proxy, you can add this proxy exeption in your terminal  
+`export {no_proxy,NO_PROXY}="127.0.0.1,localhost"`
 
 ## Branch & Packages version
 

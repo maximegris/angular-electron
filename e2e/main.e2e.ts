@@ -9,9 +9,7 @@ describe('angular-electron App', function () {
 
   let client: SpectronClient;
 
-  beforeEach(async function() {
-    await this.app.start();
-
+  beforeEach(function() {
     client = this.app.client;
   });
 
