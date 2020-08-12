@@ -1,6 +1,14 @@
+## <small>8.0.1 (2020-08-12)</small>
+
+* fix/ eslint on main.ts file ([4b17ab6](https://github.com/maximegris/angular-electron/commit/4b17ab6))
+* misc/ remove warinng npm start ( tsconfg.app include key) ([8a73b4a](https://github.com/maximegris/angular-electron/commit/8a73b4a))
+* misc/ upgrade Angular ([a1ef40d](https://github.com/maximegris/angular-electron/commit/a1ef40d))
+
+
+
 ## 8.0.0 (2020-07-13)
 
-* [Bumped Version] 8.0.0 ([0a5db45](https://github.com/maximegris/angular-electron/commit/0a5db45))
+* [Bumped Version] 8.0.0 ([78a4c9e](https://github.com/maximegris/angular-electron/commit/78a4c9e))
 * added "style" key to "schematics" ([6f5bbc5](https://github.com/maximegris/angular-electron/commit/6f5bbc5))
 * Create FUNDING.yml ([087570a](https://github.com/maximegris/angular-electron/commit/087570a))
 * misc/ update README (Angular & Electron version) ([2d33b15](https://github.com/maximegris/angular-electron/commit/2d33b15))
