@@ -119,8 +119,7 @@
               "src/assets"
             ],
             "customWebpackConfig": {
-              "path": "./angular.webpack.js",
-              "target": "electron-renderer"
+              "path": "./angular.webpack.js"
             }
           }
         },
