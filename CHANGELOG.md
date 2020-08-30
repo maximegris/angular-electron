@@ -1,6 +1,20 @@
+## <small>8.0.4 (2020-08-30)</small>
+
+* fix/ ng lint config ([753f828](https://github.com/maximegris/angular-electron/commit/753f828))
+* fix/ README typo (e2e chapter) ([85aaf86](https://github.com/maximegris/angular-electron/commit/85aaf86))
+* fix/ travis ci conf ([2632a2d](https://github.com/maximegris/angular-electron/commit/2632a2d))
+* misc/ clarify node lib import ([f41ce65](https://github.com/maximegris/angular-electron/commit/f41ce65))
+* misc/ upgrade Electron 10 ([b71c514](https://github.com/maximegris/angular-electron/commit/b71c514))
+* ref/ clean custom webpack target ('electron-renderer' or 'web') ([e3a4e01](https://github.com/maximegris/angular-electron/commit/e3a4e01))
+* Update README.md ([5cf5e2b](https://github.com/maximegris/angular-electron/commit/5cf5e2b))
+* Update README.md ([0b70270](https://github.com/maximegris/angular-electron/commit/0b70270))
+
+
+
 ## <small>8.0.3 (2020-08-12)</small>
 
 * [Bumped Version] 8.0.2 ([84598a5](https://github.com/maximegris/angular-electron/commit/84598a5))
+* [Bumped Version] 8.0.3 ([00ce410](https://github.com/maximegris/angular-electron/commit/00ce410))
 * fix/ e2e tests with Spectron ([472afc8](https://github.com/maximegris/angular-electron/commit/472afc8))
 * fix/ require error with nodeIntegration = false ([61c5c6b](https://github.com/maximegris/angular-electron/commit/61c5c6b))
 * misc/ Upgrade Angular (10.0.9) and Electron (9.2.0) ([e3d2fca](https://github.com/maximegris/angular-electron/commit/e3d2fca))
