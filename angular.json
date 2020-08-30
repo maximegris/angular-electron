@@ -127,9 +127,9 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": ".eslintrc.json",
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+            "lintFilePatterns": [
+              "src/**.ts",
+              "main.ts"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -146,8 +146,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": ".eslintrc.json",
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
+            "lintFilePatterns": [
+              "e2e/**.ts"
             ],
             "exclude": [
               "**/node_modules/**"
