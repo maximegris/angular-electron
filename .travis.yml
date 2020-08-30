@@ -2,8 +2,6 @@ os:
   - linux
   - osx
   - windows
-jobs:
-  fast_finish: true
 language: node_js
 node_js:
   - 'lts/*'
