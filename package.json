@@ -70,7 +70,7 @@
     "conventional-changelog-cli": "2.1.0",
     "core-js": "3.6.5",
     "cross-env": "7.0.2",
-    "electron": "10.1.0",
+    "electron": "9.3.0",
     "electron-builder": "22.8.0",
     "electron-reload": "1.5.0",
     "eslint": "7.7.0",
