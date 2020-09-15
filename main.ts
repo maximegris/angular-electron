@@ -20,7 +20,9 @@ function createWindow(): BrowserWindow {
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
-      enableRemoteModule : false // true if you want to use remote module in renderer context (ie. Angular)
+      // true if you want to use remote module in renderer context (ie. Angular)
+      // required for e2e testing
+      enableRemoteModule : true
     },
   });
 

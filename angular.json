@@ -15,6 +15,7 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "aot": true,
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets"
@@ -34,7 +35,6 @@
               "sourceMap": true,
               "extractCss": true,
               "namedChunks": false,
-              "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": false,
@@ -51,7 +51,6 @@
               "sourceMap": true,
               "extractCss": true,
               "namedChunks": false,
-              "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": false,
@@ -68,7 +67,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -108,7 +106,7 @@
           "builder": "@angular-builders/custom-webpack:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills-test.ts",
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "scripts": [],
@@ -124,12 +122,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "eslintConfig": ".eslintrc.json",
-            "lintFilePatterns": [
-              "src/**.ts",
-              "main.ts"
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -143,11 +140,10 @@
       "projectType": "application",
       "architect": {
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "eslintConfig": ".eslintrc.json",
-            "lintFilePatterns": [
-              "e2e/**.ts"
+            "tsConfig": [
+              "e2e/tsconfig.e2e.json"
             ],
             "exclude": [
               "**/node_modules/**"
