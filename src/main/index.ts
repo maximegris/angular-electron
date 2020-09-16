@@ -22,7 +22,7 @@ function createWindow(): BrowserWindow {
       allowRunningInsecureContent: (serve) ? true : false,
       // true if you want to use remote module in renderer context (ie. Angular)
       // required for e2e testing
-      enableRemoteModule : true
+      enableRemoteModule: true
     },
   });
 
@@ -31,13 +31,13 @@ function createWindow(): BrowserWindow {
     win.webContents.openDevTools();
 
     require('electron-reload')(__dirname, {
-      electron: require(`${__dirname}/node_modules/electron`)
+      electron: require(`${__dirname}/../node_modules/electron`)
     });
     win.loadURL('http://localhost:4200');
 
   } else {
     win.loadURL(url.format({
-      pathname: path.join(__dirname, 'dist/index.html'),
+      pathname: path.join(__dirname, 'app', 'index.html'),
       protocol: 'file:',
       slashes: true
     }));
