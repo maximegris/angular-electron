@@ -10,10 +10,9 @@ services:
 before_script:
   - export DISPLAY=:99.0
 install:
-  - npm set progress=false
-  - npm install
+  - yarn install --no-progress
 script:
-  - ng lint
+  - yarn run lint
   - if [ "$TRAVIS_OS_NAME" != "windows" ]; then npm run test ; fi
   - if [ "$TRAVIS_OS_NAME" != "windows" ]; then npm run e2e ; fi
-  - npm run build
+  - yarn run build
