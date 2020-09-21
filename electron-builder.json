@@ -17,7 +17,8 @@
         "!_config.yml",
         "!karma.conf.js",
         "!tsconfig.json",
-        "!tslint.json"
+        "!tslint.json",
+        "!node_modules/@angular/**/*"
     ],
   "win": {
     "icon": "dist/assets/icons",
