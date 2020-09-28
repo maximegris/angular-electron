@@ -1,5 +1,15 @@
+## <small>8.0.5 (2020-09-28)</small>
+
+* misc/ ci - remove fast finish option ([d4ce11d](https://github.com/maximegris/angular-electron/commit/d4ce11d))
+* misc/ enable remote module in renderer process (needed for spectron) ([3309855](https://github.com/maximegris/angular-electron/commit/3309855))
+* misc/ revert electron because spectron cannot handle: electron-userland/spectron#693 ([b1affd0](https://github.com/maximegris/angular-electron/commit/b1affd0)), closes [electron-userland/spectron#693](https://github.com/electron-userland/spectron/issues/693)
+* misc/ upgrade to Electron 10 & Angular 10.1 ([07786a2](https://github.com/maximegris/angular-electron/commit/07786a2))
+
+
+
 ## <small>8.0.4 (2020-08-30)</small>
 
+* [Bumped Version] 8.0.4 ([ac3682d](https://github.com/maximegris/angular-electron/commit/ac3682d))
 * fix/ ng lint config ([753f828](https://github.com/maximegris/angular-electron/commit/753f828))
 * fix/ README typo (e2e chapter) ([85aaf86](https://github.com/maximegris/angular-electron/commit/85aaf86))
 * fix/ travis ci conf ([2632a2d](https://github.com/maximegris/angular-electron/commit/2632a2d))
