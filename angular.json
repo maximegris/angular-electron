@@ -130,9 +130,6 @@
             "lintFilePatterns": [
               "src/**.ts",
               "main.ts"
-            ],
-            "exclude": [
-              "**/node_modules/**"
             ]
           }
         }
@@ -148,9 +145,6 @@
             "eslintConfig": ".eslintrc.json",
             "lintFilePatterns": [
               "e2e/**.ts"
-            ],
-            "exclude": [
-              "**/node_modules/**"
             ]
           }
         }
