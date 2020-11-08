@@ -1,0 +1,31 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$angular-electron-app-primary: mat-palette($mat-indigo);
+$angular-electron-app-accent:  mat-palette($mat-amber, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$angular-electron-app-warn:    mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as `color` or `typography`.
+$angular-electron-app-theme: mat-light-theme((
+  color: (
+    primary: $angular-electron-app-primary,
+    accent: $angular-electron-app-accent,
+    warn: $angular-electron-app-warn,  
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($angular-electron-app-theme);

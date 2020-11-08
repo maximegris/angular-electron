@@ -20,7 +20,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/angular-material-theme.scss"
             ],
             "scripts": [],
             "customWebpackConfig": {
@@ -113,7 +114,8 @@
             "karmaConfig": "src/karma.conf.js",
             "scripts": [],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/angular-material-theme.scss"
             ],
             "assets": [
               "src/assets"
