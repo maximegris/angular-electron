@@ -4,6 +4,18 @@
     flex-flow: column;
 }
 
+.draggable-toolbar {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    * {
+        -webkit-app-region: no-drag;
+    }
+  }
+
 .app-content {
+    flex: 1 1 auto;
+}
+
+.toolbar-spacer {
     flex: 1 1 auto;
 }

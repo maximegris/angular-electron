@@ -1,6 +1,8 @@
 <div class="app-container">
     <mat-toolbar class="draggable-toolbar" color="primary">
         <span>{{ 'APP.TITLE' | translate }}</span>
+        <span class="toolbar-spacer"></span>
+        <button mat-icon-button color="accent" (click)="onCloseClicked()"><mat-icon>close</mat-icon></button>
     </mat-toolbar>
     <div class="app-content">
         <router-outlet></router-outlet>

@@ -21,8 +21,14 @@ export class AppComponent {
       console.log('Run in electron');
       console.log('Electron ipcRenderer', this.electronService.ipcRenderer);
       console.log('NodeJS childProcess', this.electronService.childProcess);
-    } else {
+    }
+    else {
       console.log('Run in browser');
     }
+  }
+
+  public onCloseClicked() {
+    console.log("Clicked close button");
+    this.electronService.remote.getCurrentWindow().close();
   }
 }

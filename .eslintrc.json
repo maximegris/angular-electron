@@ -33,6 +33,7 @@
         "@angular-eslint/eslint-plugin"
       ],
       "rules": {
+        "brace-style": ["error", "stroustrup"],
         "@typescript-eslint/indent": [
           "error", 2, {
             "SwitchCase": 1,
