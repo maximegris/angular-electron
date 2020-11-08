@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+    <mat-toolbar class="draggable-toolbar" color="primary">
+        <span>{{ 'APP.TITLE' | translate }}</span>
+    </mat-toolbar>
+    <div class="app-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
