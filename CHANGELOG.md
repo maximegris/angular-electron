@@ -1,10 +1,22 @@
+## <small>9.0.1 (2020-11-14)</small>
+
+* ref/ support remote module in unit test ([04d9e8a](https://github.com/maximegris/angular-electron/commit/04d9e8a))
+
+
+
 ## 9.0.0 (2020-11-14)
 
+* [Bumped Version] 9.0.0 ([a7964be](https://github.com/maximegris/angular-electron/commit/a7964be))
 * misc/ upgrade to Angular 11 ([d265dfa](https://github.com/maximegris/angular-electron/commit/d265dfa))
 
-##  <small>8.0.6 (2020-11-14)</small>
+
+
+## <small>8.0.6 (2020-11-14)</small>
+
 * [Bumped Version] 8.0.6 ([e0fb539](https://github.com/maximegris/angular-electron/commit/e0fb539))
 * fix/ zonejs version ([0b9b8b3](https://github.com/maximegris/angular-electron/commit/0b9b8b3))
+
+
 
 ## <small>8.0.5 (2020-09-28)</small>
 
