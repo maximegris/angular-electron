@@ -1,5 +1,12 @@
+## <small>8.0.6 (2020-11-14)</small>
+
+* fix/ zonejs version ([0b9b8b3](https://github.com/maximegris/angular-electron/commit/0b9b8b3))
+
+
+
 ## <small>8.0.5 (2020-09-28)</small>
 
+* [Bumped Version] 8.0.5 ([2374427](https://github.com/maximegris/angular-electron/commit/2374427))
 * misc/ ci - remove fast finish option ([d4ce11d](https://github.com/maximegris/angular-electron/commit/d4ce11d))
 * misc/ enable remote module in renderer process (needed for spectron) ([3309855](https://github.com/maximegris/angular-electron/commit/3309855))
 * misc/ revert electron because spectron cannot handle: electron-userland/spectron#693 ([b1affd0](https://github.com/maximegris/angular-electron/commit/b1affd0)), closes [electron-userland/spectron#693](https://github.com/electron-userland/spectron/issues/693)
@@ -93,16 +100,11 @@
 
 ## <small>7.0.3 (2020-04-11)</small>
 
+* [Bumped Version] 7.0.2 ([c4c36f6](https://github.com/maximegris/angular-electron/commit/c4c36f6))
 * [Bumped Version] 7.0.3 ([6206066](https://github.com/maximegris/angular-electron/commit/6206066))
+* Fix a typo in README.md ([86ac910](https://github.com/maximegris/angular-electron/commit/86ac910))
 * fix/ polyfills in tsconfig ([cf4f172](https://github.com/maximegris/angular-electron/commit/cf4f172))
 * misc/ changelog ([19f6027](https://github.com/maximegris/angular-electron/commit/19f6027))
-
-
-
-## <small>7.0.2 (2020-04-11)</small>
-
-* [Bumped Version] 7.0.2 ([c4c36f6](https://github.com/maximegris/angular-electron/commit/c4c36f6))
-* Fix a typo in README.md ([86ac910](https://github.com/maximegris/angular-electron/commit/86ac910))
 * misc/ Changelog ([67437ba](https://github.com/maximegris/angular-electron/commit/67437ba))
 * misc/ maj angular 9.1.1 & electron 8.2.1 ([061e01e](https://github.com/maximegris/angular-electron/commit/061e01e))
 * misc/ maj eslint dep ([09fc1f7](https://github.com/maximegris/angular-electron/commit/09fc1f7))
