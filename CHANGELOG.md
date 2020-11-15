@@ -1,5 +1,13 @@
+## <small>9.0.2 (2020-11-15)</small>
+
+* Fix typo in eslint rule ([b8429b8](https://github.com/maximegris/angular-electron/commit/b8429b8))
+* misc/ remove old code ([9933622](https://github.com/maximegris/angular-electron/commit/9933622))
+
+
+
 ## <small>9.0.1 (2020-11-14)</small>
 
+* [Bumped Version] 9.0.1 ([066dcdb](https://github.com/maximegris/angular-electron/commit/066dcdb))
 * ref/ support remote module in unit test ([04d9e8a](https://github.com/maximegris/angular-electron/commit/04d9e8a))
 
 
