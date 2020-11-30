@@ -6,8 +6,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
+    "types": [
+      "node"
     ],
     "lib": [
       "es2017",
@@ -16,7 +16,7 @@
       "dom"
     ]
   },
-  "include": [
+  "files": [
     "main.ts"
   ],
   "exclude": [

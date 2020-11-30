@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "module": "es2020",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -18,9 +19,12 @@
       "dom"
     ]
   },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
   "include": [
-    "main.ts",
-    "src/**/*"
+    "src/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

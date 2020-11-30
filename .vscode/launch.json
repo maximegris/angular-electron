@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Electron Main Renderer",
+            "type": "node",
+            "request": "launch",
+            "protocol": "inspector",
+            // Prelaunch task compiles main.ts for Electron & starts Angular dev server.
+            "preLaunchTask": "Build.All",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "runtimeArgs": [
+                "--serve",
+                ".",
+                "--remote-debugging-port=9222"
+            ],
+            "windows": {
+                "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+            }
+        }, {
+            "name": "Karma Attach Chrome",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}/",
+            "sourceMaps": true,
+            "timeout": 30000,
+            "trace": true
+        }
+        
+    ]
+}
