@@ -1,5 +1,14 @@
+## <small>9.0.3 (2020-12-08)</small>
+
+* fix/ upgrade angular to 11.0.2 ([203e608](https://github.com/maximegris/angular-electron/commit/203e608))
+* misc/ upgrade dependencies ([922bbf9](https://github.com/maximegris/angular-electron/commit/922bbf9))
+* misc/ upgrade to Electron 11 ([becaa73](https://github.com/maximegris/angular-electron/commit/becaa73))
+
+
+
 ## <small>9.0.2 (2020-11-15)</small>
 
+* [Bumped Version] 9.0.2 ([be43e09](https://github.com/maximegris/angular-electron/commit/be43e09))
 * Fix typo in eslint rule ([b8429b8](https://github.com/maximegris/angular-electron/commit/b8429b8))
 * misc/ remove old code ([9933622](https://github.com/maximegris/angular-electron/commit/9933622))
 
