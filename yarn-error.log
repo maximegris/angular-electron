@@ -1,0 +1,128 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\Users\apowo-pc\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\apowo-pc\bin;C:\Python38\Scripts;C:\Python38;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\dotnet;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Program Files\Redis;C:\Program Files (x86)\Java\jdk1.8.0_231\bin;C:\Program Files (x86)\gradle-6.0\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Go\bin;C:\ProgramData\chocolatey\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\nodejs;C:\Users\apowo-pc\.windows-build-tools\python27;C:\Program Files\nodejs\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\apowo-pc\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\apowo-pc\AppData\Roaming\npm\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;C:\Program Files\TortoiseSVN\bin;C:\Users\apowo-pc\AppData\Local\Microsoft\WindowsApps;C:\Users\apowo-pc\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\apowo-pc\AppData\Local\Yarn\bin;C:\flutter\bin;C:\Users\apowo-pc\AppData\Local\Microsoft\WindowsApps;C:\Users\apowo-pc\go\bin;C:\Users\apowo-pc\AppData\Local\hyper\app-3.0.2\resources\bin;C:\Users\apowo-pc\.dotnet\tools;C:\Users\apowo-pc\AppData\Local\Android\Sdk\tools;C:\Users\apowo-pc\AppData\Local\Android\Sdk\tools\bin;C:\Users\apowo-pc\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\MongoDB\Server\4.0\bin;F:\go-work\bin;C:\MinGW\bin;C:\Users\apowo-pc\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.13.0
+
+Node version: 
+  14.15.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, scandir 'F:\angular\angular-electron\node_modules\global-agent\node_modules\core-js'
+
+npm manifest: 
+  {
+    "name": "angular-electron",
+    "version": "9.0.2",
+    "description": "Angular 11 with Electron (Typescript + SASS + Hot Reload)",
+    "homepage": "https://github.com/maximegris/angular-electron",
+    "author": {
+      "name": "Maxime GRIS",
+      "email": "maxime.gris@gmail.com"
+    },
+    "keywords": [
+      "angular",
+      "angular 11",
+      "electron",
+      "nodejs",
+      "typescript",
+      "spectron",
+      "eslint",
+      "sass",
+      "windows",
+      "mac",
+      "linux"
+    ],
+    "main": "main.js",
+    "private": true,
+    "scripts": {
+      "postinstall": "electron-builder install-app-deps",
+      "ng": "ng",
+      "start": "npm-run-all -p electron:serve ng:serve",
+      "build": "npm run electron:serve-tsc && ng build --base-href ./",
+      "build:dev": "npm run build -- -c dev",
+      "build:prod": "npm run build -- -c production",
+      "ng:serve": "ng serve -c web -o",
+      "electron:serve-tsc": "tsc -p tsconfig.serve.json",
+      "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
+      "electron:local": "npm run build:prod && npx electron .",
+      "electron:build": "npm run build:prod && electron-builder build",
+      "test": "ng test --watch=false",
+      "test:watch": "ng test",
+      "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
+      "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+      "lint": "ng lint"
+    },
+    "dependencies": {},
+    "devDependencies": {
+      "@angular-builders/custom-webpack": "10.0.1",
+      "@angular-devkit/build-angular": "0.1100.2",
+      "@angular-eslint/builder": "0.8.0-beta.0",
+      "@angular-eslint/eslint-plugin": "0.8.0-beta.0",
+      "@angular-eslint/eslint-plugin-template": "0.8.0-beta.0",
+      "@angular-eslint/schematics": "0.8.0-beta.0",
+      "@angular-eslint/template-parser": "0.8.0-beta.0",
+      "@angular/cli": "11.0.2",
+      "@angular/common": "11.0.2",
+      "@angular/compiler": "11.0.2",
+      "@angular/compiler-cli": "11.0.2",
+      "@angular/core": "11.0.2",
+      "@angular/forms": "11.0.2",
+      "@angular/language-service": "11.0.2",
+      "@angular/platform-browser": "11.0.2",
+      "@angular/platform-browser-dynamic": "11.0.2",
+      "@angular/router": "11.0.2",
+      "@ngx-translate/core": "13.0.0",
+      "@ngx-translate/http-loader": "6.0.0",
+      "@types/jasmine": "3.6.1",
+      "@types/jasminewd2": "2.0.8",
+      "@types/mocha": "8.0.4",
+      "@types/node": "12.12.6",
+      "@typescript-eslint/eslint-plugin": "4.7.0",
+      "@typescript-eslint/eslint-plugin-tslint": "4.7.0",
+      "@typescript-eslint/parser": "4.7.0",
+      "chai": "4.2.0",
+      "conventional-changelog-cli": "2.1.1",
+      "core-js": "3.6.5",
+      "cross-env": "7.0.2",
+      "electron": "10.1.5",
+      "electron-builder": "22.9.1",
+      "electron-reload": "1.5.0",
+      "eslint": "7.13.0",
+      "eslint-plugin-import": "2.22.1",
+      "eslint-plugin-jsdoc": "30.7.8",
+      "eslint-plugin-prefer-arrow": "1.2.2",
+      "jasmine-core": "3.6.0",
+      "jasmine-spec-reporter": "6.0.0",
+      "karma": "~5.1.0",
+      "karma-coverage-istanbul-reporter": "3.0.3",
+      "karma-electron": "6.3.1",
+      "karma-jasmine": "4.0.1",
+      "karma-jasmine-html-reporter": "1.5.4",
+      "mocha": "8.2.1",
+      "npm-run-all": "4.1.5",
+      "rxjs": "6.6.3",
+      "spectron": "12.0.0",
+      "ts-node": "9.0.0",
+      "tslib": "2.0.3",
+      "typescript": "4.0.5",
+      "wait-on": "5.0.1",
+      "webdriver-manager": "12.1.7",
+      "zone.js": "0.10.3"
+    },
+    "engines": {
+      "node": ">=10.13.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
