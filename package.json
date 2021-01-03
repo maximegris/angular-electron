@@ -99,5 +99,8 @@
   },
   "engines": {
     "node": ">=10.13.0"
-  }
+  },
+  "browserslist": [
+    "chrome 83"
+  ]
 }
