@@ -33,7 +33,7 @@
     "electron:serve-tsc": "tsc -p tsconfig.serve.json",
     "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
     "electron:local": "npm run build:prod && npx electron .",
-    "electron:build": "npm run build:prod && electron-builder build",
+    "electron:build": "npm run build:prod && electron-builder build --publish=never",
     "test": "ng test --watch=false",
     "test:watch": "ng test",
     "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
