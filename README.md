@@ -4,9 +4,9 @@
 [![Make a pull request][prs-badge]][prs]
 [![License][license-badge]](LICENSE.md)
 
-![Linux Build][linux-build-badge]
-![MacOS Build][macos-build-badge]
-![Windows Build][windows-build-badge]
+[![Linux Build][linux-build-badge]][linux-build]
+[![MacOS Build][macos-build-badge]][macos-build]
+[![Windows Build][windows-build-badge]][windows-build]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
@@ -119,8 +119,11 @@ Note: To make it work behind a proxy, you can add this proxy exception in your t
 [prs]: http://makeapullrequest.com
 
 [linux-build-badge]: https://github.com/maximegris/angular-electron/workflows/Linux%20Build/badge.svg
+[linux-build]: https://github.com/maximegris/angular-electron/actions?query=workflow%3A%22Linux+Build%22
 [macos-build-badge]: https://github.com/maximegris/angular-electron/workflows/MacOS%20Build/badge.svg
+[macos-build]: https://github.com/maximegris/angular-electron/actions?query=workflow%3A%22MacOS+Build%22
 [windows-build-badge]: https://github.com/maximegris/angular-electron/workflows/Windows%20Build/badge.svg
+[windows-build]: https://github.com/maximegris/angular-electron/actions?query=workflow%3A%22Windows+Build%22
 
 [github-watch-badge]: https://img.shields.io/github/watchers/maximegris/angular-electron.svg?style=social
 [github-watch]: https://github.com/maximegris/angular-electron/watchers
