@@ -1,9 +1,12 @@
 [![Angular Logo](https://www.vectorlogo.zone/logos/angular/angular-icon.svg)](https://angular.io/) [![Electron Logo](https://www.vectorlogo.zone/logos/electronjs/electronjs-icon.svg)](https://electronjs.org/)
 
 ![Maintained][maintained-badge]
-[![Travis Build Status][build-badge]][build]
 [![Make a pull request][prs-badge]][prs]
-[![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE.md)
+[![License][license-badge]](LICENSE.md)
+
+![Linux Build][linux-build-badge]
+![MacOS Build][macos-build-badge]
+![Windows Build][windows-build-badge]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
@@ -109,16 +112,19 @@ Note: To make it work behind a proxy, you can add this proxy exception in your t
 - Angular 10 & Electron 9 : Branch [angular10](https://github.com/maximegris/angular-electron/tree/angular10)
 - Angular 11 & Electron 10 : (master)
 
-[build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master&style=style=flat-square
-[build]: https://travis-ci.org/maximegris/angular-electron
-[license-badge]: https://img.shields.io/badge/license-Apache2-blue.svg?style=style=flat-square
-[license]: https://github.com/maximegris/angula r-electron/blob/master/LICENSE.md
-[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
+[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[license]: https://github.com/maximegris/angular-electron/blob/master/LICENSE.md
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-red.svg
 [prs]: http://makeapullrequest.com
+
+[linux-build-badge]: https://github.com/maximegris/angular-electron/workflows/Linux%20Build/badge.svg
+[macos-build-badge]: https://github.com/maximegris/angular-electron/workflows/MacOS%20Build/badge.svg
+[windows-build-badge]: https://github.com/maximegris/angular-electron/workflows/Windows%20Build/badge.svg
+
 [github-watch-badge]: https://img.shields.io/github/watchers/maximegris/angular-electron.svg?style=social
 [github-watch]: https://github.com/maximegris/angular-electron/watchers
 [github-star-badge]: https://img.shields.io/github/stars/maximegris/angular-electron.svg?style=social
 [github-star]: https://github.com/maximegris/angular-electron/stargazers
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20angular-electron!%20https://github.com/maximegris/angular-electron%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/maximegris/angular-electron.svg?style=social
-[maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
