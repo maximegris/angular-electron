@@ -1,6 +1,20 @@
+## <small>9.0.5 (2021-03-19)</small>
+
+* add github actions badges ([6b505e3](https://github.com/maximegris/angular-electron/commit/6b505e3))
+* github actions on master & puul request ([e474264](https://github.com/maximegris/angular-electron/commit/e474264))
+* misc / upgrade to angular 11.2.6 ([982cbac](https://github.com/maximegris/angular-electron/commit/982cbac))
+* misc/ upgrade angular-eslint to 2.0.2 ([b8230c9](https://github.com/maximegris/angular-electron/commit/b8230c9))
+* misc/ upgrade to Electron 12.0.1 ([d2f9fc2](https://github.com/maximegris/angular-electron/commit/d2f9fc2))
+* redirect to github actions when click on badges ([a26d5f1](https://github.com/maximegris/angular-electron/commit/a26d5f1))
+* ref/ replace electron.remote (deprecated) by @electron/remote ([8a4b624](https://github.com/maximegris/angular-electron/commit/8a4b624))
+* remove travisci ([831ea51](https://github.com/maximegris/angular-electron/commit/831ea51))
+* set github actions ([edb6f2a](https://github.com/maximegris/angular-electron/commit/edb6f2a))
+
+
+
 ## <small>9.0.4 (2021-02-13)</small>
 
-* [Bumped Version] 9.0.4 ([3c2c071](https://github.com/maximegris/angular-electron/commit/3c2c071))
+* [Bumped Version] 9.0.4 ([e6d0aa6](https://github.com/maximegris/angular-electron/commit/e6d0aa6))
 * extractCss true by default & deprecated ([4af9def](https://github.com/maximegris/angular-electron/commit/4af9def))
 * Fix typo in introduction ([c3b8258](https://github.com/maximegris/angular-electron/commit/c3b8258))
 * misc/ upgrade to Angular 11.2.0 & Electrion 11.2.0 ([0662793](https://github.com/maximegris/angular-electron/commit/0662793))
