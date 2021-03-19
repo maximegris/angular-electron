@@ -66,9 +66,13 @@ The application code is managed by `main.ts`. In this sample, the app runs with 
 The Angular component contains an example of Electron and NodeJS native lib import.
 You can disable "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.ts`.
 
-## Use Electron / NodeJS / 3rd party libraries
+## Use Electron / NodeJS libraries
 
 This sample project runs in both modes (web and electron). To make this work, **you have to import your dependencies the right way**. Please check `providers/electron.service.ts` to watch how conditional import of libraries has to be done when using electron / NodeJS / 3rd party libraries in renderer context (i.e. Angular).
+
+## Use "web" 3rd party libraries (like angular, material, bootstrap, ...)
+
+3rd party librairies used by renderer process of electron (like angular) have to be added in `devDependencies` of `package.json` to not increase the final package's size. Otherwise it will significantly increase the size of your final package... not so cool :(
 
 ## Browser mode
 
