@@ -14,13 +14,13 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 11 and Electron 11 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 11 and Electron 12 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v11.2.0
-- Electron v11.2.3
-- Electron Builder v22.9.1
+- Angular v11.2.6
+- Electron v12.0.1
+- Electron Builder v22.10.5
 
 With this sample, you can:
 
@@ -110,7 +110,7 @@ Note: To make it work behind a proxy, you can add this proxy exception in your t
 - Angular 8 & Electron 7 : Branch [angular8](https://github.com/maximegris/angular-electron/tree/angular8)
 - Angular 9 & Electron 7 : Branch [angular9](https://github.com/maximegris/angular-electron/tree/angular9)
 - Angular 10 & Electron 9 : Branch [angular10](https://github.com/maximegris/angular-electron/tree/angular10)
-- Angular 11 & Electron 10 : (master)
+- Angular 11 & Electron 12 : (master)
 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
