@@ -72,7 +72,7 @@ This sample project runs in both modes (web and electron). To make this work, **
 
 ## Use "web" 3rd party libraries (like angular, material, bootstrap, ...)
 
-3rd party librairies used by renderer process of electron (like angular) have to be added in `devDependencies` of `package.json` to not increase the final package's size. Otherwise it will significantly increase the size of your final package... not so cool :(
+3rd party librairies used in electron's renderer process (like angular) have to be added in `devDependencies` of `package.json`. They are already added in your final package during webpack's compilation phase. Otherwise it will significantly increase the size of your final package... not so cool :(
 
 ## Browser mode
 
