@@ -1,5 +1,18 @@
+## <small>9.0.6 (2021-03-21)</small>
+
+* Create pull_request_template.md ([adac86e](https://github.com/maximegris/angular-electron/commit/adac86e))
+* fix/ eslint parsing 'parserOptions.project' ([08ce022](https://github.com/maximegris/angular-electron/commit/08ce022))
+* img for loading the portable .exe ([5c18d64](https://github.com/maximegris/angular-electron/commit/5c18d64))
+* misc/ add code of conduct ([742c9fb](https://github.com/maximegris/angular-electron/commit/742c9fb))
+* misc/ readme typo ([f4d3ebb](https://github.com/maximegris/angular-electron/commit/f4d3ebb))
+* misc/ remove useless files from final package ([414d61b](https://github.com/maximegris/angular-electron/commit/414d61b))
+* misc/ Update issue templates ([2dede45](https://github.com/maximegris/angular-electron/commit/2dede45))
+
+
+
 ## <small>9.0.5 (2021-03-19)</small>
 
+* [Bumped version] 9.0.5 ([2e8e630](https://github.com/maximegris/angular-electron/commit/2e8e630))
 * add github actions badges ([6b505e3](https://github.com/maximegris/angular-electron/commit/6b505e3))
 * github actions on master & puul request ([e474264](https://github.com/maximegris/angular-electron/commit/e474264))
 * misc / upgrade to angular 11.2.6 ([982cbac](https://github.com/maximegris/angular-electron/commit/982cbac))
