@@ -5,32 +5,42 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Electron Main Renderer",
+            "name": "Renderer",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9876,
+            "url": "http://localhost:4200",
+            "sourceMaps": true,  
+            "timeout": 10000,
+            "trace": "verbose",
+            "sourceMapPathOverrides": {
+                "webpack:///./*": "${workspaceFolder}/*"
+            },
+            "preLaunchTask": "Build.Renderer"
+        },
+        {
+            "name": "Main",
             "type": "node",
             "request": "launch",
             "protocol": "inspector",
-            // Prelaunch task compiles main.ts for Electron & starts Angular dev server.
-            "preLaunchTask": "Build.All",
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "trace": "verbose",
             "runtimeArgs": [
                 "--serve",
                 ".",
-                "--remote-debugging-port=9222"
+                "--remote-debugging-port=9876"
             ],
             "windows": {
                 "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
-            }
-        }, {
-            "name": "Karma Attach Chrome",
-            "type": "chrome",
-            "request": "attach",
-            "port": 9222,
-            "webRoot": "${workspaceFolder}/",
-            "sourceMaps": true,
-            "timeout": 30000,
-            "trace": true
+            },
+            "preLaunchTask": "Build.Main"
         }
-        
+    ],
+    "compounds": [
+        {
+            "name": "Application Debug",
+            "configurations": [ "Renderer", "Main" ]
+        }
     ]
 }

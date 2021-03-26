@@ -94,6 +94,16 @@ Maybe you only want to execute the application in the browser with hot reload? J
 
 YES! You can do it! Just by importing your library in npm dependencies section (not **devDependencies**) with `npm install --save`. It will be loaded by electron during build phase and added to your final package. Then use your library by importing it in `main.ts` file. Quite simple, isn't it?
 
+## Debug with VsCode
+
+[VsCode](https://code.visualstudio.com/) debug configuration is available! In order to use it, you need the extension [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome).
+
+Then set some breakpoints in your application's source code.
+
+Finally from VsCode press **Ctrl+Shift+D** and select **Application Debug** and press **F5**.
+
+Please note that Hot reload is only available in Renderer process.
+
 ## E2E Testing
 
 E2E Test scripts can be found in `e2e` folder.
