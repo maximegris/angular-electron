@@ -1,5 +1,17 @@
+## <small>9.0.7 (2021-04-07)</small>
+
+* Account for the change in context isolation with Electron 12 ([d08ae8f](https://github.com/maximegris/angular-electron/commit/d08ae8f))
+* fix/ angular.json - files to lint ([ec7ce0c](https://github.com/maximegris/angular-electron/commit/ec7ce0c))
+* misc/ vscode debug ([f4225a3](https://github.com/maximegris/angular-electron/commit/f4225a3))
+* montée version Angular 11.2.8 / Electrion 12.0.2 ([371dafa](https://github.com/maximegris/angular-electron/commit/371dafa))
+* Update FUNDING.yml ([54a42eb](https://github.com/maximegris/angular-electron/commit/54a42eb))
+* Update FUNDING.yml ([3749cfa](https://github.com/maximegris/angular-electron/commit/3749cfa))
+
+
+
 ## <small>9.0.6 (2021-03-21)</small>
 
+* [Bumped Version] 9.0.6 ([0a7842f](https://github.com/maximegris/angular-electron/commit/0a7842f))
 * Create pull_request_template.md ([adac86e](https://github.com/maximegris/angular-electron/commit/adac86e))
 * fix/ eslint parsing 'parserOptions.project' ([08ce022](https://github.com/maximegris/angular-electron/commit/08ce022))
 * img for loading the portable .exe ([5c18d64](https://github.com/maximegris/angular-electron/commit/5c18d64))
