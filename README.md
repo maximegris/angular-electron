@@ -18,8 +18,8 @@ Bootstrap and package your project with Angular 11 and Electron 12 (Typescript +
 
 Currently runs with:
 
-- Angular v11.2.6
-- Electron v12.0.1
+- Angular v11.2.8
+- Electron v12.0.2
 - Electron Builder v22.10.5
 
 With this sample, you can:
