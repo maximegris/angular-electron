@@ -1,6 +1,6 @@
 {
   "name": "angular-electron",
-  "version": "9.0.8",
+  "version": "9.0.9",
   "description": "Angular 11 with Electron (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
@@ -95,7 +95,7 @@
     "spectron": "14.0.0",
     "ts-node": "9.1.1",
     "tslib": "2.1.0",
-    "typescript": "4.0.5",
+    "typescript": "4.1.5",
     "wait-on": "5.0.1",
     "webdriver-manager": "12.1.8",
     "zone.js": "0.10.3"
