@@ -2,6 +2,10 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
+const pad = require('pad');
+
+console.log(pad('pad', 5));
+
 // Initialize remote module
 require('@electron/remote/main').initialize();
 
@@ -33,13 +37,13 @@ function createWindow(): BrowserWindow {
     win.webContents.openDevTools();
 
     require('electron-reload')(__dirname, {
-      electron: require(`${__dirname}/node_modules/electron`)
+      electron: require(`${__dirname}/../node_modules/electron`)
     });
     win.loadURL('http://localhost:4200');
 
   } else {
     win.loadURL(url.format({
-      pathname: path.join(__dirname, 'dist/index.html'),
+      pathname: path.join(__dirname, '../dist/index.html'),
       protocol: 'file:',
       slashes: true
     }));
