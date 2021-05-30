@@ -14,12 +14,12 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 11 and Electron 12 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 12 and Electron 13 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v11.2.8
-- Electron v12.0.6
+- Angular v12.0.2
+- Electron v13.0.1
 - Electron Builder v22.10.5
 
 With this sample, you can:
@@ -30,7 +30,7 @@ With this sample, you can:
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
 
-/!\ Angular 11.x CLI needs Node 10.13 or later to work correctly.
+/!\ Angular 12.x CLI needs Node 11 or later to work correctly.
 
 ## Getting Started
 
@@ -150,7 +150,8 @@ Please note that Hot reload is only available in Renderer process.
 - Angular 8 & Electron 7 : Branch [angular8](https://github.com/maximegris/angular-electron/tree/angular8)
 - Angular 9 & Electron 7 : Branch [angular9](https://github.com/maximegris/angular-electron/tree/angular9)
 - Angular 10 & Electron 9 : Branch [angular10](https://github.com/maximegris/angular-electron/tree/angular10)
-- Angular 11 & Electron 12 : (master)
+- Angular 11 & Electron 12 : Branch [angular10](https://github.com/maximegris/angular-electron/tree/angular11)
+- Angular 12 & Electron 13 : (master)
 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
