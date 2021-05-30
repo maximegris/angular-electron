@@ -81,7 +81,7 @@ Maybe you only want to execute the application in the browser with hot reload? J
 ## Included Commands
 
 |Command|Description|
-|--|--|
+| ---- | ---- |
 |`npm run ng:serve`| Execute the app in the browser |
 |`npm run build`| Build the app. Your built files are in the /dist folder. |
 |`npm run build:prod`| Build the app with Angular aot. Your built files are in the /dist folder. |
@@ -94,7 +94,18 @@ Maybe you only want to execute the application in the browser with hot reload? J
 
 YES! You can do it! Just by importing your library in npm dependencies section (not **devDependencies**) with `npm install --save`. It will be loaded by electron during build phase and added to your final package. Then use your library by importing it in `main.ts` file. Quite simple, isn't it?
 
-## Install Angular Material
+## E2E Testing
+
+E2E Test scripts can be found in `e2e` folder.
+
+|Command|Description|
+| ---- | ---- |
+|`npm run e2e`| Execute end to end tests |
+
+Note: To make it work behind a proxy, you can add this proxy exception in your terminal  
+`export {no_proxy,NO_PROXY}="127.0.0.1,localhost"`
+
+## How to install Angular Material
 
 First add Angular Material using `ng add` command:
 
@@ -129,17 +140,6 @@ Then set some breakpoints in your application's source code.
 Finally from VsCode press **Ctrl+Shift+D** and select **Application Debug** and press **F5**.
 
 Please note that Hot reload is only available in Renderer process.
-
-## E2E Testing
-
-E2E Test scripts can be found in `e2e` folder.
-
-|Command|Description|
-|--|--|
-|`npm run e2e`| Execute end to end tests |
-
-Note: To make it work behind a proxy, you can add this proxy exception in your terminal  
-`export {no_proxy,NO_PROXY}="127.0.0.1,localhost"`
 
 ## Branch & Packages version
 
