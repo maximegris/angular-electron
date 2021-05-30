@@ -2,10 +2,6 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-const pad = require('pad');
-
-console.log(pad('pad', 5));
-
 // Initialize remote module
 require('@electron/remote/main').initialize();
 

@@ -1,5 +1,13 @@
 ## 10.0.0 (2021-05-30)
 
+* [Bumped Version] 10.0.0 ([6c02b97](https://github.com/maximegris/angular-electron/commit/6c02b97))
+* [Bumped Version] 10.0.0 ([38f58de](https://github.com/maximegris/angular-electron/commit/38f58de))
+* add HOW_TO.md ([3a85294](https://github.com/maximegris/angular-electron/commit/3a85294))
+* fix/ github actions - angular-cli need node 12+ ([154d3fc](https://github.com/maximegris/angular-electron/commit/154d3fc))
+* fix/ github actions - angular12 need node 11+ ([323aeb8](https://github.com/maximegris/angular-electron/commit/323aeb8))
+* github action - node 12/14/15 ([dd9cf0d](https://github.com/maximegris/angular-electron/commit/dd9cf0d))
+* ref/ electron builder two packages build ([d533e49](https://github.com/maximegris/angular-electron/commit/d533e49))
+* ref/ move how to install with ng add in HOW_TO.md ([34e1232](https://github.com/maximegris/angular-electron/commit/34e1232))
 * Upgrade to Angular 12 / Electron 13 ([fc006d2](https://github.com/maximegris/angular-electron/commit/fc006d2))
 
 
