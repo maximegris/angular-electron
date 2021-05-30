@@ -82,6 +82,11 @@ This sample project runs in both modes (web and electron). To make this work, **
 3rd party libraries used in electron's renderer process (like angular) have to be added in `dependencies` of `package.json`. \
 Please check `providers/electron.service.ts` to watch how conditional import of libraries has to be done when using NodeJS / 3rd party libraries in renderer context (i.e. Angular).
 
+## Add a dependency with ng-add
+
+You may encounter some difficulties with `ng-add` because this project doesn't use the defaults `@angular-builders`. \
+For example you can find [here](HOW_TO.md) how to install Angular-Material with `ng-add`.
+
 ## Browser mode
 
 Maybe you only want to execute the application in the browser with hot reload? Just run `npm run ng:serve:web`.
@@ -114,32 +119,6 @@ E2E Test scripts can be found in `e2e` folder.
 
 Note: To make it work behind a proxy, you can add this proxy exception in your terminal  
 `export {no_proxy,NO_PROXY}="127.0.0.1,localhost"`
-
-## How to install Angular Material
-
-First add Angular Material using `ng add` command:
-
-``` bash
-ng add @angular/material
-```
-You will get the following questions:
-
-``` bash
-? Choose a prebuilt theme name, or "custom" for a custom theme: *Choose any theme you like here*
-? Set up global Angular Material typography styles? *Yes* 
-? Set up browser animations for Angular Material? *Yes*
-```
-Angular Material will start installing, but you will get the following error after installation:
-
-``` bash
-Your project is not using the default builders for "build". The Angular Material schematics cannot add a theme to the workspace configuration if the builder has been changed.
-```
-*No need to Panic!* Just add your desired theme in style.scss:
-
-``` bash
-import '@angular/material/prebuilt-themes/indigo-pink.css'
-```
-Angular Material Library is now installed in your project.
 
 ## Debug with VsCode
 
