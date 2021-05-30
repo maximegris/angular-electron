@@ -1,5 +1,16 @@
+## <small>9.0.8 (2021-05-30)</small>
+
+* Added how to install Angular Material to readme ([d904101](https://github.com/maximegris/angular-electron/commit/d904101))
+* fix README typo ([aa691d9](https://github.com/maximegris/angular-electron/commit/aa691d9))
+* Update electron version ([b1f4451](https://github.com/maximegris/angular-electron/commit/b1f4451))
+* Update electron version ([494c607](https://github.com/maximegris/angular-electron/commit/494c607))
+* fix: solving bug related in fsevents/fsevents#320 ([5b091ca](https://github.com/maximegris/angular-electron/commit/5b091ca)), closes [fsevents/fsevents#320](https://github.com/fsevents/fsevents/issues/320)
+
+
+
 ## <small>9.0.7 (2021-04-07)</small>
 
+* [Bumped Version] 9.0.7 ([b8371ee](https://github.com/maximegris/angular-electron/commit/b8371ee))
 * Account for the change in context isolation with Electron 12 ([d08ae8f](https://github.com/maximegris/angular-electron/commit/d08ae8f))
 * fix/ angular.json - files to lint ([ec7ce0c](https://github.com/maximegris/angular-electron/commit/ec7ce0c))
 * misc/ vscode debug ([f4225a3](https://github.com/maximegris/angular-electron/commit/f4225a3))
