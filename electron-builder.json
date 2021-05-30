@@ -1,43 +1,42 @@
 {
-  "productName": "angular-electron",
   "directories": {
     "output": "release/"
   },
   "files": [
     "**/*",
     "!**/*.ts",
-    "!.github",
-    "!.vscode",
-    "!.code-workspace",
-    "!.npmrc",
-    "!*.md",
+    "!*.map",
     "!package.json",
-    "!package-lock.json",
-    "!src/",
-    "!e2e/",
-    "!hooks/",
-    "!_config.yml",
-    "!angular.json",
-    "!tsconfig*.json",
-    "!tslint.json",
-    "!.eslintrc.json",
-    "!karma.conf.js",
-    "!angular.webpack.js",
-    "!*.map"
+    "!package-lock.json"
+  ],
+  "extraResources": [
+    {
+      "from": "dist",
+      "to": "dist",
+      "filter": [
+        "**/*"
+      ]
+    }
   ],
   "win": {
     "icon": "dist/assets/icons",
-    "target": ["portable"]
+    "target": [
+      "portable"
+    ]
   },
   "portable": {
     "splashImage": "dist/assets/icons/electron.bmp"
   },
   "mac": {
     "icon": "dist/assets/icons",
-    "target": ["dmg"]
+    "target": [
+      "dmg"
+    ]
   },
   "linux": {
     "icon": "dist/assets/icons",
-    "target": ["AppImage"]
+    "target": [
+      "AppImage"
+    ]
   }
 }

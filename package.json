@@ -20,7 +20,7 @@
     "mac",
     "linux"
   ],
-  "main": "main.js",
+  "main": "app/main.js",
   "private": true,
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
@@ -41,7 +41,20 @@
     "lint": "ng lint"
   },
   "dependencies": {
-    "@electron/remote": "1.0.4"
+    "@angular/common": "12.0.2",
+    "@angular/compiler": "12.0.2",
+    "@angular/compiler-cli": "12.0.2",
+    "@angular/core": "12.0.2",
+    "@angular/forms": "12.0.2",
+    "@angular/language-service": "12.0.2",
+    "@angular/platform-browser": "12.0.2",
+    "@angular/platform-browser-dynamic": "12.0.2",
+    "@angular/router": "12.0.2",
+    "@electron/remote": "1.0.4",
+    "core-js": "3.6.5",
+    "rxjs": "6.6.6",
+    "tslib": "2.1.0",
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "12.0.0",
@@ -52,15 +65,6 @@
     "@angular-eslint/schematics": "12.0.0",
     "@angular-eslint/template-parser": "12.0.0",
     "@angular/cli": "12.0.2",
-    "@angular/common": "12.0.2",
-    "@angular/compiler": "12.0.2",
-    "@angular/compiler-cli": "12.0.2",
-    "@angular/core": "12.0.2",
-    "@angular/forms": "12.0.2",
-    "@angular/language-service": "12.0.2",
-    "@angular/platform-browser": "12.0.2",
-    "@angular/platform-browser-dynamic": "12.0.2",
-    "@angular/router": "12.0.2",
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
     "@types/jasmine": "3.7.6",
@@ -72,7 +76,6 @@
     "@typescript-eslint/parser": "4.25.0",
     "chai": "4.3.4",
     "conventional-changelog-cli": "2.1.1",
-    "core-js": "3.6.5",
     "cross-env": "7.0.3",
     "electron": "13.0.1",
     "electron-builder": "22.10.5",
@@ -91,17 +94,14 @@
     "mocha": "8.4.0",
     "nan": "2.14.2",
     "npm-run-all": "4.1.5",
-    "rxjs": "6.6.6",
     "spectron": "15.0.0",
     "ts-node": "9.1.1",
-    "tslib": "2.1.0",
     "typescript": "4.2.4",
     "wait-on": "5.0.1",
-    "webdriver-manager": "12.1.8",
-    "zone.js": "~0.11.4"
+    "webdriver-manager": "12.1.8"
   },
   "engines": {
-    "node": ">=11.0.0"
+    "node": ">=12.0.0"
   },
   "browserslist": [
     "chrome 83"

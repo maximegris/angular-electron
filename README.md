@@ -48,7 +48,6 @@ npm install
 
 There is an issue with `yarn` and `node_modules` when the application is built by the packager. Please use `npm` as dependencies manager.
 
-
 If you want to generate Angular components with Angular-cli , you **MUST** install `@angular/cli` in npm global context.
 Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed a previous version of `angular-cli`.
 
@@ -62,17 +61,31 @@ npm install -g @angular/cli
 
 Voila! You can use your Angular + Electron app in a local development environment with hot reload!
 
-The application code is managed by `main.ts`. In this sample, the app runs with a simple Angular App (http://localhost:4200) and an Electron window.
-The Angular component contains an example of Electron and NodeJS native lib import.
-You can disable "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.ts`.
+The application code is managed by `app/main.ts`. In this sample, the app runs with a simple Angular App (http://localhost:4200), and an Electron window. \
+The Angular component contains an example of Electron and NodeJS native lib import. \
+You can disable "Developer Tools" by commenting `win.webContents.openDevTools();` in `app/main.ts`.
+
+## Project structure
+
+|Folder|Description|
+| ---- | ---- |
+| app | Electron main process folder (NodeJS) |
+| src | Electron renderer process folder (Web / Angular) |
 
 ## Use Electron / NodeJS libraries
 
-This sample project runs in both modes (web and electron). To make this work, **you have to import your dependencies the right way**. Please check `providers/electron.service.ts` to watch how conditional import of libraries has to be done when using electron / NodeJS / 3rd party libraries in renderer context (i.e. Angular).
+3rd party libraries used in electron's main process (like an ORM) have to be added in `dependencies` of `app/package.json`.
+This sample project runs in both modes (web and electron). To make this work, **you have to import your dependencies the right way**. \
 
 ## Use "web" 3rd party libraries (like angular, material, bootstrap, ...)
 
-3rd party librairies used in electron's renderer process (like angular) have to be added in `devDependencies` of `package.json`. They are already added in your final package during webpack's compilation phase. Otherwise it will significantly increase the size of your final package... not so cool :(
+3rd party libraries used in electron's renderer process (like angular) have to be added in `dependencies` of `package.json`. \
+Please check `providers/electron.service.ts` to watch how conditional import of libraries has to be done when using NodeJS / 3rd party libraries in renderer context (i.e. Angular).
+
+## Add a dependency with ng-add
+
+You may encounter some difficulties with `ng-add` because this project doesn't use the defaults `@angular-builders`. \
+For example you can find [here](HOW_TO.md) how to install Angular-Material with `ng-add`.
 
 ## Browser mode
 
@@ -88,11 +101,13 @@ Maybe you only want to execute the application in the browser with hot reload? J
 |`npm run electron:local`| Builds your application and start electron
 |`npm run electron:build`| Builds your application and creates an app consumable based on your operating system |
 
-**Your application is optimised. Only /dist folder and node dependencies are included in the executable.**
+**Your application is optimised. Only /dist folder and NodeJS dependencies are included in the final bundle.**
 
 ## You want to use a specific lib (like rxjs) in electron main thread ?
 
-YES! You can do it! Just by importing your library in npm dependencies section (not **devDependencies**) with `npm install --save`. It will be loaded by electron during build phase and added to your final package. Then use your library by importing it in `main.ts` file. Quite simple, isn't it?
+YES! You can do it! Just by importing your library in npm dependencies section of `app/package.json` with `npm install --save XXXXX`. \
+It will be loaded by electron during build phase and added to your final bundle. \
+Then use your library by importing it in `app/main.ts` file. Quite simple, isn't it?
 
 ## E2E Testing
 
@@ -104,32 +119,6 @@ E2E Test scripts can be found in `e2e` folder.
 
 Note: To make it work behind a proxy, you can add this proxy exception in your terminal  
 `export {no_proxy,NO_PROXY}="127.0.0.1,localhost"`
-
-## How to install Angular Material
-
-First add Angular Material using `ng add` command:
-
-``` bash
-ng add @angular/material
-```
-You will get the following questions:
-
-``` bash
-? Choose a prebuilt theme name, or "custom" for a custom theme: *Choose any theme you like here*
-? Set up global Angular Material typography styles? *Yes* 
-? Set up browser animations for Angular Material? *Yes*
-```
-Angular Material will start installing, but you will get the following error after installation:
-
-``` bash
-Your project is not using the default builders for "build". The Angular Material schematics cannot add a theme to the workspace configuration if the builder has been changed.
-```
-*No need to Panic!* Just add your desired theme in style.scss:
-
-``` bash
-import '@angular/material/prebuilt-themes/indigo-pink.css'
-```
-Angular Material Library is now installed in your project.
 
 ## Debug with VsCode
 

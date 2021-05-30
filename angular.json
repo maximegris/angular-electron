@@ -30,7 +30,7 @@
           "configurations": {
             "dev": {
               "optimization": false,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": true,
               "namedChunks": false,
               "aot": false,
@@ -46,7 +46,7 @@
             },
             "web": {
               "optimization": false,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": true,
               "namedChunks": false,
               "aot": false,
@@ -126,7 +126,7 @@
             "eslintConfig": ".eslintrc.json",
             "lintFilePatterns": [
               "src/**/*.ts",
-              "main.ts"
+              "app/**.ts"
             ]
           }
         }
