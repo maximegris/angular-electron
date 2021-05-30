@@ -94,6 +94,32 @@ Maybe you only want to execute the application in the browser with hot reload? J
 
 YES! You can do it! Just by importing your library in npm dependencies section (not **devDependencies**) with `npm install --save`. It will be loaded by electron during build phase and added to your final package. Then use your library by importing it in `main.ts` file. Quite simple, isn't it?
 
+## Install Angular Material
+
+First add Angular Material using `ng add` command:
+
+``` bash
+ng add @angular/material
+```
+You will get the following questions:
+
+``` bash
+? Choose a prebuilt theme name, or "custom" for a custom theme: *Choose any theme you like here*
+? Set up global Angular Material typography styles? *Yes* 
+? Set up browser animations for Angular Material? *Yes*
+```
+Angular Material will start installing, but you will get the following error after installation:
+
+``` bash
+Your project is not using the default builders for "build". The Angular Material schematics cannot add a theme to the workspace configuration if the builder has been changed.
+```
+*No need to Panic!* Just add your desired theme in style.scss:
+
+``` bash
+import '@angular/material/prebuilt-themes/indigo-pink.css'
+```
+Angular Material Library is now installed in your project.
+
 ## Debug with VsCode
 
 [VsCode](https://code.visualstudio.com/) debug configuration is available! In order to use it, you need the extension [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome).
