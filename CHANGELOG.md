@@ -1,5 +1,12 @@
+## <small>9.0.9 (2021-05-30)</small>
+
+* fix/ issue #610 - upgrade typescript to 4.1.5 ([11fdf22](https://github.com/maximegris/angular-electron/commit/11fdf22)), closes [#610](https://github.com/maximegris/angular-electron/issues/610)
+
+
+
 ## <small>9.0.8 (2021-05-30)</small>
 
+* [Bumped Version] 9.0.8 ([21197ab](https://github.com/maximegris/angular-electron/commit/21197ab))
 * Added how to install Angular Material to readme ([d904101](https://github.com/maximegris/angular-electron/commit/d904101))
 * fix README typo ([aa691d9](https://github.com/maximegris/angular-electron/commit/aa691d9))
 * Update electron version ([b1f4451](https://github.com/maximegris/angular-electron/commit/b1f4451))
