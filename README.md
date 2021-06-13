@@ -40,7 +40,7 @@ Clone this repository locally:
 git clone https://github.com/maximegris/angular-electron.git
 ```
 
-Install dependencies with npm:
+Install dependencies with npm (used by Electron renderer process):
 
 ``` bash
 npm install
@@ -53,6 +53,13 @@ Please follow [Angular-cli documentation](https://github.com/angular/angular-cli
 
 ``` bash
 npm install -g @angular/cli
+```
+
+Install NodeJS dependencies with npm (used by Electron main process):
+
+``` bash
+cp app/
+npm install
 ```
 
 ## To build for development
