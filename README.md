@@ -34,13 +34,13 @@ With this sample, you can:
 
 ## Getting Started
 
-Clone this repository locally:
+*Clone this repository locally:*
 
 ``` bash
 git clone https://github.com/maximegris/angular-electron.git
 ```
 
-Install dependencies with npm (used by Electron renderer process):
+*Install dependencies with npm (used by Electron renderer process):*
 
 ``` bash
 npm install
@@ -55,12 +55,14 @@ Please follow [Angular-cli documentation](https://github.com/angular/angular-cli
 npm install -g @angular/cli
 ```
 
-Install NodeJS dependencies with npm (used by Electron main process):
+*Install NodeJS dependencies with npm (used by Electron main process):*
 
 ``` bash
 cp app/
 npm install
 ```
+
+Why two package.json ? This project follow [Electron Builder two package.json structure](https://www.electron.build/tutorials/two-package-structure) in order to optimize final bundle and be still able to use Angular `ng add` feature.
 
 ## To build for development
 
