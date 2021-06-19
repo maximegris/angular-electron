@@ -1,5 +1,6 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
+import * as fs from 'fs';
 import * as url from 'url';
 
 // Initialize remote module
@@ -27,19 +28,25 @@ function createWindow(): BrowserWindow {
       enableRemoteModule : true // true if you want to run 2e2 test  with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
+  
 
   if (serve) {
-
     win.webContents.openDevTools();
-
     require('electron-reload')(__dirname, {
-      electron: require(`${__dirname}/../node_modules/electron`)
+      electron: require(path.join(__dirname, '/../node_modules/electron'))
     });
     win.loadURL('http://localhost:4200');
-
   } else {
+    // Path when running electron executable
+    let pathIndex = './index.html';
+
+    if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
+       // Path when running electron in local folder
+      pathIndex = '../dist/index.html';
+    }
+
     win.loadURL(url.format({
-      pathname: path.join(__dirname, '../dist/index.html'),
+      pathname: path.join(__dirname, pathIndex),
       protocol: 'file:',
       slashes: true
     }));

@@ -18,7 +18,7 @@ Bootstrap and package your project with Angular 12 and Electron 13 (Typescript +
 
 Currently runs with:
 
-- Angular v12.0.2
+- Angular v12.0.5
 - Electron v13.0.1
 - Electron Builder v22.10.5
 
@@ -81,15 +81,19 @@ You can disable "Developer Tools" by commenting `win.webContents.openDevTools();
 | app | Electron main process folder (NodeJS) |
 | src | Electron renderer process folder (Web / Angular) |
 
-## Use Electron / NodeJS libraries
+## How to import 3rd party libraries
 
-3rd party libraries used in electron's main process (like an ORM) have to be added in `dependencies` of `app/package.json`.
 This sample project runs in both modes (web and electron). To make this work, **you have to import your dependencies the right way**. \
 
-## Use "web" 3rd party libraries (like angular, material, bootstrap, ...)
+There are two kind of 3rd party libraries :
+- NodeJS's one (like an ORM, Database...)
+    - Used in electron's Main process (app folder) have to be added in `dependencies` of `app/package.json`
+    - Used in electron's Renderer process (src folder) have to be added in `dependencies` of both `app/package.json` and `src/package.json`
 
-3rd party libraries used in electron's renderer process (like angular) have to be added in `dependencies` of `package.json`. \
 Please check `providers/electron.service.ts` to watch how conditional import of libraries has to be done when using NodeJS / 3rd party libraries in renderer context (i.e. Angular).
+
+- Web's one (like bootstrap, material, tailwind...)
+    - It have to be added in `dependencies` of `src/package.json`
 
 ## Add a dependency with ng-add
 

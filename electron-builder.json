@@ -1,4 +1,5 @@
 {
+  "asar": false,
   "directories": {
     "output": "release/"
   },
@@ -12,7 +13,7 @@
   "extraResources": [
     {
       "from": "dist",
-      "to": "dist",
+      "to": "app",
       "filter": [
         "**/*"
       ]
