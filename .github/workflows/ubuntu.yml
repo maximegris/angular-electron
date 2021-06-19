@@ -54,12 +54,3 @@ jobs:
     - name: Build the app
       run: npm run electron:build
 
-    - name: Run headless unit test
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: npm test
-
-    - name: Run headless unit test
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: npm run e2e
