@@ -1,6 +1,15 @@
+## <small>10.0.1 (2021-06-19)</small>
+
+* fix/ use node 3rd party libraries in renderer process ([1fb08a7](https://github.com/maximegris/angular-electron/commit/1fb08a7))
+* ref/ eslint conf ([af0a677](https://github.com/maximegris/angular-electron/commit/af0a677))
+* update README (electron builder two package structure) ([2e29232](https://github.com/maximegris/angular-electron/commit/2e29232))
+* Update README.md ([33f5f6d](https://github.com/maximegris/angular-electron/commit/33f5f6d))
+
+
+
 ## 10.0.0 (2021-05-30)
 
-* [Bumped Version] 10.0.0 ([6c02b97](https://github.com/maximegris/angular-electron/commit/6c02b97))
+* [Bumped Version] 10.0.0 ([987e996](https://github.com/maximegris/angular-electron/commit/987e996))
 * [Bumped Version] 10.0.0 ([38f58de](https://github.com/maximegris/angular-electron/commit/38f58de))
 * add HOW_TO.md ([3a85294](https://github.com/maximegris/angular-electron/commit/3a85294))
 * fix/ github actions - angular-cli need node 12+ ([154d3fc](https://github.com/maximegris/angular-electron/commit/154d3fc))
