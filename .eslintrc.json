@@ -1,7 +1,9 @@
 {
   "root": true,
   "ignorePatterns": [
-    "projects/**/*"
+    "app/**/*", // ignore nodeJs files
+    "dist/**/*",
+    "release/**/*"
   ],
   "overrides": [
     {
@@ -18,7 +20,8 @@
         "createDefaultProgram": true
       },
       "extends": [
-        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/ng-cli-compat",
+        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
@@ -35,14 +38,12 @@
     },
     {
       "files": [
-        "*.component.html"
+        "*.html"
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {
-        "@angular-eslint/template/banana-in-box": "error",
-        "@angular-eslint/template/no-negated-async": "error"
       }
     }
   ]
