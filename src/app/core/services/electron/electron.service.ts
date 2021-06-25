@@ -34,7 +34,6 @@ export class ElectronService {
       // it must be declared in dependencies of both package.json (in root and app folders)
       // If you want to use remote object in renderer process, please set enableRemoteModule to true in main.ts
       this.remote = window.require('@electron/remote');
-      console.log('remote - globalShortcut', this.remote.globalShortcut);
     }
   }
 }
