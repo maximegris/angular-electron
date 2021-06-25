@@ -1,5 +1,14 @@
+## <small>10.0.2 (2021-06-25)</small>
+
+* ci/ workflow ubuntu without test ([2b819d7](https://github.com/maximegris/angular-electron/commit/2b819d7))
+* fix/ spectron e2e test ([742095f](https://github.com/maximegris/angular-electron/commit/742095f))
+* ref/ set default angular eslint rules ([7d531d1](https://github.com/maximegris/angular-electron/commit/7d531d1))
+
+
+
 ## <small>10.0.1 (2021-06-19)</small>
 
+* [Bumped Version] 10.0.1 ([9b79616](https://github.com/maximegris/angular-electron/commit/9b79616))
 * fix/ use node 3rd party libraries in renderer process ([1fb08a7](https://github.com/maximegris/angular-electron/commit/1fb08a7))
 * ref/ eslint conf ([af0a677](https://github.com/maximegris/angular-electron/commit/af0a677))
 * update README (electron builder two package structure) ([2e29232](https://github.com/maximegris/angular-electron/commit/2e29232))
