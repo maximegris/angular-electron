@@ -19,7 +19,7 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 15.x]
+        node-version: [14.x, 15.x, 16.x]
 
     # The type of runner that the job will run on
     runs-on: macos-latest

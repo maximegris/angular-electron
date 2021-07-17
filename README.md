@@ -18,9 +18,9 @@ Bootstrap and package your project with Angular 12 and Electron 13 (Typescript +
 
 Currently runs with:
 
-- Angular v12.0.5
-- Electron v13.0.1
-- Electron Builder v22.10.5
+- Angular v12.1.2
+- Electron v13.1.7
+- Electron Builder v22.11.9
 
 With this sample, you can:
 
@@ -30,7 +30,7 @@ With this sample, you can:
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
 
-/!\ Angular 12.x CLI needs Node 11 or later to work correctly.
+/!\ Angular CLI & Electron Builder needs Node 14 or later to work correctly.
 
 ## Getting Started
 

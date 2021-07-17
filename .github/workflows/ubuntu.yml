@@ -19,7 +19,7 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 15.x]
+        node-version: [14.x, 15.x, 16.x]
 
     # The type of runner that the job will run on
     runs-on: ubuntu-18.04
@@ -55,7 +55,7 @@ jobs:
       uses: GabrielBB/xvfb-action@v1
       with:
         run: npm test
-        
+
     - name: Run headless e2e test
       uses: GabrielBB/xvfb-action@v1
       with:

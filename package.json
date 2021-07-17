@@ -76,7 +76,7 @@
     "conventional-changelog-cli": "2.1.1",
     "cross-env": "7.0.3",
     "electron": "13.1.7",
-    "electron-builder": "22.11.7",
+    "electron-builder": "22.11.9",
     "electron-reload": "1.5.0",
     "eslint": "7.30.0",
     "eslint-plugin-import": "2.23.4",
@@ -99,7 +99,7 @@
     "webdriver-manager": "12.1.8"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
   "browserslist": [
     "chrome 91"
