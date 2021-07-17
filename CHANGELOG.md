@@ -1,5 +1,15 @@
+## 10.1.0 (2021-07-17)
+
+* Fix typo & some spacing ([d2b6ee0](https://github.com/maximegris/angular-electron/commit/d2b6ee0))
+* Fix typo in branch section ([623d0fa](https://github.com/maximegris/angular-electron/commit/623d0fa))
+* ref/action-xvfb-linux ([60b591b](https://github.com/maximegris/angular-electron/commit/60b591b))
+* Upgrade to Angular 12.1.2 / Electron 13.1.7 ([8274ae3](https://github.com/maximegris/angular-electron/commit/8274ae3))
+
+
+
 ## <small>10.0.2 (2021-06-25)</small>
 
+* [Bumped Version] 10.0.2 ([e8f36a3](https://github.com/maximegris/angular-electron/commit/e8f36a3))
 * ci/ workflow ubuntu without test ([2b819d7](https://github.com/maximegris/angular-electron/commit/2b819d7))
 * fix/ spectron e2e test ([742095f](https://github.com/maximegris/angular-electron/commit/742095f))
 * ref/ set default angular eslint rules ([7d531d1](https://github.com/maximegris/angular-electron/commit/7d531d1))
