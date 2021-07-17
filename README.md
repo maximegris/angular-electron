@@ -58,7 +58,7 @@ npm install -g @angular/cli
 *Install NodeJS dependencies with npm (used by Electron main process):*
 
 ``` bash
-cp app/
+cd app/
 npm install
 ```
 
