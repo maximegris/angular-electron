@@ -88,12 +88,12 @@ This sample project runs in both modes (web and electron). To make this work, **
 There are two kind of 3rd party libraries :
 - NodeJS's one (like an ORM, Database...)
     - Used in electron's Main process (app folder) have to be added in `dependencies` of `app/package.json`
-    - Used in electron's Renderer process (src folder) have to be added in `dependencies` of both `app/package.json` and `src/package.json`
+    - Used in electron's Renderer process (src folder) have to be added in `dependencies` of both `app/package.json` and `package.json (root folder)`
 
 Please check `providers/electron.service.ts` to watch how conditional import of libraries has to be done when using NodeJS / 3rd party libraries in renderer context (i.e. Angular).
 
 - Web's one (like bootstrap, material, tailwind...)
-    - It have to be added in `dependencies` of `src/package.json`
+    - It have to be added in `dependencies` of `package.json  (root folder)`
 
 ## Add a dependency with ng-add
 
