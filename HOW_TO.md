@@ -34,6 +34,6 @@ Your project is not using the default builders for "build". The Angular Material
 *No need to Panic!* Just add your desired theme in style.scss:
 
 ``` bash
-import '@angular/material/prebuilt-themes/indigo-pink.css'
+@import '@angular/material/prebuilt-themes/indigo-pink.css'
 ```
 Angular Material Library is now installed in your project.
