@@ -75,7 +75,7 @@
     "chai": "4.3.4",
     "conventional-changelog-cli": "2.1.1",
     "cross-env": "7.0.3",
-    "electron": "13.1.7",
+    "electron": "13.3.0",
     "electron-builder": "22.11.9",
     "electron-reload": "1.5.0",
     "eslint": "7.30.0",
