@@ -1,5 +1,19 @@
+## 10.2.0 (2021-11-14)
+
+* [Bumped Version] 10.2.0 ([ace14da](https://github.com/maximegris/angular-electron/commit/ace14da))
+* add missing @ on the SCSS import for Material theme fix ([dc9ee14](https://github.com/maximegris/angular-electron/commit/dc9ee14))
+* bugfix/ electron builder 22.11 needs Node 14+ ([c7dbb3f](https://github.com/maximegris/angular-electron/commit/c7dbb3f))
+* Bump electron from 13.1.7 to 13.3.0 ([fe0280a](https://github.com/maximegris/angular-electron/commit/fe0280a))
+* remove screenshot test ([62facb1](https://github.com/maximegris/angular-electron/commit/62facb1))
+* replace Spectron by Playwright ([558c646](https://github.com/maximegris/angular-electron/commit/558c646))
+* Update README.md ([4b44d8b](https://github.com/maximegris/angular-electron/commit/4b44d8b))
+* Update README.md ([c385d6a](https://github.com/maximegris/angular-electron/commit/c385d6a))
+
+
+
 ## 10.1.0 (2021-07-17)
 
+* [Bumped Version] 10.1.0 ([f399d75](https://github.com/maximegris/angular-electron/commit/f399d75))
 * Fix typo & some spacing ([d2b6ee0](https://github.com/maximegris/angular-electron/commit/d2b6ee0))
 * Fix typo in branch section ([623d0fa](https://github.com/maximegris/angular-electron/commit/623d0fa))
 * ref/action-xvfb-linux ([60b591b](https://github.com/maximegris/angular-electron/commit/60b591b))
