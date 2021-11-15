@@ -1,6 +1,15 @@
+## 10.3.0 (2021-11-15)
+
+* fix/Polyfill Node.js core modules in Webpack (5+) ([e3c0d9f](https://github.com/maximegris/angular-electron/commit/e3c0d9f))
+* ref/ move angularCompilerOptions to tsconfig ([e07410b](https://github.com/maximegris/angular-electron/commit/e07410b))
+* remove include statement from base tsconfig.json ([aebec1a](https://github.com/maximegris/angular-electron/commit/aebec1a))
+* Update README.md ([47fc3ff](https://github.com/maximegris/angular-electron/commit/47fc3ff))
+
+
+
 ## 10.2.0 (2021-11-14)
 
-* [Bumped Version] 10.2.0 ([ace14da](https://github.com/maximegris/angular-electron/commit/ace14da))
+* [Bumped Version] 10.2.0 ([edb5269](https://github.com/maximegris/angular-electron/commit/edb5269))
 * add missing @ on the SCSS import for Material theme fix ([dc9ee14](https://github.com/maximegris/angular-electron/commit/dc9ee14))
 * bugfix/ electron builder 22.11 needs Node 14+ ([c7dbb3f](https://github.com/maximegris/angular-electron/commit/c7dbb3f))
 * Bump electron from 13.1.7 to 13.3.0 ([fe0280a](https://github.com/maximegris/angular-electron/commit/fe0280a))
