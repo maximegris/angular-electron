@@ -85,9 +85,8 @@ You can disable "Developer Tools" by commenting `win.webContents.openDevTools();
 This sample project runs in both modes (web and electron). To make this work, **you have to import your dependencies the right way**. \
 
 There are two kind of 3rd party libraries :
-- NodeJS's one (like an ORM, Database...)
-    - Used in electron's Main process (app folder) have to be added in `dependencies` of `app/package.json`
-    - Used in electron's Renderer process (src folder) have to be added in `dependencies` of both `app/package.json` and `package.json (root folder)`
+- NodeJS's one - Uses NodeJS core module (crypto, fs, util...)
+    - I suggest you add this kind of 3rd party library in `dependencies` of both `app/package.json` and `package.json (root folder)` in order to make it work in both Electron's Main process (app folder) and Electron's Renderer process (src folder).
 
 Please check `providers/electron.service.ts` to watch how conditional import of libraries has to be done when using NodeJS / 3rd party libraries in renderer context (i.e. Angular).
 

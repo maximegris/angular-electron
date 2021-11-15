@@ -33,7 +33,8 @@
             ],
             "scripts": [],
             "customWebpackConfig": {
-              "path": "./angular.webpack.js"
+              "path": "./angular.webpack.js",
+              "replaceDuplicatePlugins": true
             }
           },
           "configurations": {
@@ -125,7 +126,8 @@
               "src/assets"
             ],
             "customWebpackConfig": {
-              "path": "./angular.webpack.js"
+              "path": "./angular.webpack.js",
+              "replaceDuplicatePlugins": true
             }
           }
         },
