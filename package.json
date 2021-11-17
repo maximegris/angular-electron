@@ -94,7 +94,7 @@
     "playwright": "1.16.3",
     "ts-node": "10.1.0",
     "typescript": "~4.2.0",
-    "wait-on": "5.0.1",
+    "wait-on": "6.0.0",
     "webdriver-manager": "12.1.8"
   },
   "engines": {
