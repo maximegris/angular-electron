@@ -1,5 +1,12 @@
+## <small>10.3.1 (2021-11-17)</small>
+
+* fix/ TS Config : module resolution in main process ([a9d3044](https://github.com/maximegris/angular-electron/commit/a9d3044))
+
+
+
 ## 10.3.0 (2021-11-15)
 
+* [Bumped Version] 10.3.0 ([20e9142](https://github.com/maximegris/angular-electron/commit/20e9142))
 * fix/Polyfill Node.js core modules in Webpack (5+) ([e3c0d9f](https://github.com/maximegris/angular-electron/commit/e3c0d9f))
 * ref/ move angularCompilerOptions to tsconfig ([e07410b](https://github.com/maximegris/angular-electron/commit/e07410b))
 * remove include statement from base tsconfig.json ([aebec1a](https://github.com/maximegris/angular-electron/commit/aebec1a))
