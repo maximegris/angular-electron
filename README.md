@@ -14,12 +14,12 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 12 and Electron 15 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 12 and Electron 16 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
 - Angular v12.1.2
-- Electron v15.13.1
+- Electron v16.0.0
 
 With this sample, you can:
 
@@ -151,7 +151,7 @@ Please note that Hot reload is only available in Renderer process.
 - Angular 9 & Electron 7 : Branch [angular9](https://github.com/maximegris/angular-electron/tree/angular9)
 - Angular 10 & Electron 9 : Branch [angular10](https://github.com/maximegris/angular-electron/tree/angular10)
 - Angular 11 & Electron 12 : Branch [angular11](https://github.com/maximegris/angular-electron/tree/angular11)
-- Angular 12 & Electron 15 : (master)
+- Angular 12 & Electron 16 : (master)
 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
