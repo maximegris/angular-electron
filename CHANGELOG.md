@@ -1,5 +1,13 @@
+## <small>10.4.1 (2021-11-17)</small>
+
+* misc/ Upgrade eslint version ([4321d9d](https://github.com/maximegris/angular-electron/commit/4321d9d))
+* misc/ Upgrade to Angular 13.0.0 ([99e9f35](https://github.com/maximegris/angular-electron/commit/99e9f35))
+
+
+
 ## 10.4.0 (2021-11-17)
 
+* [Bumped Version] 10.4.0 ([7a4f527](https://github.com/maximegris/angular-electron/commit/7a4f527))
 * misc/ upgrade to Angular 12.2.13 ([74df637](https://github.com/maximegris/angular-electron/commit/74df637))
 * misc/ upgrade to Electron 16 ([65d285c](https://github.com/maximegris/angular-electron/commit/65d285c))
 * misc/ upgrade wait-on dependency ([e427f26](https://github.com/maximegris/angular-electron/commit/e427f26))
