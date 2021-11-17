@@ -1,5 +1,14 @@
+## 10.4.0 (2021-11-17)
+
+* misc/ upgrade to Angular 12.2.13 ([74df637](https://github.com/maximegris/angular-electron/commit/74df637))
+* misc/ upgrade to Electron 16 ([65d285c](https://github.com/maximegris/angular-electron/commit/65d285c))
+* misc/ upgrade wait-on dependency ([e427f26](https://github.com/maximegris/angular-electron/commit/e427f26))
+
+
+
 ## <small>10.3.1 (2021-11-17)</small>
 
+* [Bumped Version] 10.3.1 ([ebde830](https://github.com/maximegris/angular-electron/commit/ebde830))
 * fix/ TS Config : module resolution in main process ([a9d3044](https://github.com/maximegris/angular-electron/commit/a9d3044))
 
 

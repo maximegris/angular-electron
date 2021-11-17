@@ -1,6 +1,6 @@
 {
   "name": "angular-electron",
-  "version": "10.3.1",
+  "version": "10.4.0",
   "description": "Angular 12 with Electron 16 (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
