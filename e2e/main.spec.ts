@@ -12,6 +12,7 @@ test.describe('Check Home Page', async () => {
     context = app.context();
     await context.tracing.start({ screenshots: true, snapshots: true });
     firstWindow = await app.firstWindow();
+    await firstWindow.waitForLoadState('domcontentloaded');
   });
 
   test('Launch electron app', async () => {

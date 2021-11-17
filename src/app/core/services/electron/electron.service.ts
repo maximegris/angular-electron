@@ -15,10 +15,6 @@ export class ElectronService {
   childProcess: typeof childProcess;
   fs: typeof fs;
 
-  get isElectron(): boolean {
-    return !!(window && window.process && window.process.type);
-  }
-
   constructor() {
     // Conditional imports
     if (this.isElectron) {
@@ -40,5 +36,9 @@ export class ElectronService {
       // ipcRenderer.invoke can serve many common use cases.
       // https://www.electronjs.org/docs/latest/api/ipc-renderer#ipcrendererinvokechannel-args
     }
+  }
+
+  get isElectron(): boolean {
+    return !!(window && window.process && window.process.type);
   }
 }
