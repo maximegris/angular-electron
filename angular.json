@@ -54,6 +54,22 @@
                 }
               ]
             },
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
             "web": {
               "optimization": false,
               "outputHashing": "none",
@@ -70,7 +86,7 @@
                 }
               ]
             },
-            "production": {
+            "web-production": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -82,7 +98,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.web.prod.ts"
                 }
               ]
             }
@@ -97,11 +113,14 @@
             "dev": {
               "browserTarget": "angular-electron:build:dev"
             },
+            "production": {
+              "browserTarget": "angular-electron:build:production"
+            },
             "web": {
               "browserTarget": "angular-electron:build:web"
             },
-            "production": {
-              "browserTarget": "angular-electron:build:production"
+            "web-production": {
+              "browserTarget": "angular-electron:build:web-production"
             }
           }
         },
