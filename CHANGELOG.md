@@ -1,14 +1,22 @@
+## 10.5.0 (2022-02-24)
+
+* Bump follow-redirects from 1.14.5 to 1.14.7 ([606d54d](https://github.com/maximegris/angular-electron/commit/606d54d))
+* Bump log4js from 6.3.0 to 6.4.0 ([27adf26](https://github.com/maximegris/angular-electron/commit/27adf26))
+* Bump nanoid from 3.1.30 to 3.2.0 ([e05d98b](https://github.com/maximegris/angular-electron/commit/e05d98b))
+* fix/ global error in console when building web app only ([58424a2](https://github.com/maximegris/angular-electron/commit/58424a2))
+* misc/ github actions on 14.x, 16.x, 17.x ([4fe8c2c](https://github.com/maximegris/angular-electron/commit/4fe8c2c))
+* misc/ Upgrade to Electron 17 ([4964bae](https://github.com/maximegris/angular-electron/commit/4964bae))
+* use local electron from devDependencies instead of npx ([a029060](https://github.com/maximegris/angular-electron/commit/a029060))
+
+
+
 ## <small>10.4.1 (2021-11-17)</small>
 
-* misc/ Upgrade eslint version ([4321d9d](https://github.com/maximegris/angular-electron/commit/4321d9d))
-* misc/ Upgrade to Angular 13.0.0 ([99e9f35](https://github.com/maximegris/angular-electron/commit/99e9f35))
-
-
-
-## 10.4.0 (2021-11-17)
-
 * [Bumped Version] 10.4.0 ([7a4f527](https://github.com/maximegris/angular-electron/commit/7a4f527))
+* [Bumped Version] 10.4.1 ([c5096fa](https://github.com/maximegris/angular-electron/commit/c5096fa))
+* misc/ Upgrade eslint version ([4321d9d](https://github.com/maximegris/angular-electron/commit/4321d9d))
 * misc/ upgrade to Angular 12.2.13 ([74df637](https://github.com/maximegris/angular-electron/commit/74df637))
+* misc/ Upgrade to Angular 13.0.0 ([99e9f35](https://github.com/maximegris/angular-electron/commit/99e9f35))
 * misc/ upgrade to Electron 16 ([65d285c](https://github.com/maximegris/angular-electron/commit/65d285c))
 * misc/ upgrade wait-on dependency ([e427f26](https://github.com/maximegris/angular-electron/commit/e427f26))
 
