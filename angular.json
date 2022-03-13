@@ -13,8 +13,12 @@
       "schematics": {
         "@schematics/angular:application": {
           "strict": true
+        },
+        "@schematics/angular:component": {
+          "style": "scss"
         }
       },
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
@@ -139,7 +143,8 @@
             "karmaConfig": "src/karma.conf.js",
             "scripts": [],
             "styles": [
-              "src/styles.scss"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "assets": [
               "src/assets"
@@ -176,14 +181,5 @@
       }
     }
   },
-  "defaultProject": "angular-electron",
-  "schematics": {
-    "@schematics/angular:component": {
-      "prefix": "app",
-      "style": "scss"
-    },
-    "@schematics/angular:directive": {
-      "prefix": "app"
-    }
-  }
+  "defaultProject": "angular-electron"
 }

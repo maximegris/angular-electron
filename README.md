@@ -151,11 +151,11 @@ Please note that Hot reload is only available in Renderer process.
 - Angular 10 & Electron 9 : Branch [angular10](https://github.com/maximegris/angular-electron/tree/angular10)
 - Angular 11 & Electron 12 : Branch [angular11](https://github.com/maximegris/angular-electron/tree/angular11)
 - Angular 12 & Electron 16 : Branch [angular12](https://github.com/maximegris/angular-electron/tree/angular12)
-- Angular 13 & Electron 17 : (master)
+- Angular 13 & Electron 17 : (main)
 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license]: https://github.com/maximegris/angular-electron/blob/master/LICENSE.md
+[license]: https://github.com/maximegris/angular-electron/blob/main/LICENSE.md
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-red.svg
 [prs]: http://makeapullrequest.com
 
