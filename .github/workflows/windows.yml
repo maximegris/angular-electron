@@ -19,7 +19,7 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 17.x]
+        node-version: [16]
 
     # The type of runner that the job will run on
     runs-on: windows-latest
@@ -44,9 +44,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - name: Install Dependencies
       run: npm i
+
     - name: Check lint
       run: npm run lint
+
+    - name: Run headless unit test
+      run: npm run test
+
+    - name: Run headless e2e test
+      run: npm run e2e
+
     - name: Build the app
       run: npm run electron:build
