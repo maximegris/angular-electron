@@ -1,5 +1,17 @@
+## <small>10.5.1 (2022-04-02)</small>
+
+* fix/ macos action ([ff71c32](https://github.com/maximegris/angular-electron/commit/ff71c32))
+* fix/ remove demo.gif ([ccd468d](https://github.com/maximegris/angular-electron/commit/ccd468d))
+* migrate to main branch ([2c7cd98](https://github.com/maximegris/angular-electron/commit/2c7cd98))
+* misc/ Upgrade to Electron 18 ([7251676](https://github.com/maximegris/angular-electron/commit/7251676))
+* Set theme jekyll-theme-cayman ([1f0ba34](https://github.com/maximegris/angular-electron/commit/1f0ba34))
+* fix: github action ([d6b5784](https://github.com/maximegris/angular-electron/commit/d6b5784))
+
+
+
 ## 10.5.0 (2022-02-24)
 
+* [Bumped Version] 10.5.0 ([92fe8ed](https://github.com/maximegris/angular-electron/commit/92fe8ed))
 * Bump follow-redirects from 1.14.5 to 1.14.7 ([606d54d](https://github.com/maximegris/angular-electron/commit/606d54d))
 * Bump log4js from 6.3.0 to 6.4.0 ([27adf26](https://github.com/maximegris/angular-electron/commit/27adf26))
 * Bump nanoid from 3.1.30 to 3.2.0 ([e05d98b](https://github.com/maximegris/angular-electron/commit/e05d98b))
