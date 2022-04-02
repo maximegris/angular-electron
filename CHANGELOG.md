@@ -1,5 +1,6 @@
 ## <small>10.5.1 (2022-04-02)</small>
 
+* [Bumped Version] 10.5.1 ([ad23ace](https://github.com/maximegris/angular-electron/commit/ad23ace))
 * fix/ macos action ([ff71c32](https://github.com/maximegris/angular-electron/commit/ff71c32))
 * fix/ remove demo.gif ([ccd468d](https://github.com/maximegris/angular-electron/commit/ccd468d))
 * migrate to main branch ([2c7cd98](https://github.com/maximegris/angular-electron/commit/2c7cd98))
