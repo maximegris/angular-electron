@@ -1,6 +1,6 @@
 {
   "name": "angular-electron",
-  "version": "10.5.1",
+  "version": "10.5.2",
   "description": "Angular 13 with Electron 18 (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {

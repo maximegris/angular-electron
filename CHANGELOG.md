@@ -1,3 +1,11 @@
+## <small>10.5.2 (2022-04-23)</small>
+
+* Bump plist from 3.0.4 to 3.0.5 ([bedaba3](https://github.com/maximegris/angular-electron/commit/bedaba3))
+* fix/ macos action ([f1d89b1](https://github.com/maximegris/angular-electron/commit/f1d89b1))
+* misc/ add electron-reloader ([c885a24](https://github.com/maximegris/angular-electron/commit/c885a24))
+
+
+
 ## <small>10.5.1 (2022-04-02)</small>
 
 * [Bumped Version] 10.5.1 ([ad23ace](https://github.com/maximegris/angular-electron/commit/ad23ace))
