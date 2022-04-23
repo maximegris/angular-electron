@@ -25,12 +25,11 @@ function createWindow(): BrowserWindow {
     },
   });
 
-
   if (serve) {
-    win.webContents.openDevTools();
-    require('electron-reload')(__dirname, {
-      electron: require(path.join(__dirname, '/../node_modules/electron'))
-    });
+    const debug = require('electron-debug');
+    debug();
+
+    require('electron-reloader')(module);
     win.loadURL('http://localhost:4200');
   } else {
     // Path when running electron executable
