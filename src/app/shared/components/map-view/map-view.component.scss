@@ -1,0 +1,14 @@
+.map-example-view {
+  height: 300px;
+  width: 400px;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
+
+  background: url(./../../../../assets/floor.png) no-repeat center fixed;
+  -webkit-background-size: cover;
+  /* pour anciens Chrome et Safari */
+  background-size: cover;
+  /* version standardisée */
+}

@@ -1,12 +1,12 @@
 {
   "PAGES": {
       "HOME": {
-          "TITLE": "App works !",
+          "TITLE": "UV Angel Demo App - APIC 2022",
           "GO_TO_DETAIL": "Go to Detail"
       },
       "DETAIL": {
-        "TITLE": "Detail page !",
+        "TITLE": "Template Page",
         "BACK_TO_HOME": "Back to Home"
-    }
+      }
   }
 }
