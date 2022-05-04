@@ -1,3 +1,35 @@
-:host {
-  
+nav {
+  position: sticky;
+  top: 0;
+
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    padding: 20px;
+    background: lightgray;
+
+    li {
+      list-style: none;
+      margin-right: 20px;
+      font-size: 25px;
+      font-weight: bold;
+
+      a {
+        text-decoration: underline;
+        color: #1ac;
+      }
+    }
+  }
+}
+footer {
+  padding: 10px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  background: lightgray;
+  color: #da2;
+  position: sticky;
+  bottom: 0;
 }

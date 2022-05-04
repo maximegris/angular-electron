@@ -10,7 +10,7 @@ export class DataViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
+
   }
 
 }

@@ -9,7 +9,6 @@ import { DataViewComponent } from './data-view/data-view.component';
 import { DynamicTreatmentViewComponent } from './dynamic-treatment-view/dynamic-treatment-view.component';
 import { InstallServiceViewComponent } from './install-service-view/install-service-view.component';
 
-
 @NgModule({
   declarations: [DetailComponent, DataViewComponent, DynamicTreatmentViewComponent, InstallServiceViewComponent],
   imports: [CommonModule, SharedModule, DetailRoutingModule]

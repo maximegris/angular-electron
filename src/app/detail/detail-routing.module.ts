@@ -8,10 +8,6 @@ import { InstallServiceViewComponent } from './install-service-view/install-serv
 
 const routes: Routes = [
   {
-    path: 'detail',
-    component: DetailComponent
-  },
-  {
     path: 'data',
     component: DataViewComponent
   },
