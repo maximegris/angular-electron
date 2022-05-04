@@ -1,4 +1,5 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { SerialPort } from 'serialport';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -6,6 +7,10 @@ import * as url from 'url';
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
+
+
+let current_air20_fan_operation_mode = 0;
+let serial_port: SerialPort;
 
 function createWindow(): BrowserWindow {
 
@@ -85,4 +90,58 @@ try {
 } catch (e) {
   // Catch Error
   // throw e;
+}
+
+ipcMain.on('list_serial_ports', async (event: any) => {
+  console.log('LISTING SERIAL PORTS...');
+  let serialPorts = await SerialPort.list()
+  console.log('got serial ports', JSON.stringify(serialPorts, null, 2));
+  win.webContents.send('list_serial_ports_response', { serialPorts: serialPorts })
+  console.log('DONE!');
+})
+
+ipcMain.on('set_serial_port', (event: any, args: { port: string, baudRate: number }) => {
+  // serial_port = new SerialPort({ path: '/dev/tty-usbserial1', baudRate: 57600 })
+  serial_port = new SerialPort({ path: args.port, baudRate: args.baudRate })
+
+  // Open errors will be emitted as an error event
+  serial_port.on('error', function (err) {
+    console.log('SERIAL PORT ERROR OCCURRED: ', err.message)
+  })
+})
+
+ipcMain.on('air20_set_fan_operation_mode', (event: any, level: number) => {
+  if (level <= 0) {
+    current_air20_fan_operation_mode = 0
+  } else if (level <= 1) {
+    current_air20_fan_operation_mode = 1
+  } else if (level <= 2) {
+    current_air20_fan_operation_mode = 2
+  } else if (level <= 3) {
+    current_air20_fan_operation_mode = 3
+  } else if (level <= 4) {
+    current_air20_fan_operation_mode = 4
+  } else if (level <= 5) {
+    current_air20_fan_operation_mode = 5
+  } else {
+    current_air20_fan_operation_mode = 5
+  }
+
+  write_port(`fan_mode ${current_air20_fan_operation_mode}`)
+})
+
+function write_port(message): boolean {
+  if (!serial_port.writable) {
+    console.error("SERIAL PORT IS NOT WRITABLE! - ignoring write request. be sure port is opened and still valid")
+    return false
+  }
+
+  serial_port.write(message, function (err) {
+    if (err) {
+      console.error('Error on write: ', err.message)
+      return false
+    }
+    console.log('message written')
+    return true
+  })
 }

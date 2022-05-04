@@ -3,5 +3,17 @@
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
 
-  <p>This page will have high level settings (if required) like ability to specify serial port(s), etc.</p>  
+  <div>
+    <h4>Settings</h4>
+    <button (click)="listSerialPorts()">List Serial Ports</button>
+    <ul *ngIf="availablePorts && availablePorts.length > 0">
+      <li *ngFor="let port of availablePorts">{{port.path}}</li>
+    </ul>
+    <!-- <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <input name="first" ngModel required #first="ngModel">
+      <input name="last" ngModel>
+      <button>Submit</button>
+    </form> -->
+  </div>
+  
 </div>
