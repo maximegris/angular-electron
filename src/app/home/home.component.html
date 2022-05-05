@@ -5,15 +5,30 @@
 
   <div>
     <h4>Settings</h4>
+    <div *ngIf="activeSerialPort">
+      <p>Current Serial Port: <b>{{ activeSerialPort.settings.path }}</b></p>
+
+      <button (click)="fanOperationModeTest(3)">Send Test Command (air20_set_fan_operation_mode to "3")</button>
+    </div>
+    
     <button (click)="listSerialPorts()">List Serial Ports</button>
-    <ul *ngIf="availablePorts && availablePorts.length > 0">
-      <li *ngFor="let port of availablePorts">{{port.path}}</li>
-    </ul>
-    <!-- <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-      <input name="first" ngModel required #first="ngModel">
-      <input name="last" ngModel>
-      <button>Submit</button>
-    </form> -->
+
+    <form *ngIf="availablePorts && availablePorts.length > 0" [formGroup]="serialPortForm" (ngSubmit)="onSerialPortFormSubmit()">
+      <div>
+        <select (change)="changeSerialPortPath($event)" formControlName="path">
+          <option value="">-- Select Serial Port Path --</option>
+          <option *ngFor="let port of availablePorts" [ngValue]="port.path">
+            {{ port.path }}
+          </option>
+        </select>
+        <!-- error block -->
+        <div *ngIf="isSubmitted && path?.invalid">
+          <sup>*</sup>Please select port name
+        </div>
+        <button type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
   </div>
-  
 </div>

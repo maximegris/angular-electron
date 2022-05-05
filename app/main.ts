@@ -93,23 +93,33 @@ try {
 }
 
 ipcMain.on('list_serial_ports', async (event: any) => {
-  console.log('LISTING SERIAL PORTS...');
   let serialPorts = await SerialPort.list()
   win.webContents.send('list_serial_ports_response', serialPorts)
-  console.log('DONE!');
 })
 
-ipcMain.on('set_serial_port', (event: any, args: { port: string, baudRate: number }) => {
+ipcMain.on('set_serial_port', (event: any, path: string, baudRate: string) => {
   // serial_port = new SerialPort({ path: '/dev/tty-usbserial1', baudRate: 57600 })
-  serial_port = new SerialPort({ path: args.port, baudRate: args.baudRate })
-
-  // Open errors will be emitted as an error event
-  serial_port.on('error', function (err) {
-    console.log('SERIAL PORT ERROR OCCURRED: ', err.message)
+  console.log(`TRYING TO OPEN SERIAL PORT [${path}][${parseInt(baudRate)}]`)
+  serial_port = new SerialPort({ path: path, baudRate: parseInt(baudRate) }, function (err) {
+    if (err) {
+      console.log('SERIAL PORT ERROR: ', err.message)
+      win.webContents.send('set_serial_port_response', JSON.stringify({ error: err.message }));
+      return err.message
+    }
+    console.log("Serial Port Successfully Opened @ path: ", serial_port.path)
+    win.webContents.send('set_serial_port_response', JSON.stringify({ error: null, serialPort: serial_port }));
   })
 })
 
+ipcMain.on('get_active_serial_port', async (event: any): Promise<SerialPort | null> => {
+  if (!serial_port) {
+    return null
+  }
+  win.webContents.send('get_active_serial_port_response', serial_port);
+})
+
 ipcMain.on('air20_set_fan_operation_mode', (event: any, level: number) => {
+  console.log(`SETTING AIR 2.0 FAN OPERATION MODE to [${level}]`)
   if (level <= 0) {
     current_air20_fan_operation_mode = 0
   } else if (level <= 1) {
