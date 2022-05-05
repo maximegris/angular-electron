@@ -95,8 +95,7 @@ try {
 ipcMain.on('list_serial_ports', async (event: any) => {
   console.log('LISTING SERIAL PORTS...');
   let serialPorts = await SerialPort.list()
-  console.log('got serial ports', JSON.stringify(serialPorts, null, 2));
-  win.webContents.send('list_serial_ports_response', { serialPorts: serialPorts })
+  win.webContents.send('list_serial_ports_response', serialPorts)
   console.log('DONE!');
 })
 

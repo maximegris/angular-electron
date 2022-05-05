@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit, ViewRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ElectronService } from '../core/services';
-import { SerialPort } from 'serialport'
+import { SerialPort } from 'serialport';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +12,19 @@ export class HomeComponent implements OnInit {
 
   availablePorts: SerialPort[] = [];
 
-  constructor(private router: Router, private electronService: ElectronService) { }
+  constructor(private router: Router,
+    private electronService: ElectronService,
+    private ngZone: NgZone
+  ) { }
 
   ngOnInit(): void {
     console.log('HomeComponent INIT');
 
     this.electronService.ipcRenderer.on('list_serial_ports_response', (event, args) => {
       console.log('RECIEVED PORTS', event, args);
-      this.availablePorts = args;
+      this.ngZone.run(() => {
+        this.availablePorts = args;
+      });
     });
   }
 
