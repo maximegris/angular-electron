@@ -5,6 +5,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
+// Material Design imports
+import { MatToolbarModule} from '@angular/material/toolbar';
+
 import { AppRoutingModule } from './app-routing.module';
 
 // NG Translate
@@ -30,6 +33,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     HomeModule,
     DetailModule,
     AppRoutingModule,
+    MatToolbarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

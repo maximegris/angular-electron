@@ -1,15 +1,30 @@
-<!-- <nav style="position: sticky; top: 0; border: 2px solid red;">"ACCOUNT NAME" - NAV BAR HERE</nav> -->
-<nav>
+<mat-toolbar>
+  <mat-toolbar-row>
+      <!-- <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button> -->
+      <h1>UV Angel Development</h1>
+      <span class="menu-spacer"></span>
+      <div>
+        <a mat-button [routerLink]="'/'"> Home </a>
+        <a mat-button [routerLink]="'/data'"> Data </a>
+        <a mat-button [routerLink]="'/dynamic'"> Dynamic </a>
+        <a mat-button [routerLink]="'/service'"> Service </a>
+  
+      </div>
+  </mat-toolbar-row>
+
+  <!-- <span>UV Angel Development</span>
   <ul>
     <li><a routerLink="/">Home</a></li>
     <li><a routerLink="/data">Data</a></li>
     <li><a routerLink="/dynamic">Dynamic Treatment</a></li>
     <li><a routerLink="/service">Service</a></li>
-  </ul>
-</nav>
-<br>
+  </ul> -->
+
+</mat-toolbar>
 
 <router-outlet></router-outlet>
 
 <br>
-<footer style="position: sticky; bottom: 0; border: 2px solid red;">Common Footer Component Here</footer>
+<footer style="position: sticky; bottom: 0; border: 2px solid red;">Common Footer Components Here</footer>
