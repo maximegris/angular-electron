@@ -5,13 +5,12 @@ import { ElectronService } from '../electron/electron.service';
 
 const LOCAL_STORAGE_SERIAL_PATH = 'serial-communication.preferred-path';
 const LOCAL_STORAGE_SERIAL_BAUD = 'serial-communication.preferred-baudRate';
+const DEFAULT_BAUD_RATE = 57600;
 
 @Injectable({
   providedIn: 'root'
 })
 export class SerialCommunication {
-
-  private defaultBaudRate = 57600;
 
   private $activeSerialPort: BehaviorSubject<SerialPort> = new BehaviorSubject(null);
 
@@ -21,13 +20,36 @@ export class SerialCommunication {
   constructor(
     private electronService: ElectronService,
     private ngZone: NgZone
-  ) { }
+  ) {
+    setInterval(() => {
+      if (!this.$activeSerialPort.value) {
+        console.log('attempting to connect to preset ports...');
+        this.hydratePreSetSerialPortIfExists();
+      }
+    }, 1000);
+
+    electronService.ipcRenderer.on('serial_port_disconnect', () => {
+      console.log('SERIAL PORT WAS DISCONNECTED!!!');
+      new Notification('Device Disconnected', {
+        body: `serial port disconnected`
+      });
+      this.$activeSerialPort.next(null);
+    });
+
+    electronService.ipcRenderer.on('serial_port_error', (event, error) => {
+      console.log('serial port error occurred', error);
+      new Notification('Device Error', {
+        body: `serial port error: ${error}`
+      });
+      this.$activeSerialPort.next(null);
+    });
+  }
 
   writeToActiveSerialPort = (event: string, data: any): void => {
     this.electronService.ipcRenderer.send(event, data);
   };
 
-  setSerialPort = async (path: string, baudRate: number = this.defaultBaudRate): Promise<{ error: string; serialPort: SerialPort }> => {
+  setSerialPort = async (path: string, baudRate: number = DEFAULT_BAUD_RATE): Promise<{ error: string; serialPort: SerialPort }> => {
     this.electronService.ipcRenderer.send('set_serial_port', path, baudRate.toString());
 
     return new Promise((resolve, reject) => {
@@ -35,6 +57,9 @@ export class SerialCommunication {
         const jsonResponse = JSON.parse(response) as { error: string; serialPort: SerialPort };
         this.ngZone.run(() => {
           if (jsonResponse.error) {
+            new Notification('ERROR', {
+              body: `error setting serial port: ${jsonResponse.error}`
+            });
             reject(jsonResponse);
           }
           localStorage.setItem(LOCAL_STORAGE_SERIAL_PATH, path);
@@ -42,6 +67,9 @@ export class SerialCommunication {
 
           // set the active serial port observable so everyone can grab it whenever
           this.$activeSerialPort.next(jsonResponse.serialPort);
+          new Notification('SUCCESS', {
+            body: `serial port opened @ ${jsonResponse.serialPort.settings.path}`
+          });
           resolve(jsonResponse);
         });
       });
@@ -79,5 +107,34 @@ export class SerialCommunication {
         });
       });
     });
+  };
+
+  private hydratePreSetSerialPortIfExists = async (): Promise<void> => {
+    console.log('Hydrating previously set serial port...');
+
+    const storedPath = localStorage.getItem(LOCAL_STORAGE_SERIAL_PATH);
+
+    if (!storedPath) {
+      // no pre-existing path is stored, nothing to hydrate
+      console.log('no pre-existing serial path stored, nothing to hydrate. must set manually');
+      return;
+    }
+    console.log(`Found pre-set port path: ${storedPath}`);
+    const availablePorts = await this.listSerialPorts();
+    const port = availablePorts.find(p => p.path === storedPath);
+
+    if (!port) {
+      console.log('Pre-existing serial port path not found. cannot hydrate. must set manually');
+      return;
+    }
+    console.log(`Found pre-set port path found!`);
+
+    const storedBaudString = localStorage.getItem(LOCAL_STORAGE_SERIAL_BAUD);
+    let storedBaudNumber = DEFAULT_BAUD_RATE;
+    if (storedBaudString) {
+      storedBaudNumber = parseInt(storedBaudString, 10);
+    }
+    console.log(`Setting Serial Port: ${port.path} | ${storedBaudNumber}`);
+    this.setSerialPort(port.path, storedBaudNumber);
   };
 }
