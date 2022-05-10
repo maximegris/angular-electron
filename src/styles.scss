@@ -322,3 +322,23 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
     font-family: 'avenir';
   }
 }
+
+// Custom code
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#uvaTopNavLinks {
+  float: right !important;
+  
+}
+
+.mat-toolbar {
+  a, a:visited {
+    color: white;
+    text-decoration: none;
+    margin-left: 50px;
+  }
+}
