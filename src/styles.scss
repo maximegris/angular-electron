@@ -345,27 +345,103 @@ footer {
 }
 
 .uva-device-card {
-  max-width: 400px;
-}
+  background-color: #fff;
+  color: #000;
+  max-width: 392px;
+  border: 1px solid red;
+  padding: 0px !important;
+  margin: 16px;
+  z-index: 1000;
 
-.uva-device-card-header-image {
-  background-image: url('./assets/animated-fan.gif');
-  background-size: cover;
-}
-
-.uva-device-type {
-  display: block !important;
-}
-
-.uva-device-name {
-  display: block !important;
-}
-
-.uva-device-details {
-  font-size: 12px;
-  letter-spacing: 0.4px;
-  text-align: left;
-  span {
-    display: inline-block;
+  .mat-card-header-text {
+    padding: 0px;
+    margin: 0px;
   }
+
+  .uva-device-card-header {
+    padding: 0px;
+    border-bottom: 1px solid rgba(0,0,0,0.87);
+    .uva-device-card-header-container {
+      margin: 16px;
+      min-height: 100px;
+
+      .uva-device-card-header-mode-block {
+        display: inline;
+        float: left;
+        max-width: 100px;
+        .uva-device-card-header-image {
+          background-image: url('./assets/animated-fan.gif');
+          background-size: cover;
+          width: 100px;
+          height: 100px;
+          margin: auto auto;
+        }
+        .uva-device-mode {
+          font-size: 12px;
+          color: rgba(0,0,0,0.87);
+          letter-spacing: 0.4px;
+          text-align: center;
+        }
+      }
+    
+      .uva-device-card-header-details-block {
+        display: inline-block;
+        padding: 0px 32px;
+
+        .uva-device-type {
+          font-size: 10px;
+          color: rgba(0,0,0,0.87);
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          margin-bottom: 6px;
+        }
+    
+        .uva-device-name {
+          font-family: Avenir-Book;
+          font-size: 24px;
+          color: rgba(0,0,0,0.87);
+          letter-spacing: 0;
+          text-align: left;
+          line-height: 24px;
+          margin-bottom: 16px;
+        }
+    
+        .uva-device-details {
+          font-size: 12px;
+          color: rgba(0,0,0,0.87);
+          letter-spacing: 0.4px;
+          text-align: left;
+          line-height: 18px;
+        }
+      }
+
+    }
+
+  }
+
+  .uva-device-card-content {
+    padding: 0px;
+
+    .uva-device-card-content-container {
+      padding: 0px;
+      min-height: 100px;
+      border-bottom: 1px solid rgba(0,0,0,0.87);
+
+      .uva-device-card-content-section {
+        padding: 16px;
+        h4 {
+          padding: 0px;
+          margin: 0px;
+          font-size: 16px;
+          color: rgba(0,0,0,0.87);
+          letter-spacing: 0.15px;
+          text-align: left;
+        }
+      }
+    }
+
+  }
+
 }
+
+
