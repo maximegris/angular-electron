@@ -45,7 +45,8 @@ export class SerialCommunication {
     });
   }
 
-  writeToActiveSerialPort = (event: string, data: any): void => {
+  writeToActiveSerialPort = (event: string, data: number): void => {
+    data = this.normalize(data, 0, 5, 0, 99) // put 0-5 number between 0 and 99
     this.electronService.ipcRenderer.send(event, data);
   };
 
@@ -137,4 +138,8 @@ export class SerialCommunication {
     console.log(`Setting Serial Port: ${port.path} | ${storedBaudNumber}`);
     this.setSerialPort(port.path, storedBaudNumber);
   };
+
+  private normalize(num, fromMin, fromMax, toMin, toMax) {
+    return toMin + (num - fromMin) / (fromMax - fromMin) * (toMax - toMin)
+  }
 }
