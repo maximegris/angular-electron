@@ -8,7 +8,7 @@
       </div>
       <div class="uva-device-card-header-section uva-device-card-header-details-block">
         <div class="uva-device-type">UV Angel Air 2.0</div>
-        <div class="uva-device-name">UVA HQ Lab 1</div>
+        <div class="uva-device-name">UVA HQ Unit 124</div>
         <div class="uva-device-details">
           <div>Location: UVA HQ Lab 1</div>
           <div>Serial #: SE123401-1351-1234</div>
@@ -26,12 +26,37 @@
     <div class="uva-device-card-content-container">
       <div class="uva-device-card-content-section">
         <h4>Parts Status</h4>
-        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+        <div class="uva-progress-bar-container">
+          <span class="uva-progress-bar-label">Lamp</span>
+          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+          <span class="uva-progress-bar-note">Est. Replacement: Dec 12 2022 (210 days)</span>
+        </div>
+        <div class="uva-progress-bar-container">
+          <span class="uva-progress-bar-label">Filter</span>
+          <mat-progress-bar mode="determinate" value="80"></mat-progress-bar>
+          <span class="uva-progress-bar-note">Est. Replacement: Dec 12 2022 (210 days)</span>
+        </div>
+
       </div>
     </div>
     <div class="uva-device-card-content-container">
       <div class="uva-device-card-content-section">
         <h4>Event History</h4>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="item">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+          </ng-container>
+          <ng-container matColumnDef="eventType">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.eventType}} </td>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+          </ng-container>
+        
+        </table>
       </div>
     </div>
     </mat-card-content>
