@@ -1,2 +1,33 @@
-<h1>Dyanmic Treatment View</h1>
-<app-map-view view="room"></app-map-view>
+<h1>Dynamic Treatment View</h1>
+<uvc-geojson-map
+    [geojson]="geojson"
+    [showSpinner]="showSpinner"
+    (selectLevel)="onLevelChanged($event)"
+    (mapClick)="onMapClick($event)"
+    (markerClick)="onMarkerClick($event)"
+    (mapZoom)="onMapZoom($event)"
+    [popupLocation]="lastClickedMarker?.lngLat"
+    [selectedLevelId]="selectedLevelId"
+    [markers]="mapMarkers"
+    [showLevelPicker]="false"
+    [bounds]="focusBounds"
+    >
+    <div *ngIf="lastClickedMarker" mapPopup>
+        <div *ngIf="lastClickedMarker.feature.feature_type === 'anchor'">
+            <span class="font-weight-bold">{{featuresWithLocations[lastClickedMarker.feature.id].name}}</span>
+            <div>
+                <span>Air Quality:</span>
+                <span [class.text-danger]="lastClickedMarker.feature.properties.air_quality === 'Bad'">
+                    {{lastClickedMarker.feature.properties.air_quality}}
+                </span>
+            </div>
+            <span>
+                {{!lastClickedMarker.feature.properties.occupancy ? 'Not Occupied' : 'Occupancy: ' + lastClickedMarker.feature.properties.occupancy}}
+            </span>
+        </div>
+        <div *ngIf="lastClickedMarker.feature.feature_type === 'amenity'">
+            <span class="font-weight-bold">{{lastClickedMarker.feature.properties.device_name}}</span>
+        </div>
+    </div>    
+</uvc-geojson-map>
+    

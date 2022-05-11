@@ -34,7 +34,8 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@typescript-eslint/member-ordering": 0,
       }
     },
     {

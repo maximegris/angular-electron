@@ -1,0 +1,9 @@
+<div class="list-group">
+    <button *ngFor="let level of levels"
+        type="button"
+        class="list-group-item list-group-item-action"
+        [class.active]="level.id === selectedLevel?.id"
+        (click)="onSelectLevel(level)">
+        {{ showLevelName ? (level.properties.name?.en || level.properties.ordinal) : level.properties.ordinal }}
+    </button>
+</div>

@@ -1,0 +1,11 @@
+$blue: rgb(0,147,199);
+
+:host {
+    .list-group-item-action:hover {
+        background-color: $blue;
+    }
+
+    .list-group-item.active {
+        background-color: $blue;
+    }
+}
