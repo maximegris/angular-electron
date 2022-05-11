@@ -1,0 +1,65 @@
+<ng-container *ngIf="input && !showSpinner; else spinner">
+    <mgl-map
+        [style]="'mapbox://styles/mapbox/streets-v11'"
+        [fitBounds]="bounds"
+        [maxBounds]="maxBounds"
+        trackResize="true"
+        (zoomEvt)="onZoom($event)"
+        (zoomStart)="onZoom($event, true, false)"
+        (zoomEnd)="onZoom($event, false, true)"
+        (mapLoad)="onMapLoad($event)"
+    >
+        <mgl-geojson-source
+            id="all-features"
+            [data]="input"
+            promoteId="uva_id"
+        ></mgl-geojson-source>
+
+        <mgl-geojson-source
+            id="markers"
+            [data]="_markers"
+            promoteId="uva_id"
+        ></mgl-geojson-source>
+
+        <mgl-layer
+            (layerClick)="onMapClick($event)"
+            (layerMouseMove)="onMouseMove($event)"
+            (layerMouseLeave)="onMouseLeave($event)"
+            [filter]="selectedLevel ? ['==', 'level_id', selectedLevel.properties.uva_id] : undefined"
+            id="all-layer"type="fill" source="all-features" [paint]="paint">
+        </mgl-layer>
+        <mgl-layer *ngIf="selectedFeature && (!levelFeatures?.length || selectedFeature.properties?.level_id === selectedLevel?.id)"
+            [filter]="['==', 'uva_id', selectedFeature.properties.uva_id]"
+            id="selected-layer" type="fill" source="all-features" [paint]="selectedPaint">
+        </mgl-layer>
+
+        <mgl-layer
+            (layerClick)="onMarkerClick($event)"
+            id="markers-layer" type="circle" source="markers" [paint]="markerPaint"
+        ></mgl-layer>
+
+        <mgl-popup *ngIf="popupLocation"
+            [lngLat]="popupLocation">
+            <ng-content select="[mapPopup]"></ng-content>
+        </mgl-popup>
+
+        <mgl-control *ngIf="showLevelPicker && levelFeatures?.length" position="bottom-right">
+            <uvc-map-level-control
+                [levels]="levelFeatures"
+                [selectedLevel]="selectedLevel"
+                (selectLevel)="onSelectLevel($event)">
+            </uvc-map-level-control>
+        </mgl-control>
+    </mgl-map>
+</ng-container>
+
+<ng-template #spinner>
+    <div class="spinner-body">
+        <div class="spinner">
+            <span class="fa-spin fas fa-spinner fa-lg"></span>
+        </div>
+        <div *ngIf="spinnerHasText">
+            {{ showSpinner }}
+        </div>
+    </div>
+</ng-template>

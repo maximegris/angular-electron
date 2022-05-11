@@ -1,3 +1,9 @@
+.app-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+}
+
 nav {
   position: sticky;
   top: 0;

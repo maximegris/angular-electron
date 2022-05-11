@@ -53,10 +53,13 @@
     "@angular/platform-browser": "13.3.1",
     "@angular/platform-browser-dynamic": "13.3.1",
     "@angular/router": "13.3.1",
+    "ngx-mapbox-gl": "^6.0.4",
+    "mapbox-gl": "^2.8.1",
     "rxjs": "7.5.5",
     "serialport": "10.4.0",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.5"
+    "zone.js": "~0.11.5",
+    "events": "^3.3.0"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "13.1.0",
@@ -76,6 +79,7 @@
     "@types/node": "17.0.23",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
+    "@types/mapbox-gl": "^2.7.0",
     "conventional-changelog-cli": "2.2.2",
     "electron": "18.0.1",
     "electron-builder": "23.0.2",
