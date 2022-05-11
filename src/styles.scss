@@ -327,18 +327,45 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 
 body {
   margin: 0px;
-  padding: 0px;
+  font-family: 'avenir', sans-serif;
 }
 
-#uvaTopNavLinks {
-  float: right !important;
-  
+.uva-nav-spacer {
+  flex: 1 1 auto;
 }
 
-.mat-toolbar {
-  a, a:visited {
-    color: white;
-    text-decoration: none;
-    margin-left: 50px;
+.uva-logo {
+  min-height: 30px;
+}
+
+footer {
+  font-size: .8em;
+  font-weight: 400;
+  text-align: center;
+}
+
+.uva-device-card {
+  max-width: 400px;
+}
+
+.uva-device-card-header-image {
+  background-image: url('./assets/animated-fan.gif');
+  background-size: cover;
+}
+
+.uva-device-type {
+  display: block !important;
+}
+
+.uva-device-name {
+  display: block !important;
+}
+
+.uva-device-details {
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  text-align: left;
+  span {
+    display: inline-block;
   }
 }

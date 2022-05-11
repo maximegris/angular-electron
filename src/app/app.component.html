@@ -1,21 +1,17 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-      <!-- <button mat-icon-button>
-        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-      </button> -->
-      <h1>UV Angel Development</h1>
-      <span class="menu-spacer"></span>
-      <div id="uvaTopNavLinks">
-        <a mat-button [routerLink]="'/'"> Home </a>
-        <a mat-button [routerLink]="'/data'"> Data </a>
-        <a mat-button [routerLink]="'/dynamic'"> Dynamic </a>
-        <a mat-button [routerLink]="'/service'"> Service </a>
-  
-      </div>
-  </mat-toolbar-row>
+<mat-toolbar color="black">
+  <a mat-button routerLink="/">
+    <img src="../assets/logos/UVAngel_Icon_Reversed.svg" class="uva-logo">
+  </a>
+  <span>UV Angel Development</span>
+  <span class="uva-nav-spacer"></span>
+  <a mat-button routerLink="/data">Data</a>
+  <a mat-button routerLink="/dynamic">Dynamic Treatment</a>
+  <a mat-button routerLink="/service">Service</a>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
 
 <br>
-<footer style="position: sticky; bottom: 0; border: 2px solid red;">Common Footer Components Here</footer>
+<footer>
+  Copyright &copy; 2022. UV Angel. All Rights Reserved.
+</footer>

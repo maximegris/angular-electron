@@ -7,6 +7,9 @@ import { SharedModule } from './shared/shared.module';
 
 // Material Design imports
 import { MatToolbarModule} from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -34,6 +37,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     DetailModule,
     AppRoutingModule,
     MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
