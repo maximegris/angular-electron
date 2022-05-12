@@ -353,16 +353,16 @@ footer {
           text-align: left;
         }
       
+        .uva-progress-bar-container {
+          margin: 8px 0px 8px 0px;
+          padding: 8px;       
+        }
+        
         .mat-progress-bar-buffer {
-          background-color: #e9f3fb;
+          background-color: #e9f3fb; // FIXME: Should use variable. KR 20220512
         }
       }
     }
   }
-}
-
-.uva-progress-bar-container {
-  margin-top: 16px;
-  margin-bottom: 16px;
 }
 
