@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatTable  } from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -43,7 +42,6 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     MatButtonModule,
     MatCardModule,
     MatProgressBarModule,
-    MatTable,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
