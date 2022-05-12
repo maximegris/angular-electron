@@ -14,21 +14,25 @@
     <button (click)="listSerialPorts()">List Serial Ports</button>
 
     <form *ngIf="availablePorts && availablePorts.length > 0" [formGroup]="serialPortForm" (ngSubmit)="onSerialPortFormSubmit()">
-      <div>
-        <select (change)="changeSerialPortPath($event)" formControlName="path">
-          <option value="">-- Select Serial Port Path --</option>
-          <option *ngFor="let port of availablePorts" [ngValue]="port.path">
-            {{ port.path }}
-          </option>
-        </select>
-        <!-- error block -->
-        <div *ngIf="isSubmitted && path?.invalid">
-          <sup>*</sup>Please select port name
-        </div>
-        <button type="submit">
-          Submit
-        </button>
+      <mat-form-field appearance="fill">
+        <mat-label>-- Select Serial Port Path --</mat-label>
+        <mat-select [(ngModel)]="path" name="path">
+          <mat-option *ngFor="let port of availablePorts" [ngValue]="port.path">{{port.path}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <select (change)="changeSerialPortPath($event)" formControlName="path">
+                <option value="">-- Select Serial Port Path --</option>
+                <option *ngFor="let port of availablePorts" [ngValue]="port.path">
+                  {{ port.path }}
+                </option>
+              </select> -->
+      <!-- error block -->
+      <div *ngIf="isSubmitted && path?.invalid">
+        <sup>*</sup>Please select port name
       </div>
+      <button type="submit">
+        Submit
+      </button>
     </form>
   </div>
 </div>
