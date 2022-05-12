@@ -1,97 +1,4 @@
-<<<<<<< HEAD
-// @use '@angular/material' as mat;
-// @import url('http://fonts.cdnfonts.com/css/avenir');
-=======
-@import "~mapbox-gl/dist/mapbox-gl.css";
-
-/* You can add global styles to this file, and also import other style files */
-html, body {
-  margin: 0;
-  padding: 0;
->>>>>>> main
-
-// $uva-palette-primary: (
-//  50: #e0f4f9,
-//  100: #b1e2f1,
-//  200: #80cfe8,
-//  300: #52bbdf,
-//  400: #30aeda,
-//  500: #0ba0d6,
-//  600:  #0093c8,
-//  700:  #0080b5,
-//  800:  #0070a2,
-//  900:  #005181,
-//  contrast: (
-//    50: rgba(black, 0.87),
-//    100: rgba(black, 0.87),
-//    200: rgba(black, 0.87),
-//    300: rgba(black, 0.87),
-//    400: rgba(black, 0.87),
-//    500: rgba(black, 0.87),
-//    600: rgba(black, 0.87),
-//    700: rgba(black, 0.87),
-//    800: rgba(black, 0.87),
-//    900: rgba(black, 0.87),
-//  )
-// );
-
-// $uva-palette-secondary: (
-//  50: #e0f4f9,
-//  100: #b1e2f1,
-//  200: #80cfe8,
-//  300: #52bbdf,
-//  400: #30aeda,
-//  500: #0ba0d6,
-//  600:  #0093c8,
-//  700:  #0080b5,
-//  800:  #0070a2,
-//  900:  #005181,
-//  contrast: (
-//    50: rgba(black, 0.87),
-//    100: rgba(black, 0.87),
-//    200: rgba(black, 0.87),
-//    300: rgba(black, 0.87),
-//    400: rgba(black, 0.87),
-//    500: rgba(black, 0.87),
-//    600: rgba(black, 0.87),
-//    700: rgba(black, 0.87),
-//    800: rgba(black, 0.87),
-//    900: rgba(black, 0.87),
-//  )
-// );
-
-// $uva-primary: mat.define-palette($uva-palette-primary,600);
-// $uva-accent: mat.define-palette($uva-palette-secondary, 200, 100, 400);
-
-
-// $uva-theme: mat.define-light-theme(
-//   (
-//     color: (
-//       primary: $uva-primary,
-//       accent: $uva-accent,
-//     )
-//   )
-// );
-
-// body {
-//   font-family: 'avenir'
-// }
-
-// @include mat.all-component-themes($uva-theme);
-
-
-// @include mat.core();
-
-/**
-* Generated theme by Material Theme Generator
-* https://materialtheme.arcsine.dev
-* Fork at: https://materialtheme.arcsine.dev/?c=YHBhbGV0dGU$YHByaW1hcnk$YF48IzAwOTNjOCIsIj9lcjwjYjNkZmVmIiwiO2VyPCMwMDc2YjR$LCIlPmBePCM0MjQxNDIiLCI~ZXI8I2M2YzZjNiIsIjtlcjwjMmIyYTJifiwid2Fybj5gXjwjZmYwMDAwIiwiP2VyPCNmZmIzYjMiLCI7ZXI8I2ZmMDAwMH4sIj9UZXh0PCMwMDAwMDAiLCI~PTwjZmFmYWZhIiwiO1RleHQ8I2ZmZmZmZiIsIjs9PCMyYzJjMmN$LCJmb250cz5bYEA8KC00fixgQDwoLTN$LGBAPCgtMn4sYEA8KC0xfixgQDxoZWFkbGluZX4sYEA8dGl0bGV$LGBAPHN1YiktMn4sYEA8c3ViKS0xfixgQDxib2R5LTJ$LGBAPGJvZHktMX4sYEA8YnV0dG9ufixgQDxjYXB0aW9ufixgQDxpbnB1dCIsInNpemU$bnVsbH1dLCJpY29uczxGaWxsZWQiLCI~bmVzcz5mYWxzZSwidmVyc2lvbj4xMX0=
-*/
-
 @import '@angular/material/theming';
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
 
 // Fonts
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
@@ -357,7 +264,6 @@ footer {
   background-color: #fff;
   color: #000;
   max-width: 392px;
-  border: 1px solid red;
   padding: 0px !important;
   margin: 16px;
   z-index: 1000;
@@ -455,3 +361,4 @@ footer {
   margin-top: 16px;
   margin-bottom: 16px;
 }
+
