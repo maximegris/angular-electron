@@ -170,6 +170,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
 }
 
 export interface DeviceEvent {
+  id: number,
   item: string,
   eventType: string,
   date: string
@@ -177,10 +178,10 @@ export interface DeviceEvent {
 
 const EVENT_DATA: DeviceEvent[] =
   [
-    { item: 'Lamp', eventType: 'Removed', date: '12-22-2021' },
-    { item: 'Filter', eventType: 'Detected new', date: '12-22-2021' },
-    { item: 'Door', eventType: 'Opened', date: '12-22-2021' },
-    { item: 'Filter', eventType: 'Detected new', date: '12-22-2021' },
+    { id: 1, item: 'Lamp', eventType: 'Removed', date: '12-22-2021' },
+    { id: 2, item: 'Filter', eventType: 'Detected new', date: '12-22-2021' },
+    { id: 3, item: 'Door', eventType: 'Opened', date: '12-22-2021' },
+    { id: 4, item: 'Filter', eventType: 'Detected new', date: '12-22-2021' },
   ];
 
 export class EventTable {
