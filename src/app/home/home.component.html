@@ -8,10 +8,10 @@
     <div *ngIf="activeSerialPort">
       <p>Current Serial Port: <b>{{ activeSerialPort.settings.path }}</b></p>
 
-      <button (click)="fanOperationModeTest(3)">Send Test Command (air20_set_fan_operation_mode to "3")</button>
+      <button mat-raised-button color="primary" (click)="fanOperationModeTest(3)">Send Test Command (air20_set_fan_operation_mode to "3")</button>
     </div>
     
-    <button (click)="listSerialPorts()">List Serial Ports</button>
+    <button mat-raised-button color="primary" (click)="listSerialPorts()">List Serial Ports</button>
 
     <form *ngIf="availablePorts && availablePorts.length > 0" [formGroup]="serialPortForm" (ngSubmit)="onSerialPortFormSubmit()">
       <mat-form-field appearance="fill">
@@ -30,7 +30,7 @@
       <div *ngIf="isSubmitted && path?.invalid">
         <sup>*</sup>Please select port name
       </div>
-      <button type="submit">
+      <button  mat-raised-button color="primary" type="submit">
         Submit
       </button>
     </form>
