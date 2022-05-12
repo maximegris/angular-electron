@@ -4,9 +4,9 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 interface EventElement {
   id: number;
-  item: string;
-  eventType: string;
-  date: string; // FIXME: Should be date
+  Item: string;
+  Event: string;
+  Date: string; // FIXME: Should be date
 }  
 
 @Component({
@@ -16,13 +16,13 @@ interface EventElement {
 })
 
 export class UvaEventTable implements OnInit {
-  displayedColumns: string[] = ['item', 'eventType', 'date'];
+  displayedColumns: string[] = ['Item', 'Event', 'Date'];
 
   EVENT_DATA: EventElement[] = [
-    { id: 1, item: 'Lamp', eventType: 'Removed', date: '12/22/2021'},
-    { id: 2, item: 'Filter', eventType: 'Detected new', date: '12/22/2021'},
-    { id: 3, item: 'Door', eventType: 'Opened', date: '12/30/2021'},
-    { id: 4, item: 'Filter', eventType: 'Removed', date: '12/31/2021'},
+    { id: 1, Item: 'Lamp', Event: 'Removed', Date: '12/22/2021'},
+    { id: 2, Item: 'Filter', Event: 'Detected new', Date: '12/22/2021'},
+    { id: 3, Item: 'Door', Event: 'Opened', Date: '12/30/2021'},
+    { id: 4, Item: 'Filter', Event: 'Removed', Date: '12/31/2021'},
   ];
   
   dataSource = new MatTableDataSource(this.EVENT_DATA)
