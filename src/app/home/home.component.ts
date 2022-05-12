@@ -25,15 +25,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     public fb: FormBuilder
   ) { }
 
-  get path() {
-    return this.serialPortForm.get('path');
-  }
-
   ngOnInit(): void {
     console.log('HomeComponent INIT');
     this.serialCommunication.activeSerialPort
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(activeSerialPort => this.activeSerialPort = activeSerialPort);
+    
+    this.serialPortForm.get('path').valueChanges.subscribe(item => {
+      this.serialPortForm.get('path').setValue(item);
+    })
   }
 
   ngOnDestroy() {
@@ -41,14 +41,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  changeSerialPortPath(e: any) {
-    this.path?.setValue(e.target.value, {
-      onlySelf: true,
-    });
+  portCompareFn(option1, option2) {
+    console.log("COMPARE", option1, option2);
+    return option1.path === option2.path;
   }
 
   async onSerialPortFormSubmit(): Promise<void> {
-    console.log(this.serialPortForm);
     this.isSubmitted = true;
     if (this.serialPortForm.valid) {
       console.log(JSON.stringify(this.serialPortForm.value));

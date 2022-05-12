@@ -15,22 +15,16 @@
 
     <form *ngIf="availablePorts && availablePorts.length > 0" [formGroup]="serialPortForm" (ngSubmit)="onSerialPortFormSubmit()">
       <mat-form-field appearance="fill">
-        <mat-label>-- Select Serial Port Path --</mat-label>
-        <mat-select [(ngModel)]="path" name="path">
-          <mat-option *ngFor="let port of availablePorts" [ngValue]="port.path">{{port.path}}</mat-option>
+        <mat-label>Select Serial Port Path</mat-label>
+        <mat-select formControlName="path" [compareWith]="portCompareFn">
+          <mat-option *ngFor="let port of availablePorts" [value]="port.path">{{port.path}}</mat-option>
         </mat-select>
+        <mat-error *ngIf="serialPortForm.get('path').hasError('required')">
+          You must select a port
+        </mat-error>
       </mat-form-field>
-      <!-- <select (change)="changeSerialPortPath($event)" formControlName="path">
-                <option value="">-- Select Serial Port Path --</option>
-                <option *ngFor="let port of availablePorts" [ngValue]="port.path">
-                  {{ port.path }}
-                </option>
-              </select> -->
       <!-- error block -->
-      <div *ngIf="isSubmitted && path?.invalid">
-        <sup>*</sup>Please select port name
-      </div>
-      <button  mat-raised-button color="primary" type="submit">
+      <button mat-raised-button color="primary" type="submit">
         Submit
       </button>
     </form>
