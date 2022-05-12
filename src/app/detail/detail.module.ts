@@ -12,9 +12,11 @@ import { MatCardModule } from '@angular/material/card'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { UvaEventTable } from '../shared/components/uva-event-table/uva-event-table.component';
+import { UvaAqGraphComponent } from '../shared/components/uva-aq-graph/uva-aq-graph.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
-  declarations: [DetailComponent, DataViewComponent, DynamicTreatmentViewComponent, InstallServiceViewComponent, UvaEventTable],
-  imports: [CommonModule, SharedModule, DetailRoutingModule, MatCardModule, MatProgressBarModule, MatTableModule]
+  declarations: [DetailComponent, DataViewComponent, DynamicTreatmentViewComponent, InstallServiceViewComponent, UvaEventTable, UvaAqGraphComponent],
+  imports: [CommonModule, SharedModule, DetailRoutingModule, MatCardModule, MatProgressBarModule, MatTableModule, NgChartsModule]
 })
 export class DetailModule {}

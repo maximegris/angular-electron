@@ -20,6 +20,31 @@
     <div class="uva-device-card-content-container">
       <div class="uva-device-card-content-section">
         <h4>Air Quality</h4>
+        <div class="uva-aq-graph-container  mat-elevation-z3">
+          <div class="uva-aq-total-container">
+            <div id="uvaTotalAqChart">
+              
+            </div>
+          </div>
+          <div class="uva-aq-component-container">
+            <div class="uva-aq-component-graph-row">
+              <div class="uva-aq-component-graph-container uva-left">
+                <uva-aq-graph measurand="temperature"></uva-aq-graph>
+              </div>
+              <div class="uva-aq-component-graph-container uva-right">
+                <uva-aq-graph measurand="humidity"></uva-aq-graph>
+              </div>  
+            </div>
+            <div class="uva-aq-component-graph-row">
+              <div class="uva-aq-component-graph-container uva-left">
+                <uva-aq-graph measurand="voc"></uva-aq-graph>
+              </div>
+              <div class="uva-aq-component-graph-container uva-right">
+                <uva-aq-graph measurand="occupancy"></uva-aq-graph>
+              </div>  
+            </div>
+          </div>  
+        </div>
       </div>
     </div>
     <div class="uva-device-card-content-container">

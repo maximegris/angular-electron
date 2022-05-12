@@ -1,0 +1,23 @@
+<h4 class="uva-chart-caption">{{this.measurand}}</h4>
+<div class="flex">
+  <div class="flex-item">
+    <div style="display: block;">
+    <canvas baseChart width="100" height="56"
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                [type]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+  <div class="flex-item">
+    <table class="table table-responsive table-condensed">
+      <tr>
+        <th *ngFor="let label of lineChartData.labels">{{label}}</th>
+      </tr>
+      <tr *ngFor="let d of lineChartData.datasets; let i=index" [class]="'line-'+i">
+        <td *ngFor="let label of lineChartData.labels; let j=index">{{d && d.data[j]}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
