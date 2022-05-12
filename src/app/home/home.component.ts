@@ -56,16 +56,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         const response = await this.serialCommunication.setSerialPort(this.serialPortForm.value.path);
         const serialPort = response.serialPort;
         console.log('set serial port!!', serialPort.settings.path);
-        new Notification('SUCCESS', {
-          body: `serial port opened @ ${serialPort.settings.path}`
-        });
       } catch (err) {
         this.serialPortForm.reset();
         this.isSubmitted = false;
         console.error('error setting serial port', err.error);
-        new Notification('ERROR', {
-          body: `error setting serial port: ${err.error}`
-        });
       }
     }
   }

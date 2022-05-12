@@ -99,7 +99,10 @@ ipcMain.on('list_serial_ports', async (event: any) => {
 
 ipcMain.on('set_serial_port', (event: any, path: string, baudRate: string) => {
   // serial_port = new SerialPort({ path: '/dev/tty-usbserial1', baudRate: 57600 })
-  console.log(`TRYING TO OPEN SERIAL PORT [${path}][${parseInt(baudRate)}]`)
+  console.log(`attempting to open serial port: [${path}] @ baud rate [${parseInt(baudRate)}]`)
+  if (serial_port) {
+    serial_port.destroy();
+  }
   serial_port = new SerialPort({ path: path, baudRate: parseInt(baudRate) }, function (err) {
     if (err) {
       console.log('SERIAL PORT ERROR: ', err.message)
@@ -108,6 +111,16 @@ ipcMain.on('set_serial_port', (event: any, path: string, baudRate: string) => {
     }
     console.log("Serial Port Successfully Opened @ path: ", serial_port.path)
     win.webContents.send('set_serial_port_response', JSON.stringify({ error: null, serialPort: serial_port }));
+  })
+  serial_port.on('error', function (err) {
+    if (err) {
+      console.error(err);
+      if (err['disconnect']) {
+        win.webContents.send('serial_port_disconnect');
+      } else {
+        win.webContents.send('serial_port_error', err);
+      }
+    }
   })
 })
 
