@@ -1,17 +1,13 @@
-import {Component} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 
-export interface EventElement {
+
+interface EventElement {
+  id: number;
   item: string;
   eventType: string;
   date: string; // FIXME: Should be date
-}
-
-const EVENT_DATA: EventElement[] = [
-  { item: 'Lamp', eventType: 'Removed', date: '12/22/2021'},
-  { item: 'Filter', eventType: 'Detected new', date: '12/22/2021'},
-  { item: 'Door', eventType: 'Opened', date: '12/30/2021'},
-  { item: 'Filter', eventType: 'Removed', date: '12/31/2021'},
-];
+}  
 
 @Component({
   selector: 'uva-event-table',
@@ -19,7 +15,19 @@ const EVENT_DATA: EventElement[] = [
   templateUrl: 'uva-event-table.component.html',
 })
 
-export class UvaEventTable {
+export class UvaEventTable implements OnInit {
   displayedColumns: string[] = ['item', 'eventType', 'date'];
-  dataSource = EVENT_DATA;
+
+  EVENT_DATA: EventElement[] = [
+    { id: 1, item: 'Lamp', eventType: 'Removed', date: '12/22/2021'},
+    { id: 2, item: 'Filter', eventType: 'Detected new', date: '12/22/2021'},
+    { id: 3, item: 'Door', eventType: 'Opened', date: '12/30/2021'},
+    { id: 4, item: 'Filter', eventType: 'Removed', date: '12/31/2021'},
+  ];
+  
+  dataSource = new MatTableDataSource(this.EVENT_DATA)
+
+  constructor() {}
+  ngAfterViewInit() {}
+  ngOnInit() {}
 }
