@@ -8,9 +8,12 @@ import { SharedModule } from '../shared/shared.module';
 import { DataViewComponent } from './data-view/data-view.component';
 import { DynamicTreatmentViewComponent } from './dynamic-treatment-view/dynamic-treatment-view.component';
 import { InstallServiceViewComponent } from './install-service-view/install-service-view.component';
+import { MatCardModule } from '@angular/material/card'
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [DetailComponent, DataViewComponent, DynamicTreatmentViewComponent, InstallServiceViewComponent],
-  imports: [CommonModule, SharedModule, DetailRoutingModule]
+  imports: [CommonModule, SharedModule, DetailRoutingModule, MatCardModule, MatProgressBarModule, MatTableModule]
 })
 export class DetailModule {}

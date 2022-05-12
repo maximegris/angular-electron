@@ -1,17 +1,17 @@
-<!-- <nav style="position: sticky; top: 0; border: 2px solid red;">"ACCOUNT NAME" - NAV BAR HERE</nav> -->
-<div class="app-body">
-  <nav>
-    <ul>
-      <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/data">Data</a></li>
-      <li><a routerLink="/dynamic">Dynamic Treatment</a></li>
-      <li><a routerLink="/service">Service</a></li>
-    </ul>
-  </nav>
-  <br>
+<mat-toolbar color="black">
+  <a mat-button routerLink="/">
+    <img src="../assets/logos/UVAngel_Icon_Reversed.svg" class="uva-logo">
+  </a>
+  <span>UV Angel Development</span>
+  <span class="uva-nav-spacer"></span>
+  <a mat-button routerLink="/data">Data</a>
+  <a mat-button routerLink="/dynamic">Dynamic Treatment</a>
+  <a mat-button routerLink="/service">Service</a>
+</mat-toolbar>
 
   <router-outlet></router-outlet>
 
-  <br>
-  <footer style="position: sticky; bottom: 0; border: 2px solid red;">Common Footer Component Here</footer>
-</div>
+<br>
+<footer>
+  Copyright &copy; 2022. UV Angel. All Rights Reserved.
+</footer>

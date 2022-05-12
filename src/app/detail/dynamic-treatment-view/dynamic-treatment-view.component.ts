@@ -15,8 +15,9 @@ const MAP_ID = 'venue';
 @Component({
   selector: 'app-dynamic-treatment-view',
   templateUrl: './dynamic-treatment-view.component.html',
-  styleUrls: ['./dynamic-treatment-view.component.scss']
+  styleUrls: ['./dynamic-treatment-view.component.scss'],
 })
+
 export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit {
 
   geojson = null;
@@ -166,4 +167,23 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     this.currZoomLevel = evt.zoomLevel;
     this.decideVisibleMarkers();
   }
+}
+
+export interface DeviceEvent {
+  item: string,
+  eventType: string,
+  date: string
+}
+
+const EVENT_DATA: DeviceEvent[] =
+  [
+    { item: 'Lamp', eventType: 'Removed', date: '12-22-2021' },
+    { item: 'Filter', eventType: 'Detected new', date: '12-22-2021' },
+    { item: 'Door', eventType: 'Opened', date: '12-22-2021' },
+    { item: 'Filter', eventType: 'Detected new', date: '12-22-2021' },
+  ];
+
+export class EventTable {
+  displayedColumns: string[] = ['item', 'eventType', 'date'];
+  dataSource = EVENT_DATA;
 }
