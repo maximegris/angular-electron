@@ -19,7 +19,10 @@
   <mat-card-content class="uva-device-card-content">
     <div class="uva-device-card-content-container">
       <div class="uva-device-card-content-section">
-        <h4>Air Quality</h4>
+        <div class="uva-device-card-header-w-control">
+          <div class="uva-left"><h4>Air Quality</h4></div>
+          <div class="uva-right">control</div>
+        </div>
         <div class="uva-aq-graph-container  mat-elevation-z3">
           <div class="uva-aq-total-container">
             <div id="uvaTotalAqChart">
@@ -50,17 +53,18 @@
     <div class="uva-device-card-content-container">
       <div class="uva-device-card-content-section">
         <h4>Parts Status</h4>
-        <div class="uva-progress-bar-container mat-elevation-z3">
-          <span class="uva-progress-bar-label">Lamp</span>
-          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-          <span class="uva-progress-bar-note">Est. Replacement: Dec 12 2022 (210 days)</span>
+        <div class="mat-elevation-z3">
+          <div class="uva-progress-bar-container">
+            <span class="uva-progress-bar-label">Lamp</span>
+            <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+            <span class="uva-progress-bar-note">Est. Replacement: Dec 12 2022 (210 days)</span>
+          </div>
+          <div class="uva-progress-bar-container">
+            <span class="uva-progress-bar-label">Filter</span>
+            <mat-progress-bar mode="determinate" value="80"></mat-progress-bar>
+            <span class="uva-progress-bar-note">Est. Replacement: Dec 12 2022 (210 days)</span>
+          </div>  
         </div>
-        <div class="uva-progress-bar-container mat-elevation-z3">
-          <span class="uva-progress-bar-label">Filter</span>
-          <mat-progress-bar mode="determinate" value="80"></mat-progress-bar>
-          <span class="uva-progress-bar-note">Est. Replacement: Dec 12 2022 (210 days)</span>
-        </div>
-
       </div>
     </div>
     <div class="uva-device-card-content-container">

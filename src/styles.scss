@@ -241,6 +241,8 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 
 // Custom code
 
+$uva-light-gray: rgba(0,0,0,0.14);
+
 body {
   margin: 0px;
   font-family: 'avenir', sans-serif;
@@ -268,6 +270,17 @@ footer {
   margin: 16px;
   z-index: 1000;
 
+  .uva-left {
+    display: inline;
+    float: left;
+    width: 50%;
+  }
+  .uva-right {
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+  }
+
   .mat-card-header-text {
     padding: 0px;
     margin: 0px;
@@ -275,7 +288,7 @@ footer {
 
   .uva-device-card-header {
     padding: 0px;
-    border-bottom: 1px solid rgba(0,0,0,0.87);
+    border-bottom: 1px solid $uva-light-gray;
     .uva-device-card-header-container {
       margin: 16px;
       min-height: 100px;
@@ -340,7 +353,7 @@ footer {
     .uva-device-card-content-container {
       padding: 0px;
       min-height: 100px;
-      border-bottom: 1px solid rgba(0,0,0,0.87);
+      border-bottom: 1px solid $uva-light-gray;
 
       .uva-device-card-content-section {
         padding: 16px;
@@ -384,13 +397,6 @@ footer {
             width: 284px;
             .uva-aq-component-graph-row {
               padding: 2px;
-              .uva-left {
-                display: inline;
-                float: left;
-              }
-              .uva-right {
-                display: inline-block;
-              }
               .uva-aq-component-graph-container {
                 border: 1px dotted #b3dfef;
                 margin: 2px;
