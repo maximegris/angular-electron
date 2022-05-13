@@ -1,0 +1,5 @@
+.main-content {
+    // Empirical value. Could be defined as calc(100vh - heightOfToolbar - heightOfFooter) if we used variables
+    min-height: 89vh;
+    width: 100vw;
+}
