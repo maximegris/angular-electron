@@ -22,7 +22,7 @@
         <div class="uva-device-card-header-w-control">
           <div class="uva-left"><h4>Air Quality</h4></div>
           <div class="uva-right">
-            <mat-slide-toggle color="primary">Enable Manual</mat-slide-toggle>
+            <mat-slide-toggle color="primary" (change)="toggle($event)">Enable Manual</mat-slide-toggle>
           </div>
         </div>
         <div class="uva-aq-graph-container  mat-elevation-z3">
@@ -76,4 +76,7 @@
       </div>
     </div>
     </mat-card-content>
- </mat-card>
+</mat-card>
+
+<uva-enviro-control-panel></uva-enviro-control-panel>
+<app-map-view></app-map-view>

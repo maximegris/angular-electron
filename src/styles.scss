@@ -262,12 +262,32 @@ footer {
   text-align: center;
 }
 
+.uva-progress-bar-label, .uva-slider-label {
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+.uva-slider-group-container {
+  .uva-slider-group-label {
+    text-transform: capitalize;
+  }
+  .mat-slider-track-background {
+    background-color: #b3dfef;
+  }
+  .mat-slider-thumb-container {
+    fill: #0093c8;
+  }
+}
+
 .uva-device-card {
   background-color: #fff;
   color: #000;
   max-width: 392px;
   padding: 0px !important;
   margin: 16px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
   z-index: 1000;
 
   .uva-left {
@@ -417,6 +437,18 @@ footer {
       }
     }
   }
+}
+
+#uvaEnviroControlPanel {
+  border: 1px solid $uva-light-gray;
+  border-radius: 4px;
+  width: 280px;
+  padding: 24px;
+  display: block;
+  position: absolute;
+  top: 140px;
+  left: 450px;
+  z-index: 1001;
 }
 
 .uva-map-container {

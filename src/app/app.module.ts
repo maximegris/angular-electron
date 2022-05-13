@@ -11,7 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSliderModule } from '@angular/material/slider';
 import { AppRoutingModule } from './app-routing.module';
 
 // NG Translate
@@ -42,6 +43,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     MatButtonModule,
     MatCardModule,
     MatProgressBarModule,
+    MatDialogModule,
+    MatSliderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

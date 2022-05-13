@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LngLatBoundsLike } from 'mapbox-gl';
 import { finalize } from 'rxjs/operators';
 import { AbstractComponent } from '../../core/abstract.component';
@@ -19,6 +20,7 @@ const MAP_ID = 'venue';
 })
 
 export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit {
+  showControlPanel: boolean = false;
 
   geojson = null;
   showSpinner: boolean | string = true;
@@ -166,6 +168,14 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   onMapZoom(evt: MapZoomEvent) {
     this.currZoomLevel = evt.zoomLevel;
     this.decideVisibleMarkers();
+  }
+
+  public toggle(event: MatSlideToggleChange) {
+    console.log(event.checked)
+    const controlPanel = document.getElementById('uvaEnviroControlPanel')
+    if (event.checked) {
+      this.showControlPanel = true;
+    }
   }
 }
 

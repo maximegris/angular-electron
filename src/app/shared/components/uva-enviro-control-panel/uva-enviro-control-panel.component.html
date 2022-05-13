@@ -1,0 +1,12 @@
+<div id="uvaEnviroControlPanel" ng-hide="showControlPanel">
+    <h1 mat-dialog-title>Environment Controls</h1>
+    <div mat-dialog-content>
+        <uva-slider-group measurand="temperature" min="0" max="100" value="80" step="1"></uva-slider-group>
+        <uva-slider-group measurand="humidity" min="0" max="100" value="80" step="1"></uva-slider-group>
+        <uva-slider-group measurand="voc" min="0" max="100" value="80" step="1"></uva-slider-group>
+        <uva-slider-group measurand="occupancy" min="0" max="100" value="80" step="1"></uva-slider-group>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Close</button>
+    </div>
+</div>
