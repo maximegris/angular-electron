@@ -11,9 +11,10 @@ import { InstallServiceViewComponent } from './install-service-view/install-serv
 import { MatCardModule } from '@angular/material/card'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
+import { UvaEventTable } from '../shared/components/uva-event-table/uva-event-table.component';
 
 @NgModule({
-  declarations: [DetailComponent, DataViewComponent, DynamicTreatmentViewComponent, InstallServiceViewComponent],
+  declarations: [DetailComponent, DataViewComponent, DynamicTreatmentViewComponent, InstallServiceViewComponent, UvaEventTable],
   imports: [CommonModule, SharedModule, DetailRoutingModule, MatCardModule, MatProgressBarModule, MatTableModule]
 })
 export class DetailModule {}
