@@ -1,0 +1,258 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "Device-id-0",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["f157b1d0-dd9c-4d59-a216-ad52893c2694"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88990950584412,
+                37.32879634808407
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-1",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["f157b1d0-dd9c-4d59-a216-ad52893c2694"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88966810703278,
+                37.32889872284473
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-2",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["f157b1d0-dd9c-4d59-a216-ad52893c2694"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88979685306549,
+                37.328642785681524
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-3",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["f157b1d0-dd9c-4d59-a216-ad52893c2694"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.8895822763443,
+                37.32874516065144
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-4",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["f157b1d0-dd9c-4d59-a216-ad52893c2694"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88966810703278,
+                37.32849775423539
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-5",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["f157b1d0-dd9c-4d59-a216-ad52893c2694"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.8894535303116,
+                37.32859586377373
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-6",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["ff033dba-6b6e-47ee-88d4-94efd6f4c4e9"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88926577568054,
+                37.32894564456342
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-7",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["ff033dba-6b6e-47ee-88d4-94efd6f4c4e9"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88898146152496,
+                37.329077878340236
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-8",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["ff033dba-6b6e-47ee-88d4-94efd6f4c4e9"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88912093639372,
+                37.328770754372115
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-9",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["ff033dba-6b6e-47ee-88d4-94efd6f4c4e9"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88886344432831,
+                37.328907254068504
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-11",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["81d42240-5191-499b-bd41-06f0227d4016"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88827335834502,
+                37.32970065364376
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-12",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["81d42240-5191-499b-bd41-06f0227d4016"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88872396945952,
+                37.32953429636249
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-13",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["81d42240-5191-499b-bd41-06f0227d4016"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88939988613127,
+                37.329248502224466
+              ]
+            }
+          },      
+          {
+            "type": "Feature",
+            "id": "Device-id-14",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["9e0cdcd1-7b86-4f50-839d-d8e4a5ac9235"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88972711563109,
+                37.32967079467168
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-15",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["9e0cdcd1-7b86-4f50-839d-d8e4a5ac9235"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88963055610657,
+                37.329551358664716
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "Device-id-16",
+            "feature_type": "amenity",
+            "properties": {
+                "category": "uva_device",
+                "unit_ids": ["9e0cdcd1-7b86-4f50-839d-d8e4a5ac9235"]
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -121.88953399658205,
+                37.32942339130369
+              ]
+            }
+          }      
+    ]
+}
