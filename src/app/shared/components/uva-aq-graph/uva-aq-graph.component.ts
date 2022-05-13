@@ -1,29 +1,26 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'uva-aq-graph',
   templateUrl: './uva-aq-graph.component.html',
-  styleUrls: ['./uva-aq-graph.component.scss']
+  styleUrls: [ './uva-aq-graph.component.scss' ]
 })
-export class UvaAqGraphComponent implements OnInit {
-  @Input() measurand: string;
+export class UvaAqGraphComponent {
+  @Input() measurand: string
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
-        data: [ 65, 59, 80, 81, 56, 55, 40 ],
+        data: [ 65, 59, 80, 81, 56, 55, 40, 34, 54, 33 ],
         label: null,
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
+        borderColor: '#708BB5',
+        borderWidth: 1,
+        pointRadius: 1,
       },
     ],
+    labels: [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
   };
 
   public lineChartOptions: ChartConfiguration['options'] = {
@@ -38,10 +35,9 @@ export class UvaAqGraphComponent implements OnInit {
         display: false
       },
       y: {
-        ticks: {
-          display: false
-        }
-      },
+        display: false
+      }
+
     },
 
     plugins: {
@@ -73,36 +69,6 @@ export class UvaAqGraphComponent implements OnInit {
 
   public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
     console.log(event, active);
-  }
-
-  public hideOne(): void {
-    const isHidden = this.chart?.isDatasetHidden(1);
-    this.chart?.hideDataset(1, !isHidden);
-  }
-
-  public pushOne(): void {
-    this.lineChartData.datasets.forEach((x, i) => {
-      const num = UvaAqGraphComponent.generateNumber(i);
-      x.data.push(num);
-    });
-    this.lineChartData?.labels?.push(`Label ${ this.lineChartData.labels.length }`);
-
-    this.chart?.update();
-  }
-
-  public changeColor(): void {
-    this.lineChartData.datasets[2].borderColor = 'green';
-    this.lineChartData.datasets[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
-
-    this.chart?.update();
-  }
-
-  public changeLabel(): void {
-    if (this.lineChartData.labels) {
-      this.lineChartData.labels[2] = [ '1st Line', '2nd Line' ];
-    }
-
-    this.chart?.update();
   }
 
   ngOnInit(): void {
