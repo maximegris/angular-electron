@@ -371,11 +371,19 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMapLoad(map: Map) {
+    // disable unwanted map layers
     map.setLayoutProperty('poi-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('transit-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('natural-point-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('natural-line-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('water-point-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('water-line-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('waterway-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('building-number-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('road-label', 'visibility', this.showPoi ? 'visible' : 'none');
   }
 
   onSymbolImageLoaded(event: any) {
-    console.log(event);
     this.symbolImageLoaded = true;
   }
 
