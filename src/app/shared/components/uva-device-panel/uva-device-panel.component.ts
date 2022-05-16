@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './uva-device-panel.component.html',
   styleUrls: ['./uva-device-panel.component.scss']
 })
-export class UvaDevicePanel implements OnInit {
+export class UvaDevicePanelComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {

@@ -1,19 +1,79 @@
-<mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
+<mat-card class="uva-device-card mat-elevation-z2">
+  <mat-card-header class="uva-device-card-header">
+    <div class="uva-device-card-header-container">
+      <div class="uva-device-card-header-section uva-device-card-header-mode-block">
+        <div mat-card-avatar class="uva-device-card-header-image"></div>
+        <div class="uva-device-mode">Mode: Medium</div>
+      </div>
+      <div class="uva-device-card-header-section uva-device-card-header-details-block">
+        <div class="uva-device-type">UV Angel Air 2.0</div>
+        <div class="uva-device-name">UVA HQ Unit 124</div>
+        <div class="uva-device-details">
+          <div>Location: UVA HQ Lab 1</div>
+          <div>Serial #: SE123401-1351-1234</div>
+          <div>Installation Date: Dec 12, 2021</div>
+        </div>
+      </div>  
+    </div>
+  </mat-card-header>
+  <mat-card-content class="uva-device-card-content">
+    <div class="uva-device-card-content-container">
+      <div class="uva-device-card-content-section">
+        <div class="uva-device-card-header-w-control">
+          <div class="uva-left"><h4>Air Quality</h4></div>
+          <div class="uva-right">
+            <mat-slide-toggle color="primary">Enable Manual</mat-slide-toggle>
+          </div>
+        </div>
+        <div class="uva-aq-graph-container  mat-elevation-z3">
+          <div class="uva-aq-total-container">
+            <div id="uvaTotalAqChart">
+              
+            </div>
+          </div>
+          <div class="uva-aq-component-container">
+            <div class="uva-aq-component-graph-row">
+              <div class="uva-aq-component-graph-container uva-left">
+                <uva-aq-graph measurand="temperature"></uva-aq-graph>
+              </div>
+              <div class="uva-aq-component-graph-container uva-right">
+                <uva-aq-graph measurand="humidity"></uva-aq-graph>
+              </div>  
+            </div>
+            <div class="uva-aq-component-graph-row">
+              <div class="uva-aq-component-graph-container uva-left">
+                <uva-aq-graph measurand="voc"></uva-aq-graph>
+              </div>
+              <div class="uva-aq-component-graph-container uva-right">
+                <uva-aq-graph measurand="occupancy"></uva-aq-graph>
+              </div>  
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+    <div class="uva-device-card-content-container">
+      <div class="uva-device-card-content-section">
+        <h4>Parts Status</h4>
+        <div class="mat-elevation-z3">
+          <div class="uva-progress-bar-container">
+            <span class="uva-progress-bar-label">Lamp</span>
+            <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+            <span class="uva-progress-bar-note">Est. Replacement: Dec 12 2022 (210 days)</span>
+          </div>
+          <div class="uva-progress-bar-container">
+            <span class="uva-progress-bar-label">Filter</span>
+            <mat-progress-bar mode="determinate" value="80"></mat-progress-bar>
+            <span class="uva-progress-bar-note">Est. Replacement: Dec 12 2022 (210 days)</span>
+          </div>  
+        </div>
+      </div>
+    </div>
+    <div class="uva-device-card-content-container">
+      <div class="uva-device-card-content-section">
+        <h4>Event History</h4>
+        <uva-event-table></uva-event-table>
+      </div>
+    </div>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+ </mat-card>
