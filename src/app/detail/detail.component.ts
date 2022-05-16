@@ -6,11 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
+  isAuto: boolean | true
 
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit(): void {
-    console.log('DetailComponent INIT');
-   }
+    // console.log('DetailComponent INIT');
+    console.log(`Detail Component initialized with isAuto = ${this.isAuto}`)
+
+  }
 
 }

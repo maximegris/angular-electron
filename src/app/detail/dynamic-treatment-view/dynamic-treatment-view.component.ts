@@ -20,8 +20,6 @@ const MAP_ID = 'venue';
 })
 
 export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit {
-  showControlPanel: boolean = false;
-
   geojson = null;
   showSpinner: boolean | string = true;
 
@@ -173,9 +171,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   public toggle(event: MatSlideToggleChange) {
     console.log(event.checked)
     const controlPanel = document.getElementById('uvaEnviroControlPanel')
-    if (event.checked) {
-      this.showControlPanel = true;
-    }
   }
 }
 
