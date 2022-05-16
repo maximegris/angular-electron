@@ -136,23 +136,8 @@ ipcMain.on('get_active_serial_port', async (event: any): Promise<SerialPort | nu
 
 ipcMain.on('air20_set_fan_operation_mode', (event: any, level: number) => {
   console.log(`SETTING AIR 2.0 FAN OPERATION MODE to [${level}]`)
-  if (level <= 0) {
-    current_air20_fan_operation_mode = 0
-  } else if (level <= 1) {
-    current_air20_fan_operation_mode = 1
-  } else if (level <= 2) {
-    current_air20_fan_operation_mode = 2
-  } else if (level <= 3) {
-    current_air20_fan_operation_mode = 3
-  } else if (level <= 4) {
-    current_air20_fan_operation_mode = 4
-  } else if (level <= 5) {
-    current_air20_fan_operation_mode = 5
-  } else {
-    current_air20_fan_operation_mode = 5
-  }
-
-  write_port(`fan_mode ${current_air20_fan_operation_mode}`)
+  current_air20_fan_operation_mode = clamp(level, 0, 99)
+  write_port(`0${current_air20_fan_operation_mode.toString()}`)
 })
 
 function write_port(message): boolean {
@@ -169,4 +154,8 @@ function write_port(message): boolean {
     console.log('message written')
     return true
   })
+}
+
+function clamp(number, min, max) {
+  return Math.max(min, Math.min(number, max));
 }
