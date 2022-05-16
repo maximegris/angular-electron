@@ -6,7 +6,8 @@ import {
   MapboxGeoJSONFeature,
   MapLayerMouseEvent,
   MapMouseEvent,
-  MapTouchEvent
+  MapTouchEvent,
+  PointLike
 } from 'mapbox-gl';
 import { asyncScheduler } from 'rxjs';
 import { AbstractComponent } from '../../../core/abstract.component';
@@ -160,17 +161,9 @@ export class GeoJsonMapComponent extends AbstractComponent {
   set markers(items: ImdfFeature<GeoJSON.Point>[]) {
     this._markers = {
       type: 'FeatureCollection',
-      features: items
+      features: items || []
     };
-    items?.forEach(item => {
-      if (!item.properties) {
-        item.properties = {
-          uva_id: item.id.toString(),
-        };
-      } else {
-        item.properties.uva_id = item.id.toString();
-      }
-    });
+    items?.forEach(item => this.addUvaIdToFeatureProps(item));
   }
   get markers() {
     return this._markers?.features as ImdfFeature<GeoJSON.Point>[];
@@ -178,7 +171,26 @@ export class GeoJsonMapComponent extends AbstractComponent {
   _markers: GeoJSON.FeatureCollection;
 
   @Input()
+  set symbols(items: ImdfFeature<GeoJSON.Point>[]) {
+    this._symbols = {
+      type: 'FeatureCollection',
+      features: items || []
+    };
+    items?.forEach(item => this.addUvaIdToFeatureProps(item));
+  }
+  get symbols() {
+    return this._symbols?.features as ImdfFeature<GeoJSON.Point>[];
+  }
+  _symbols: GeoJSON.FeatureCollection;
+
+  @Input()
+  symbolImageUrl: string;
+
+  @Input()
   popupLocation: LngLatLike = null;
+
+  @Input()
+  popupOffset: number | PointLike;
 
   allFeatures: ImdfFeature<any>[];
   levelFeatures: LevelFeature<any>[];
@@ -186,6 +198,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   selectedLevel: LevelFeature<any>;
 
   hoveredFeature: MapboxGeoJSONFeature;
+  symbolImageLoaded = false;
 
   constructor() {
     super();
@@ -240,16 +253,20 @@ export class GeoJsonMapComponent extends AbstractComponent {
 
       rawFeature.id = rawFeature.id ?? `feature${idGenerator++}`;
 
-      // mapbox bug: feature id must be number. Since our ids are strings, we copy them inside feature properties
-      const props = rawFeature.properties || {} as ImdfProps;
-      props.uva_id = rawFeature.id.toString();
-      rawFeature.properties = props;
+      this.addUvaIdToFeatureProps(rawFeature);
 
       if (isLevelFeature(rawFeature)) {
         this.levelFeatures.push(rawFeature);
       }
     });
     this.levelFeatures.sort((a, b) => b.properties.ordinal - a.properties.ordinal);
+  }
+
+  private addUvaIdToFeatureProps(rawFeature: ImdfFeature<any>) {
+    // mapbox bug: feature id must be number. Since our ids are strings, we copy them inside feature properties
+    const props = rawFeature.properties || {} as ImdfProps;
+    props.uva_id = rawFeature.id.toString();
+    rawFeature.properties = props;
   }
 
   get spinnerHasText() {
@@ -326,6 +343,25 @@ export class GeoJsonMapComponent extends AbstractComponent {
     }
   }
 
+  onSymbolClick(event: MapLayerMouseEvent) {
+    if (event.features?.length) {
+      // Elements of event.features are not the same events that I pass to mapbox.
+      // On top of that mapbox strips away ids from features.
+      // Here I have to find feature by matching it to uva_id in properties of feature retuned in event data.
+      const features = event.features
+                            .map(feature => this.symbols.find(item => item.id === feature.properties.uva_id))
+                            .filter(item => !!item);
+      if (features.length) {
+        this.markerClick.emit({
+          feature: features[0],
+          lngLat: event.lngLat,
+          clientX: event.originalEvent.clientX,
+          clientY: event.originalEvent.clientY,
+        });
+      }
+    }
+  }
+
   onZoom(evt: MapMouseEvent | MapTouchEvent, start = false, end = false) {
     this.mapZoom.emit({
       zoomEnd: end,
@@ -336,6 +372,11 @@ export class GeoJsonMapComponent extends AbstractComponent {
 
   onMapLoad(map: Map) {
     map.setLayoutProperty('poi-label', 'visibility', this.showPoi ? 'visible' : 'none');
+  }
+
+  onSymbolImageLoaded(event: any) {
+    console.log(event);
+    this.symbolImageLoaded = true;
   }
 
 }

@@ -26,6 +26,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   selectedLevelId: string | number;
 
   mapMarkers: ImdfFeature<GeoJSON.Point>[] = [];
+  mapSymbols: ImdfFeature<GeoJSON.Point>[] = [];
 
   maxZoomMarkers: ImdfFeature<GeoJSON.Point>[] = [];
   minZoomMarkers: ImdfFeature<GeoJSON.Point>[] = [];
@@ -36,6 +37,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   lastClickedMarker: MarkerClickEvent = null;
   currZoomLevel: number;
   focusBounds: LngLatBoundsLike;
+  uvaLogo: string;
 
   constructor(
     public mapService: GeojsonMapService,
@@ -140,9 +142,11 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
    */
   decideVisibleMarkers() {
     if (this.currZoomLevel > ZOOM_LEVEL_DETAILS) {
-      this.mapMarkers = this.maxZoomMarkers;
+      this.mapMarkers = null;
+      this.mapSymbols = this.maxZoomMarkers;
     } else {
       this.mapMarkers = this.minZoomMarkers;
+      this.mapSymbols = null;
     }
   }
 
@@ -159,7 +163,10 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         this.focusBounds[0] -= origWidth / 4;
         this.focusBounds[2] -= origWidth / 4;
       } else {
-        this.lastClickedMarker = event;
+        this.lastClickedMarker = {
+          ...event,
+          lngLat: event.feature.geometry.coordinates
+        };
       }
   }
 

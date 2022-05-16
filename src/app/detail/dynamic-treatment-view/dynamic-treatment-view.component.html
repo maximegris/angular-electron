@@ -73,9 +73,12 @@
     (mapZoom)="onMapZoom($event)"
     [popupLocation]="lastClickedMarker?.lngLat"
     [selectedLevelId]="selectedLevelId"
+    [symbols]="mapSymbols"
     [markers]="mapMarkers"
+    symbolImageUrl="assets/logos/UVAngel_Icon_Reversed.png"
     [showLevelPicker]="false"
     [bounds]="focusBounds"
+    [popupOffset]="25"
     >
     <div *ngIf="lastClickedMarker" mapPopup>
         <div *ngIf="lastClickedMarker.feature.feature_type === 'anchor'">

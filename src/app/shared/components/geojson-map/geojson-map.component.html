@@ -21,6 +21,12 @@
             promoteId="uva_id"
         ></mgl-geojson-source>
 
+        <mgl-geojson-source
+            id="symbols"
+            [data]="_symbols"
+            promoteId="uva_id"
+        ></mgl-geojson-source>
+
         <mgl-layer
             (layerClick)="onMapClick($event)"
             (layerMouseMove)="onMouseMove($event)"
@@ -38,7 +44,20 @@
             id="markers-layer" type="circle" source="markers" [paint]="markerPaint"
         ></mgl-layer>
 
+        <mgl-image *ngIf="symbolImageUrl"
+            id="symbol-image" [url]="symbolImageUrl" (imageLoaded)="onSymbolImageLoaded($event)"
+        ></mgl-image>
+
+        <mgl-layer *ngIf="symbolImageLoaded"
+            (layerClick)="onSymbolClick($event)"
+            id="symbols-layer" type="symbol" source="symbols"
+            [layout]="{
+                'icon-image': 'symbol-image'
+            }"
+        ></mgl-layer>
+
         <mgl-popup *ngIf="popupLocation"
+            [offset]="popupOffset"
             [lngLat]="popupLocation">
             <ng-content select="[mapPopup]"></ng-content>
         </mgl-popup>
