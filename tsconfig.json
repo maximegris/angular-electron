@@ -26,8 +26,8 @@
     "node_modules"
   ],
   "angularCompilerOptions": {
-    "strictTemplates": true,
-    "fullTemplateTypeCheck": true,
+    "strictTemplates": false,
+    "fullTemplateTypeCheck": false,
     "annotateForClosureCompiler": true,
     "strictInjectionParameters": true,
     "skipTemplateCodegen": false,

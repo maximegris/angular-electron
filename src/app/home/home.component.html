@@ -10,23 +10,23 @@
 
       <button mat-raised-button color="primary" (click)="fanOperationModeTest(3)">Send Test Command (air20_set_fan_operation_mode to "3")</button>
     </div>
-    
-    <button mat-raised-button color="primary" (click)="listSerialPorts()">List Serial Ports</button>
+    <div *ngIf="!activeSerialPort">
+      <p>No Active Serial Port!</p>
+    </div>
 
-    <form *ngIf="availablePorts && availablePorts.length > 0" [formGroup]="serialPortForm" (ngSubmit)="onSerialPortFormSubmit()">
-      <mat-form-field appearance="fill">
-        <mat-label>Select Serial Port Path</mat-label>
-        <mat-select formControlName="path" [compareWith]="portCompareFn">
-          <mat-option *ngFor="let port of availablePorts" [value]="port.path">{{port.path}}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="serialPortForm.get('path').hasError('required')">
-          You must select a port
-        </mat-error>
-      </mat-form-field>
-      <!-- error block -->
+    <hr>
+    
+    <button *ngIf="!editingSerialPort" mat-raised-button color="primary" (click)="editSerialPortPath()">Edit Serial Port Path</button>
+
+    <form *ngIf="editingSerialPort" [formGroup]="serialPortFormGroup" (ngSubmit)="onSerialPortFormSubmit()">
+      <select formControlName="path">
+        <option value="">Select Serial Port Path</option>
+        <option *ngFor="let port of availablePorts" [value]="port.path">{{port.path}}</option>
+      </select>
       <button mat-raised-button color="primary" type="submit">
         Submit
       </button>
+      <button *ngIf="editingSerialPort" mat-raised-button color="danger" (click)="editingSerialPort = false">Cancel</button>
     </form>
   </div>
 </div>
