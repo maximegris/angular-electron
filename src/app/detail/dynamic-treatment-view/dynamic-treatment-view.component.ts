@@ -159,6 +159,9 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         const parentFeature = this.geojson.features.find(f => f.id === event.feature.id);
         this.focusOnFeatures([parentFeature]);
       } else {
+        // Amenity/Device markers use unit_ids property to refer to their parent features
+        const parentFeature = this.geojson.features.find(f => f.id === (event.feature.properties as any).unit_ids[0]);
+        this.focusOnFeatures([parentFeature]);
         this.lastClickedMarker = {
           ...event,
           lngLat: event.feature.geometry.coordinates
