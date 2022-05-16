@@ -200,6 +200,8 @@ export class GeoJsonMapComponent extends AbstractComponent {
   hoveredFeature: MapboxGeoJSONFeature;
   symbolImageLoaded = false;
 
+  mapboxMap: Map;
+
   constructor() {
     super();
   }
@@ -274,6 +276,12 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMapClick(event: MapLayerMouseEvent) {
+    if (this.mapboxMap.queryRenderedFeatures(event.point, { layers: ['symbols-layer', 'markers-layer'] }).length) {
+      // there are symbols/markers on this point so we ignore this event
+      console.debug('Ignoring map click');
+      return;
+    }
+
     if (event.features?.length) {
       // Elements of event.features are not the same events that I pass to mapbox.
       // On top of that mapbox strips away ids from features.
@@ -371,6 +379,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMapLoad(map: Map) {
+    this.mapboxMap = map;
     // disable unwanted map layers
     map.setLayoutProperty('poi-label', 'visibility', this.showPoi ? 'visible' : 'none');
     map.setLayoutProperty('transit-label', 'visibility', this.showPoi ? 'visible' : 'none');

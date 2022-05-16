@@ -157,11 +157,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       if (event.feature.feature_type === 'anchor') {
         // When creating anchor marker, I use the same id as for the parent feature
         const parentFeature = this.geojson.features.find(f => f.id === event.feature.id);
-        this.focusBounds = findBounds([parentFeature]);
-        // since this page has a panel covering it's left third, we will offset the bound to the right a bit
-        const origWidth = this.focusBounds[2] - this.focusBounds[0];
-        this.focusBounds[0] -= origWidth / 4;
-        this.focusBounds[2] -= origWidth / 4;
+        this.focusOnFeatures([parentFeature]);
       } else {
         this.lastClickedMarker = {
           ...event,
@@ -170,8 +166,16 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       }
   }
 
-  onMapClick(event: any) {
-    console.log(event);
+  onMapClick(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
+    this.focusOnFeatures(features);
+  }
+
+  focusOnFeatures(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
+    this.focusBounds = findBounds(features);
+    // since this page has a panel covering it's left third, we will offset the bound to the right a bit
+    const origWidth = this.focusBounds[2] - this.focusBounds[0];
+    this.focusBounds[0] -= origWidth / 4;
+    this.focusBounds[2] -= origWidth / 4;
   }
 
   onMapZoom(evt: MapZoomEvent) {
