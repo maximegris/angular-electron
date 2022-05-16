@@ -21,8 +21,11 @@ function createWindow(): BrowserWindow {
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height,
+    
+    // Surface Pro 7+ 12.3" display
+    width: 2736,
+    height: 1824,
+
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
