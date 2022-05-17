@@ -6,7 +6,9 @@ import {
   MapboxGeoJSONFeature,
   MapLayerMouseEvent,
   MapMouseEvent,
-  MapTouchEvent
+  MapTouchEvent,
+  NavigationControl,
+  PointLike
 } from 'mapbox-gl';
 import { asyncScheduler } from 'rxjs';
 import { AbstractComponent } from '../../../core/abstract.component';
@@ -79,6 +81,13 @@ export class GeoJsonMapComponent extends AbstractComponent {
       0.4
     ]
   };
+
+  @Input()
+  linePaint = {
+    'line-color': ['case', ['has', 'fill-outline-color'], ['get', 'fill-outline-color'], '#627BC1'],
+    'line-width': 1.75,
+    'line-opacity': .4
+  }
 
   // paint for selected feature "UVAngel blue"
   @Input()
@@ -160,17 +169,9 @@ export class GeoJsonMapComponent extends AbstractComponent {
   set markers(items: ImdfFeature<GeoJSON.Point>[]) {
     this._markers = {
       type: 'FeatureCollection',
-      features: items
+      features: items || []
     };
-    items?.forEach(item => {
-      if (!item.properties) {
-        item.properties = {
-          uva_id: item.id.toString(),
-        };
-      } else {
-        item.properties.uva_id = item.id.toString();
-      }
-    });
+    items?.forEach(item => this.addUvaIdToFeatureProps(item));
   }
   get markers() {
     return this._markers?.features as ImdfFeature<GeoJSON.Point>[];
@@ -178,7 +179,45 @@ export class GeoJsonMapComponent extends AbstractComponent {
   _markers: GeoJSON.FeatureCollection;
 
   @Input()
+  set symbols(items: ImdfFeature<GeoJSON.Point>[]) {
+    this._symbols = {
+      type: 'FeatureCollection',
+      features: items || []
+    };
+    items?.forEach(item => this.addUvaIdToFeatureProps(item));
+  }
+  get symbols() {
+    return this._symbols?.features as ImdfFeature<GeoJSON.Point>[];
+  }
+  _symbols: GeoJSON.FeatureCollection;
+
+  @Input()
+  symbolImageUrl: string;
+
+  /**
+   * Configuration of symbol layer layout
+   * @see https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#symbol
+   */
+  @Input()
+  set symbolLayout(layout: Record<string, any>) {
+    this._symbolLayout = {
+      ...layout,
+      // this has to be hard-coded because other parts rely on it
+      'icon-image': 'symbol-image',
+    };
+  }
+  _symbolLayout: Record<string, any> = {
+    'icon-image': 'symbol-image',
+  };
+
+  @Input()
   popupLocation: LngLatLike = null;
+
+  @Input()
+  popupOffset: number | PointLike;
+
+  @Input()
+  showNavigationControls = false;
 
   allFeatures: ImdfFeature<any>[];
   levelFeatures: LevelFeature<any>[];
@@ -186,6 +225,9 @@ export class GeoJsonMapComponent extends AbstractComponent {
   selectedLevel: LevelFeature<any>;
 
   hoveredFeature: MapboxGeoJSONFeature;
+  symbolImageLoaded = false;
+
+  mapboxMap: Map;
 
   constructor() {
     super();
@@ -240,10 +282,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
 
       rawFeature.id = rawFeature.id ?? `feature${idGenerator++}`;
 
-      // mapbox bug: feature id must be number. Since our ids are strings, we copy them inside feature properties
-      const props = rawFeature.properties || {} as ImdfProps;
-      props.uva_id = rawFeature.id.toString();
-      rawFeature.properties = props;
+      this.addUvaIdToFeatureProps(rawFeature);
 
       if (isLevelFeature(rawFeature)) {
         this.levelFeatures.push(rawFeature);
@@ -252,11 +291,24 @@ export class GeoJsonMapComponent extends AbstractComponent {
     this.levelFeatures.sort((a, b) => b.properties.ordinal - a.properties.ordinal);
   }
 
+  private addUvaIdToFeatureProps(rawFeature: ImdfFeature<any>) {
+    // mapbox bug: feature id must be number. Since our ids are strings, we copy them inside feature properties
+    const props = rawFeature.properties || {} as ImdfProps;
+    props.uva_id = rawFeature.id.toString();
+    rawFeature.properties = props;
+  }
+
   get spinnerHasText() {
     return this.showSpinner && typeof this.showSpinner === 'string';
   }
 
   onMapClick(event: MapLayerMouseEvent) {
+    if (this.mapboxMap.queryRenderedFeatures(event.point, { layers: ['symbols-layer', 'markers-layer'] }).length) {
+      // there are symbols/markers on this point so we ignore this event
+      console.debug('Ignoring map click');
+      return;
+    }
+
     if (event.features?.length) {
       // Elements of event.features are not the same events that I pass to mapbox.
       // On top of that mapbox strips away ids from features.
@@ -271,7 +323,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMouseMove(event: MapLayerMouseEvent) {
-    event.target.getCanvas().style.cursor = 'default';
+    event.target.getCanvas().style.cursor = 'pointer';
     if (!this.trackMouse) {
       return;
     }
@@ -285,7 +337,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMouseLeave(event: MapLayerMouseEvent) {
-    event.target.getCanvas().style.cursor = 'pointer';
+    event.target.getCanvas().style.cursor = 'default';
     if (!this.trackMouse) {
       return;
     }
@@ -326,6 +378,25 @@ export class GeoJsonMapComponent extends AbstractComponent {
     }
   }
 
+  onSymbolClick(event: MapLayerMouseEvent) {
+    if (event.features?.length) {
+      // Elements of event.features are not the same events that I pass to mapbox.
+      // On top of that mapbox strips away ids from features.
+      // Here I have to find feature by matching it to uva_id in properties of feature retuned in event data.
+      const features = event.features
+                            .map(feature => this.symbols.find(item => item.id === feature.properties.uva_id))
+                            .filter(item => !!item);
+      if (features.length) {
+        this.markerClick.emit({
+          feature: features[0],
+          lngLat: event.lngLat,
+          clientX: event.originalEvent.clientX,
+          clientY: event.originalEvent.clientY,
+        });
+      }
+    }
+  }
+
   onZoom(evt: MapMouseEvent | MapTouchEvent, start = false, end = false) {
     this.mapZoom.emit({
       zoomEnd: end,
@@ -335,7 +406,40 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMapLoad(map: Map) {
+    this.mapboxMap = map;
+    // disable unwanted map layers
     map.setLayoutProperty('poi-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('transit-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('natural-point-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('natural-line-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('water-point-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('water-line-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('waterway-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('building-number-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('road-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('road-number-shield', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('road-exit-shield', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('airport-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('level-crossing', 'visibility', this.showPoi ? 'visible' : 'none');
+    // Angular wrapper for mapbox-gl doesn't allow setting visualizePitch attribute.
+    // Here I set that attribute inside mapbox-gl controls array.
+    // NOTE: I touch on mapbox-gl internals. This may break in future.
+    const navigationCtrl = (map as any)?._controls?.find(ctrl => ctrl instanceof NavigationControl);
+    if (navigationCtrl?.options) {
+      navigationCtrl.options.visualizePitch = true;
+    }
+    if (navigationCtrl?._compass) {
+      navigationCtrl._compass.addEventListener('click', () => {
+        // reset zoom -> show all features
+        this.bounds = findBounds(this.allFeatures);
+        map.resetNorth();
+        map.resetNorthPitch();
+      });
+    }
+  }
+
+  onSymbolImageLoaded(event: any) {
+    this.symbolImageLoaded = true;
   }
 
 }

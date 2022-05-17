@@ -1,4 +1,5 @@
 @import '@angular/material/theming';
+@import "~mapbox-gl/dist/mapbox-gl.css";
 
 // Fonts
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
@@ -244,6 +245,8 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 $uva-light-gray: rgba(0,0,0,0.14);
 
 body {
+  width: 100%;
+  height: 100%;
   margin: 0px;
   font-family: 'avenir', sans-serif;
 }
