@@ -1,4 +1,4 @@
-<div id="uvaEnviroControlPanel" ng-hide="showControlPanel">
+<div id="uvaEnviroControlPanel">
     <h1 mat-dialog-title>Environment Controls</h1>
     <div mat-dialog-content>
         <uva-slider-group measurand="temperature" min="0" max="100" value="80" step="1"></uva-slider-group>
@@ -7,6 +7,6 @@
         <uva-slider-group measurand="occupancy" min="0" max="100" value="80" step="1"></uva-slider-group>
     </div>
     <div mat-dialog-actions>
-        <button mat-button mat-dialog-close>Close</button>
+        <button mat-button mat-dialog-close (click)="closePanel($event)">Close</button>
     </div>
 </div>

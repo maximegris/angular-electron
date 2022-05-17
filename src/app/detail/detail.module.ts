@@ -19,11 +19,33 @@ import { UvaEventTable } from '../shared/components/uva-event-table/uva-event-ta
 import { UvaAqGraphComponent } from '../shared/components/uva-aq-graph/uva-aq-graph.component';
 import { UvaEnviroControlPanelComponent } from '../shared/components/uva-enviro-control-panel/uva-enviro-control-panel.component';
 import { UvaSliderGroupComponent } from '../shared/components/uva-slider-group/uva-slider-group.component';
+import { UvaModeToggleComponent } from '../shared/components/uva-mode-toggle/uva-mode-toggle.component';
 import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
-  declarations: [DetailComponent, DataViewComponent, DynamicTreatmentViewComponent, InstallServiceViewComponent, UvaEventTable, UvaAqGraphComponent, UvaDevicePanelComponent, UvaEnviroControlPanelComponent, UvaSliderGroupComponent],
-  imports: [CommonModule, SharedModule, DetailRoutingModule, MatCardModule, MatProgressBarModule, MatTableModule, NgChartsModule, MatSlideToggleModule]
+  declarations: [
+    DetailComponent, 
+    DataViewComponent, 
+    DynamicTreatmentViewComponent, 
+    InstallServiceViewComponent, 
+    UvaEventTable, 
+    UvaAqGraphComponent, 
+    UvaDevicePanelComponent, 
+    UvaEnviroControlPanelComponent, 
+    UvaSliderGroupComponent, 
+    UvaModeToggleComponent
+  ],
+  imports: [
+    CommonModule, 
+    SharedModule, 
+    DetailRoutingModule, 
+    MatCardModule, 
+    MatProgressBarModule, 
+    MatTableModule, 
+    NgChartsModule, 
+    MatSlideToggleModule,
+    MatSliderModule,
+  ]
 })
 export class DetailModule {}
