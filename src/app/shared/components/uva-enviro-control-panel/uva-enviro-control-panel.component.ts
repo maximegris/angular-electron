@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { EnvironmentService } from '../../../core/services/environment/environment.service';
 
 @Component({
@@ -7,16 +7,24 @@ import { EnvironmentService } from '../../../core/services/environment/environme
   templateUrl: './uva-enviro-control-panel.component.html',
   providers: [EnvironmentService]
 })
-export class UvaEnviroControlPanelComponent implements OnInit {
+export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
   public isManualMode: boolean = false;
   public environmentSubscription: Subscription;
+  unsubscribe$: Subject<boolean> = new Subject();
 
   constructor(private environmentService: EnvironmentService) { }
 
   ngOnInit(): void {
-    this.environmentSubscription = this.environmentService.getManualMode()
-      .subscribe(response => {
-      })
+    this.environmentService.isManualMode
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(isManualMode => {
+        this.isManualMode = isManualMode
+      });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 
   closePanel(event: PointerEvent): void {

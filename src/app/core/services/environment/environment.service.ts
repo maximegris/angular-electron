@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EnvironmentService {
-  public isManualMode = new BehaviorSubject<boolean>(false)
+  private $isManualMode = new BehaviorSubject<boolean>(false)
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  public readonly isManualMode: Observable<boolean> = this.$isManualMode.asObservable();
 
   constructor() { }
 
   setManualMode(mode: boolean): void {
-   console.log(`environmentService.setManualMode(${mode})`);
-   this.isManualMode.next(mode);
-  }
-  
-  getManualMode(): BehaviorSubject<boolean> {
-    console.log(`environmentService.getManualMode(${this.isManualMode})`);
-    return this.isManualMode;
+    console.log(`environmentService.setManualMode(${mode})`);
+    this.$isManualMode.next(mode);
   }
 }
