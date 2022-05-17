@@ -51,10 +51,7 @@
         <mgl-layer *ngIf="symbolImageLoaded"
             (layerClick)="onSymbolClick($event)"
             id="symbols-layer" type="symbol" source="symbols"
-            [layout]="{
-                'icon-image': 'symbol-image',
-                'icon-size': ['interpolate', ['exponential', 2], ['zoom'], 15, 0.01, 25, 2]
-            }"
+            [layout]="_symbolLayout"
         ></mgl-layer>
 
         <mgl-popup *ngIf="popupLocation"

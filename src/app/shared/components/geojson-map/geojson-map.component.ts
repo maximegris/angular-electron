@@ -186,6 +186,22 @@ export class GeoJsonMapComponent extends AbstractComponent {
   @Input()
   symbolImageUrl: string;
 
+  /**
+   * Configuration of symbol layer layout
+   * @see https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#symbol
+   */
+  @Input()
+  set symbolLayout(layout: Record<string, any>) {
+    this._symbolLayout = {
+      ...layout,
+      // this has to be hard-coded because other parts rely on it
+      'icon-image': 'symbol-image',
+    };
+  }
+  _symbolLayout: Record<string, any> = {
+    'icon-image': 'symbol-image',
+  };
+
   @Input()
   popupLocation: LngLatLike = null;
 
