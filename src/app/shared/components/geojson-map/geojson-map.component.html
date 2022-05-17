@@ -53,7 +53,7 @@
             id="symbols-layer" type="symbol" source="symbols"
             [layout]="{
                 'icon-image': 'symbol-image',
-                'icon-size': ['interpolate', ['linear'], ['zoom'], 10, 0.005, 20, 0.05]
+                'icon-size': ['interpolate', ['exponential', 2], ['zoom'], 15, 0.01, 25, 2]
             }"
         ></mgl-layer>
 
