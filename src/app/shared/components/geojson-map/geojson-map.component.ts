@@ -390,6 +390,10 @@ export class GeoJsonMapComponent extends AbstractComponent {
     map.setLayoutProperty('waterway-label', 'visibility', this.showPoi ? 'visible' : 'none');
     map.setLayoutProperty('building-number-label', 'visibility', this.showPoi ? 'visible' : 'none');
     map.setLayoutProperty('road-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('road-number-shield', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('road-exit-shield', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('airport-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('level-crossing', 'visibility', this.showPoi ? 'visible' : 'none');
   }
 
   onSymbolImageLoaded(event: any) {
