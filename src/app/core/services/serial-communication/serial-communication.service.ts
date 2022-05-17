@@ -23,7 +23,7 @@ export class SerialCommunication {
   ) {
     setInterval(() => {
       if (!this.$activeSerialPort.value) {
-        console.log('attempting to connect to preset ports...');
+        // console.log('attempting to connect to preset ports...');
         this.hydratePreSetSerialPortIfExists();
       }
     }, 1000);
@@ -110,21 +110,21 @@ export class SerialCommunication {
   };
 
   private hydratePreSetSerialPortIfExists = async (): Promise<void> => {
-    console.log('Hydrating previously set serial port...');
+    // console.log('Hydrating previously set serial port...');
 
     const storedPath = localStorage.getItem(LOCAL_STORAGE_SERIAL_PATH);
 
     if (!storedPath) {
       // no pre-existing path is stored, nothing to hydrate
-      console.log('no pre-existing serial path stored, nothing to hydrate. must set manually');
+      // console.log('no pre-existing serial path stored, nothing to hydrate. must set manually');
       return;
     }
-    console.log(`Found pre-set port path: ${storedPath}`);
+    // console.log(`Found pre-set port path: ${storedPath}`);
     const availablePorts = await this.listSerialPorts();
     const port = availablePorts.find(p => p.path === storedPath);
 
     if (!port) {
-      console.log('Pre-existing serial port path not found. cannot hydrate. must set manually');
+      // console.log('Pre-existing serial port path not found. cannot hydrate. must set manually');
       return;
     }
     console.log(`Found pre-set port path found!`);
