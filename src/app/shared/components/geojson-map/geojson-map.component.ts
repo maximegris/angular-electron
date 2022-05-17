@@ -296,7 +296,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMouseMove(event: MapLayerMouseEvent) {
-    event.target.getCanvas().style.cursor = 'default';
+    event.target.getCanvas().style.cursor = 'pointer';
     if (!this.trackMouse) {
       return;
     }
@@ -310,7 +310,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMouseLeave(event: MapLayerMouseEvent) {
-    event.target.getCanvas().style.cursor = 'pointer';
+    event.target.getCanvas().style.cursor = 'default';
     if (!this.trackMouse) {
       return;
     }

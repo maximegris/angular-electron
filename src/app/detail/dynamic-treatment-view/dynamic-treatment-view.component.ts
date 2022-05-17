@@ -9,7 +9,7 @@ import { ImdfFeature, ImdfProps, isLevelFeature, LevelFeature } from '../../shar
 import maxZoomInput from './max-zoom-markers.json';
 
 const LEVEL1ID = '81e9fd76-b34a-45f6-a6dc-1f172f01e849';
-const ZOOM_LEVEL_DETAILS = 17.8;
+const ZOOM_LEVEL_DETAILS = 18.5;
 const MAP_ID = 'venue';
 
 @Component({
@@ -182,6 +182,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   }
 
   onMapZoom(evt: MapZoomEvent) {
+    console.log("Map zoom level", evt.zoomLevel);
     this.currZoomLevel = evt.zoomLevel;
     this.decideVisibleMarkers();
   }
