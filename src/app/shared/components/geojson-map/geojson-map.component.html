@@ -67,6 +67,10 @@
                 (selectLevel)="onSelectLevel($event)">
             </uvc-map-level-control>
         </mgl-control>
+
+        <mgl-control *ngIf="showNavigationControls"
+             mglNavigation
+        ></mgl-control>
     </mgl-map>
 </ng-container>
 
