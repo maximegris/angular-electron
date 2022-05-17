@@ -52,7 +52,8 @@
             (layerClick)="onSymbolClick($event)"
             id="symbols-layer" type="symbol" source="symbols"
             [layout]="{
-                'icon-image': 'symbol-image'
+                'icon-image': 'symbol-image',
+                'icon-size': ['interpolate', ['linear'], ['zoom'], 10, 0.005, 20, 0.05]
             }"
         ></mgl-layer>
 
