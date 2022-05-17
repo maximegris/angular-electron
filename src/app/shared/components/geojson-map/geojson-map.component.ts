@@ -410,6 +410,10 @@ export class GeoJsonMapComponent extends AbstractComponent {
     map.setLayoutProperty('waterway-label', 'visibility', this.showPoi ? 'visible' : 'none');
     map.setLayoutProperty('building-number-label', 'visibility', this.showPoi ? 'visible' : 'none');
     map.setLayoutProperty('road-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('road-number-shield', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('road-exit-shield', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('airport-label', 'visibility', this.showPoi ? 'visible' : 'none');
+    map.setLayoutProperty('level-crossing', 'visibility', this.showPoi ? 'visible' : 'none');
     // Angular wrapper for mapbox-gl doesn't allow setting visualizePitch attribute.
     // Here I set that attribute inside mapbox-gl controls array.
     // NOTE: I touch on mapbox-gl internals. This may break in future.
@@ -421,6 +425,8 @@ export class GeoJsonMapComponent extends AbstractComponent {
       navigationCtrl._compass.addEventListener('click', () => {
         // reset zoom -> show all features
         this.bounds = findBounds(this.allFeatures);
+        map.resetNorth();
+        map.resetNorthPitch();
       });
     }
   }
