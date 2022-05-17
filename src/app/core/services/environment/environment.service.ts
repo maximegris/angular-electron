@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EnvironmentService {
-  public isManualMode = new BehaviorSubject<boolean>(false)
+  public isManualMode = new Subject<boolean>();
 
   constructor() { }
 
@@ -14,8 +14,8 @@ export class EnvironmentService {
    console.log(`environmentService.setManualMode(${mode})`);
    this.isManualMode.next(mode);
   }
-  
-  getManualMode(): BehaviorSubject<boolean> {
+
+  getManualMode(): Subject<boolean> {
     console.log(`environmentService.getManualMode(${this.isManualMode})`);
     return this.isManualMode;
   }

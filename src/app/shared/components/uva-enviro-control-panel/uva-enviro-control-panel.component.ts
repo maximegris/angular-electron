@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EnvironmentService } from '../../../core/services/environment/environment.service';
-
+import { Observer } from 'rxjs';
 @Component({
   selector: 'uva-enviro-control-panel',
   templateUrl: './uva-enviro-control-panel.component.html',
@@ -13,10 +13,16 @@ export class UvaEnviroControlPanelComponent implements OnInit {
 
   constructor(private environmentService: EnvironmentService) { }
 
+  modeObserver: Observer<boolean> = {
+    next: (mode: boolean) => console.log(mode),
+    error: (err) => console.log(err),
+    complete: () => console.log('complete')
+  }
+
   ngOnInit(): void {
-    this.environmentSubscription = this.environmentService.getManualMode()
-      .subscribe(response => {
-      })
+    this.environmentService.getManualMode().subscribe(response => {
+      console.log(response)
+    })
   }
 
   closePanel(event: PointerEvent): void {
