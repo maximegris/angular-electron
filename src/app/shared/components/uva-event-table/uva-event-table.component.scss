@@ -1,3 +1,18 @@
+// FIXME: Why can I not pull this from styles? KR 20220513
+$uva-light-gray: rgba(0,0,0,0.14);
 table {
+    margin-top: 16px;
+    background-color: white;
     width: 100%;
+    border-collapse: collapse;
+    td, th {
+        color: black;
+        border-bottom: 1px solid $uva-light-gray;
+    }
+
+    .mat-cell {
+        font-size: 14px;
+        color: rgba(0,0,0,0.87);
+        letter-spacing: 0.13px;
+   }
 }

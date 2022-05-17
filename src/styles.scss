@@ -242,6 +242,8 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 
 // Custom code
 
+$uva-light-gray: rgba(0,0,0,0.14);
+
 body {
   width: 100%;
   height: 100%;
@@ -271,6 +273,17 @@ footer {
   margin: 16px;
   z-index: 1000;
 
+  .uva-left {
+    display: inline;
+    float: left;
+    width: 50%;
+  }
+  .uva-right {
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+  }
+
   .mat-card-header-text {
     padding: 0px;
     margin: 0px;
@@ -278,7 +291,7 @@ footer {
 
   .uva-device-card-header {
     padding: 0px;
-    border-bottom: 1px solid rgba(0,0,0,0.87);
+    border-bottom: 1px solid $uva-light-gray;
     .uva-device-card-header-container {
       margin: 16px;
       min-height: 100px;
@@ -343,10 +356,11 @@ footer {
     .uva-device-card-content-container {
       padding: 0px;
       min-height: 100px;
-      border-bottom: 1px solid rgba(0,0,0,0.87);
+      border-bottom: 1px solid $uva-light-gray;
 
       .uva-device-card-content-section {
         padding: 16px;
+        min-height: 160px;
         h4 {
           padding: 0px;
           margin: 0px;
@@ -355,13 +369,61 @@ footer {
           letter-spacing: 0.15px;
           text-align: left;
         }
+      
+        .uva-progress-bar-container {
+          margin: 8px 0px 8px 0px;
+          padding: 8px;       
+        }
+        
+        .mat-progress-bar-buffer {
+          background-color: #e9f3fb; // FIXME: Should use variable. KR 20220512
+        }
+
+        .uva-aq-graph-container {
+          margin-top: 6px;
+          padding-top: 8px;
+          min-height: 150px;
+          .uva-aq-total-container {
+            padding: 2px;
+            display: inline;
+            float: left;
+            max-width: 72px;
+            #uvaTotalAqChart {
+              background: linear-gradient(to bottom, #1B427F, #1B427F 20%, #fff 100%);
+              height: 192px;
+              min-width: 70px;
+              border: 1px solid #c6c6c6;
+            }
+          }
+          .uva-aq-component-container {
+            display: inline-block;
+            width: 284px;
+            .uva-aq-component-graph-row {
+              padding: 2px;
+              .uva-aq-component-graph-container {
+                border: 1px dotted #b3dfef;
+                margin: 2px;
+                padding: 1px;
+                width: 132px;
+                .uva-chart-caption {
+                  text-transform: capitalize;
+                  font-size: 12px;
+                  color: rgba(0,0,0,0.87);
+                  letter-spacing: 0.4px;
+                }
+              
+              }
+            }
+          }
+
+        }
       }
     }
   }
 }
 
-.uva-progress-bar-container {
-  margin-top: 16px;
-  margin-bottom: 16px;
+.uva-map-container {
+  border: 1px solid red;
+  display: inline;
+  float: right;
 }
-
