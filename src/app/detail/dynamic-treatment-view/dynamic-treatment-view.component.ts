@@ -37,7 +37,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   lastClickedMarker: MarkerClickEvent = null;
   currZoomLevel: number;
   focusBounds: LngLatBoundsLike;
-  uvaLogo: string;
 
   constructor(
     public mapService: GeojsonMapService,

@@ -7,6 +7,7 @@ import {
   MapLayerMouseEvent,
   MapMouseEvent,
   MapTouchEvent,
+  NavigationControl,
   PointLike
 } from 'mapbox-gl';
 import { asyncScheduler } from 'rxjs';
@@ -215,6 +216,9 @@ export class GeoJsonMapComponent extends AbstractComponent {
   @Input()
   popupOffset: number | PointLike;
 
+  @Input()
+  showNavigationControls = false;
+
   allFeatures: ImdfFeature<any>[];
   levelFeatures: LevelFeature<any>[];
   selectedFeature: ImdfFeature<any>;
@@ -417,6 +421,21 @@ export class GeoJsonMapComponent extends AbstractComponent {
     map.setLayoutProperty('road-exit-shield', 'visibility', this.showPoi ? 'visible' : 'none');
     map.setLayoutProperty('airport-label', 'visibility', this.showPoi ? 'visible' : 'none');
     map.setLayoutProperty('level-crossing', 'visibility', this.showPoi ? 'visible' : 'none');
+    // Angular wrapper for mapbox-gl doesn't allow setting visualizePitch attribute.
+    // Here I set that attribute inside mapbox-gl controls array.
+    // NOTE: I touch on mapbox-gl internals. This may break in future.
+    const navigationCtrl = (map as any)?._controls?.find(ctrl => ctrl instanceof NavigationControl);
+    if (navigationCtrl?.options) {
+      navigationCtrl.options.visualizePitch = true;
+    }
+    if (navigationCtrl?._compass) {
+      navigationCtrl._compass.addEventListener('click', () => {
+        // reset zoom -> show all features
+        this.bounds = findBounds(this.allFeatures);
+        map.resetNorth();
+        map.resetNorthPitch();
+      });
+    }
   }
 
   onSymbolImageLoaded(event: any) {
