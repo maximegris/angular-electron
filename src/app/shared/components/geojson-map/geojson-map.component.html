@@ -32,8 +32,15 @@
             (layerMouseMove)="onMouseMove($event)"
             (layerMouseLeave)="onMouseLeave($event)"
             [filter]="selectedLevel ? ['==', 'level_id', selectedLevel.properties.uva_id] : undefined"
-            id="all-layer"type="fill" source="all-features" [paint]="paint">
+            id="all-layer" type="fill" source="all-features" [paint]="paint">
         </mgl-layer>
+
+        <mgl-layer
+            [filter]="selectedLevel ? ['==', 'level_id', selectedLevel.properties.uva_id] : undefined"
+            id="all-layer-lines"
+            type="line" source="all-features" [paint]="linePaint">
+        </mgl-layer>
+
         <mgl-layer *ngIf="selectedFeature && (!levelFeatures?.length || selectedFeature.properties?.level_id === selectedLevel?.id)"
             [filter]="['==', 'uva_id', selectedFeature.properties.uva_id]"
             id="selected-layer" type="fill" source="all-features" [paint]="selectedPaint">

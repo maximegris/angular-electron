@@ -81,6 +81,13 @@ export class GeoJsonMapComponent extends AbstractComponent {
     ]
   };
 
+  @Input()
+  linePaint = {
+    'line-color': ['case', ['has', 'fill-outline-color'], ['get', 'fill-outline-color'], '#627BC1'],
+    'line-width': 1.75,
+    'line-opacity': .4
+  }
+
   // paint for selected feature "UVAngel blue"
   @Input()
   selectedPaint = {
