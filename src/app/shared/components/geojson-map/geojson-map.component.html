@@ -10,19 +10,19 @@
         (mapLoad)="onMapLoad($event)"
     >
         <mgl-geojson-source
-            id="all-features"
+            id="uva-all-features"
             [data]="input"
             promoteId="uva_id"
         ></mgl-geojson-source>
 
         <mgl-geojson-source
-            id="markers"
+            id="uva-markers"
             [data]="_markers"
             promoteId="uva_id"
         ></mgl-geojson-source>
 
         <mgl-geojson-source
-            id="symbols"
+            id="uva-symbols"
             [data]="_symbols"
             promoteId="uva_id"
         ></mgl-geojson-source>
@@ -32,32 +32,45 @@
             (layerMouseMove)="onMouseMove($event)"
             (layerMouseLeave)="onMouseLeave($event)"
             [filter]="selectedLevel ? ['==', 'level_id', selectedLevel.properties.uva_id] : undefined"
-            id="all-layer" type="fill" source="all-features" [paint]="paint">
+            id="uva-all-layer" type="fill" source="uva-all-features" [paint]="paint">
         </mgl-layer>
 
-        <mgl-layer
-            [filter]="selectedLevel ? ['==', 'level_id', selectedLevel.properties.uva_id] : undefined"
-            id="all-layer-lines"
-            type="line" source="all-features" [paint]="linePaint">
+        <mgl-layer *ngIf="linePaint"
+            [filter]="['all',
+                ['!=', 'feature_type', 'opening'],
+                selectedLevel ? ['==', 'level_id', selectedLevel.properties.uva_id] : undefined
+            ]"
+            id="uva-all-layer-lines"
+            type="line" source="uva-all-features" [paint]="linePaint">
+        </mgl-layer>
+
+        <mgl-layer *ngIf="openingsPaint"
+            id="uva-openings-layer" type="line" source="uva-all-features" [paint]="openingsPaint"
+            [filter]="['all',
+                ['==', 'feature_type', 'opening'],
+                selectedLevel ? ['==', 'level_id', selectedLevel.properties.uva_id] : undefined
+            ]"
+        >
         </mgl-layer>
 
         <mgl-layer *ngIf="selectedFeature && (!levelFeatures?.length || selectedFeature.properties?.level_id === selectedLevel?.id)"
             [filter]="['==', 'uva_id', selectedFeature.properties.uva_id]"
-            id="selected-layer" type="fill" source="all-features" [paint]="selectedPaint">
+            before="uva-markers-layer"
+            id="uva-selected-layer" type="fill" source="uva-all-features" [paint]="selectedPaint">
         </mgl-layer>
 
         <mgl-layer
             (layerClick)="onMarkerClick($event)"
-            id="markers-layer" type="circle" source="markers" [paint]="markerPaint"
+            id="uva-markers-layer" type="circle" source="uva-markers" [paint]="markerPaint"
         ></mgl-layer>
 
         <mgl-image *ngIf="symbolImageUrl"
-            id="symbol-image" [url]="symbolImageUrl" (imageLoaded)="onSymbolImageLoaded($event)"
+            id="uva-symbol-image" [url]="symbolImageUrl" (imageLoaded)="onSymbolImageLoaded($event)"
         ></mgl-image>
 
         <mgl-layer *ngIf="symbolImageLoaded"
             (layerClick)="onSymbolClick($event)"
-            id="symbols-layer" type="symbol" source="symbols"
+            id="uva-symbols-layer" type="symbol" source="uva-symbols"
             [layout]="_symbolLayout"
         ></mgl-layer>
 
