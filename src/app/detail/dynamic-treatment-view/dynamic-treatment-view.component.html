@@ -1,3 +1,40 @@
-<uva-device-panel></uva-device-panel>
+<uvc-geojson-map
+    [geojson]="geojson"
+    [showSpinner]="showSpinner"
+    (selectLevel)="onLevelChanged($event)"
+    (mapClick)="onMapClick($event)"
+    (markerClick)="onMarkerClick($event)"
+    (mapZoom)="onMapZoom($event)"
+    [popupLocation]="lastClickedMarker?.lngLat"
+    [selectedLevelId]="selectedLevelId"
+    [symbols]="mapSymbols"
+    [markers]="mapMarkers"
+    symbolImageUrl="assets/logos/UVAngel_Icon_Reversed.png"
+    [symbolLayout]="{
+      'icon-size': ['interpolate', ['exponential', 2], ['zoom'], 15, 0.01, 25, 2]
+    }"
+    [showLevelPicker]="false"
+    [showNavigationControls]="true"
+    [bounds]="focusBounds"
+    [popupOffset]="25"
+    >
+    <div *ngIf="lastClickedMarker" mapPopup>
+        <div *ngIf="lastClickedMarker.feature.feature_type === 'anchor'">
+            <span class="font-weight-bold">{{featuresWithLocations[lastClickedMarker.feature.id].name}}</span>
+            <div>
+                <span>Air Quality:</span>
+                <span [class.text-danger]="lastClickedMarker.feature.properties.air_quality === 'Bad'">
+                    {{lastClickedMarker.feature.properties.air_quality}}
+                </span>
+            </div>
+            <span>
+                {{!lastClickedMarker.feature.properties.occupancy ? 'Not Occupied' : 'Occupancy: ' + lastClickedMarker.feature.properties.occupancy}}
+            </span>
+        </div>
+        <div *ngIf="lastClickedMarker.feature.feature_type === 'amenity'">
+            <span class="font-weight-bold">{{lastClickedMarker.feature.properties.device_name}}</span>
+        </div>
+    </div>
+</uvc-geojson-map>
+<uva-device-panel class="uva-device-panel"></uva-device-panel>
 <uva-enviro-control-panel></uva-enviro-control-panel>
-<app-map-view></app-map-view>
