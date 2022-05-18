@@ -27,6 +27,9 @@ export interface MapZoomEvent {
   zoomEnd: boolean;
 }
 
+const FEATURE_BACKGROUND_COLOR_NEUTRAL = '#C4C8CA'; //'rgba(70, 113, 138, 0.4)';
+const FEATURE_BACKGROUND_COLOR_HOVERED = '#A0AFB7';
+
 @Component({
   selector: 'uvc-geojson-map',
   templateUrl: './geojson-map.component.html',
@@ -71,31 +74,52 @@ export class GeoJsonMapComponent extends AbstractComponent {
   @Input()
   trackMouse = true;
 
+  /**
+   * Paint of all general features (rooms)
+   */
   @Input()
   paint = {
-    'fill-color': ['case', ['has', 'fill-color'], ['get', 'fill-color'], 'rgba(70, 113, 138, 0.4)'],
-    'fill-outline-color': ['case', ['has', 'fill-outline-color'], ['get', 'fill-outline-color'], '#627BC1'],
-    'fill-opacity': [
+    'fill-color': [
       'case', ['boolean', ['feature-state', 'hover'], false],
-      1,
-      0.4
-    ]
+      ['case', ['has', 'fill-color-hovered'], ['get', 'fill-color-hovered'], FEATURE_BACKGROUND_COLOR_HOVERED],
+      ['case', ['has', 'fill-color'], ['get', 'fill-color'], FEATURE_BACKGROUND_COLOR_NEUTRAL],
+    ],
+    'fill-outline-color': ['case', ['has', 'fill-outline-color'], ['get', 'fill-outline-color'], '#627BC1'],
   };
 
+  /**
+   * Paint of room walls
+   */
   @Input()
   linePaint = {
-    'line-color': ['case', ['has', 'fill-outline-color'], ['get', 'fill-outline-color'], '#627BC1'],
+    'line-color': '#627BC1',
     'line-width': 1.75,
     'line-opacity': .4
   }
 
-  // paint for selected feature "UVAngel blue"
+  /**
+   * Paint of all openings (e.g. doors)
+   */
+  @Input()
+  openingsPaint = {
+    'line-color': ['case', ['has', 'fill-color'], ['get', 'fill-color'], FEATURE_BACKGROUND_COLOR_NEUTRAL],
+    // opening line-width should be larger than linePaint line-width otherwise it will not be visible
+    'line-width': 3,
+  }
+
+  /**
+   * Paint for selected feature 
+   * Default: "UVAngel blue"
+   */
   @Input()
   selectedPaint = {
     'fill-color': ['case', ['has', 'selected-fill-color'], ['get', 'selected-fill-color'], 'rgba(0, 147, 199, 0.5)'],
     'fill-outline-color': ['case', ['has', 'selected-fill-outline-color'], ['get', 'selected-fill-outline-color'], 'rgba(0, 147, 199, 1)']
   };
 
+  /**
+   * Paint for markers
+   */
   @Input()
   markerPaint: CirclePaint = {
     // circle-color can be taken from feature properties
@@ -203,11 +227,11 @@ export class GeoJsonMapComponent extends AbstractComponent {
     this._symbolLayout = {
       ...layout,
       // this has to be hard-coded because other parts rely on it
-      'icon-image': 'symbol-image',
+      'icon-image': 'uva-symbol-image',
     };
   }
   _symbolLayout: Record<string, any> = {
-    'icon-image': 'symbol-image',
+    'icon-image': 'uva-symbol-image',
   };
 
   @Input()
@@ -295,6 +319,9 @@ export class GeoJsonMapComponent extends AbstractComponent {
     // mapbox bug: feature id must be number. Since our ids are strings, we copy them inside feature properties
     const props = rawFeature.properties || {} as ImdfProps;
     props.uva_id = rawFeature.id.toString();
+    // TODO: I want to get rid of this.
+    // I copy feature_type into properties because I do not know how to write mapbox filter expression that uses feature_type otherwise
+    (props as any).feature_type = rawFeature.feature_type;
     rawFeature.properties = props;
   }
 
@@ -303,7 +330,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMapClick(event: MapLayerMouseEvent) {
-    if (this.mapboxMap.queryRenderedFeatures(event.point, { layers: ['symbols-layer', 'markers-layer'] }).length) {
+    if (this.mapboxMap.queryRenderedFeatures(event.point, { layers: ['uva-symbols-layer', 'uva-markers-layer'] }).length) {
       // there are symbols/markers on this point so we ignore this event
       console.debug('Ignoring map click');
       return;
@@ -329,7 +356,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
     }
     if (event.features.length > 0) {
       if (this.hoveredFeature) {
-        event.target.setFeatureState(this.hoveredFeature, { hover: false });
+        event.target.removeFeatureState(this.hoveredFeature, 'hover');
       }
       this.hoveredFeature = event.features[0];
       event.target.setFeatureState(this.hoveredFeature, { hover: true });
@@ -342,7 +369,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
       return;
     }
     if (this.hoveredFeature) {
-      event.target.setFeatureState(this.hoveredFeature, { hover: false });
+      event.target.removeFeatureState(this.hoveredFeature, 'hover');
     }
     this.hoveredFeature = null;
   }
