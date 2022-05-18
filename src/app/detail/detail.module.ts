@@ -27,7 +27,7 @@ import { UvaEnviroControlPanelComponent } from '../shared/components/uva-enviro-
 import { UvaSliderGroupComponent } from '../shared/components/uva-slider-group/uva-slider-group.component';
 import { UvaModeToggleComponent } from '../shared/components/uva-mode-toggle/uva-mode-toggle.component';
 import { UvaTotalAqGraphComponent } from '../shared/components/uva-total-aq-graph/uva-total-aq-graph.component';
-
+import { UvaDeviceModeComponent } from '../shared/components/uva-device-mode/uva-device-mode.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { UvaTotalAqGraphComponent } from '../shared/components/uva-total-aq-grap
     UvaSliderGroupComponent, 
     UvaModeToggleComponent,
     UvaTotalAqGraphComponent,
+    UvaDeviceModeComponent
   ],
   imports: [
     CommonModule, 
