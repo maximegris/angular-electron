@@ -1,4 +1,5 @@
 @import '@angular/material/theming';
+@import "~mapbox-gl/dist/mapbox-gl.css";
 
 // Fonts
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
@@ -244,6 +245,8 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 $uva-light-gray: rgba(0,0,0,0.14);
 
 body {
+  width: 100%;
+  height: 100%;
   margin: 0px;
   font-family: 'avenir', sans-serif;
 }
@@ -439,7 +442,6 @@ footer {
   border: 1px solid $uva-light-gray;
   background-color: white;
   border-radius: 4px;
-  cursor: move;
   width: 280px;
   padding: 24px;
   display: block;
@@ -464,6 +466,15 @@ footer {
       padding: 8px;
       border-radius: 4px;
     }
+  }
+  .uva-drag-handle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: move;
+    width: 24px;
+    height: 24px;
   }
   .uva-slider-container {
     padding: 24px;

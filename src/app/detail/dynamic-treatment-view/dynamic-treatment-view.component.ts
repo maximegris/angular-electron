@@ -10,7 +10,7 @@ import { ImdfFeature, ImdfProps, isLevelFeature, LevelFeature } from '../../shar
 import maxZoomInput from './max-zoom-markers.json';
 
 const LEVEL1ID = '81e9fd76-b34a-45f6-a6dc-1f172f01e849';
-const ZOOM_LEVEL_DETAILS = 17.8;
+const ZOOM_LEVEL_DETAILS = 18.5;
 const MAP_ID = 'venue';
 
 @Component({
@@ -26,6 +26,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   selectedLevelId: string | number;
 
   mapMarkers: ImdfFeature<GeoJSON.Point>[] = [];
+  mapSymbols: ImdfFeature<GeoJSON.Point>[] = [];
 
   maxZoomMarkers: ImdfFeature<GeoJSON.Point>[] = [];
   minZoomMarkers: ImdfFeature<GeoJSON.Point>[] = [];
@@ -140,9 +141,11 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
    */
   decideVisibleMarkers() {
     if (this.currZoomLevel > ZOOM_LEVEL_DETAILS) {
-      this.mapMarkers = this.maxZoomMarkers;
+      this.mapMarkers = null;
+      this.mapSymbols = this.maxZoomMarkers;
     } else {
       this.mapMarkers = this.minZoomMarkers;
+      this.mapSymbols = null;
     }
   }
 
@@ -153,17 +156,32 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       if (event.feature.feature_type === 'anchor') {
         // When creating anchor marker, I use the same id as for the parent feature
         const parentFeature = this.geojson.features.find(f => f.id === event.feature.id);
-        this.focusBounds = findBounds([parentFeature]);
+        this.focusOnFeatures([parentFeature]);
       } else {
-        this.lastClickedMarker = event;
+        // Amenity/Device markers use unit_ids property to refer to their parent features
+        const parentFeature = this.geojson.features.find(f => f.id === (event.feature.properties as any).unit_ids[0]);
+        this.focusOnFeatures([parentFeature]);
+        this.lastClickedMarker = {
+          ...event,
+          lngLat: event.feature.geometry.coordinates
+        };
       }
   }
 
-  onMapClick(event: any) {
-    console.log(event);
+  onMapClick(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
+    this.focusOnFeatures(features);
+  }
+
+  focusOnFeatures(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
+    this.focusBounds = findBounds(features);
+    // since this page has a panel covering it's left third, we will offset the bound to the right a bit
+    const origWidth = this.focusBounds[2] - this.focusBounds[0];
+    this.focusBounds[0] -= origWidth / 4;
+    this.focusBounds[2] -= origWidth / 4;
   }
 
   onMapZoom(evt: MapZoomEvent) {
+    console.log("Map zoom level", evt.zoomLevel);
     this.currZoomLevel = evt.zoomLevel;
     this.decideVisibleMarkers();
   }

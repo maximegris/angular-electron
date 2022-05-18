@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -13,9 +14,11 @@ import { SerialCommunication } from '../core/services/serial-communication/seria
 export class HomeComponent implements OnInit, OnDestroy {
 
   availablePorts: SerialPort[] = [];
-  serialPortForm = this.fb.group({
+  selectedPortPath: string = null;
+  serialPortFormGroup = this.fb.group({
     path: ['', [Validators.required]],
   });
+  editingSerialPort = false;
   isSubmitted = false;
   activeSerialPort: SerialPort = null;
   unsubscribe$: Subject<boolean> = new Subject();
@@ -25,45 +28,49 @@ export class HomeComponent implements OnInit, OnDestroy {
     public fb: FormBuilder
   ) { }
 
-  get path() {
-    return this.serialPortForm.get('path');
-  }
-
   ngOnInit(): void {
-    console.log('HomeComponent INIT');
     this.serialCommunication.activeSerialPort
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(activeSerialPort => this.activeSerialPort = activeSerialPort);
+      .subscribe(activeSerialPort => {
+        this.activeSerialPort = activeSerialPort
+        console.log("just set active serial port", this.activeSerialPort);
+        this.path.setValue(this.activeSerialPort.settings.path);
+      });
   }
+
+  get path(): FormControl { return this.serialPortFormGroup.get("path") as FormControl }
 
   ngOnDestroy() {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
   }
 
-  changeSerialPortPath(e: any) {
-    this.path?.setValue(e.target.value, {
-      onlySelf: true,
-    });
+  pathCompareFn(option1, option2) {
+    console.log("COMPARE", option1, option2);
+    return option1 == option2;
   }
 
   async onSerialPortFormSubmit(): Promise<void> {
-    console.log(this.serialPortForm);
     this.isSubmitted = true;
-    if (this.serialPortForm.valid) {
-      console.log(JSON.stringify(this.serialPortForm.value));
+    if (this.serialPortFormGroup.valid) {
+      console.log(JSON.stringify(this.serialPortFormGroup.value));
       try {
-        const response = await this.serialCommunication.setSerialPort(this.serialPortForm.value.path);
+        const response = await this.serialCommunication.setSerialPort(this.serialPortFormGroup.value.path);
         const serialPort = response.serialPort;
         console.log('set serial port!!', serialPort.settings.path);
+        this.editingSerialPort = false;
       } catch (err) {
-        this.serialPortForm.reset();
+        this.serialPortFormGroup.reset();
         this.isSubmitted = false;
         console.error('error setting serial port', err.error);
       }
     }
   }
 
+  editSerialPortPath() {
+    this.editingSerialPort = true;
+    this.listSerialPorts();
+  }
   async listSerialPorts() {
     this.availablePorts = await this.serialCommunication.listSerialPorts();
   }

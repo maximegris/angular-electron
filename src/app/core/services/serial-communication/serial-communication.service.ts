@@ -13,6 +13,7 @@ const DEFAULT_BAUD_RATE = 57600;
 export class SerialCommunication {
 
   private $activeSerialPort: BehaviorSubject<SerialPort> = new BehaviorSubject(null);
+  private serialPortErrorOccurred: boolean = false;
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   public readonly activeSerialPort: Observable<SerialPort> = this.$activeSerialPort.asObservable();
@@ -26,13 +27,14 @@ export class SerialCommunication {
         // console.log('attempting to connect to preset ports...');
         this.hydratePreSetSerialPortIfExists();
       }
-    }, 1000);
+    }, 2000);
 
     electronService.ipcRenderer.on('serial_port_disconnect', () => {
       console.log('SERIAL PORT WAS DISCONNECTED!!!');
       new Notification('Device Disconnected', {
         body: `serial port disconnected`
       });
+      this.serialPortErrorOccurred = true;
       this.$activeSerialPort.next(null);
     });
 
@@ -41,11 +43,13 @@ export class SerialCommunication {
       new Notification('Device Error', {
         body: `serial port error: ${error}`
       });
+      this.serialPortErrorOccurred = true;
       this.$activeSerialPort.next(null);
     });
   }
 
-  writeToActiveSerialPort = (event: string, data: any): void => {
+  writeToActiveSerialPort = (event: string, data: number): void => {
+    data = this.normalize(data, 0, 5, 0, 99) // put 0-5 number between 0 and 99
     this.electronService.ipcRenderer.send(event, data);
   };
 
@@ -57,20 +61,26 @@ export class SerialCommunication {
         const jsonResponse = JSON.parse(response) as { error: string; serialPort: SerialPort };
         this.ngZone.run(() => {
           if (jsonResponse.error) {
-            new Notification('ERROR', {
-              body: `error setting serial port: ${jsonResponse.error}`
-            });
+            if (!this.serialPortErrorOccurred) {
+              new Notification('ERROR', {
+                body: `error setting serial port: ${jsonResponse.error}`
+              });
+            }
+            this.serialPortErrorOccurred = true;
             reject(jsonResponse);
-          }
-          localStorage.setItem(LOCAL_STORAGE_SERIAL_PATH, path);
-          localStorage.setItem(LOCAL_STORAGE_SERIAL_BAUD, baudRate.toString());
+          } else {
+            this.serialPortErrorOccurred = false;
 
-          // set the active serial port observable so everyone can grab it whenever
-          this.$activeSerialPort.next(jsonResponse.serialPort);
-          new Notification('SUCCESS', {
-            body: `serial port opened @ ${jsonResponse.serialPort.settings.path}`
-          });
-          resolve(jsonResponse);
+            localStorage.setItem(LOCAL_STORAGE_SERIAL_PATH, path);
+            localStorage.setItem(LOCAL_STORAGE_SERIAL_BAUD, baudRate.toString());
+
+            // set the active serial port observable so everyone can grab it whenever
+            this.$activeSerialPort.next(jsonResponse.serialPort);
+            new Notification('SUCCESS', {
+              body: `serial port opened @ ${jsonResponse.serialPort.settings.path}`
+            });
+            resolve(jsonResponse);
+          }
         });
       });
     });
@@ -137,4 +147,8 @@ export class SerialCommunication {
     console.log(`Setting Serial Port: ${port.path} | ${storedBaudNumber}`);
     this.setSerialPort(port.path, storedBaudNumber);
   };
+
+  private normalize(num, fromMin, fromMax, toMin, toMax) {
+    return toMin + (num - fromMin) / (fromMax - fromMin) * (toMax - toMin)
+  }
 }
