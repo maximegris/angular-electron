@@ -23,6 +23,8 @@ import { UvaEnviroControlPanelComponent } from '../shared/components/uva-enviro-
 import { UvaSliderGroupComponent } from '../shared/components/uva-slider-group/uva-slider-group.component';
 import { UvaModeToggleComponent } from '../shared/components/uva-mode-toggle/uva-mode-toggle.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UvaRoomPanelComponent } from '../shared/components/uva-room-panel/uva-room-panel.component';
+import { UvaFloorPanelComponent } from '../shared/components/uva-floor-panel/uva-floor-panel.component';
 
 
 import { NgChartsModule } from 'ng2-charts';
@@ -39,7 +41,9 @@ import { NgChartsModule } from 'ng2-charts';
     UvaDevicePanelComponent, 
     UvaEnviroControlPanelComponent, 
     UvaSliderGroupComponent, 
-    UvaModeToggleComponent
+    UvaModeToggleComponent,
+    UvaRoomPanelComponent,
+    UvaFloorPanelComponent
   ],
   imports: [
     CommonModule, 

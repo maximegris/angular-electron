@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LngLatBoundsLike } from 'mapbox-gl';
@@ -17,6 +18,20 @@ const MAP_ID = 'venue';
   selector: 'app-dynamic-treatment-view',
   templateUrl: './dynamic-treatment-view.component.html',
   styleUrls: ['./dynamic-treatment-view.component.scss'],
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({ transform: 'translateX(-20%)', opacity: 0 }),
+          animate('200ms', style({ transform: 'translateX(0)', opacity: 1 }))
+        ]),
+        transition(':leave', [
+          style({ transform: 'translateX(0)', opacity: 1 }),
+          animate('200ms', style({ transform: 'translateX(20%)', opacity: 0 }))
+        ])
+      ]
+    )
+  ],
 })
 
 export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit {
@@ -37,6 +52,12 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   lastClickedMarker: MarkerClickEvent = null;
   currZoomLevel: number;
   focusBounds: LngLatBoundsLike;
+
+  sidePanelVisibility: {
+    device: boolean,
+    room: boolean,
+    floor: boolean
+  } = { device: false, room: false, floor: true };
 
   constructor(
     public mapService: GeojsonMapService,
@@ -189,6 +210,26 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   public toggle(event: MatSlideToggleChange) {
     console.log(event.checked)
     const controlPanel = document.getElementById('uvaEnviroControlPanel')
+  }
+
+  setSidePanelVisibility(panelToShow: 'device' | 'room' | 'floor') {
+    this.sidePanelVisibility.device = false;
+    this.sidePanelVisibility.room = false;
+    this.sidePanelVisibility.floor = false;
+
+    switch (panelToShow) {
+      case 'device':
+        this.sidePanelVisibility.device = true;
+        break;
+      case 'room':
+        this.sidePanelVisibility.room = true;
+        break;
+      case 'floor':
+        this.sidePanelVisibility.floor = true;
+        break;
+      default:
+        break;
+    }
   }
 }
 

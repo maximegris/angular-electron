@@ -36,5 +36,14 @@
         </div>
     </div>
 </uvc-geojson-map>
-<uva-device-panel class="uva-device-panel"></uva-device-panel>
+<uva-device-panel *ngIf="sidePanelVisibility.device" class="uva-device-panel" [@enterAnimation]></uva-device-panel>
+<uva-room-panel *ngIf="sidePanelVisibility.room"  class="uva-room-panel" [@enterAnimation]></uva-room-panel>
+<uva-floor-panel *ngIf="sidePanelVisibility.floor" class="uva-floor-panel" [@enterAnimation]></uva-floor-panel>
+
+<div class="uva-temp-floating-buttons">
+  <button (click)="setSidePanelVisibility('device')">View Device Panel</button>
+  <button (click)="setSidePanelVisibility('room')">View Room Panel</button>
+  <button (click)="setSidePanelVisibility('floor')">View Floor Panel</button>
+</div>
+
 <uva-enviro-control-panel></uva-enviro-control-panel>
