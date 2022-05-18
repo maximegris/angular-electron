@@ -16,16 +16,17 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgChartsModule } from 'ng2-charts';
+
+// UVA Components
 import { UvaDevicePanelComponent } from '../shared/components/uva-device-panel/uva-device-panel.component';
 import { UvaEventTable } from '../shared/components/uva-event-table/uva-event-table.component';
 import { UvaAqGraphComponent } from '../shared/components/uva-aq-graph/uva-aq-graph.component';
 import { UvaEnviroControlPanelComponent } from '../shared/components/uva-enviro-control-panel/uva-enviro-control-panel.component';
 import { UvaSliderGroupComponent } from '../shared/components/uva-slider-group/uva-slider-group.component';
 import { UvaModeToggleComponent } from '../shared/components/uva-mode-toggle/uva-mode-toggle.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-
-
-import { NgChartsModule } from 'ng2-charts';
+import { UvaTotalAqGraphComponent } from '../shared/components/uva-total-aq-graph/uva-total-aq-graph.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { NgChartsModule } from 'ng2-charts';
     UvaDevicePanelComponent, 
     UvaEnviroControlPanelComponent, 
     UvaSliderGroupComponent, 
-    UvaModeToggleComponent
+    UvaModeToggleComponent,
+    UvaTotalAqGraphComponent,
   ],
   imports: [
     CommonModule, 

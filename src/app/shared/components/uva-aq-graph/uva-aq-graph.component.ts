@@ -16,7 +16,6 @@ export class UvaAqGraphComponent implements OnInit, OnDestroy {
   public environmentData: EnvironmentData;
   unsubscribe$: Subject<EnvironmentData> = new Subject();
 
-  constructor(private environmentService: EnvironmentService) { }
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
@@ -30,6 +29,11 @@ export class UvaAqGraphComponent implements OnInit, OnDestroy {
     ],
     labels: [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
   };
+
+  constructor(private environmentService: EnvironmentService) { 
+    environmentService.environmentData[this.measurand] = this.lineChartData.datasets[0].data;
+  }
+
 
   public lineChartOptions: ChartConfiguration['options'] = {
     elements: {
@@ -82,9 +86,10 @@ export class UvaAqGraphComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(environmentData => {
         this.environmentData = environmentData;
+        console.log(this.measurand)
+        console.log(environmentData[this.measurand])
         this.lineChartData.datasets[0].data.shift();
-        this.lineChartData.datasets[0].data.push(environmentData[this.measurand])
-        console.log(this.lineChartData.datasets[0].data)
+        this.lineChartData.datasets[0].data.push(environmentData[this.measurand]);
         this.chart?.update();
       });
   }

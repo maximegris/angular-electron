@@ -31,8 +31,4 @@ export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
     this.environmentService.setManualMode(false)
   }
 
-  logPanelDetails(): void {
-    console.log(`in EnvironmentControlPanel this.isManualMode = ${this.isManualMode}`)
-  }
-
 }

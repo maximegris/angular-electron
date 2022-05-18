@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-
 export type EnvironmentData = {
   temperature: number,
   humidity: number,
   voc: number,
   occupancy: number,
+  total: number,
 }
 
 @Injectable({
@@ -20,9 +20,9 @@ export class EnvironmentService {
       humidity: 50,
       voc: 50,
       occupancy: 50,
+      total: 50,
     }
   )
-  
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   public readonly isManualMode: Observable<boolean> = this.$isManualMode.asObservable();
@@ -40,7 +40,15 @@ export class EnvironmentService {
   }
 
   setMeasurandValue(measurand: string, value: number): void {
-    this.$environmentData[measurand] = value;
-    console.log(`environmentService.setMeasurandValue ${measurand} ${value}`)
+    let tempEnvironmentData = this.$environmentData.value;
+    tempEnvironmentData[measurand] = value;
+    tempEnvironmentData.total = this.calculateTotalAq(tempEnvironmentData)
+    console.log(tempEnvironmentData)
+    this.$environmentData.next(tempEnvironmentData);
+
+  }
+
+  calculateTotalAq(environmentData: EnvironmentData): number {
+    return ((environmentData.temperature + environmentData.humidity + environmentData.voc + environmentData.occupancy) / 400) * 100;
   }
 }
