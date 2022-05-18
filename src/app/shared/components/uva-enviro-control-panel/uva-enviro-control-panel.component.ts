@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { EnvironmentService } from '../../../core/services/environment/environment.service';
 
 @Component({
@@ -17,7 +17,6 @@ export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
     this.environmentService.isManualMode
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isManualMode => {
-        console.log("uva-enviro-control-panel.component - isManualMode updated", isManualMode);
         this.isManualMode = isManualMode
       });
   }

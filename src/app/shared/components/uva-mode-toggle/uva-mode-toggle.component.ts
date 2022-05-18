@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Subject, takeUntil } from 'rxjs';
 import { EnvironmentService } from '../../../core/services/environment/environment.service';
 
@@ -9,8 +9,10 @@ import { EnvironmentService } from '../../../core/services/environment/environme
   styleUrls: ['./uva-mode-toggle.component.scss']
 })
 export class UvaModeToggleComponent implements OnInit, OnDestroy {
-  public isManualMode: boolean = false;
+  public isManualMode: boolean = true;
   unsubscribe$: Subject<boolean> = new Subject();
+  @ViewChild('uvaEnviroSliderToggle')
+  public uvaEnviroSliderToggle!: MatSlideToggle
 
   constructor(private environmentService: EnvironmentService) { }
 
@@ -18,8 +20,11 @@ export class UvaModeToggleComponent implements OnInit, OnDestroy {
     this.environmentService.isManualMode
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isManualMode => {
-        console.log("uva-mode-toggle.component - isManualMode updated", isManualMode);
-        this.isManualMode = isManualMode
+        this.isManualMode = isManualMode;
+        // Unclear why this is not defined on init. But it isn't. KR 20220518
+        if (this.uvaEnviroSliderToggle) {
+          this.uvaEnviroSliderToggle.checked = isManualMode
+        }
       });
   }
 

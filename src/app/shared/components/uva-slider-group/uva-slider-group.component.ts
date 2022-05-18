@@ -8,9 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 export class UvaSliderGroupComponent implements OnInit {
   @Input() measurand!: string
   @Input() min!: string
-  @Input() max: string
-  @Input() step: string
-  @Input() value: string
+  @Input() max!: string
+  @Input() step!: string
+  @Input() value!: string
+  @Input() label: string
 
   constructor() { }
 

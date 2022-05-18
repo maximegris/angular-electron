@@ -8,7 +8,8 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrls: [ './uva-aq-graph.component.scss' ]
 })
 export class UvaAqGraphComponent {
-  @Input() measurand: string
+  @Input() measurand!: string
+  @Input() label!: string
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [

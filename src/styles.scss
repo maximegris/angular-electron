@@ -362,9 +362,7 @@ footer {
           line-height: 18px;
         }
       }
-
     }
-
   }
 
   .uva-device-card-content {
@@ -427,12 +425,10 @@ footer {
                   font-size: 12px;
                   color: rgba(0,0,0,0.87);
                   letter-spacing: 0.4px;
-                }
-              
+                }         
               }
             }
           }
-
         }
       }
     }
@@ -441,7 +437,9 @@ footer {
 
 #uvaEnviroControlPanel {
   border: 1px solid $uva-light-gray;
+  background-color: white;
   border-radius: 4px;
+  cursor: move;
   width: 280px;
   padding: 24px;
   display: block;
@@ -449,6 +447,29 @@ footer {
   top: 140px;
   left: 450px;
   z-index: 1001;
+  point
+  h1 {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.15px;
+    padding: 0px;
+    margin: 0 0 6 0px;
+  }
+  .uva-dialog-actions {
+    button {
+      float: right;
+      color: white;
+      background-color: #0093c8;
+      border: 1px solid $uva-light-gray;
+      padding: 8px;
+    }
+  }
+  .uva-slider-container {
+    padding: 24px;
+    .mat-slider {
+      width: 100%;
+    }
+  }
 }
 
 .uva-map-container {

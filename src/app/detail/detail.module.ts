@@ -8,6 +8,8 @@ import { SharedModule } from '../shared/shared.module';
 import { DataViewComponent } from './data-view/data-view.component';
 import { DynamicTreatmentViewComponent } from './dynamic-treatment-view/dynamic-treatment-view.component';
 import { InstallServiceViewComponent } from './install-service-view/install-service-view.component';
+
+// Material Design imports
 import { MatCardModule } from '@angular/material/card'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
@@ -20,6 +22,9 @@ import { UvaAqGraphComponent } from '../shared/components/uva-aq-graph/uva-aq-gr
 import { UvaEnviroControlPanelComponent } from '../shared/components/uva-enviro-control-panel/uva-enviro-control-panel.component';
 import { UvaSliderGroupComponent } from '../shared/components/uva-slider-group/uva-slider-group.component';
 import { UvaModeToggleComponent } from '../shared/components/uva-mode-toggle/uva-mode-toggle.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+
 import { NgChartsModule } from 'ng2-charts';
 
 
@@ -42,10 +47,12 @@ import { NgChartsModule } from 'ng2-charts';
     DetailRoutingModule, 
     MatCardModule, 
     MatProgressBarModule, 
-    MatTableModule, 
+    MatTableModule,
+    MatDialogModule,
     NgChartsModule, 
     MatSlideToggleModule,
     MatSliderModule,
+    DragDropModule
   ]
 })
 export class DetailModule {}
