@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSliderChange } from '@angular/material/slider';
+import { Subject, takeUntil } from 'rxjs';
+import { EnvironmentService } from '../../../core/services/environment/environment.service';
 
 @Component({
   selector: 'uva-slider-group',
@@ -10,12 +13,16 @@ export class UvaSliderGroupComponent implements OnInit {
   @Input() min!: string
   @Input() max!: string
   @Input() step!: string
-  @Input() value!: string
+  @Input() value!: number
   @Input() label: string
 
-  constructor() { }
+  constructor(private environmentService: EnvironmentService) { }
 
   ngOnInit(): void {
+  }
+
+  onInputChange(event: MatSliderChange): void {
+    this.environmentService.setMeasurandValue(this.measurand, event.value)
   }
 
 }

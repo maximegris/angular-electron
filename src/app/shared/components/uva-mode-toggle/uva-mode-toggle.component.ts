@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Subject, takeUntil } from 'rxjs';
 import { EnvironmentService } from '../../../core/services/environment/environment.service';
@@ -8,11 +8,13 @@ import { EnvironmentService } from '../../../core/services/environment/environme
   templateUrl: './uva-mode-toggle.component.html',
   styleUrls: ['./uva-mode-toggle.component.scss']
 })
+
 export class UvaModeToggleComponent implements OnInit, OnDestroy {
   public isManualMode: boolean = true;
   unsubscribe$: Subject<boolean> = new Subject();
+
   @ViewChild('uvaEnviroSliderToggle')
-  public uvaEnviroSliderToggle!: MatSlideToggle
+  public uvaEnviroSliderToggle!: MatSlideToggle;
 
   constructor(private environmentService: EnvironmentService) { }
 

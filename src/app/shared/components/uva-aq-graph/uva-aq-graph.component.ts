@@ -1,15 +1,22 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, OnInit, OnDestroy } from '@angular/core';
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { Subject, takeUntil } from 'rxjs';
+import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
 
 @Component({
   selector: 'uva-aq-graph',
   templateUrl: './uva-aq-graph.component.html',
   styleUrls: [ './uva-aq-graph.component.scss' ]
 })
-export class UvaAqGraphComponent {
-  @Input() measurand!: string
-  @Input() label!: string
+
+export class UvaAqGraphComponent implements OnInit, OnDestroy {
+  @Input() measurand!: string;
+  @Input() label!: string;
+  public environmentData: EnvironmentData;
+  unsubscribe$: Subject<EnvironmentData> = new Subject();
+
+  constructor(private environmentService: EnvironmentService) { }
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
@@ -38,9 +45,7 @@ export class UvaAqGraphComponent {
       y: {
         display: false
       }
-
     },
-
     plugins: {
       legend: { display: false },
     }
@@ -65,14 +70,28 @@ export class UvaAqGraphComponent {
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   ngOnInit(): void {
-    this.lineChartData.datasets[0].label = this.measurand
+    this.environmentService.environmentData
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(environmentData => {
+        this.environmentData = environmentData;
+        this.lineChartData.datasets[0].data.shift();
+        this.lineChartData.datasets[0].data.push(environmentData[this.measurand])
+        console.log(this.lineChartData.datasets[0].data)
+        this.chart?.update();
+      });
   }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next(this.environmentData);
+    this.unsubscribe$.complete();
+  }
+
 }
