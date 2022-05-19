@@ -195,7 +195,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
       type: 'FeatureCollection',
       features: items || []
     };
-    items?.forEach(item => this.addUvaIdToFeatureProps(item));
+    items?.forEach(item => this.addFeatureProps(item));
   }
   get markers() {
     return this._markers?.features as ImdfFeature<GeoJSON.Point>[];
@@ -208,7 +208,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
       type: 'FeatureCollection',
       features: items || []
     };
-    items?.forEach(item => this.addUvaIdToFeatureProps(item));
+    items?.forEach(item => this.addFeatureProps(item));
   }
   get symbols() {
     return this._symbols?.features as ImdfFeature<GeoJSON.Point>[];
@@ -306,7 +306,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
 
       rawFeature.id = rawFeature.id ?? `feature${idGenerator++}`;
 
-      this.addUvaIdToFeatureProps(rawFeature);
+      this.addFeatureProps(rawFeature);
 
       if (isLevelFeature(rawFeature)) {
         this.levelFeatures.push(rawFeature);
@@ -315,7 +315,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
     this.levelFeatures.sort((a, b) => b.properties.ordinal - a.properties.ordinal);
   }
 
-  private addUvaIdToFeatureProps(rawFeature: ImdfFeature<any>) {
+  private addFeatureProps(rawFeature: ImdfFeature<any>) {
     // mapbox bug: feature id must be number. Since our ids are strings, we copy them inside feature properties
     const props = rawFeature.properties || {} as ImdfProps;
     props.uva_id = rawFeature.id.toString();
@@ -330,23 +330,35 @@ export class GeoJsonMapComponent extends AbstractComponent {
   }
 
   onMapClick(event: MapLayerMouseEvent) {
-    if (this.mapboxMap.queryRenderedFeatures(event.point, { layers: ['uva-symbols-layer', 'uva-markers-layer'] }).length) {
+    if (event instanceof PointerEvent) {
+      // mapbox seems to emit 2 events on click: MapLayerMouseEvent and then PointerEvent. PointerEvent is to be ignored.
+      return;
+    }
+
+    const renderedFeatures = this.mapboxMap.queryRenderedFeatures(event.point, {
+      layers: ['uva-symbols-layer', 'uva-markers-layer', 'uva-all-layer']
+    });
+    if (renderedFeatures.some(feature => feature.layer.id === 'uva-symbols-layer' || feature.layer.id === 'uva-markers-layer')) {
       // there are symbols/markers on this point so we ignore this event
       console.debug('Ignoring map click');
       return;
     }
 
-    if (event.features?.length) {
-      // Elements of event.features are not the same events that I pass to mapbox.
+    if (renderedFeatures.length) {
+      // Elements of rendered features are not the same features that I pass to mapbox.
       // On top of that mapbox strips away ids from features.
       // Here I have to find feature by matching it to uva_id in properties of feature retuned in event data.
-      const features = event.features
+      const features = renderedFeatures
                             .map(feature => this.allFeatures.find(item => item.id === feature.properties.uva_id))
                             .filter(item => !!item);
       if (features.length) {
         this.mapClick.emit(features);
+        return;
       }
     }
+
+    // Click outside of any map feature
+    this.mapClick.emit([]);
   }
 
   onMouseMove(event: MapLayerMouseEvent) {

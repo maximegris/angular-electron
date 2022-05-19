@@ -146,3 +146,12 @@ export class FullLocation extends LocationWithSublocations {
         return [...path.map(p => p.name), this.name].join('/');
     }
 }
+
+export class Device {
+    id: string;
+    type: 'UVA20' | 'AIR175' | 'AIR20';
+
+    constructor(initializer: Partial<Device> = {}) {
+        Object.assign(this, initializer);
+    }
+}
