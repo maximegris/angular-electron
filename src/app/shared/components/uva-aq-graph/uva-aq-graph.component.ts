@@ -86,8 +86,6 @@ export class UvaAqGraphComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(environmentData => {
         this.environmentData = environmentData;
-        console.log(this.measurand)
-        console.log(environmentData[this.measurand])
         this.lineChartData.datasets[0].data.shift();
         this.lineChartData.datasets[0].data.push(environmentData[this.measurand]);
         this.chart?.update();

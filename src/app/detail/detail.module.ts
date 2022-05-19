@@ -30,6 +30,8 @@ import { UvaTotalAqGraphComponent } from '../shared/components/uva-total-aq-grap
 import { UvaDeviceModeComponent } from '../shared/components/uva-device-mode/uva-device-mode.component';
 import { UvaRoomPanelComponent } from '../shared/components/uva-room-panel/uva-room-panel.component';
 import { UvaFloorPanelComponent } from '../shared/components/uva-floor-panel/uva-floor-panel.component';
+import { UvaConsumableMonitorComponent } from '../shared/components/uva-consumable-monitor/uva-consumable-monitor.component';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { UvaFloorPanelComponent } from '../shared/components/uva-floor-panel/uva
     UvaTotalAqGraphComponent,
     UvaDeviceModeComponent,
     UvaRoomPanelComponent,
-    UvaFloorPanelComponent
+    UvaFloorPanelComponent,
+    UvaConsumableMonitorComponent
   ],
   imports: [
     CommonModule, 

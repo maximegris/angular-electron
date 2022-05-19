@@ -222,7 +222,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   }
 
   onMapZoom(evt: MapZoomEvent) {
-    console.log("Map zoom level", evt.zoomLevel);
+    // console.log("Map zoom level", evt.zoomLevel);
     this.currZoomLevel = evt.zoomLevel;
     this.decideVisibleMarkers();
   }
