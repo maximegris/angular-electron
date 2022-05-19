@@ -8,6 +8,7 @@
         (zoomStart)="onZoom($event, true, false)"
         (zoomEnd)="onZoom($event, false, true)"
         (mapLoad)="onMapLoad($event)"
+        (click)="onMapClick($event)"
     >
         <mgl-geojson-source
             id="uva-all-features"
@@ -28,7 +29,6 @@
         ></mgl-geojson-source>
 
         <mgl-layer
-            (layerClick)="onMapClick($event)"
             (layerMouseMove)="onMouseMove($event)"
             (layerMouseLeave)="onMouseLeave($event)"
             [filter]="selectedLevel ? ['==', 'level_id', selectedLevel.properties.uva_id] : undefined"

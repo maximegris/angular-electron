@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { Device, FullLocation } from '../service.model';
 
 export type EnvironmentData = {
   temperature: number,
@@ -24,9 +25,14 @@ export class EnvironmentService {
     }
   )
 
+  private currentLocationSubject = new ReplaySubject<FullLocation | null>(1);
+  private currentDeviceSubject = new ReplaySubject<Device | null>(1);
+
   // eslint-disable-next-line @typescript-eslint/member-ordering
   public readonly isManualMode: Observable<boolean> = this.$isManualMode.asObservable();
   public readonly environmentData: Observable<EnvironmentData> = this.$environmentData.asObservable();
+  public readonly currentLocation$ = this.currentLocationSubject.asObservable();
+  public readonly currentDevice$ = this.currentDeviceSubject.asObservable();
 
   constructor() {
     // setInterval(() => {
@@ -51,4 +57,13 @@ export class EnvironmentService {
   calculateTotalAq(environmentData: EnvironmentData): number {
     return ((environmentData.temperature + environmentData.humidity + environmentData.voc + environmentData.occupancy) / 400) * 100;
   }
+  
+  setCurrentLocation(loc: FullLocation | null) {
+    this.currentLocationSubject.next(loc);
+  }
+
+  setCurrentDevice(device: Device | null) {
+    this.currentDeviceSubject.next(device);
+  }
+
 }

@@ -28,6 +28,8 @@ import { UvaSliderGroupComponent } from '../shared/components/uva-slider-group/u
 import { UvaModeToggleComponent } from '../shared/components/uva-mode-toggle/uva-mode-toggle.component';
 import { UvaTotalAqGraphComponent } from '../shared/components/uva-total-aq-graph/uva-total-aq-graph.component';
 import { UvaDeviceModeComponent } from '../shared/components/uva-device-mode/uva-device-mode.component';
+import { UvaRoomPanelComponent } from '../shared/components/uva-room-panel/uva-room-panel.component';
+import { UvaFloorPanelComponent } from '../shared/components/uva-floor-panel/uva-floor-panel.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { UvaDeviceModeComponent } from '../shared/components/uva-device-mode/uva
     UvaSliderGroupComponent, 
     UvaModeToggleComponent,
     UvaTotalAqGraphComponent,
-    UvaDeviceModeComponent
+    UvaDeviceModeComponent,
+    UvaRoomPanelComponent,
+    UvaFloorPanelComponent
   ],
   imports: [
     CommonModule, 
