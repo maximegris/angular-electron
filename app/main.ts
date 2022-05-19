@@ -1,5 +1,5 @@
 import { app, BrowserWindow, screen, ipcMain } from 'electron';
-import { SerialPort } from 'serialport';
+import { SerialPort, ReadlineParser } from 'serialport';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -8,9 +8,8 @@ let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
-
-let current_air20_fan_operation_mode = 0;
 let serial_port: SerialPort;
+let serial_parser: ReadlineParser;
 
 function createWindow(): BrowserWindow {
 
@@ -106,6 +105,9 @@ ipcMain.on('set_serial_port', (event: any, path: string, baudRate: string) => {
   if (serial_port) {
     serial_port.destroy();
   }
+  if (serial_parser) {
+    serial_parser.destroy();
+  }
   serial_port = new SerialPort({ path: path, baudRate: parseInt(baudRate) }, function (err) {
     if (err) {
       console.log('SERIAL PORT ERROR: ', err.message)
@@ -125,6 +127,42 @@ ipcMain.on('set_serial_port', (event: any, path: string, baudRate: string) => {
       }
     }
   })
+
+  serial_parser = serial_port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+  serial_parser.on('data', (data) => {
+    console.log(`recieved serial data: "${data}"`)
+
+    const incoming_data_array = data.split(': ');
+
+    if (incoming_data_array.length !== 2) {
+      console.log(`recieved unknown datapacket: "${data}`)
+      return;
+    }
+
+    switch (incoming_data_array[0]) {
+      case 'M':
+        const newFanSpeed = Number(incoming_data_array[1]);
+        if (newFanSpeed >= 0) {
+          console.log(`Fan speed set to ${newFanSpeed}`);
+        } else {
+          console.log(`Invalid Fan Speed "${newFanSpeed}"... did not set!`);
+        }
+        break;
+      case 'DS':
+        const doorStatus = incoming_data_array[1];
+        if (doorStatus === 'O') {
+          console.log(`Door Opened!`);
+        } else if (doorStatus === 'C') {
+          console.log(`Door Closed!`);
+        } else {
+          console.log(`Invalid door status recieved: "${doorStatus}". only 'C', 'O' expected.`);
+        }
+        break;
+      default:
+        console.log(`unknown datatype prefix "${incoming_data_array[0]}". expected "M" or "DS".`);
+        break;
+    }
+  });
 })
 
 ipcMain.on('get_active_serial_port', async (event: any): Promise<SerialPort | null> => {
@@ -136,9 +174,8 @@ ipcMain.on('get_active_serial_port', async (event: any): Promise<SerialPort | nu
 
 ipcMain.on('air20_set_fan_operation_mode', (event: any, level: number) => {
   console.log(`SETTING AIR 2.0 FAN OPERATION MODE to [${level}]`)
-  current_air20_fan_operation_mode = clamp(level, 0, 99)
-  write_port(`0${current_air20_fan_operation_mode.toString()}`)
-})
+  write_port(`${level}\r`);
+});
 
 function write_port(message): boolean {
   if (!serial_port.writable) {
@@ -154,8 +191,4 @@ function write_port(message): boolean {
     console.log('message written')
     return true
   })
-}
-
-function clamp(number, min, max) {
-  return Math.max(min, Math.min(number, max));
 }

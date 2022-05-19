@@ -5,7 +5,7 @@ import { ElectronService } from '../electron/electron.service';
 
 const LOCAL_STORAGE_SERIAL_PATH = 'serial-communication.preferred-path';
 const LOCAL_STORAGE_SERIAL_BAUD = 'serial-communication.preferred-baudRate';
-const DEFAULT_BAUD_RATE = 57600;
+const DEFAULT_BAUD_RATE = 9600;
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +49,6 @@ export class SerialCommunication {
   }
 
   writeToActiveSerialPort = (event: string, data: number): void => {
-    data = this.normalize(data, 0, 5, 0, 99) // put 0-5 number between 0 and 99
     this.electronService.ipcRenderer.send(event, data);
   };
 
