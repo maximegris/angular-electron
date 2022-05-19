@@ -5,7 +5,8 @@ import { LngLatBoundsLike } from 'mapbox-gl';
 import { finalize } from 'rxjs/operators';
 import { AbstractComponent } from '../../core/abstract.component';
 import { GeojsonMapService } from '../../core/services';
-import { FullLocation } from '../../core/services/service.model';
+import { EnvironmentService } from '../../core/services/environment/environment.service';
+import { Device, FullLocation } from '../../core/services/service.model';
 import { findBounds, MapZoomEvent, MarkerClickEvent } from '../../shared/components/geojson-map/geojson-map.component';
 import { ImdfFeature, ImdfProps, isLevelFeature, LevelFeature } from '../../shared/components/geojson-map/imdf.types';
 import maxZoomInput from './max-zoom-markers.json';
@@ -60,6 +61,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   } = { device: false, room: false, floor: true };
 
   constructor(
+    private env: EnvironmentService,
     public mapService: GeojsonMapService,
   ) {
     super();
@@ -178,6 +180,8 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         // When creating anchor marker, I use the same id as for the parent feature
         const parentFeature = this.geojson.features.find(f => f.id === event.feature.id);
         this.focusOnFeatures([parentFeature]);
+        this.env.setCurrentLocation(this.featuresWithLocations[parentFeature.id]);
+        this.setSidePanelVisibility('room');
       } else {
         // Amenity/Device markers use unit_ids property to refer to their parent features
         const parentFeature = this.geojson.features.find(f => f.id === (event.feature.properties as any).unit_ids[0]);
@@ -186,14 +190,30 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           ...event,
           lngLat: event.feature.geometry.coordinates
         };
+        this.env.setCurrentDevice(new Device({
+          id: event.feature.id as string,
+          type: 'AIR20'
+        }));
+        this.setSidePanelVisibility('device');
       }
   }
 
   onMapClick(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
-    this.focusOnFeatures(features);
+    if (features.length) {
+      this.focusOnFeatures(features);
+      if (this.featuresWithLocations[features[0].id]) {
+        // clicked feature is a UVA location
+        this.env.setCurrentLocation(this.featuresWithLocations[features[0].id]);
+        this.setSidePanelVisibility('room');
+      }
+    } else {
+      this.focusOnFeatures(this.geojson.features);
+      this.env.setCurrentLocation(this.featuresWithLocations[LEVEL1ID]);
+      this.setSidePanelVisibility('floor');
+    }
   }
 
-  focusOnFeatures(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
+  focusOnFeatures(features: ImdfFeature<GeoJSON.Geometry, any>[]) {
     this.focusBounds = findBounds(features);
     // since this page has a panel covering it's left third, we will offset the bound to the right a bit
     const origWidth = this.focusBounds[2] - this.focusBounds[0];
