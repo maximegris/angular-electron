@@ -205,6 +205,8 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         // clicked feature is a UVA location
         this.env.setCurrentLocation(this.featuresWithLocations[features[0].id]);
         this.setSidePanelVisibility('room');
+      } else {
+        this.setSidePanelVisibility();
       }
     } else {
       this.focusOnFeatures(this.geojson.features);
@@ -232,7 +234,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     const controlPanel = document.getElementById('uvaEnviroControlPanel')
   }
 
-  setSidePanelVisibility(panelToShow: 'device' | 'room' | 'floor') {
+  setSidePanelVisibility(panelToShow: 'device' | 'room' | 'floor' | undefined = undefined) {
     this.sidePanelVisibility.device = false;
     this.sidePanelVisibility.room = false;
     this.sidePanelVisibility.floor = false;
