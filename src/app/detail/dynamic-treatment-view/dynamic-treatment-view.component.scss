@@ -1,6 +1,6 @@
 uvc-geojson-map {
     ::ng-deep .mapboxgl-canvas-container {
         // same as main-content div height in app component
-        height: 89vh;
+        height: calc(100vh - 64px);
     }
 }

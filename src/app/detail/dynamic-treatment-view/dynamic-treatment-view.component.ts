@@ -12,7 +12,9 @@ import { ImdfFeature, ImdfProps, isLevelFeature, LevelFeature } from '../../shar
 import maxZoomInput from './max-zoom-markers.json';
 
 const LEVEL1ID = '81e9fd76-b34a-45f6-a6dc-1f172f01e849';
-const ZOOM_LEVEL_DETAILS = 18.5;
+// the current walue represents zoom level when the exterior walkway is focused.
+// it is the largest feature with devices for which we want to show details
+const ZOOM_LEVEL_DETAILS = 17.6779015450;
 const MAP_ID = 'venue';
 
 @Component({
@@ -124,11 +126,13 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     this.featuresWithDevices = {};
     // take only those markers from input file that have 1 unit_id that points to a feature with location
     this.maxZoomMarkers = [];
+    let counter = 0;
     maxZoomInput.features.forEach(f => {
         if (f.properties?.unit_ids?.length === 1 && !!this.featuresWithLocations[f.properties.unit_ids[0]]) {
           this.maxZoomMarkers.push({
             type: 'Feature',
             id: f.id,
+            //id: 'Device' + counter,
             feature_type: 'amenity',
             geometry: {
               type: 'Point',
@@ -136,11 +140,12 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
             },
             properties: {
               ...f.properties,
-              device_name: 'Device #' + Math.floor(Math.random() * 100),
+              device_name: 'Device #' + counter++,
             } as unknown as ImdfProps,
           });
         }
       });
+      //console.log(this.maxZoomMarkers);
     this.minZoomMarkers = locationsOnLevel.map(f => ({
       type: 'Feature',
       feature_type: 'anchor',
@@ -164,12 +169,20 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
    */
   decideVisibleMarkers() {
     if (this.currZoomLevel > ZOOM_LEVEL_DETAILS) {
-      this.mapMarkers = null;
-      this.mapSymbols = this.maxZoomMarkers;
+      this.showDeviceMarkers()
     } else {
-      this.mapMarkers = this.minZoomMarkers;
-      this.mapSymbols = null;
+      this.showRoomMarkers();
     }
+  }
+
+  showRoomMarkers() {
+    this.mapMarkers = this.minZoomMarkers;
+    this.mapSymbols = null;
+  }
+
+  showDeviceMarkers() {
+    this.mapMarkers = null;
+    this.mapSymbols = this.maxZoomMarkers;
   }
 
   onMarkerClick(event: MarkerClickEvent) {
@@ -188,7 +201,8 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         this.focusOnFeatures([parentFeature]);
         this.lastClickedMarker = {
           ...event,
-          lngLat: event.feature.geometry.coordinates
+          // always create a new array otherwise change detection will not detect the same popup reopening
+          lngLat: [...event.feature.geometry.coordinates] as [number, number]
         };
         this.env.setCurrentDevice(new Device({
           id: event.feature.id as string,
@@ -200,11 +214,14 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
 
   onMapClick(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
     if (features.length) {
+      console.log('Feature id = ', features[0].id);
       this.focusOnFeatures(features);
       if (this.featuresWithLocations[features[0].id]) {
         // clicked feature is a UVA location
         this.env.setCurrentLocation(this.featuresWithLocations[features[0].id]);
         this.setSidePanelVisibility('room');
+      } else {
+        this.setSidePanelVisibility();
       }
     } else {
       this.focusOnFeatures(this.geojson.features);
@@ -222,7 +239,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   }
 
   onMapZoom(evt: MapZoomEvent) {
-    console.log("Map zoom level", evt.zoomLevel);
     this.currZoomLevel = evt.zoomLevel;
     this.decideVisibleMarkers();
   }
@@ -232,7 +248,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     const controlPanel = document.getElementById('uvaEnviroControlPanel')
   }
 
-  setSidePanelVisibility(panelToShow: 'device' | 'room' | 'floor') {
+  setSidePanelVisibility(panelToShow: 'device' | 'room' | 'floor' | undefined = undefined) {
     this.sidePanelVisibility.device = false;
     this.sidePanelVisibility.room = false;
     this.sidePanelVisibility.floor = false;

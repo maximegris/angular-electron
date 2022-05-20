@@ -68,25 +68,6 @@ export class Location {
                 mapId,
                 featureId: locationFeatureMock[data.id]
             };
-        } else if (Math.random() > 0.2) {
-            const featureMap = {
-                venue: [
-                    '9aab1fa4-8e7e-47b1-a40f-8269047ccd40',
-                    '4b95cf80-d27b-438a-9294-0776976c97fe',
-                    'b6f87afb-358d-43d0-93c7-43336d5ba8a1',
-                    '3beb9daf-68fc-40b0-84d3-d5c42277e755',
-                    '29e48c4d-da06-4a64-a810-9597adb4fc6b',
-                    'b3a74ebf-d538-4e9b-ac98-b17ce57d3201',
-                    '2b42921c-895b-4e2a-86dd-75915a28c987',
-                    '74a29cfa-f995-4ce2-aba8-b1c7f18d5d95',
-                    '947db578-5521-47ee-9938-07aa92a01659',
-                    '81d42240-5191-499b-bd41-06f0227d4016'
-                ],
-            };
-            this.mapInfo = {
-                mapId,
-                featureId: featureMap[mapId][Math.floor((Math.random() * (featureMap[mapId].length - 1)))]
-            };
         }
     }
 }
