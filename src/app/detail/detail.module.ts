@@ -26,11 +26,14 @@ import { UvaAqGraphComponent } from '../shared/components/uva-aq-graph/uva-aq-gr
 import { UvaEnviroControlPanelComponent } from '../shared/components/uva-enviro-control-panel/uva-enviro-control-panel.component';
 import { UvaSliderGroupComponent } from '../shared/components/uva-slider-group/uva-slider-group.component';
 import { UvaModeToggleComponent } from '../shared/components/uva-mode-toggle/uva-mode-toggle.component';
-import { UvaTotalAqGraphComponent } from '../shared/components/uva-total-aq-graph/uva-total-aq-graph.component';
+// import { UvaTotalAqGraphComponent } from '../shared/components/uva-total-aq-graph/uva-total-aq-graph.component';
 import { UvaDeviceModeComponent } from '../shared/components/uva-device-mode/uva-device-mode.component';
 import { UvaRoomPanelComponent } from '../shared/components/uva-room-panel/uva-room-panel.component';
 import { UvaFloorPanelComponent } from '../shared/components/uva-floor-panel/uva-floor-panel.component';
 import { UvaConsumableMonitorComponent } from '../shared/components/uva-consumable-monitor/uva-consumable-monitor.component';
+// import { UvaTotalAqGraphMarkerComponent } from '../shared/components/uva-total-aq-graph/uva-total-aq-graph-marker/uva-total-aq-graph-marker.component';
+
+import { UvaTotalAqGraphCjsComponent } from '../shared/components/uva-total-aq-graph-cjs/uva-total-aq-graph-cjs.component';
 
 
 @NgModule({
@@ -45,11 +48,11 @@ import { UvaConsumableMonitorComponent } from '../shared/components/uva-consumab
     UvaEnviroControlPanelComponent, 
     UvaSliderGroupComponent, 
     UvaModeToggleComponent,
-    UvaTotalAqGraphComponent,
+    UvaTotalAqGraphCjsComponent,
     UvaDeviceModeComponent,
     UvaRoomPanelComponent,
     UvaFloorPanelComponent,
-    UvaConsumableMonitorComponent
+    UvaConsumableMonitorComponent,
   ],
   imports: [
     CommonModule, 

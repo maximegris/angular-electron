@@ -21,5 +21,4 @@ export class UvaTotalAqGraphComponent implements OnInit {
         this.totalAq = environmentData.total
       });
   }
-
 }

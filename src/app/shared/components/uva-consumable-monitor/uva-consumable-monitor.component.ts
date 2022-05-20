@@ -28,9 +28,13 @@ export class UvaConsumableMonitorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = interval(1000)
+    this.subscription = interval(5000)
       .subscribe(remainingLife => {
-        this.remainingLife = 100 - remainingLife
+        if (remainingLife < 100) {
+          this.remainingLife = 100 - remainingLife
+        } else {
+          this.remainingLife = 0
+        }
       })
   }
 
