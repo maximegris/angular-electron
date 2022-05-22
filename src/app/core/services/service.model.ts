@@ -131,6 +131,21 @@ export class FullLocation extends LocationWithSublocations {
 export class Device {
     id: string;
     type: 'UVA20' | 'AIR175' | 'AIR20';
+    // where is the device installed, what location
+    location: FullLocation;
+    installationDate: Date;
+    // is manual mode enabled?
+    isManualMode: boolean;
+    // device event history
+    events: {
+        // Lamp/Filter/Door/...
+        part: string;
+        // Removed/Opened/...
+        action: string;
+        // timestamp when event happened
+        timestamp: Date;
+    }[];
+    name: string;
 
     constructor(initializer: Partial<Device> = {}) {
         Object.assign(this, initializer);

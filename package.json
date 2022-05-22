@@ -57,6 +57,7 @@
     "@angular/platform-browser-dynamic": "13.3.1",
     "@angular/router": "13.3.1",
     "chart.js": "3.7.1",
+    "date-fns": "2.28.0",
     "events": "^3.3.0",
     "mapbox-gl": "^2.8.1",
     "ng2-charts": "3.0.11",
