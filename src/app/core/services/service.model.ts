@@ -190,7 +190,7 @@ export class Device {
             temperature: {
                 minValue: 60,
                 maxValue: 90,
-                maxDeltaPerInterval: 0.05,
+                maxDeltaPerInterval: 1,
                 data: Array(this.historicalMinutes).fill({
                     value: 72,
                     timestamp: new Date()
@@ -199,7 +199,7 @@ export class Device {
             humidity: {
                 minValue: 0,
                 maxValue: 100,
-                maxDeltaPerInterval: 1,
+                maxDeltaPerInterval: 3,
                 data: Array(this.historicalMinutes).fill({
                     value: 50,
                     timestamp: new Date()
@@ -208,7 +208,7 @@ export class Device {
             voc: {
                 minValue: 0,
                 maxValue: 500,
-                maxDeltaPerInterval: 10,
+                maxDeltaPerInterval: 50,
                 data: Array(this.historicalMinutes).fill({
                     value: 30,
                     timestamp: new Date()
@@ -241,37 +241,37 @@ export class Device {
         // add new value to end of arrays
         newDataTick.temperature?.data.push({
             value: this.getRealisticPseudorandomNumber(
-                newDataTick.temperature?.data.find(() => true)?.value, // first object in array
+                newDataTick.temperature?.data[newDataTick.temperature?.data.length - 1]?.value, // first object in array
                 newDataTick.temperature?.maxDeltaPerInterval,
                 newDataTick.temperature?.minValue,
-                newDataTick.temperature?.minValue
+                newDataTick.temperature?.maxValue
             ),
             timestamp: new Date()
         })
         newDataTick.humidity?.data.push({
             value: this.getRealisticPseudorandomNumber(
-                newDataTick.humidity?.data.find(() => true)?.value, // first object in array
+                newDataTick.humidity?.data[newDataTick.humidity?.data.length - 1]?.value, // first object in array
                 newDataTick.humidity?.maxDeltaPerInterval,
                 newDataTick.humidity?.minValue,
-                newDataTick.humidity?.minValue
+                newDataTick.humidity?.maxValue
             ),
             timestamp: new Date()
         })
         newDataTick.voc?.data.push({
             value: this.getRealisticPseudorandomNumber(
-                newDataTick.voc?.data.find(() => true)?.value, // first object in array
+                newDataTick.voc?.data[newDataTick.voc?.data.length - 1]?.value, // first object in array
                 newDataTick.voc?.maxDeltaPerInterval,
                 newDataTick.voc?.minValue,
-                newDataTick.voc?.minValue
+                newDataTick.voc?.maxValue
             ),
             timestamp: new Date()
         })
         newDataTick.occupancy?.data.push({
             value: Math.round(this.getRealisticPseudorandomNumber(
-                newDataTick.occupancy?.data.find(() => true)?.value, // first object in array
+                newDataTick.occupancy?.data[newDataTick.occupancy?.data.length - 1]?.value, // first object in array
                 newDataTick.occupancy?.maxDeltaPerInterval,
                 newDataTick.occupancy?.minValue,
-                newDataTick.occupancy?.minValue
+                newDataTick.occupancy?.maxValue
             )),
             timestamp: new Date()
         })
@@ -282,10 +282,10 @@ export class Device {
     private getRealisticPseudorandomNumber(currentValue: number, maxMovement: number, overallMin: number, overallMax: number): number {
         let max: number = currentValue + maxMovement
         let min: number = currentValue - maxMovement
-        if ((currentValue - maxMovement) > overallMax) {
+        if (max > overallMax) {
             max = overallMax
         }
-        if ((currentValue - maxMovement) < overallMin) {
+        if (min < overallMin) {
             min = overallMin
         }
         currentValue = Math.round((Math.random() * (max - min) + min) * 100) / 100
