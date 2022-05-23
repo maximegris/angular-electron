@@ -14,6 +14,7 @@ export class UvaTotalAqGraphCjsComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   public totalAq: number;
   public environmentData: EnvironmentData;
+  public canvas: HTMLCanvasElement;
   unsubscribe$: Subject<EnvironmentData> = new Subject();
 
   public barChartOptions: ChartConfiguration['options'] = {
@@ -45,7 +46,7 @@ export class UvaTotalAqGraphCjsComponent {
   public barChartData: ChartData<'bar'> = {
     labels: ['TotalAQ'],
     datasets: [
-      { data: [10] },
+      { data: [10], backgroundColor: '#1b427f' },
     ]
   };
 
@@ -57,7 +58,7 @@ export class UvaTotalAqGraphCjsComponent {
       .subscribe(environmentData => {
         this.totalAq = environmentData.total
         this.barChartData.datasets[0].data = [Math.round(this.totalAq)]
-        this.chart.update()
+        this.chart?.update()
       });
   }
 

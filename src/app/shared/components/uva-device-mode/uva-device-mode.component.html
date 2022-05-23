@@ -1,2 +1,2 @@
-<div mat-card-avatar class="uva-device-card-header-image"></div>
-<div class="uva-device-mode">Mode: {{this.deviceMode}}</div>
+<div mat-card-avatar [ngStyle]="{backgroundImage:'url(../../../assets/fan-' + this.deviceMode + '.svg)'}" class="uva-device-card-header-image"></div>
+<div class="uva-device-mode">Mode: <span>{{this.deviceMode}}</span></div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
 import { Subject, takeUntil } from 'rxjs';
-import { off } from 'process';
 
 enum DeviceMode {
   HIGH = 'high',
@@ -18,6 +17,7 @@ enum DeviceMode {
 export class UvaDeviceModeComponent implements OnInit {
   public totalAq: number;
   public deviceMode: DeviceMode;
+  public deviceImage: string;
   public environmentData: EnvironmentData;
   unsubscribe$: Subject<EnvironmentData> = new Subject();
 
@@ -35,6 +35,7 @@ export class UvaDeviceModeComponent implements OnInit {
   getDeviceMode(): void {
     if (this.totalAq === 0 ) {
       this.deviceMode = DeviceMode.OFF;
+      this.deviceImage = 'fan-off.svg';
     } else if (this.totalAq < 33 ) {
       this.deviceMode = DeviceMode.LOW;
     } else if (this.totalAq < 66 ) {

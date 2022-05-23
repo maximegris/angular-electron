@@ -5,7 +5,6 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import url('http://fonts.cdnfonts.com/css/avenir');
 
-
 $fontConfig: (
   display-4: mat-typography-level(112px, 112px, 300, 'avenir', -0.0134em),
   display-3: mat-typography-level(56px, 56px, 400, 'avenir', -0.0089em),
@@ -163,7 +162,6 @@ $mat-primary: (
 );
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
-
 body {
   --accent-color: #424142;
   --accent-lighter-color: #c6c6c6;
@@ -186,7 +184,6 @@ $mat-accent: (
 );
 $theme-accent: mat-palette($mat-accent, main, lighter, darker);
 
-
 body {
   --warn-color: #ff0000;
   --warn-lighter-color: #ffb3b3;
@@ -208,7 +205,7 @@ $mat-warn: (
   )
 );
 $theme-warn: mat-palette($mat-warn, main, lighter, darker);
-;
+
 
 $theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
@@ -275,6 +272,12 @@ footer {
 .uva-slider-label {
   font-size: 12px;
   letter-spacing: 0.4px;
+}
+
+.uva-progress-bar-note {
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  font-weight: 200;
 }
 
 .uva-slider-group-container {
@@ -360,7 +363,6 @@ footer {
         max-width: 100px;
 
         .uva-device-card-header-image {
-          background-image: url('./assets/animated-fan.gif');
           background-size: cover;
           width: 100px;
           height: 100px;
@@ -372,6 +374,9 @@ footer {
           color: rgba(0, 0, 0, 0.87);
           letter-spacing: 0.4px;
           text-align: center;
+          span {
+            text-transform: capitalize;
+          }
         }
       }
 
@@ -436,17 +441,20 @@ footer {
           text-align: left;
         }
 
+        .uva-progress-bar-group {
+          padding: 18px;
+        }
+
         .uva-progress-bar-container {
           margin: 8px 0px 8px 0px;
-          padding: 8px;
+          padding: 2px;
         }
 
         .mat-progress-bar-buffer {
-          background-color: #e9f3fb; // FIXME: Should use variable. KR 20220512
+          background-color: var(--primary-lighter-color);
         }
 
         .uva-aq-graph-container {
-
           margin-top: 6px;
           margin-bottom: 6px;
 
@@ -455,13 +463,12 @@ footer {
             float: left;
             margin-top: 4px;
             margin-left: 4px;
-            border: 1px dotted #b3dfef;
+            border: 1px dotted var(--primary-lighter-color);
             width: 60px;
 
             #uvaAqTotalChart {
               padding-bottom: 2px;
             }
-
           }
 
           .uva-aq-component-container {
@@ -472,7 +479,7 @@ footer {
               padding: 2px;
 
               .uva-aq-component-graph-container {
-                border: 1px dotted #b3dfef;
+                border: 1px dotted var(--primary-lighter-color);
                 margin: 2px;
                 padding: 1px;
                 width: 132px;
