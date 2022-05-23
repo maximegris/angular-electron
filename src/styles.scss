@@ -5,7 +5,6 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import url('http://fonts.cdnfonts.com/css/avenir');
 
-     
 $fontConfig: (
   display-4: mat-typography-level(112px, 112px, 300, 'avenir', -0.0134em),
   display-3: mat-typography-level(56px, 56px, 400, 'avenir', -0.0089em),
@@ -33,21 +32,21 @@ $dark-dividers: rgba($dark-primary-text, 0.12);
 $dark-focused: rgba($dark-primary-text, 0.12);
 
 $mat-light-theme-foreground: (
-  base:              black,
-  divider:           $dark-dividers,
-  dividers:          $dark-dividers,
-  disabled:          $dark-disabled-text,
-  disabled-button:   rgba($dark-text, 0.26),
-  disabled-text:     $dark-disabled-text,
-  elevation:         black,
-  secondary-text:    $dark-accent-text,
-  hint-text:         $dark-disabled-text,
-  accent-text:       $dark-accent-text,
-  icon:              $dark-accent-text,
-  icons:             $dark-accent-text,
-  text:              $dark-primary-text,
-  slider-min:        $dark-primary-text,
-  slider-off:        rgba($dark-text, 0.26),
+  base: black,
+  divider: $dark-dividers,
+  dividers: $dark-dividers,
+  disabled: $dark-disabled-text,
+  disabled-button: rgba($dark-text, 0.26),
+  disabled-text: $dark-disabled-text,
+  elevation: black,
+  secondary-text: $dark-accent-text,
+  hint-text: $dark-disabled-text,
+  accent-text: $dark-accent-text,
+  icon: $dark-accent-text,
+  icons: $dark-accent-text,
+  text: $dark-primary-text,
+  slider-min: $dark-primary-text,
+  slider-off: rgba($dark-text, 0.26),
   slider-off-active: $dark-disabled-text,
 );
 
@@ -60,80 +59,80 @@ $light-dividers: rgba($light-primary-text, 0.12);
 $light-focused: rgba($light-primary-text, 0.12);
 
 $mat-dark-theme-foreground: (
-  base:              $light-text,
-  divider:           $light-dividers,
-  dividers:          $light-dividers,
-  disabled:          $light-disabled-text,
-  disabled-button:   rgba($light-text, 0.3),
-  disabled-text:     $light-disabled-text,
-  elevation:         black,
-  hint-text:         $light-disabled-text,
-  secondary-text:    $light-accent-text,
-  accent-text:       $light-accent-text,
-  icon:              $light-text,
-  icons:             $light-text,
-  text:              $light-text,
-  slider-min:        $light-text,
-  slider-off:        rgba($light-text, 0.3),
+  base: $light-text,
+  divider: $light-dividers,
+  dividers: $light-dividers,
+  disabled: $light-disabled-text,
+  disabled-button: rgba($light-text, 0.3),
+  disabled-text: $light-disabled-text,
+  elevation: black,
+  hint-text: $light-disabled-text,
+  secondary-text: $light-accent-text,
+  accent-text: $light-accent-text,
+  icon: $light-text,
+  icons: $light-text,
+  text: $light-text,
+  slider-min: $light-text,
+  slider-off: rgba($light-text, 0.3),
   slider-off-active: rgba($light-text, 0.3),
 );
 
 // Background config
 // Light bg
-$light-background:    #fafafa;
-$light-bg-darker-5:   darken($light-background, 5%);
-$light-bg-darker-10:  darken($light-background, 10%);
-$light-bg-darker-20:  darken($light-background, 20%);
-$light-bg-darker-30:  darken($light-background, 30%);
-$light-bg-lighter-5:  lighten($light-background, 5%);
-$dark-bg-tooltip:     lighten(#2c2c2c, 20%);
-$dark-bg-alpha-4:     rgba(#2c2c2c, 0.04);
-$dark-bg-alpha-12:    rgba(#2c2c2c, 0.12);
+$light-background: #fafafa;
+$light-bg-darker-5: darken($light-background, 5%);
+$light-bg-darker-10: darken($light-background, 10%);
+$light-bg-darker-20: darken($light-background, 20%);
+$light-bg-darker-30: darken($light-background, 30%);
+$light-bg-lighter-5: lighten($light-background, 5%);
+$dark-bg-tooltip: lighten(#2c2c2c, 20%);
+$dark-bg-alpha-4: rgba(#2c2c2c, 0.04);
+$dark-bg-alpha-12: rgba(#2c2c2c, 0.12);
 
 $mat-light-theme-background: (
-  background:               $light-background,
-  status-bar:               $light-bg-darker-20,
-  app-bar:                  $light-bg-darker-5,
-  hover:                    $dark-bg-alpha-4,
-  card:                     $light-bg-lighter-5,
-  dialog:                   $light-bg-lighter-5,
-  tooltip:                  $dark-bg-tooltip,
-  disabled-button:          $dark-bg-alpha-12,
-  raised-button:            $light-bg-lighter-5,
-  focused-button:           $dark-focused,
-  selected-button:          $light-bg-darker-20,
+  background: $light-background,
+  status-bar: $light-bg-darker-20,
+  app-bar: $light-bg-darker-5,
+  hover: $dark-bg-alpha-4,
+  card: $light-bg-lighter-5,
+  dialog: $light-bg-lighter-5,
+  tooltip: $dark-bg-tooltip,
+  disabled-button: $dark-bg-alpha-12,
+  raised-button: $light-bg-lighter-5,
+  focused-button: $dark-focused,
+  selected-button: $light-bg-darker-20,
   selected-disabled-button: $light-bg-darker-30,
-  disabled-button-toggle:   $light-bg-darker-10,
-  unselected-chip:          $light-bg-darker-10,
-  disabled-list-option:     $light-bg-darker-10,
+  disabled-button-toggle: $light-bg-darker-10,
+  unselected-chip: $light-bg-darker-10,
+  disabled-list-option: $light-bg-darker-10,
 );
 
 // Dark bg
-$dark-background:     #2c2c2c;
-$dark-bg-lighter-5:   lighten($dark-background, 5%);
-$dark-bg-lighter-10:  lighten($dark-background, 10%);
-$dark-bg-lighter-20:  lighten($dark-background, 20%);
-$dark-bg-lighter-30:  lighten($dark-background, 30%);
-$light-bg-alpha-4:    rgba(#fafafa, 0.04);
-$light-bg-alpha-12:   rgba(#fafafa, 0.12);
+$dark-background: #2c2c2c;
+$dark-bg-lighter-5: lighten($dark-background, 5%);
+$dark-bg-lighter-10: lighten($dark-background, 10%);
+$dark-bg-lighter-20: lighten($dark-background, 20%);
+$dark-bg-lighter-30: lighten($dark-background, 30%);
+$light-bg-alpha-4: rgba(#fafafa, 0.04);
+$light-bg-alpha-12: rgba(#fafafa, 0.12);
 
 // Background palette for dark themes.
 $mat-dark-theme-background: (
-  background:               $dark-background,
-  status-bar:               $dark-bg-lighter-20,
-  app-bar:                  $dark-bg-lighter-5,
-  hover:                    $light-bg-alpha-4,
-  card:                     $dark-bg-lighter-5,
-  dialog:                   $dark-bg-lighter-5,
-  tooltip:                  $dark-bg-lighter-20,
-  disabled-button:          $light-bg-alpha-12,
-  raised-button:            $dark-bg-lighter-5,
-  focused-button:           $light-focused,
-  selected-button:          $dark-bg-lighter-20,
+  background: $dark-background,
+  status-bar: $dark-bg-lighter-20,
+  app-bar: $dark-bg-lighter-5,
+  hover: $light-bg-alpha-4,
+  card: $dark-bg-lighter-5,
+  dialog: $dark-bg-lighter-5,
+  tooltip: $dark-bg-lighter-20,
+  disabled-button: $light-bg-alpha-12,
+  raised-button: $dark-bg-lighter-5,
+  focused-button: $light-focused,
+  selected-button: $dark-bg-lighter-20,
   selected-disabled-button: $dark-bg-lighter-30,
-  disabled-button-toggle:   $dark-bg-lighter-10,
-  unselected-chip:          $dark-bg-lighter-20,
-  disabled-list-option:     $dark-bg-lighter-10,
+  disabled-button-toggle: $dark-bg-lighter-10,
+  unselected-chip: $dark-bg-lighter-20,
+  disabled-list-option: $dark-bg-lighter-10,
 );
 
 // Compute font config
@@ -148,20 +147,20 @@ body {
   --text-primary-color: #{$light-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
   --text-primary-darker-color: #{$light-primary-text};
-}   
+}
+
 $mat-primary: (
   main: #0093c8,
   lighter: #b3dfef,
   darker: #0076b4,
-  200: #0093c8, // For slide toggle,
-  contrast : (
-    main: $light-primary-text,
+  200: #0093c8,
+  // For slide toggle,
+  contrast : (main: $light-primary-text,
     lighter: $dark-primary-text,
     darker: $light-primary-text,
   )
 );
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
-
 
 body {
   --accent-color: #424142;
@@ -170,20 +169,20 @@ body {
   --text-accent-color: #{$light-primary-text};
   --text-accent-lighter-color: #{$dark-primary-text};
   --text-accent-darker-color: #{$light-primary-text};
-}   
+}
+
 $mat-accent: (
   main: #424142,
   lighter: #c6c6c6,
   darker: #2b2a2b,
-  200: #424142, // For slide toggle,
-  contrast : (
-    main: $light-primary-text,
+  200: #424142,
+  // For slide toggle,
+  contrast : (main: $light-primary-text,
     lighter: $dark-primary-text,
     darker: $light-primary-text,
   )
 );
 $theme-accent: mat-palette($mat-accent, main, lighter, darker);
-
 
 body {
   --warn-color: #ff0000;
@@ -192,20 +191,21 @@ body {
   --text-warn-color: #{$light-primary-text};
   --text-warn-lighter-color: #{$dark-primary-text};
   --text-warn-darker-color: #{$light-primary-text};
-}   
+}
+
 $mat-warn: (
   main: #ff0000,
   lighter: #ffb3b3,
   darker: #ff0000,
-  200: #ff0000, // For slide toggle,
-  contrast : (
-    main: $light-primary-text,
+  200: #ff0000,
+  // For slide toggle,
+  contrast : (main: $light-primary-text,
     lighter: $dark-primary-text,
     darker: $light-primary-text,
   )
 );
 $theme-warn: mat-palette($mat-warn, main, lighter, darker);
-;
+
 
 $theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
@@ -220,7 +220,9 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 // Specific component overrides, pieces that are not in line with the general theming
 
 // Handle buttons appropriately, with respect to line-height
-.mat-raised-button, .mat-stroked-button, .mat-flat-button {
+.mat-raised-button,
+.mat-stroked-button,
+.mat-flat-button {
   padding: 0 1.15em;
   margin: 0 .65em;
   min-width: 3em;
@@ -234,7 +236,8 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 
 .material-icons {
   font-size: 24px;
-  font-family: 'Material Icons', 'Material Icons';  
+  font-family: 'Material Icons', 'Material Icons';
+
   .mat-badge-content {
     font-family: 'avenir';
   }
@@ -242,7 +245,7 @@ $altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 
 // Custom code
 
-$uva-light-gray: rgba(0,0,0,0.14);
+$uva-light-gray: rgba(0, 0, 0, 0.14);
 
 body {
   width: 100%;
@@ -265,23 +268,34 @@ footer {
   text-align: center;
 }
 
-.uva-progress-bar-label, .uva-slider-label {
+.uva-progress-bar-label,
+.uva-slider-label {
   font-size: 12px;
   letter-spacing: 0.4px;
+}
+
+.uva-progress-bar-note {
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  font-weight: 200;
 }
 
 .uva-slider-group-container {
   .uva-slider-group-label {
     text-transform: capitalize;
   }
+
+  .mat-slider-track-fill,
+  .mat-slider-wrapper,
+  .mat-slider-track-wrapper,
   .mat-slider-track-background {
-    background-color: #b3dfef;
+    background-color: var(--primary-lighter-color);
   }
+
   .mat-slider-thumb-container {
-    fill: #0093c8;
+    fill: var(--primary-color);
   }
 }
-
 
 .uva-device-panel {
   position: absolute;
@@ -323,6 +337,7 @@ footer {
     float: left;
     width: 50%;
   }
+
   .uva-right {
     display: inline-block;
     text-align: right;
@@ -337,6 +352,7 @@ footer {
   .uva-device-card-header {
     padding: 0px;
     border-bottom: 1px solid $uva-light-gray;
+
     .uva-device-card-header-container {
       margin: 16px;
       min-height: 100px;
@@ -345,46 +361,50 @@ footer {
         display: inline;
         float: left;
         max-width: 100px;
+
         .uva-device-card-header-image {
-          background-image: url('./assets/animated-fan.gif');
           background-size: cover;
           width: 100px;
           height: 100px;
           margin: auto auto;
         }
+
         .uva-device-mode {
           font-size: 12px;
-          color: rgba(0,0,0,0.87);
+          color: rgba(0, 0, 0, 0.87);
           letter-spacing: 0.4px;
           text-align: center;
+          span {
+            text-transform: capitalize;
+          }
         }
       }
-    
+
       .uva-device-card-header-details-block {
         display: inline-block;
         padding: 0px 32px;
 
         .uva-device-type {
           font-size: 10px;
-          color: rgba(0,0,0,0.87);
+          color: rgba(0, 0, 0, 0.87);
           letter-spacing: 1.5px;
           text-transform: uppercase;
           margin-bottom: 6px;
         }
-    
+
         .uva-device-name {
           font-family: Avenir-Book;
           font-size: 24px;
-          color: rgba(0,0,0,0.87);
+          color: rgba(0, 0, 0, 0.87);
           letter-spacing: 0;
           text-align: left;
           line-height: 24px;
           margin-bottom: 16px;
         }
-    
+
         .uva-device-details {
           font-size: 12px;
-          color: rgba(0,0,0,0.87);
+          color: rgba(0, 0, 0, 0.87);
           letter-spacing: 0.4px;
           text-align: left;
           line-height: 18px;
@@ -396,6 +416,13 @@ footer {
   .uva-device-card-content {
     padding: 0px;
 
+    .uva-chart-caption {
+      text-transform: capitalize;
+      font-size: 12px !important;
+      color: rgba(0, 0, 0, 0.87);
+      letter-spacing: 0.4px;
+    }
+
     .uva-device-card-content-container {
       padding: 0px;
       min-height: 100px;
@@ -404,56 +431,58 @@ footer {
       .uva-device-card-content-section {
         padding: 16px;
         min-height: 160px;
+
         h4 {
           padding: 0px;
           margin: 0px;
           font-size: 16px;
-          color: rgba(0,0,0,0.87);
+          color: rgba(0, 0, 0, 0.87);
           letter-spacing: 0.15px;
           text-align: left;
         }
-      
+
+        .uva-progress-bar-group {
+          padding: 18px;
+        }
+
         .uva-progress-bar-container {
           margin: 8px 0px 8px 0px;
-          padding: 8px;       
+          padding: 2px;
         }
-        
+
         .mat-progress-bar-buffer {
-          background-color: #e9f3fb; // FIXME: Should use variable. KR 20220512
+          background-color: var(--primary-lighter-color);
         }
 
         .uva-aq-graph-container {
           margin-top: 6px;
-          padding-top: 8px;
-          min-height: 150px;
+          margin-bottom: 6px;
+
           .uva-aq-total-container {
-            padding: 2px;
             display: inline;
             float: left;
-            max-width: 72px;
-            #uvaTotalAqChart {
-              background: linear-gradient(to bottom, #1B427F, #1B427F 20%, #fff 100%);
-              height: 192px;
-              min-width: 70px;
-              border: 1px solid #c6c6c6;
+            margin-top: 4px;
+            margin-left: 4px;
+            border: 1px dotted var(--primary-lighter-color);
+            width: 60px;
+
+            #uvaAqTotalChart {
+              padding-bottom: 2px;
             }
           }
+
           .uva-aq-component-container {
             display: inline-block;
             width: 284px;
+
             .uva-aq-component-graph-row {
               padding: 2px;
+
               .uva-aq-component-graph-container {
-                border: 1px dotted #b3dfef;
+                border: 1px dotted var(--primary-lighter-color);
                 margin: 2px;
                 padding: 1px;
                 width: 132px;
-                .uva-chart-caption {
-                  text-transform: capitalize;
-                  font-size: 12px;
-                  color: rgba(0,0,0,0.87);
-                  letter-spacing: 0.4px;
-                }         
               }
             }
           }
@@ -462,6 +491,7 @@ footer {
     }
   }
 }
+
 
 #uvaEnviroControlPanel {
   border: 1px solid $uva-light-gray;
@@ -474,14 +504,15 @@ footer {
   top: 140px;
   left: 450px;
   z-index: 1001;
-  point
-  h1 {
+
+  point h1 {
     font-size: 20px;
     font-weight: 400;
     letter-spacing: 0.15px;
     padding: 0px;
     margin: 0 0 6 0px;
   }
+
   .uva-dialog-actions {
     button {
       float: right;
@@ -492,6 +523,7 @@ footer {
       border-radius: 4px;
     }
   }
+
   .uva-drag-handle {
     position: absolute;
     top: 10px;
@@ -501,8 +533,10 @@ footer {
     width: 24px;
     height: 24px;
   }
+
   .uva-slider-container {
     padding: 24px;
+
     .mat-slider {
       width: 100%;
     }
