@@ -176,7 +176,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       id: id,
       type: 'AIR20',
       location: deviceLocation,
-      isManualMode: false,
       // random date some time in the last year
       installationDate: new Date(new Date().getTime() - Math.random() * 365 * 24 * 60 * 60 * 1000),
       name,

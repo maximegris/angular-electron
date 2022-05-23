@@ -134,8 +134,6 @@ export class Device {
     // where is the device installed, what location
     location: FullLocation;
     installationDate: Date;
-    // is manual mode enabled?
-    isManualMode: boolean;
     // device event history
     events: {
         // Lamp/Filter/Door/...
