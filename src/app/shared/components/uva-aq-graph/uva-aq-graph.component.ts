@@ -75,8 +75,6 @@ export class UvaAqGraphComponent implements OnChanges {
     this.lineChartData.datasets[0].label = this.measurand
     this.lineChartOptions.scales.y.min = this.minValue
     this.lineChartOptions.scales.y.max = this.maxValue
-
-    console.log("SETTING UP MIN MAX", this.maxValue, this.minValue)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
