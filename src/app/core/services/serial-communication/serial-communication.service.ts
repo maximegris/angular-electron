@@ -13,10 +13,12 @@ const DEFAULT_BAUD_RATE = 9600;
 export class SerialCommunication {
 
   private $activeSerialPort: BehaviorSubject<SerialPort> = new BehaviorSubject(null);
+  private $lastSerialMessage: BehaviorSubject<string> = new BehaviorSubject(null);
   private serialPortErrorOccurred: boolean = false;
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   public readonly activeSerialPort: Observable<SerialPort> = this.$activeSerialPort.asObservable();
+  public readonly lastSerialMessage: Observable<string> = this.$lastSerialMessage.asObservable();
 
   constructor(
     private electronService: ElectronService,
@@ -29,13 +31,8 @@ export class SerialCommunication {
       }
     }, 2000);
 
-    electronService.ipcRenderer.on('serial_port_disconnect', () => {
-      console.log('SERIAL PORT WAS DISCONNECTED!!!');
-      new Notification('Device Disconnected', {
-        body: `serial port disconnected`
-      });
-      this.serialPortErrorOccurred = true;
-      this.$activeSerialPort.next(null);
+    electronService.ipcRenderer.on('serial_port_data', (event, data) => {
+      this.$lastSerialMessage.next(data)
     });
 
     electronService.ipcRenderer.on('serial_port_error', (event, error) => {
@@ -146,8 +143,4 @@ export class SerialCommunication {
     console.log(`Setting Serial Port: ${port.path} | ${storedBaudNumber}`);
     this.setSerialPort(port.path, storedBaudNumber);
   };
-
-  private normalize(num, fromMin, fromMax, toMin, toMax) {
-    return toMin + (num - fromMin) / (fromMax - fromMin) * (toMax - toMin)
-  }
 }

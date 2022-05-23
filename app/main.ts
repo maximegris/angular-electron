@@ -130,38 +130,8 @@ ipcMain.on('set_serial_port', (event: any, path: string, baudRate: string) => {
 
   serial_parser = serial_port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
   serial_parser.on('data', (data) => {
-    console.log(`recieved serial data: "${data}"`)
-
-    const incoming_data_array = data.split(': ');
-
-    if (incoming_data_array.length !== 2) {
-      console.log(`recieved unknown datapacket: "${data}`)
-      return;
-    }
-
-    switch (incoming_data_array[0]) {
-      case 'M':
-        const newFanSpeed = Number(incoming_data_array[1]);
-        if (newFanSpeed >= 0) {
-          console.log(`Fan speed set to ${newFanSpeed}`);
-        } else {
-          console.log(`Invalid Fan Speed "${newFanSpeed}"... did not set!`);
-        }
-        break;
-      case 'DS':
-        const doorStatus = incoming_data_array[1];
-        if (doorStatus === 'O') {
-          console.log(`Door Opened!`);
-        } else if (doorStatus === 'C') {
-          console.log(`Door Closed!`);
-        } else {
-          console.log(`Invalid door status recieved: "${doorStatus}". only 'C', 'O' expected.`);
-        }
-        break;
-      default:
-        console.log(`unknown datatype prefix "${incoming_data_array[0]}". expected "M" or "DS".`);
-        break;
-    }
+    console.log("Got Data!", data)
+    win.webContents.send('serial_port_data', data);
   });
 })
 

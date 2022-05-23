@@ -1,5 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { locationFeatureMock } from './geojson/location-feature.mock';
+import { differenceInSeconds } from 'date-fns'
 
 export interface User {
     id: string;
@@ -160,6 +161,15 @@ export interface RollingEnvironmentalData {
     }
 }
 
+export interface DeviceEvent {
+    // Lamp/Filter/Door/...
+    part: string;
+    // Removed/Opened/...
+    action: string;
+    // timestamp when event happened
+    timestamp: Date;
+}
+
 
 export class Device {
     id: string;
@@ -168,16 +178,11 @@ export class Device {
     location: FullLocation;
     installationDate: Date;
     // device event history
-    events: {
-        // Lamp/Filter/Door/...
-        part: string;
-        // Removed/Opened/...
-        action: string;
-        // timestamp when event happened
-        timestamp: Date;
-    }[];
+    events: DeviceEvent[];
     name: string;
 
+    private maxEvents = 7;
+    private maxEventSecondsTilClear = 30;
     private historicalMinutes = 60;
     private dataGenerationInterval;
 
@@ -225,6 +230,13 @@ export class Device {
             }
         })
         this.startDataGeneration();
+    }
+
+    addEvent(event: DeviceEvent) {
+        this.events.unshift(event)
+        if (this.events.length > this.maxEvents) {
+            this.events.pop()
+        }
     }
 
     // generate data for this device
@@ -275,6 +287,17 @@ export class Device {
             )),
             timestamp: new Date()
         })
+
+        if (this.events && this.events.length > 0) {
+            const secondsSinceLastEvent = differenceInSeconds(
+                new Date(),
+                this.events[this.events.length - 1].timestamp
+            )
+            if (secondsSinceLastEvent > this.maxEventSecondsTilClear) {
+                // remove oldest event
+                this.events.pop()
+            }
+        }
 
         this.$environmentalData.next(newDataTick)
     }
