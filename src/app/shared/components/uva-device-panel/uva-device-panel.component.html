@@ -1,16 +1,16 @@
-<mat-card class="uva-device-card mat-elevation-z2">
+<mat-card class="uva-device-card mat-elevation-z2" *ngIf="device">
   <mat-card-header class="uva-device-card-header">
     <div class="uva-device-card-header-container">
       <div class="uva-device-card-header-section uva-device-card-header-mode-block">
         <uva-device-mode></uva-device-mode>
       </div>
       <div class="uva-device-card-header-section uva-device-card-header-details-block">
-        <div class="uva-device-type">UV Angel Air 2.0</div>
-        <div class="uva-device-name">UVA HQ Unit 124</div>
+        <div class="uva-device-type">{{ deviceTypeHumanized }}</div>
+        <div class="uva-device-name">{{ device.name }}</div>
         <div class="uva-device-details">
-          <div>Location: UVA HQ Lab 1</div>
-          <div>Serial #: SE123401-1351-1234</div>
-          <div>Installation Date: Dec 12, 2021</div>
+          <div>Location: {{ device.location.name }}</div>
+          <div>Serial #: {{ device.id }}</div>
+          <div>Installation Date: {{ device.installationDate | date:'MMM d, YYYY' }}</div>
         </div>
       </div>  
     </div>
@@ -31,18 +31,22 @@
           <div class="uva-aq-component-container">
             <div class="uva-aq-component-graph-row">
               <div class="uva-aq-component-graph-container uva-left">
-                <uva-aq-graph measurand="temperature" label="Temperature"></uva-aq-graph>
+                <uva-aq-graph measurand="temperature" label="Temperature" [minValue]="temperatureData.minValue"
+                  [maxValue]="temperatureData.maxValue" [data]="temperatureData.data" [labels]="temperatureData.labels"></uva-aq-graph>
               </div>
               <div class="uva-aq-component-graph-container uva-right">
-                <uva-aq-graph measurand="humidity" label="Humidity"></uva-aq-graph>
+                <uva-aq-graph measurand="humidity" label="Humidity" [minValue]="humidityData.minValue"
+                  [maxValue]="humidityData.maxValue" [data]="humidityData.data" [labels]="humidityData.labels"></uva-aq-graph>
               </div>  
             </div>
             <div class="uva-aq-component-graph-row">
               <div class="uva-aq-component-graph-container uva-left">
-                <uva-aq-graph measurand="voc" label="VOC"></uva-aq-graph>
+                <uva-aq-graph measurand="voc" label="VOC" [minValue]="vocData.minValue"
+                  [maxValue]="vocData.maxValue" [data]="vocData.data" [labels]="vocData.labels"></uva-aq-graph>
               </div>
               <div class="uva-aq-component-graph-container uva-right">
-                <uva-aq-graph measurand="occupancy" label="Occupancy"></uva-aq-graph>
+                <uva-aq-graph measurand="occupancy" label="Occupancy" [minValue]="occupancyData.minValue"
+                  [maxValue]="occupancyData.maxValue" [data]="occupancyData.data" [labels]="occupancyData.labels"></uva-aq-graph>
               </div>  
             </div>
           </div>  
@@ -54,10 +58,14 @@
         <h4>Parts Status</h4>
         <div class="uva-progress-bar-group mat-elevation-z3">
           <div class="uva-progress-bar-container">
-            <uva-consumable-monitor type="lamp" label="Lamp"></uva-consumable-monitor>
+            <span class="uva-progress-bar-label">Lamp</span>
+            <mat-progress-bar mode="determinate" [value]="lampDaysLeft / LAMP_LIFE_DAYS * 100"></mat-progress-bar>
+            <span class="uva-progress-bar-note">Est. Replacement: {{ lampReplacementDate | date:'MMM d YYYY' }} ({{ lampDaysLeft }} days)</span>
           </div>
           <div class="uva-progress-bar-container">
-              <uva-consumable-monitor type="filter" label="Filter"></uva-consumable-monitor>
+            <span class="uva-progress-bar-label">Filter</span>
+            <mat-progress-bar mode="determinate" [value]="filterDaysLeft / FILTER_LIFE_DAYS * 100"></mat-progress-bar>
+            <span class="uva-progress-bar-note">Est. Replacement: {{ filterReplacementDate | date:'MMM d YYYY' }} ({{ filterDaysLeft }} days)</span>
           </div>  
         </div>
       </div>
@@ -65,7 +73,7 @@
     <div class="uva-device-card-content-container">
       <div class="uva-device-card-content-section">
         <h4>Event History</h4>
-        <uva-event-table></uva-event-table>
+        <uva-event-table [eventData]="eventData"></uva-event-table>
       </div>
     </div>
     </mat-card-content>

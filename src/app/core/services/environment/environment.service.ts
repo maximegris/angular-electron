@@ -39,7 +39,6 @@ export class EnvironmentService {
   private currentLocationSubject = new ReplaySubject<FullLocation | null>(1);
   private currentDeviceSubject = new ReplaySubject<Device | null>(1);
 
-
   public readonly currentLocation$ = this.currentLocationSubject.asObservable();
   public readonly currentDevice$ = this.currentDeviceSubject.asObservable();
 

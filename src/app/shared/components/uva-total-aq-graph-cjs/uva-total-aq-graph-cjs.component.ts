@@ -3,7 +3,6 @@ import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Subject, takeUntil } from 'rxjs';
 import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
-import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'uva-total-aq-graph-cjs',
@@ -36,10 +35,6 @@ export class UvaTotalAqGraphCjsComponent {
       legend: {
         display: false,
       },
-      datalabels: {
-        anchor: 'end',
-        align: 'end'
-      }
     }
   };
   public barChartType: ChartType = 'bar';

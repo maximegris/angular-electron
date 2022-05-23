@@ -1,12 +1,12 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 
-interface EventElement {
+export interface EventElement {
   id: number;
   Item: string;
   Event: string;
-  Date: string; // FIXME: Should be date
+  Date: Date;
 }  
 
 @Component({
@@ -18,16 +18,14 @@ interface EventElement {
 export class UvaEventTable implements OnInit {
   displayedColumns: string[] = ['Item', 'Event', 'Date'];
 
-  EVENT_DATA: EventElement[] = [
-    { id: 1, Item: 'Lamp', Event: 'Removed', Date: '12/22/2021'},
-    { id: 2, Item: 'Filter', Event: 'Detected new', Date: '12/22/2021'},
-    { id: 3, Item: 'Door', Event: 'Opened', Date: '12/30/2021'},
-    { id: 4, Item: 'Filter', Event: 'Removed', Date: '12/31/2021'},
-  ];
+  @Input()
+  set eventData(data: EventElement[]) {
+    this.dataSource = new MatTableDataSource(data);
+  }
   
-  dataSource = new MatTableDataSource(this.EVENT_DATA)
+  dataSource: MatTableDataSource<EventElement>;
 
   constructor() {}
-  ngAfterViewInit() {}
+
   ngOnInit() {}
 }

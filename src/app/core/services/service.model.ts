@@ -1,3 +1,4 @@
+import { BehaviorSubject, Observable } from 'rxjs';
 import { locationFeatureMock } from './geojson/location-feature.mock';
 
 export interface User {
@@ -68,25 +69,6 @@ export class Location {
                 mapId,
                 featureId: locationFeatureMock[data.id]
             };
-        } else if (Math.random() > 0.2) {
-            const featureMap = {
-                venue: [
-                    '9aab1fa4-8e7e-47b1-a40f-8269047ccd40',
-                    '4b95cf80-d27b-438a-9294-0776976c97fe',
-                    'b6f87afb-358d-43d0-93c7-43336d5ba8a1',
-                    '3beb9daf-68fc-40b0-84d3-d5c42277e755',
-                    '29e48c4d-da06-4a64-a810-9597adb4fc6b',
-                    'b3a74ebf-d538-4e9b-ac98-b17ce57d3201',
-                    '2b42921c-895b-4e2a-86dd-75915a28c987',
-                    '74a29cfa-f995-4ce2-aba8-b1c7f18d5d95',
-                    '947db578-5521-47ee-9938-07aa92a01659',
-                    '81d42240-5191-499b-bd41-06f0227d4016'
-                ],
-            };
-            this.mapInfo = {
-                mapId,
-                featureId: featureMap[mapId][Math.floor((Math.random() * (featureMap[mapId].length - 1)))]
-            };
         }
     }
 }
@@ -147,11 +129,177 @@ export class FullLocation extends LocationWithSublocations {
     }
 }
 
+export interface TimestampedNumericalDatapoint {
+    value: number,
+    timestamp: Date
+}
+export interface RollingEnvironmentalData {
+    temperature?: {
+        minValue: number,
+        maxValue: number,
+        maxDeltaPerInterval: number,
+        data: TimestampedNumericalDatapoint[]
+    },
+    humidity?: {
+        minValue: number,
+        maxValue: number,
+        maxDeltaPerInterval: number,
+        data: TimestampedNumericalDatapoint[]
+    },
+    voc?: {
+        minValue: number,
+        maxValue: number,
+        maxDeltaPerInterval: number,
+        data: TimestampedNumericalDatapoint[]
+    },
+    occupancy?: {
+        minValue: number,
+        maxValue: number,
+        maxDeltaPerInterval: number,
+        data: TimestampedNumericalDatapoint[]
+    }
+}
+
+
 export class Device {
     id: string;
     type: 'UVA20' | 'AIR175' | 'AIR20';
+    // where is the device installed, what location
+    location: FullLocation;
+    installationDate: Date;
+    // device event history
+    events: {
+        // Lamp/Filter/Door/...
+        part: string;
+        // Removed/Opened/...
+        action: string;
+        // timestamp when event happened
+        timestamp: Date;
+    }[];
+    name: string;
+
+    private historicalMinutes = 60;
+    private dataGenerationInterval;
+
+    private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null);
+    public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable();
 
     constructor(initializer: Partial<Device> = {}) {
         Object.assign(this, initializer);
+        this.$environmentalData.next({
+            temperature: {
+                minValue: 60,
+                maxValue: 90,
+                maxDeltaPerInterval: 0.05,
+                data: Array(this.historicalMinutes).fill({
+                    value: 72,
+                    timestamp: new Date()
+                }) // fill with default value
+            },
+            humidity: {
+                minValue: 0,
+                maxValue: 100,
+                maxDeltaPerInterval: 1,
+                data: Array(this.historicalMinutes).fill({
+                    value: 50,
+                    timestamp: new Date()
+                }) // fill with default value
+            },
+            voc: {
+                minValue: 0,
+                maxValue: 500,
+                maxDeltaPerInterval: 10,
+                data: Array(this.historicalMinutes).fill({
+                    value: 30,
+                    timestamp: new Date()
+                }) // fill with default value
+            },
+            occupancy: {
+                minValue: 0,
+                maxValue: 30,
+                maxDeltaPerInterval: 3,
+                data: Array(this.historicalMinutes).fill({
+                    value: 0,
+                    timestamp: new Date()
+                }) // fill with default value
+            }
+        })
+        this.startDataGeneration();
+    }
+
+    // generate data for this device
+    // ms: milliseconds since last event
+    private dataGenerationTick(ms: number) {
+
+        let newDataTick: RollingEnvironmentalData = this.$environmentalData.value;
+        // remove oldest datapoint from arrays
+        newDataTick.temperature?.data.shift()
+        newDataTick.humidity?.data.shift()
+        newDataTick.voc?.data.shift()
+        newDataTick.occupancy?.data.shift()
+
+        // add new value to end of arrays
+        newDataTick.temperature?.data.push({
+            value: this.getRealisticPseudorandomNumber(
+                newDataTick.temperature?.data.find(() => true)?.value, // first object in array
+                newDataTick.temperature?.maxDeltaPerInterval,
+                newDataTick.temperature?.minValue,
+                newDataTick.temperature?.minValue
+            ),
+            timestamp: new Date()
+        })
+        newDataTick.humidity?.data.push({
+            value: this.getRealisticPseudorandomNumber(
+                newDataTick.humidity?.data.find(() => true)?.value, // first object in array
+                newDataTick.humidity?.maxDeltaPerInterval,
+                newDataTick.humidity?.minValue,
+                newDataTick.humidity?.minValue
+            ),
+            timestamp: new Date()
+        })
+        newDataTick.voc?.data.push({
+            value: this.getRealisticPseudorandomNumber(
+                newDataTick.voc?.data.find(() => true)?.value, // first object in array
+                newDataTick.voc?.maxDeltaPerInterval,
+                newDataTick.voc?.minValue,
+                newDataTick.voc?.minValue
+            ),
+            timestamp: new Date()
+        })
+        newDataTick.occupancy?.data.push({
+            value: Math.round(this.getRealisticPseudorandomNumber(
+                newDataTick.occupancy?.data.find(() => true)?.value, // first object in array
+                newDataTick.occupancy?.maxDeltaPerInterval,
+                newDataTick.occupancy?.minValue,
+                newDataTick.occupancy?.minValue
+            )),
+            timestamp: new Date()
+        })
+
+        this.$environmentalData.next(newDataTick)
+    }
+
+    private getRealisticPseudorandomNumber(currentValue: number, maxMovement: number, overallMin: number, overallMax: number): number {
+        let max: number = currentValue + maxMovement
+        let min: number = currentValue - maxMovement
+        if ((currentValue - maxMovement) > overallMax) {
+            max = overallMax
+        }
+        if ((currentValue - maxMovement) < overallMin) {
+            min = overallMin
+        }
+        currentValue = Math.round((Math.random() * (max - min) + min) * 100) / 100
+        return currentValue
+    }
+
+    startDataGeneration() {
+        const time_interval_ms = 1000;
+        this.dataGenerationInterval = setInterval(() => {
+            this.dataGenerationTick(time_interval_ms);
+        }, time_interval_ms);
+    }
+
+    endDataGeneration() {
+        clearInterval(this.dataGenerationInterval);
     }
 }
