@@ -62,6 +62,8 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     floor: boolean
   } = { device: false, room: false, floor: true };
 
+  deviceMocks: Record<string, Device> = {};
+
   constructor(
     private env: EnvironmentService,
     public mapService: GeojsonMapService,
@@ -128,23 +130,28 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     this.maxZoomMarkers = [];
     let counter = 0;
     maxZoomInput.features.forEach(f => {
-        if (f.properties?.unit_ids?.length === 1 && !!this.featuresWithLocations[f.properties.unit_ids[0]]) {
-          this.maxZoomMarkers.push({
-            type: 'Feature',
-            id: f.id,
-            //id: 'Device' + counter,
-            feature_type: 'amenity',
-            geometry: {
-              type: 'Point',
-              coordinates: f.geometry.coordinates,
-            },
-            properties: {
-              ...f.properties,
-              device_name: 'Device #' + counter++,
-            } as unknown as ImdfProps,
-          });
+      const deviceLocation = this.featuresWithLocations[f.properties.unit_ids[0]];
+      if (f.properties?.unit_ids?.length === 1 && deviceLocation) {
+        this.maxZoomMarkers.push({
+          type: 'Feature',
+          id: f.id,
+          //id: 'Device' + counter,
+          feature_type: 'amenity',
+          geometry: {
+            type: 'Point',
+            coordinates: f.geometry.coordinates,
+          },
+          properties: {
+            ...f.properties,
+            device_name: 'Device #' + counter++,
+          } as unknown as ImdfProps,
+        });
+
+        if (!this.deviceMocks[f.id]) {
+          this.generateNewDeviceMock(f.id, f.properties.device_name, deviceLocation);
         }
-      });
+      }
+    });
       //console.log(this.maxZoomMarkers);
     this.minZoomMarkers = locationsOnLevel.map(f => ({
       type: 'Feature',
@@ -162,6 +169,47 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     } as ImdfFeature<GeoJSON.Point>));
 
     this.decideVisibleMarkers();
+  }
+
+  generateNewDeviceMock(id: string, name: string, deviceLocation: FullLocation) {
+    const {events}: Pick<Device, 'events'> = { events: []};
+    this.deviceMocks[id] = new Device({
+      id: id,
+      type: 'AIR20',
+      location: deviceLocation,
+      // random date some time in the last year
+      installationDate: new Date(new Date().getTime() - Math.random() * 365 * 24 * 60 * 60 * 1000),
+      name,
+      events,
+    });
+    if (Math.random() > 0.5) {
+      events.push({
+        part: 'Lamp',
+        action: 'Removed',
+        timestamp: new Date(2021, 11, 22),
+      });
+    }
+    if (Math.random() > 0.5) {
+      events.push({
+        part: 'Filter',
+        action: 'Detected New',
+        timestamp: new Date(2021, 11, 22),
+      });
+    }
+    if (Math.random() > 0.5) {
+      events.push({
+        part: 'Door',
+        action: 'Opened',
+        timestamp: new Date(2021, 11, 22),
+      });
+    }
+    if (Math.random() > 0.5) {
+      events.push({
+        part: 'Filter',
+        action: 'Removed',
+        timestamp: new Date(2021, 11, 31),
+      });
+    }
   }
 
   /**
@@ -204,10 +252,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           // always create a new array otherwise change detection will not detect the same popup reopening
           lngLat: [...event.feature.geometry.coordinates] as [number, number]
         };
-        this.env.setCurrentDevice(new Device({
-          id: event.feature.id as string,
-          type: 'AIR20'
-        }));
+        this.env.setCurrentDevice(this.deviceMocks[event.feature.id as string]);
         this.setSidePanelVisibility('device');
       }
   }

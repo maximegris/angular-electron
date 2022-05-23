@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -7,27 +7,31 @@ import { BaseChartDirective } from 'ng2-charts';
   templateUrl: './uva-aq-graph.component.html',
   styleUrls: [ './uva-aq-graph.component.scss' ]
 })
-export class UvaAqGraphComponent {
+export class UvaAqGraphComponent implements OnChanges {
   @Input() measurand!: string
   @Input() label!: string
+  @Input() data!: number[]
+  @Input() labels!: string[]
+  @Input() minValue: number = 0;
+  @Input() maxValue: number = 100;
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
-        data: [ 65, 59, 80, 81, 56, 55, 40, 34, 54, 33 ],
+        data: [ 0 ],
         label: null,
         borderColor: '#708BB5',
         borderWidth: 1,
-        pointRadius: 1,
+        pointRadius: 0,
       },
     ],
-    labels: [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
+    labels: [new Date().toISOString()]
   };
 
   public lineChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
-        tension: 0.5
+        tension: 0.2
       }
     },
     scales: {
@@ -36,9 +40,13 @@ export class UvaAqGraphComponent {
         display: false
       },
       y: {
-        display: false
+        display: false,
+        beginAtZero: true,
       }
 
+    },
+    animation: {
+      duration: 0
     },
 
     plugins: {
@@ -74,5 +82,15 @@ export class UvaAqGraphComponent {
 
   ngOnInit(): void {
     this.lineChartData.datasets[0].label = this.measurand
+    this.lineChartOptions.scales.y.min = this.minValue
+    this.lineChartOptions.scales.y.max = this.maxValue
+
+    console.log("SETTING UP MIN MAX", this.maxValue, this.minValue)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.lineChartData.datasets[0].data = this.data;
+    this.lineChartData.labels = this.labels;
+    this.chart?.update();
   }
 }
