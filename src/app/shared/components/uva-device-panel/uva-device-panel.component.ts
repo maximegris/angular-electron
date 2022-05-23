@@ -5,6 +5,7 @@ import { EnvironmentService } from '../../../core/services/environment/environme
 import { Device } from '../../../core/services/service.model';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import { add } from 'date-fns';
+import { EventElement } from '../uva-event-table/uva-event-table.component';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
   filterDaysLeft: number;
   lampReplacementDate: Date;
   filterReplacementDate: Date;
+  eventData: EventElement[];
 
   // These should be more that 365 because the device installation date is a random date 365 days in the past.
   readonly LAMP_LIFE_DAYS = 400;
@@ -37,7 +39,6 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
     this.envService.currentDevice$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe(d => {
-      // TODO do any necessary preprocessing
       this.device = d;
       this.deviceTypeHumanized = this.humanizeDeviceType();
       const daysSinceInstallation = differenceInCalendarDays(new Date(), d.installationDate);
@@ -45,6 +46,12 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
       this.filterDaysLeft = this.FILTER_LIFE_DAYS - daysSinceInstallation;
       this.lampReplacementDate = add(d.installationDate, { days: this.LAMP_LIFE_DAYS });
       this.filterReplacementDate = add(d.installationDate, { days: this.FILTER_LIFE_DAYS });
+      this.eventData = d.events?.map((event, idx) => ({
+        id: idx,
+        Item: event.part,
+        Event: event.action,
+        Date: event.timestamp
+      }));
     });
   }
 

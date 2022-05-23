@@ -172,6 +172,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   }
 
   generateNewDeviceMock(id: string, name: string, deviceLocation: FullLocation) {
+    const {events}: Pick<Device, 'events'> = { events: []};
     this.deviceMocks[id] = new Device({
       id: id,
       type: 'AIR20',
@@ -179,9 +180,36 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       // random date some time in the last year
       installationDate: new Date(new Date().getTime() - Math.random() * 365 * 24 * 60 * 60 * 1000),
       name,
-      // TODO: add the rest
-
+      events,
     });
+    if (Math.random() > 0.5) {
+      events.push({
+        part: 'Lamp',
+        action: 'Removed',
+        timestamp: new Date(2021, 11, 22),
+      });
+    }
+    if (Math.random() > 0.5) {
+      events.push({
+        part: 'Filter',
+        action: 'Detected New',
+        timestamp: new Date(2021, 11, 22),
+      });
+    }
+    if (Math.random() > 0.5) {
+      events.push({
+        part: 'Door',
+        action: 'Opened',
+        timestamp: new Date(2021, 11, 22),
+      });
+    }
+    if (Math.random() > 0.5) {
+      events.push({
+        part: 'Filter',
+        action: 'Removed',
+        timestamp: new Date(2021, 11, 31),
+      });
+    }
   }
 
   /**
