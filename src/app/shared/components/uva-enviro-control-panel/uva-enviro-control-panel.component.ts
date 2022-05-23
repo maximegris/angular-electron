@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { EnvironmentService } from '../../../core/services/environment/environment.service';
+import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
 
 @Component({
   selector: 'uva-enviro-control-panel',
@@ -9,6 +9,7 @@ import { EnvironmentService } from '../../../core/services/environment/environme
 })
 export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
   public isManualMode: boolean = false;
+  public environmentData: EnvironmentData;
   unsubscribe$: Subject<boolean> = new Subject();
 
   constructor(private environmentService: EnvironmentService) { }
@@ -19,6 +20,11 @@ export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
       .subscribe(isManualMode => {
         this.isManualMode = isManualMode
       });
+    this.environmentService.environmentData
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(environmentData => {
+        this.environmentData = environmentData
+      })
   }
 
   ngOnDestroy() {
