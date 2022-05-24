@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LngLatBoundsLike } from 'mapbox-gl';
 import { finalize } from 'rxjs/operators';
@@ -37,7 +37,7 @@ const MAP_ID = 'venue';
   ],
 })
 
-export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit {
+export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit, OnDestroy {
   geojson = null;
   showSpinner: boolean | string = true;
 
@@ -311,6 +311,11 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       default:
         break;
     }
+  }
+
+  ngOnDestroy(): void {
+      super.ngOnDestroy();
+      Object.values(this.deviceMocks).forEach(mock => mock.endDataGeneration());
   }
 }
 
