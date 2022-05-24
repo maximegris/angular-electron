@@ -27,16 +27,17 @@
         <h4>Environmental Events</h4>
         <div class="uva-progress-bar-group mat-elevation-z3">
           <div class="uva-progress-bar-container">
-            <span class="uva-progress-bar-label">Handwashing Compliance (75%)</span>
-            <mat-progress-bar mode="determinate" [value]="75"></mat-progress-bar>
+            <span class="uva-progress-bar-label">Handwashing Compliance ({{currentLocation.handwashingCompliance}}%)</span>
+            <mat-progress-bar mode="determinate" [value]="currentLocation.handwashingCompliance"></mat-progress-bar>
             <span class="uva-progress-bar-note">Over last 24 hours</span>
           </div>
           <div class="uva-progress-bar-container">
-            <span class="uva-progress-bar-label">Time until next Terminal Clean (22 hours)</span>
-            <mat-progress-bar mode="determinate" [value]="30"></mat-progress-bar>
-            <span class="uva-progress-bar-note">Required every 3 days for this location</span>
+            <span class="uva-progress-bar-label" *ngIf="!currentLocation.uvcTerminalCleaning.active">UVC Terminal Cleaning (Last Cycle: {{currentLocation.uvcTerminalCleaning.lastCycle | date:'short'}})</span>
+            <span class="uva-progress-bar-label" *ngIf="currentLocation.uvcTerminalCleaning.active">UVC Terminal Cleaning (Cycle Active)</span>
+            <mat-progress-bar mode="{{currentLocation.uvcTerminalCleaning.active ? 'indeterminate' : 'determinate'}}" [value]="getTerminalCleaningCompliancePercentage()"></mat-progress-bar>
+            <span class="uva-progress-bar-note">Required every {{currentLocation.uvcTerminalCleaning.complianceDays}} days for this location</span>
             <br>
-            <span class="uva-progress-bar-note"><i>Provided by <b>Surfacide&copy;</b></i></span>
+            <span class="uva-progress-bar-note"><i>Provided by <img style="width:75px;" src="../../../../assets/logos/partners/surfacide/surfacide-logo.png" alt="Surfacide Logo" /></i></span>
           </div>
         </div>
       </div>

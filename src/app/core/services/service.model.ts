@@ -46,6 +46,16 @@ export class Location {
     private activeInterval = null;
 
     currentAirQualityIssueSources?: AirQualityInfluencers[] = [];
+    handwashingCompliance: number = 75
+    uvcTerminalCleaning: {
+        lastCycle: Date,
+        active: boolean,
+        complianceDays: number
+    } = {
+        lastCycle: new Date(),
+        active: false,
+        complianceDays: 5
+    }
 
     constructor(data: LocationData | Location) {
         if (!data.id) {
@@ -83,8 +93,12 @@ export class Location {
 
         if (!this.activeInterval) {
             this.randomizeLocationAirQuality()
+            this.randomizeUVCTerminalCleaning()
+            this.randomizeHandwashingCompliance()
             this.activeInterval = setInterval(() => {
                 this.randomizeLocationAirQuality()
+                this.randomizeUVCTerminalCleaning()
+                this.randomizeHandwashingCompliance()
             }, AIR_QUALITY_TREND_CHANGE_SECONDS * 1000)
         }
     }
@@ -101,6 +115,27 @@ export class Location {
         ]
         let roomScenarioIndex = Math.round(Math.random() * roomOptions.length - 1)
         this.currentAirQualityIssueSources = roomOptions[roomScenarioIndex]
+    }
+
+    randomizeUVCTerminalCleaning() {
+        if (this.uvcTerminalCleaning.active) {
+            this.uvcTerminalCleaning.active = false
+            this.uvcTerminalCleaning.lastCycle = new Date()
+        }
+
+        if (!this.currentAirQualityIssueSources?.includes('occupancy-high') &&
+            !this.currentAirQualityIssueSources?.includes('occupancy-low')) {
+
+            // room is unoccupied, so we can terminal clean
+            if (Math.random() > 0.5) {
+                console.log("WOO WE ARE TERMINAL CLEANING!")
+                this.uvcTerminalCleaning.active = true
+            }
+        }
+    }
+
+    randomizeHandwashingCompliance() {
+        this.handwashingCompliance = Math.round(Math.random() * 100)
     }
 }
 
