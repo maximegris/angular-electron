@@ -68,9 +68,9 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
       maxValue: 100
     }
   totalData: {
-    data: number
+    data: number[]
   } = {
-    data: 0
+    data: [0]
   }
 
   unsubscribe$: Subject<boolean> = new Subject();
@@ -121,7 +121,10 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
             this.occupancyData.maxValue = envData.occupancy.maxValue
             this.occupancyData.minValue = envData.occupancy.minValue
 
-            this.totalData.data = 100
+            this.totalData = {
+              data: [Math.random() * 100]
+            }
+            // this.totalData.data = 100
           });
       }
       this.deviceTypeHumanized = this.humanizeDeviceType();
