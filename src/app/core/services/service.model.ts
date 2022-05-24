@@ -128,7 +128,6 @@ export class Location {
 
             // room is unoccupied, so we can terminal clean
             if (Math.random() > 0.5) {
-                console.log("WOO WE ARE TERMINAL CLEANING!")
                 this.uvcTerminalCleaning.active = true
             }
         }
