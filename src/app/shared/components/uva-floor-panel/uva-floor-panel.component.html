@@ -13,11 +13,25 @@
   <mat-card-content class="uva-device-card-content">
     <div class="uva-device-card-content-container">
       <div class="uva-device-card-content-section">
-        <h4>Floor specific info here...</h4>
-        <p>There are {{ devices?.length }} devices in current location</p>
-        <p>Aggregate Air Quality Info</p>
-        <p>BMS Integration</p>
-        <p>API / 3rd Party Data Integration</p>
+        <div class="uva-device-card-header-w-control">
+          <div class="uva-left">
+            <h4>Air Quality</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-content class="uva-device-card-content">
+    <div class="uva-device-card-content-container">
+      <div class="uva-device-card-content-section">
+        <h4>Environmental Events</h4>
+        <div class="uva-progress-bar-group mat-elevation-z3">
+          <div class="uva-progress-bar-container">
+            <span class="uva-progress-bar-label">Handwashing Compliance (75%)</span>
+            <mat-progress-bar mode="determinate" [value]="75"></mat-progress-bar>
+            <span class="uva-progress-bar-note">Over last 24 hours</span>
+          </div>
+        </div>
       </div>
     </div>
   </mat-card-content>

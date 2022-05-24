@@ -28,6 +28,11 @@ export interface MapInfo {
     featureId: string;
 }
 
+const AIR_QUALITY_TREND_CHANGE_SECONDS = 45
+
+type AirQualityInfluencers = 'occupancy-high' | 'occupancy-low' | 'temp-high' | 'temp-low' |
+    'voc-high' | 'humidity-low' | 'humidity-high'
+
 export class Location {
     readonly id: string;
     readonly name: string;
@@ -37,6 +42,10 @@ export class Location {
     readonly createdAt?: Date;
     readonly updatedAt?: Date;
     readonly mapInfo?: MapInfo;
+
+    private activeInterval = null;
+
+    currentAirQualityIssueSources?: AirQualityInfluencers[] = [];
 
     constructor(data: LocationData | Location) {
         if (!data.id) {
@@ -71,6 +80,27 @@ export class Location {
                 featureId: locationFeatureMock[data.id]
             };
         }
+
+        if (!this.activeInterval) {
+            this.randomizeLocationAirQuality()
+            this.activeInterval = setInterval(() => {
+                this.randomizeLocationAirQuality()
+            }, AIR_QUALITY_TREND_CHANGE_SECONDS * 1000)
+        }
+    }
+
+    randomizeLocationAirQuality() {
+        let roomOptions: AirQualityInfluencers[][] = [
+            [],
+            ['temp-high', 'humidity-high', 'occupancy-high'],
+            ['temp-low', 'humidity-low'],
+            ['humidity-high', 'voc-high'],
+            ['occupancy-low'],
+            ['occupancy-high', 'voc-high'],
+            ['occupancy-high', 'voc-high', 'humidity-high', 'temp-high']
+        ]
+        let roomScenarioIndex = Math.round(Math.random() * roomOptions.length - 1)
+        this.currentAirQualityIssueSources = roomOptions[roomScenarioIndex]
     }
 }
 
@@ -252,39 +282,19 @@ export class Device {
 
         // add new value to end of arrays
         newDataTick.temperature?.data.push({
-            value: this.getRealisticPseudorandomNumber(
-                newDataTick.temperature?.data[newDataTick.temperature?.data.length - 1]?.value, // first object in array
-                newDataTick.temperature?.maxDeltaPerInterval,
-                newDataTick.temperature?.minValue,
-                newDataTick.temperature?.maxValue
-            ),
+            value: this.getTemperatureValue(),
             timestamp: new Date()
         })
         newDataTick.humidity?.data.push({
-            value: this.getRealisticPseudorandomNumber(
-                newDataTick.humidity?.data[newDataTick.humidity?.data.length - 1]?.value, // first object in array
-                newDataTick.humidity?.maxDeltaPerInterval,
-                newDataTick.humidity?.minValue,
-                newDataTick.humidity?.maxValue
-            ),
+            value: this.getHumidityValue(),
             timestamp: new Date()
         })
         newDataTick.voc?.data.push({
-            value: this.getRealisticPseudorandomNumber(
-                newDataTick.voc?.data[newDataTick.voc?.data.length - 1]?.value, // first object in array
-                newDataTick.voc?.maxDeltaPerInterval,
-                newDataTick.voc?.minValue,
-                newDataTick.voc?.maxValue
-            ),
+            value: this.getVocValue(),
             timestamp: new Date()
         })
         newDataTick.occupancy?.data.push({
-            value: Math.round(this.getRealisticPseudorandomNumber(
-                newDataTick.occupancy?.data[newDataTick.occupancy?.data.length - 1]?.value, // first object in array
-                newDataTick.occupancy?.maxDeltaPerInterval,
-                newDataTick.occupancy?.minValue,
-                newDataTick.occupancy?.maxValue
-            )),
+            value: this.getOccupancyValue(),
             timestamp: new Date()
         })
 
@@ -300,6 +310,52 @@ export class Device {
         }
 
         this.$environmentalData.next(newDataTick)
+    }
+
+    private getTemperatureValue() {
+        let currentSeconds = new Date().getSeconds()
+        let modifier = ((currentSeconds % 20) * .01)
+        modifier = Math.random() > 0.5 ? modifier * -1 : modifier
+        if (this.location.currentAirQualityIssueSources?.includes('temp-high')) {
+            return 78 + modifier
+        } else if (this.location.currentAirQualityIssueSources?.includes('temp-low')) {
+            return 65 + modifier
+        } else {
+            return 72 + modifier
+        }
+    }
+
+    private getHumidityValue() {
+        let currentSeconds = new Date().getSeconds()
+        let modifier = ((currentSeconds % 20) * .01)
+        modifier = Math.random() > 0.5 ? modifier * -1 : modifier
+        if (this.location.currentAirQualityIssueSources?.includes('humidity-high')) {
+            return 75 + modifier
+        } else if (this.location.currentAirQualityIssueSources?.includes('temp-low')) {
+            return 21 + modifier
+        } else {
+            return 48 + modifier
+        }
+    }
+
+    private getVocValue() {
+        let currentSeconds = new Date().getSeconds()
+        let modifier = ((currentSeconds % 20) * 1)
+        modifier = Math.random() > 0.5 ? modifier * -1 : modifier
+        if (this.location.currentAirQualityIssueSources?.includes('voc-high')) {
+            return 210 + modifier
+        } else {
+            return 33 + modifier
+        }
+    }
+
+    private getOccupancyValue() {
+        if (this.location.currentAirQualityIssueSources?.includes('occupancy-high')) {
+            return 18
+        } else if (this.location.currentAirQualityIssueSources?.includes('occupancy-low')) {
+            return 5
+        }
+        return 0
     }
 
     private getRealisticPseudorandomNumber(currentValue: number, maxMovement: number, overallMin: number, overallMax: number): number {
