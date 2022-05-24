@@ -9,9 +9,11 @@
     [selectedLevelId]="selectedLevelId"
     [symbols]="mapSymbols"
     [markers]="mapMarkers"
-    symbolImageUrl="assets/logos/UVAngel_Icon_Reversed.png"
+    symbolImageUrl="assets/devices/air20/SurfaceMountFlatVertical.png"
     [symbolLayout]="{
-      'icon-size': ['interpolate', ['exponential', 2], ['zoom'], 15, 0.01, 25, 2]
+      'icon-size': ['interpolate', ['exponential', 2], ['zoom'], 15, 0.01, 25, 2],
+      'icon-rotation-alignment': 'map',
+      'icon-rotate': -30
     }"
     [showLevelPicker]="false"
     [showNavigationControls]="true"
