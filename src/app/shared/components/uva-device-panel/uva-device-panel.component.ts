@@ -120,11 +120,9 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
             this.occupancyData.labels = [].concat(envData.occupancy.data.map(event => event.timestamp.toISOString()))
             this.occupancyData.maxValue = envData.occupancy.maxValue
             this.occupancyData.minValue = envData.occupancy.minValue
-
             this.totalData = {
-              data: [Math.random() * 100]
+              data: [envData.total.data[59].value],
             }
-            // this.totalData.data = 100
           });
       }
       this.deviceTypeHumanized = this.humanizeDeviceType();

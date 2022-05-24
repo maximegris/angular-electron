@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, SimpleChange, OnInit, SimpleChanges } from '@angular/core';
+import { RollingEnvironmentalData } from '../../../core/services/service.model';
 import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
-import { Subject, takeUntil } from 'rxjs';
+import { DeviceService,  } from '../../../core/services/device/device.service';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { isThisSecond } from 'date-fns';
 
 enum DeviceMode {
   HIGH = 'high',
@@ -14,22 +17,42 @@ enum DeviceMode {
   templateUrl: './uva-device-mode.component.html',
   styleUrls: ['./uva-device-mode.component.scss']
 })
-export class UvaDeviceModeComponent implements OnInit {
+export class UvaDeviceModeComponent implements OnInit, OnChanges {
   public totalAq: number;
   public deviceMode: DeviceMode;
   public deviceImage: string;
-  public environmentData: EnvironmentData;
+  public manualEnviroData: EnvironmentData;
   unsubscribe$: Subject<EnvironmentData> = new Subject();
 
-  constructor(private environmentService: EnvironmentService) { }
+  public autoEnviroData: RollingEnvironmentalData
+
+  private $isManualMode: BehaviorSubject<boolean>
+  public isManualMode: boolean = false;
+  unsubscribeManualMode$: Subject<boolean> = new Subject();
+
+  constructor(private manualEnviroService: EnvironmentService) { }
 
   ngOnInit(): void {
-    this.environmentService.environmentData
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(environmentData => {
-        this.totalAq = environmentData.total;
-        this.getDeviceMode();
-      });
+    this.manualEnviroService.isManualMode
+      .pipe(takeUntil(this.unsubscribeManualMode$))
+      .subscribe(isManualMode => {
+        if(isManualMode) {
+          this.manualEnviroService.environmentData
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(environmentData => {
+            this.totalAq = environmentData.total;
+            this.getDeviceMode();
+          });
+        } else {
+          console.log('In UvaDeviceModeComponent: Need to grab data from device service')
+        }
+  
+
+      })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(`UvaDeviceModeComponent.ngOnChanges ${JSON.stringify(changes, null, 2)}`)
   }
 
   getDeviceMode(): void {

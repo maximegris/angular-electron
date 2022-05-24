@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { EnvironmentService, EnvironmentData } from '../environment/environment.service';
+import { Subject, takeUntil } from 'rxjs';
 import { Device, FullLocation } from '../service.model';
 
 @Injectable({
@@ -7,8 +9,12 @@ import { Device, FullLocation } from '../service.model';
 export class DeviceService {
 
   deviceMocks: Record<string, Device> = {};
+  // public isManualMode: boolean = false;
+  // public environmentData: EnvironmentData;
+  // unsubscribe$: Subject<boolean> = new Subject();
 
-  constructor() { }
+  constructor(private environmentService: EnvironmentService) {
+  }
 
   public generateDeviceMock(id: string, name: string, deviceLocation: FullLocation) {
     if (this.deviceMocks[id]) {
@@ -23,7 +29,8 @@ export class DeviceService {
       installationDate: new Date(new Date().getTime() - Math.random() * 365 * 24 * 60 * 60 * 1000),
       name,
       events,
-    });
+    },
+    this.environmentService);
     if (Math.random() > 0.5) {
       events.push({
         part: 'Lamp',

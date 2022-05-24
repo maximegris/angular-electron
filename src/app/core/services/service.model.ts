@@ -1,4 +1,6 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { isThisSecond } from 'date-fns';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { EnvironmentData, EnvironmentService } from './environment/environment.service';
 import { locationFeatureMock } from './geojson/location-feature.mock';
 
 export interface User {
@@ -87,7 +89,6 @@ export class LocationWithSublocations extends Location {
     }
 }
 
-
 export class FullLocation extends LocationWithSublocations {
     readonly fullLocationPath: LocationWithSublocations[];
     readonly updatedBy?: User;
@@ -166,7 +167,6 @@ export interface RollingEnvironmentalData {
     }
 }
 
-
 export class Device {
     id: string;
     type: 'UVA20' | 'AIR175' | 'AIR20';
@@ -184,6 +184,16 @@ export class Device {
     }[];
     name: string;
 
+    // private environmentService: EnvironmentService
+    private $isManualMode: BehaviorSubject<boolean>
+    public isManualMode: boolean = false;
+    unsubscribe$: Subject<boolean> = new Subject();
+
+    private $manualEnviroData: BehaviorSubject<EnvironmentData>
+    public manualEnviroData: EnvironmentData
+    unsubEnviroData$: Subject<EnvironmentData> = new Subject();
+
+
     private historicalMinutes = 60;
     private dataGenerationInterval;
 
@@ -192,8 +202,9 @@ export class Device {
     private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null);
     public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable();
 
-    constructor(initializer: Partial<Device> = {}) {
+    constructor(initializer: Partial<Device> = {}, private environmentService: EnvironmentService) {
         Object.assign(this, initializer);
+
         this.$environmentalData.next({
             temperature: {
                 minValue: 60,
@@ -239,15 +250,37 @@ export class Device {
                     value: 0,
                     timestamp: new Date()
                 })
-            }
+            },
         })
         this.maxTotal = 
             this.$environmentalData.value.temperature?.maxValue +
             this.$environmentalData.value.humidity?.maxValue +
             this.$environmentalData.value.voc?.maxValue +
-            this.$environmentalData.value.occupancy?.maxValue
+            this.$environmentalData.value.occupancy?.maxValue;
 
-        this.startDataGeneration();
+
+        this.environmentService.isManualMode
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(isManualMode => {
+            this.isManualMode = isManualMode
+            console.log(`service.module.isManualMode = ${this.isManualMode}`)
+            if (this.isManualMode) {
+                this.endDataGeneration();
+                this.environmentService.environmentData
+                .pipe(takeUntil(this.unsubscribe$))
+                .subscribe(environmentalData => {
+                    console.log(environmentalData)
+                })
+                console.log(`In manual mode and need data!`)
+            } else {
+                // this.unsubEnviroData$.next();
+                console.log(`Switching to auto mode`);
+                this.unsubEnviroData$.complete();
+                this.startDataGeneration();
+            }
+    
+        });
+    
     }
 
     // generate data for this device
