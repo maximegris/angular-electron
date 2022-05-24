@@ -5,9 +5,14 @@
       <td  mat-cell *matCellDef="let event"> {{ event[column] }} </td>
     </ng-container>
     <ng-container *ngIf="column === 'Date'">
-      <td mat-cell *matCellDef="let event"> {{ event[column] | date:'MM/dd/YYYY' }} </td>
+      <td mat-cell *matCellDef="let event"> {{ event[column] | date:'MM/dd/YYYY hh:mm:ss' }} </td>
     </ng-container>
   </ng-container>
   <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+      No Recent Maintenance Events
+    </td>
+  </tr>
 </table>

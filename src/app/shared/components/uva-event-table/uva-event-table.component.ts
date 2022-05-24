@@ -27,5 +27,5 @@ export class UvaEventTable implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
