@@ -157,6 +157,12 @@ export interface RollingEnvironmentalData {
         maxValue: number,
         maxDeltaPerInterval: number,
         data: TimestampedNumericalDatapoint[]
+    },
+    total?: {
+        minValue: number,
+        maxValue: number,
+        maxDeltaPerInterval: number,
+        data: TimestampedNumericalDatapoint[]
     }
 }
 
@@ -180,6 +186,8 @@ export class Device {
 
     private historicalMinutes = 60;
     private dataGenerationInterval;
+
+    private maxTotal;
 
     private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null);
     public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable();
@@ -222,21 +230,36 @@ export class Device {
                     value: 0,
                     timestamp: new Date()
                 }) // fill with default value
+            },
+            total: {
+                minValue: 0,
+                maxValue: 100,
+                maxDeltaPerInterval: 1,
+                data: Array(this.historicalMinutes).fill({
+                    value: 0,
+                    timestamp: new Date()
+                })
             }
         })
+        this.maxTotal = 
+            this.$environmentalData.value.temperature?.maxValue +
+            this.$environmentalData.value.humidity?.maxValue +
+            this.$environmentalData.value.voc?.maxValue +
+            this.$environmentalData.value.occupancy?.maxValue
+
         this.startDataGeneration();
     }
 
     // generate data for this device
     // ms: milliseconds since last event
     private dataGenerationTick(ms: number) {
-
         let newDataTick: RollingEnvironmentalData = this.$environmentalData.value;
         // remove oldest datapoint from arrays
         newDataTick.temperature?.data.shift()
         newDataTick.humidity?.data.shift()
         newDataTick.voc?.data.shift()
         newDataTick.occupancy?.data.shift()
+        newDataTick.total?.data.shift()
 
         // add new value to end of arrays
         newDataTick.temperature?.data.push({
@@ -275,7 +298,10 @@ export class Device {
             )),
             timestamp: new Date()
         })
-
+        newDataTick.total?.data.push({
+            value: this.calculateTotalAq(),
+            timestamp: new Date()
+        })
         this.$environmentalData.next(newDataTick)
     }
 
@@ -290,6 +316,19 @@ export class Device {
         }
         currentValue = Math.round((Math.random() * (max - min) + min) * 100) / 100
         return currentValue
+    }
+
+    // "Total AQ" is just the % that current sum of the 4 measurands is of total possible
+    private calculateTotalAq(): number {
+        const i = this.historicalMinutes - 1
+
+        const environmentalDataTotal = 
+            this.$environmentalData.value.temperature?.data[i].value +
+            this.$environmentalData.value.humidity?.data[i].value +
+            this.$environmentalData.value.voc?.data[i].value +
+            this.$environmentalData.value.occupancy?.data[i].value
+
+        return Math.round((environmentalDataTotal / this.maxTotal) * 100)
     }
 
     startDataGeneration() {

@@ -1,7 +1,6 @@
 import { Component, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { EnvironmentService } from '../../../core/services/environment/environment.service';
 
 @Component({
   selector: 'uva-aq-graph',
@@ -28,10 +27,6 @@ export class UvaAqGraphComponent implements OnChanges {
     ],
     labels: [new Date().toISOString()]
   };
-
-  constructor(private environmentService: EnvironmentService) { 
-    environmentService.environmentData[this.measurand] = this.lineChartData.datasets[0].data;
-  }
 
   public lineChartOptions: ChartConfiguration['options'] = {
     elements: {

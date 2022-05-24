@@ -15,7 +15,6 @@ import { EventElement } from '../uva-event-table/uva-event-table.component';
 })
 
 export class UvaDevicePanelComponent extends AbstractComponent implements OnInit, OnDestroy {
-
   device: Device;
   deviceSubscription: Subscription;
   deviceTypeHumanized: string;
@@ -68,6 +67,12 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
       minValue: 0,
       maxValue: 100
     }
+  totalData: {
+    data: number
+  } = {
+    data: 0
+  }
+
   unsubscribe$: Subject<boolean> = new Subject();
 
   // These should be more that 365 because the device installation date is a random date 365 days in the past.
@@ -115,6 +120,8 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
             this.occupancyData.labels = [].concat(envData.occupancy.data.map(event => event.timestamp.toISOString()))
             this.occupancyData.maxValue = envData.occupancy.maxValue
             this.occupancyData.minValue = envData.occupancy.minValue
+
+            this.totalData.data = 100
           });
       }
       this.deviceTypeHumanized = this.humanizeDeviceType();
