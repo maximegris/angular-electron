@@ -2,11 +2,11 @@
   <mat-card-header class="uva-device-card-header">
     <div class="uva-device-card-header-container">
       <div class="uva-device-card-header-section uva-device-card-header-details-block">
-        <div class="uva-device-type">Example Hospital > Floor 2</div>
-        <div class="uva-device-name">Room 123</div>
-        <div class="uva-device-details">
-          <div>Location: Hospital 1 > Floor 2 > Room 123</div>
+        <div class="uva-device-type">
+          <app-location-presenter [location]="currentLocation" [title]="null"></app-location-presenter>
         </div>
+        <div class="uva-device-name">{{ currentLocation.name }}</div>
+        <div class="uva-device-details"></div>
       </div>
     </div>
   </mat-card-header>
@@ -14,6 +14,7 @@
     <div class="uva-device-card-content-container">
       <div class="uva-device-card-content-section">
         <h4>Room specific info here...</h4>
+        <p>There are {{ devices?.length }} devices in current location</p>
         <p>Aggregate Air Quality Info</p>
         <p>BMS Integration</p>
         <p>API / 3rd Party Data Integration</p>

@@ -1,10 +1,11 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LngLatBoundsLike } from 'mapbox-gl';
 import { finalize } from 'rxjs/operators';
 import { AbstractComponent } from '../../core/abstract.component';
 import { GeojsonMapService } from '../../core/services';
+import { DeviceService } from '../../core/services/device/device.service';
 import { EnvironmentService } from '../../core/services/environment/environment.service';
 import { Device, FullLocation } from '../../core/services/service.model';
 import { findBounds, MapZoomEvent, MarkerClickEvent } from '../../shared/components/geojson-map/geojson-map.component';
@@ -37,7 +38,7 @@ const MAP_ID = 'venue';
   ],
 })
 
-export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit {
+export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit, OnDestroy {
   geojson = null;
   showSpinner: boolean | string = true;
 
@@ -62,11 +63,10 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     floor: boolean
   } = { device: false, room: false, floor: true };
 
-  deviceMocks: Record<string, Device> = {};
-
   constructor(
     private env: EnvironmentService,
     public mapService: GeojsonMapService,
+    public deviceService: DeviceService,
   ) {
     super();
   }
@@ -147,9 +147,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           } as unknown as ImdfProps,
         });
 
-        if (!this.deviceMocks[f.id]) {
-          this.generateNewDeviceMock(f.id, f.properties.device_name, deviceLocation);
-        }
+        this.deviceService.generateDeviceMock(f.id, f.properties.device_name, deviceLocation);
       }
     });
       //console.log(this.maxZoomMarkers);
@@ -169,47 +167,9 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     } as ImdfFeature<GeoJSON.Point>));
 
     this.decideVisibleMarkers();
-  }
 
-  generateNewDeviceMock(id: string, name: string, deviceLocation: FullLocation) {
-    const {events}: Pick<Device, 'events'> = { events: []};
-    this.deviceMocks[id] = new Device({
-      id: id,
-      type: 'AIR20',
-      location: deviceLocation,
-      // random date some time in the last year
-      installationDate: new Date(new Date().getTime() - Math.random() * 365 * 24 * 60 * 60 * 1000),
-      name,
-      events,
-    });
-    if (Math.random() > 0.5) {
-      events.push({
-        part: 'Lamp',
-        action: 'Removed',
-        timestamp: new Date(2021, 11, 22),
-      });
-    }
-    if (Math.random() > 0.5) {
-      events.push({
-        part: 'Filter',
-        action: 'Detected New',
-        timestamp: new Date(2021, 11, 22),
-      });
-    }
-    if (Math.random() > 0.5) {
-      events.push({
-        part: 'Door',
-        action: 'Opened',
-        timestamp: new Date(2021, 11, 22),
-      });
-    }
-    if (Math.random() > 0.5) {
-      events.push({
-        part: 'Filter',
-        action: 'Removed',
-        timestamp: new Date(2021, 11, 31),
-      });
-    }
+    this.env.setCurrentLocation(this.featuresWithLocations[level.id]);
+    this.setSidePanelVisibility('floor');
   }
 
   /**
@@ -252,7 +212,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           // always create a new array otherwise change detection will not detect the same popup reopening
           lngLat: [...event.feature.geometry.coordinates] as [number, number]
         };
-        this.env.setCurrentDevice(this.deviceMocks[event.feature.id as string]);
+        this.env.setCurrentDevice(this.deviceService.getDevice(event.feature.id as string));
         this.setSidePanelVisibility('device');
       }
   }
@@ -311,6 +271,10 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       default:
         break;
     }
+  }
+
+  ngOnDestroy(): void {
+      super.ngOnDestroy();
   }
 }
 

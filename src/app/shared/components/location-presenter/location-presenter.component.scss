@@ -1,0 +1,11 @@
+:host {
+    display: inline-flex;
+
+    .location-title {
+        margin-right: 0.25rem;
+    }
+
+    .location-path > * {
+        margin-right: 0.25rem;
+    }
+}

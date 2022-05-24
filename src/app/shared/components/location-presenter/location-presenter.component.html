@@ -1,0 +1,9 @@
+<span *ngIf="title" class="location-title">Location:</span>
+<div class="location-path">
+    <ng-container *ngFor="let sublocation of location?.fullLocationPath; last as isLast; first as isFirst">
+        <ng-container *ngIf="!isFirst">
+            <span class="location-name">{{ sublocation.name }}</span>
+            <span *ngIf="!isLast" class="location-separator">&gt;</span>
+        </ng-container>
+    </ng-container>
+</div>
