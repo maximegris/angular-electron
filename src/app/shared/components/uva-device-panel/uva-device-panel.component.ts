@@ -138,6 +138,19 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
         Date: event.timestamp
       }));
     });
+
+    this.envService.isManualMode
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(isManualMode => {
+        console.log(`uva-device-panel manual mode = ${isManualMode}`)
+        this.device.useOverrideValues = isManualMode
+      });
+    this.envService.environmentData
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(environmentalData => {
+        console.log('setting new env data overrides', environmentalData)
+        this.device.setEnvironmentalOverrideData(environmentalData)
+      })
   }
 
   ngOnDestroy() {

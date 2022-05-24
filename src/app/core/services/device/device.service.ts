@@ -1,6 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
-import { EnvironmentService, EnvironmentData } from '../environment/environment.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { Device, FullLocation } from '../service.model';
 
 @Injectable({
@@ -13,7 +11,7 @@ export class DeviceService {
   // public environmentData: EnvironmentData;
   // unsubscribe$: Subject<boolean> = new Subject();
 
-  constructor(private environmentService: EnvironmentService) {
+  constructor() {
   }
 
   public generateDeviceMock(id: string, name: string, deviceLocation: FullLocation) {
@@ -29,8 +27,7 @@ export class DeviceService {
       installationDate: new Date(new Date().getTime() - Math.random() * 365 * 24 * 60 * 60 * 1000),
       name,
       events,
-    },
-    this.environmentService);
+    });
     if (Math.random() > 0.5) {
       events.push({
         part: 'Lamp',

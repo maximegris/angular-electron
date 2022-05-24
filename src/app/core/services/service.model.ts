@@ -184,26 +184,32 @@ export class Device {
     }[];
     name: string;
 
-    // private environmentService: EnvironmentService
-    private $isManualMode: BehaviorSubject<boolean>
-    public isManualMode: boolean = false;
-    unsubscribe$: Subject<boolean> = new Subject();
-
-    private $manualEnviroData: BehaviorSubject<EnvironmentData>
-    public manualEnviroData: EnvironmentData
-    unsubEnviroData$: Subject<EnvironmentData> = new Subject();
-
 
     private historicalMinutes = 60;
     private dataGenerationInterval;
 
     private maxTotal;
 
+    useOverrideValues: boolean = false;
+    private environmentDataOverrideValues: {
+        temperature: number,
+        humidity: number,
+        voc: number,
+        occupancy: number
+    }
+
     private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null);
     public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable();
 
-    constructor(initializer: Partial<Device> = {}, private environmentService: EnvironmentService) {
+    constructor(initializer: Partial<Device> = {}) {
         Object.assign(this, initializer);
+
+        this.environmentDataOverrideValues = {
+            temperature: 72,
+            humidity: 50,
+            voc: 30,
+            occupancy: 0
+        }
 
         this.$environmentalData.next({
             temperature: {
@@ -211,7 +217,7 @@ export class Device {
                 maxValue: 90,
                 maxDeltaPerInterval: 1,
                 data: Array(this.historicalMinutes).fill({
-                    value: 72,
+                    value: this.environmentDataOverrideValues.temperature,
                     timestamp: new Date()
                 }) // fill with default value
             },
@@ -220,7 +226,7 @@ export class Device {
                 maxValue: 100,
                 maxDeltaPerInterval: 3,
                 data: Array(this.historicalMinutes).fill({
-                    value: 50,
+                    value: this.environmentDataOverrideValues.humidity,
                     timestamp: new Date()
                 }) // fill with default value
             },
@@ -229,7 +235,7 @@ export class Device {
                 maxValue: 500,
                 maxDeltaPerInterval: 50,
                 data: Array(this.historicalMinutes).fill({
-                    value: 30,
+                    value: this.environmentDataOverrideValues.voc,
                     timestamp: new Date()
                 }) // fill with default value
             },
@@ -238,7 +244,7 @@ export class Device {
                 maxValue: 30,
                 maxDeltaPerInterval: 3,
                 data: Array(this.historicalMinutes).fill({
-                    value: 0,
+                    value: this.environmentDataOverrideValues.occupancy,
                     timestamp: new Date()
                 }) // fill with default value
             },
@@ -257,30 +263,8 @@ export class Device {
             this.$environmentalData.value.humidity?.maxValue +
             this.$environmentalData.value.voc?.maxValue +
             this.$environmentalData.value.occupancy?.maxValue;
-
-
-        this.environmentService.isManualMode
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe(isManualMode => {
-            this.isManualMode = isManualMode
-            console.log(`service.module.isManualMode = ${this.isManualMode}`)
-            if (this.isManualMode) {
-                this.endDataGeneration();
-                this.environmentService.environmentData
-                .pipe(takeUntil(this.unsubscribe$))
-                .subscribe(environmentalData => {
-                    console.log(environmentalData)
-                })
-                console.log(`In manual mode and need data!`)
-            } else {
-                // this.unsubEnviroData$.next();
-                console.log(`Switching to auto mode`);
-                this.unsubEnviroData$.complete();
-                this.startDataGeneration();
-            }
-    
-        });
-    
+        
+        this.startDataGeneration()
     }
 
     // generate data for this device
@@ -295,47 +279,90 @@ export class Device {
         newDataTick.total?.data.shift()
 
         // add new value to end of arrays
-        newDataTick.temperature?.data.push({
-            value: this.getRealisticPseudorandomNumber(
-                newDataTick.temperature?.data[newDataTick.temperature?.data.length - 1]?.value, // first object in array
-                newDataTick.temperature?.maxDeltaPerInterval,
-                newDataTick.temperature?.minValue,
-                newDataTick.temperature?.maxValue
-            ),
-            timestamp: new Date()
-        })
-        newDataTick.humidity?.data.push({
-            value: this.getRealisticPseudorandomNumber(
-                newDataTick.humidity?.data[newDataTick.humidity?.data.length - 1]?.value, // first object in array
-                newDataTick.humidity?.maxDeltaPerInterval,
-                newDataTick.humidity?.minValue,
-                newDataTick.humidity?.maxValue
-            ),
-            timestamp: new Date()
-        })
-        newDataTick.voc?.data.push({
-            value: this.getRealisticPseudorandomNumber(
-                newDataTick.voc?.data[newDataTick.voc?.data.length - 1]?.value, // first object in array
-                newDataTick.voc?.maxDeltaPerInterval,
-                newDataTick.voc?.minValue,
-                newDataTick.voc?.maxValue
-            ),
-            timestamp: new Date()
-        })
-        newDataTick.occupancy?.data.push({
-            value: Math.round(this.getRealisticPseudorandomNumber(
-                newDataTick.occupancy?.data[newDataTick.occupancy?.data.length - 1]?.value, // first object in array
-                newDataTick.occupancy?.maxDeltaPerInterval,
-                newDataTick.occupancy?.minValue,
-                newDataTick.occupancy?.maxValue
-            )),
-            timestamp: new Date()
-        })
+        if (this.useOverrideValues) {
+            newDataTick.temperature.data.push({
+                value: this.environmentDataOverrideValues.temperature,
+                timestamp: new Date()
+            })
+            newDataTick.humidity.data.push({
+                value: this.environmentDataOverrideValues.humidity,
+                timestamp: new Date()
+            })
+            newDataTick.voc.data.push({
+                value: this.environmentDataOverrideValues.voc,
+                timestamp: new Date()
+            })
+            newDataTick.occupancy.data.push({
+                value: this.environmentDataOverrideValues.occupancy,
+                timestamp: new Date()
+            })
+        } else {
+            newDataTick.temperature?.data.push({
+                value: this.getRealisticPseudorandomNumber(
+                    newDataTick.temperature?.data[newDataTick.temperature?.data.length - 1]?.value, // first object in array
+                    newDataTick.temperature?.maxDeltaPerInterval,
+                    newDataTick.temperature?.minValue,
+                    newDataTick.temperature?.maxValue
+                ),
+                timestamp: new Date()
+            })
+            newDataTick.humidity?.data.push({
+                value: this.getRealisticPseudorandomNumber(
+                    newDataTick.humidity?.data[newDataTick.humidity?.data.length - 1]?.value, // first object in array
+                    newDataTick.humidity?.maxDeltaPerInterval,
+                    newDataTick.humidity?.minValue,
+                    newDataTick.humidity?.maxValue
+                ),
+                timestamp: new Date()
+            })
+            newDataTick.voc?.data.push({
+                value: this.getRealisticPseudorandomNumber(
+                    newDataTick.voc?.data[newDataTick.voc?.data.length - 1]?.value, // first object in array
+                    newDataTick.voc?.maxDeltaPerInterval,
+                    newDataTick.voc?.minValue,
+                    newDataTick.voc?.maxValue
+                ),
+                timestamp: new Date()
+            })
+            newDataTick.occupancy?.data.push({
+                value: Math.round(this.getRealisticPseudorandomNumber(
+                    newDataTick.occupancy?.data[newDataTick.occupancy?.data.length - 1]?.value, // first object in array
+                    newDataTick.occupancy?.maxDeltaPerInterval,
+                    newDataTick.occupancy?.minValue,
+                    newDataTick.occupancy?.maxValue
+                )),
+                timestamp: new Date()
+            })
+
+            // set most recent datapoint as current override data
+            // to prevent jarring change when going into manual mode in the future
+            this.setEnvironmentalOverrideData({
+                temperature: newDataTick.temperature.data[this.historicalMinutes - 1].value,
+                humidity: newDataTick.humidity.data[this.historicalMinutes - 1].value,
+                voc: newDataTick.voc.data[this.historicalMinutes - 1].value,
+                occupancy: newDataTick.occupancy.data[this.historicalMinutes - 1].value
+            })
+        }        
         newDataTick.total?.data.push({
             value: this.calculateTotalAq(),
             timestamp: new Date()
         })
         this.$environmentalData.next(newDataTick)
+    }
+
+    setEnvironmentalOverrideData(data: { temperature?: number, humidity?: number, voc?: number, occupancy?: number }) {
+        if (data.temperature) {
+            this.environmentDataOverrideValues.temperature = data.temperature
+        }
+        if (data.humidity) {
+            this.environmentDataOverrideValues.humidity = data.humidity
+        }
+        if (data.voc) {
+            this.environmentDataOverrideValues.voc = data.voc
+        }
+        if (data.occupancy) {
+            this.environmentDataOverrideValues.occupancy = data.occupancy
+        }
     }
 
     private getRealisticPseudorandomNumber(currentValue: number, maxMovement: number, overallMin: number, overallMax: number): number {
