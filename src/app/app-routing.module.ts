@@ -8,7 +8,7 @@ import { DetailRoutingModule } from './detail/detail-routing.module';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'dynamic',
     pathMatch: 'full'
   },
   {
