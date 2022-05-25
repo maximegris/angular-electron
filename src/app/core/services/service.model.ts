@@ -341,6 +341,15 @@ export class Device {
         }
     }
 
+    currentEnvironmentData(): {temperature: number, humidity: number, voc: number, occupancy: number} {
+        return {
+            temperature: this.$environmentalData.value.temperature.data[this.$environmentalData.value.temperature.data.length - 1].value,
+            humidity: this.$environmentalData.value.humidity.data[this.$environmentalData.value.humidity.data.length - 1].value,
+            voc: this.$environmentalData.value.voc.data[this.$environmentalData.value.voc.data.length - 1].value,
+            occupancy: this.$environmentalData.value.occupancy.data[this.$environmentalData.value.occupancy.data.length - 1].value
+        }
+    }
+
     // generate data for this device
     // ms: milliseconds since last event
     private dataGenerationTick(ms: number) {
