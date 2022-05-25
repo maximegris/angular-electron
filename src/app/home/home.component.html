@@ -7,8 +7,21 @@
     <h4>Settings</h4>
     <div *ngIf="activeSerialPort">
       <p>Current Serial Port: <b>{{ activeSerialPort.settings.path }}</b></p>
-
+      <button mat-raised-button color="primary" (click)="fanOperationModeTest(-1)">Send Test Command
+        (air20_set_fan_operation_mode to "-1")</button>
+      <button mat-raised-button color="primary" (click)="fanOperationModeTest(0)">Send Test Command
+        (air20_set_fan_operation_mode to "0")</button>
+      <button mat-raised-button color="primary" (click)="fanOperationModeTest(1)">Send Test Command
+        (air20_set_fan_operation_mode to "1")</button>
+      <button mat-raised-button color="primary" (click)="fanOperationModeTest(2)">Send Test Command
+        (air20_set_fan_operation_mode to "2")</button>
       <button mat-raised-button color="primary" (click)="fanOperationModeTest(3)">Send Test Command (air20_set_fan_operation_mode to "3")</button>
+      <button mat-raised-button color="primary" (click)="fanOperationModeTest(4)">Send Test Command
+        (air20_set_fan_operation_mode to "4")</button>
+        <button mat-raised-button color="primary" (click)="fanOperationModeTest(5)">Send Test Command
+          (air20_set_fan_operation_mode to "5")</button>
+          <button mat-raised-button color="primary" (click)="fanOperationModeTest(6)">Send Test Command
+            (air20_set_fan_operation_mode to "6")</button>
     </div>
     <div *ngIf="!activeSerialPort">
       <p>No Active Serial Port!</p>

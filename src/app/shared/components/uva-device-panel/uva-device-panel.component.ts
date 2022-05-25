@@ -6,6 +6,7 @@ import { Device } from '../../../core/services/service.model';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import { add } from 'date-fns';
 import { EventElement } from '../uva-event-table/uva-event-table.component';
+import { SerialCommunication } from '../../../core/services';
 
 
 @Component({
@@ -80,7 +81,8 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
   readonly FILTER_LIFE_DAYS = 500;
 
   constructor(
-    private envService: EnvironmentService
+    private envService: EnvironmentService,
+    private serialCommunication: SerialCommunication
   ) {
     super();
   }
@@ -121,8 +123,15 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
             this.occupancyData.maxValue = envData.occupancy.maxValue
             this.occupancyData.minValue = envData.occupancy.minValue
             this.totalData = {
-              data: [envData.total.data[59].value],
+              data: [envData.total.data[envData.total.data.length - 1].value],
             }
+
+            this.eventData = this.device.events?.map((event, idx) => ({
+              id: idx,
+              Item: event.part,
+              Event: event.action,
+              Date: event.timestamp
+            }));
           });
       }
       this.deviceTypeHumanized = this.humanizeDeviceType();
@@ -131,12 +140,6 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
       this.filterDaysLeft = this.FILTER_LIFE_DAYS - daysSinceInstallation;
       this.lampReplacementDate = add(d.installationDate, { days: this.LAMP_LIFE_DAYS });
       this.filterReplacementDate = add(d.installationDate, { days: this.FILTER_LIFE_DAYS });
-      this.eventData = d.events?.map((event, idx) => ({
-        id: idx,
-        Item: event.part,
-        Event: event.action,
-        Date: event.timestamp
-      }));
     });
 
     this.envService.isManualMode
@@ -151,6 +154,53 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
         console.log('setting new env data overrides', environmentalData)
         this.device.setEnvironmentalOverrideData(environmentalData)
       })
+    this.serialCommunication.lastSerialMessage
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: any) => {
+        data = data as string;
+        console.log("web got data", data);
+        if (!data) {
+          return;
+        }
+        const incoming_data_array = data.split(': ');
+
+        if (incoming_data_array.length !== 2) {
+          console.log(`recieved unknown datapacket: "${data}`)
+          return;
+        }
+
+        switch (incoming_data_array[0]) {
+          case 'M':
+            const newFanSpeed = Number(incoming_data_array[1]);
+            if (newFanSpeed >= 0) {
+              console.log(`Fan speed set to ${newFanSpeed}`);
+            } else {
+              console.log(`Invalid Fan Speed "${newFanSpeed}"... did not set!`);
+            }
+            break;
+          case 'DS':
+            const doorStatus = incoming_data_array[1];
+            if (doorStatus === 'O') {
+              this.device.addEvent({
+                part: 'Door',
+                action: 'Opened',
+                timestamp: new Date()
+              })
+            } else if (doorStatus === 'C') {
+              this.device.addEvent({
+                part: 'Door',
+                action: 'Closed',
+                timestamp: new Date()
+              })
+            } else {
+              console.log(`Invalid door status recieved: "${doorStatus}". only 'C', 'O' expected.`);
+            }
+            break;
+          default:
+            console.log(`unknown datatype prefix "${incoming_data_array[0]}". expected "M" or "DS".`);
+            break;
+        }
+      });
   }
 
   ngOnDestroy() {

@@ -1,11 +1,11 @@
 {
-  "name": "angular-electron",
-  "version": "10.5.2",
-  "description": "Angular 13 with Electron 18 (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "uvangel-air-apic-demo",
+  "version": "1.0.0",
+  "description": "UV Angel Air 2.0 Demo. APIC 2022",
+  "homepage": "https://uvangel.com/",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "UV Partners, INC.",
+    "email": "appdev@uvangel.com"
   },
   "keywords": [
     "angular",
