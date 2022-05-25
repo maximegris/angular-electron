@@ -27,8 +27,8 @@ export interface MapZoomEvent {
   zoomEnd: boolean;
 }
 
-const FEATURE_BACKGROUND_COLOR_NEUTRAL = '#C4C8CA'; //'rgba(70, 113, 138, 0.4)';
-const FEATURE_BACKGROUND_COLOR_HOVERED = '#A0AFB7';
+const FEATURE_BACKGROUND_COLOR_NEUTRAL = '#e4eaed'; //'rgba(70, 113, 138, 0.4)';
+const FEATURE_BACKGROUND_COLOR_HOVERED = '#c8dbe6';
 
 @Component({
   selector: 'uvc-geojson-map',
