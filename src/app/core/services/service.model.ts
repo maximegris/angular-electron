@@ -1,31 +1,31 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { locationFeatureMock } from './geojson/location-feature.mock';
+import { BehaviorSubject, Observable } from 'rxjs'
+import { locationFeatureMock } from './geojson/location-feature.mock'
 import { differenceInSeconds } from 'date-fns'
 
 export interface User {
-    id: string;
-    name: string;
+    id: string
+    name: string
 }
 
 export interface LocationData {
-    id?: string;
-    name?: string;
-    description?: string;
-    type?: string;
-    tags?: string[];
+    id?: string
+    name?: string
+    description?: string
+    type?: string
+    tags?: string[]
 
-    immediateSublocations?: LocationData[];
+    immediateSublocations?: LocationData[]
 
-    createdAt?: Date;
-    createdBy?: User;
-    updatedAt?: Date;
-    updatedBy?: User;
-    fullLocationPath?: LocationData[];
+    createdAt?: Date
+    createdBy?: User
+    updatedAt?: Date
+    updatedBy?: User
+    fullLocationPath?: LocationData[]
 }
 
 export interface MapInfo {
-    mapId: string;
-    featureId: string;
+    mapId: string
+    featureId: string
 }
 
 const AIR_QUALITY_TREND_CHANGE_SECONDS = 45
@@ -34,18 +34,18 @@ type AirQualityInfluencers = 'occupancy-high' | 'occupancy-low' | 'temp-high' | 
     'voc-high' | 'humidity-low' | 'humidity-high'
 
 export class Location {
-    readonly id: string;
-    readonly name: string;
-    readonly description?: string;
-    readonly type?: string;
-    readonly tags?: string[];
-    readonly createdAt?: Date;
-    readonly updatedAt?: Date;
-    readonly mapInfo?: MapInfo;
+    readonly id: string
+    readonly name: string
+    readonly description?: string
+    readonly type?: string
+    readonly tags?: string[]
+    readonly createdAt?: Date
+    readonly updatedAt?: Date
+    readonly mapInfo?: MapInfo
 
-    private activeInterval = null;
+    private activeInterval = null
 
-    currentAirQualityIssueSources?: AirQualityInfluencers[] = [];
+    currentAirQualityIssueSources?: AirQualityInfluencers[] = []
     handwashingCompliance: number = 75
     uvcTerminalCleaning: {
         lastCycle: Date,
@@ -59,36 +59,36 @@ export class Location {
 
     constructor(data: LocationData | Location) {
         if (!data.id) {
-            throw new Error(`Could not create LocationCore from data (${data}): missing id value`);
+            throw new Error(`Could not create LocationCore from data (${data}): missing id value`)
         }
-        this.id = data.id;
-        this.name = data.name;
-        this.description = data.description;
-        this.type = data.type;
+        this.id = data.id
+        this.name = data.name
+        this.description = data.description
+        this.type = data.type
         if (Array.isArray(data.tags)) {
-            this.tags = data.tags.filter(t => typeof t === 'string');
+            this.tags = data.tags.filter(t => typeof t === 'string')
         }
         if (data.createdAt) {
             try {
-                this.createdAt = new Date(data.createdAt);
+                this.createdAt = new Date(data.createdAt)
             } catch (err) {
-                console.error(err);
+                console.error(err)
             }
         }
         if (data.updatedAt) {
             try {
-                this.updatedAt = new Date(data.updatedAt);
+                this.updatedAt = new Date(data.updatedAt)
             } catch (err) {
-                console.error(err);
+                console.error(err)
             }
         }
         // TODO: replace this fake map info with backend data
-        const mapId = 'venue';
+        const mapId = 'venue'
         if (locationFeatureMock[data.id]) {
             this.mapInfo = {
                 mapId,
                 featureId: locationFeatureMock[data.id]
-            };
+            }
         }
 
         if (!this.activeInterval) {
@@ -139,57 +139,57 @@ export class Location {
 }
 
 export class LocationWithSublocations extends Location {
-    readonly immediateSublocations: Location[] = [];
+    readonly immediateSublocations: Location[] = []
 
     constructor(data: LocationData | LocationWithSublocations) {
-        super(data);
+        super(data)
 
         if (Array.isArray(data.immediateSublocations)) {
             this.immediateSublocations = (data.immediateSublocations as Array<LocationData|Location>)
-                .map(l => { try { return new Location(l); } catch (e) { console.error(e); return null; }})
-                .filter(l => l !== null);
+                .map(l => { try { return new Location(l) } catch (e) { console.error(e); return null }})
+                .filter(l => l !== null)
         }
     }
 }
 
 export class FullLocation extends LocationWithSublocations {
-    readonly fullLocationPath: LocationWithSublocations[];
-    readonly updatedBy?: User;
-    readonly createdBy?: User;
+    readonly fullLocationPath: LocationWithSublocations[]
+    readonly updatedBy?: User
+    readonly createdBy?: User
 
     // TODO: Deprecate / remove this once no longer needed
-    floorMapUrl?: string;
+    floorMapUrl?: string
 
     constructor(data: LocationData | FullLocation) {
-        super(data);
+        super(data)
 
         if (data.updatedBy) {
             try {
-                this.updatedBy = data.updatedBy;
-            } catch (e) { console.error(e); }
+                this.updatedBy = data.updatedBy
+            } catch (e) { console.error(e) }
         }
         if (data.createdBy) {
             try {
-                this.createdBy = data.createdBy;
-            } catch (e) { console.error(e); }
+                this.createdBy = data.createdBy
+            } catch (e) { console.error(e) }
         }
 
         if (Array.isArray(data.fullLocationPath)) {
             this.fullLocationPath = (data.fullLocationPath as Array<LocationData|LocationWithSublocations>)
-                .map(l => { try { return new LocationWithSublocations(l); } catch (e) { console.error(e); return null; }})
-                .filter(l => l !== null);
+                .map(l => { try { return new LocationWithSublocations(l) } catch (e) { console.error(e); return null }})
+                .filter(l => l !== null)
         }
 
         // TODO remove when backend works
-        this.floorMapUrl = '/assets/floor-plans/floor-plan.svg';
+        this.floorMapUrl = '/assets/floor-plans/floor-plan.svg'
     }
 
     /**
      * Get full location as a string separated by '/'
      */
     public get locationPath() {
-        const path = this.fullLocationPath || [];
-        return [...path.map(p => p.name), this.name].join('/');
+        const path = this.fullLocationPath || []
+        return [...path.map(p => p.name), this.name].join('/')
     }
 }
 
@@ -201,30 +201,39 @@ export interface RollingEnvironmentalData {
     temperature?: {
         minValue: number,
         maxValue: number,
+        optimalValue: number,
+        range: number,
         maxDeltaPerInterval: number,
         data: TimestampedNumericalDatapoint[]
     },
     humidity?: {
         minValue: number,
         maxValue: number,
+        optimalValue: number,
+        range: number,
         maxDeltaPerInterval: number,
         data: TimestampedNumericalDatapoint[]
     },
     voc?: {
         minValue: number,
         maxValue: number,
+        optimalValue: number,
+        range: number,
         maxDeltaPerInterval: number,
         data: TimestampedNumericalDatapoint[]
     },
     occupancy?: {
         minValue: number,
         maxValue: number,
+        optimalValue: number,
+        range: number,
         maxDeltaPerInterval: number,
         data: TimestampedNumericalDatapoint[]
     },
     total?: {
         minValue: number,
         maxValue: number,
+        optimalValue: number,
         maxDeltaPerInterval: number,
         data: TimestampedNumericalDatapoint[]
     }
@@ -232,32 +241,30 @@ export interface RollingEnvironmentalData {
 
 export interface DeviceEvent {
     // Lamp/Filter/Door/...
-    part: string;
+    part: string
     // Removed/Opened/...
-    action: string;
+    action: string
     // timestamp when event happened
-    timestamp: Date;
+    timestamp: Date
 }
 
 
 export class Device {
-    id: string;
-    type: 'UVA20' | 'AIR175' | 'AIR20';
+    id: string
+    type: 'UVA20' | 'AIR175' | 'AIR20'
     // where is the device installed, what location
-    location: FullLocation;
-    installationDate: Date;
+    location: FullLocation
+    installationDate: Date
     // device event history
-    events: DeviceEvent[];
-    name: string;
+    events: DeviceEvent[]
+    name: string
 
-    private maxEvents = 7;
-    private maxEventSecondsTilClear = 30;
-    private historicalMinutes = 60;
-    private dataGenerationInterval;
+    private maxEvents = 7
+    private maxEventSecondsTilClear = 30
+    private historicalMinutes = 60
+    private dataGenerationInterval
 
-    private maxTotal;
-
-    useOverrideValues: boolean = false;
+    useOverrideValues: boolean = false
     private environmentDataOverrideValues: {
         temperature: number,
         humidity: number,
@@ -265,11 +272,11 @@ export class Device {
         occupancy: number
     }
 
-    private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null);
-    public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable();
+    private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null)
+    public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable()
 
     constructor(initializer: Partial<Device> = {}) {
-        Object.assign(this, initializer);
+        Object.assign(this, initializer)
 
         this.environmentDataOverrideValues = {
             temperature: 72,
@@ -281,7 +288,9 @@ export class Device {
         this.$environmentalData.next({
             temperature: {
                 minValue: 60,
-                maxValue: 90,
+                maxValue: 84,
+                optimalValue: 72,
+                range: 12,
                 maxDeltaPerInterval: 1,
                 data: Array(this.historicalMinutes).fill({
                     value: this.environmentDataOverrideValues.temperature,
@@ -291,6 +300,8 @@ export class Device {
             humidity: {
                 minValue: 0,
                 maxValue: 100,
+                optimalValue: 50,
+                range: 50,
                 maxDeltaPerInterval: 3,
                 data: Array(this.historicalMinutes).fill({
                     value: this.environmentDataOverrideValues.humidity,
@@ -300,6 +311,8 @@ export class Device {
             voc: {
                 minValue: 0,
                 maxValue: 500,
+                optimalValue: 0,
+                range: 500,
                 maxDeltaPerInterval: 50,
                 data: Array(this.historicalMinutes).fill({
                     value: this.environmentDataOverrideValues.voc,
@@ -309,6 +322,8 @@ export class Device {
             occupancy: {
                 minValue: 0,
                 maxValue: 30,
+                optimalValue: 0,
+                range: 30,
                 maxDeltaPerInterval: 3,
                 data: Array(this.historicalMinutes).fill({
                     value: this.environmentDataOverrideValues.occupancy,
@@ -318,6 +333,7 @@ export class Device {
             total: {
                 minValue: 0,
                 maxValue: 100,
+                optimalValue: 100,
                 maxDeltaPerInterval: 1,
                 data: Array(this.historicalMinutes).fill({
                     value: 0,
@@ -325,11 +341,6 @@ export class Device {
                 })
             },
         })
-        this.maxTotal = 
-            this.$environmentalData.value.temperature?.maxValue +
-            this.$environmentalData.value.humidity?.maxValue +
-            this.$environmentalData.value.voc?.maxValue +
-            this.$environmentalData.value.occupancy?.maxValue;
         
         this.startDataGeneration()
     }
@@ -353,7 +364,7 @@ export class Device {
     // generate data for this device
     // ms: milliseconds since last event
     private dataGenerationTick(ms: number) {
-        let newDataTick: RollingEnvironmentalData = this.$environmentalData.value;
+        let newDataTick: RollingEnvironmentalData = this.$environmentalData.value
         // remove oldest datapoint from arrays
         newDataTick.temperature?.data.shift()
         newDataTick.humidity?.data.shift()
@@ -500,27 +511,36 @@ export class Device {
         return currentValue
     }
 
+    private getMeasurandScore(measurand: string) {
+        const ed = this.currentEnvironmentData()
+
+        const optimal = this.$environmentalData.value[measurand].optimalValue
+        const range = this.$environmentalData.value[measurand].range
+        const delta = Math.abs(ed[measurand] - optimal)
+        const score = (delta / range) * 100
+        return score
+
+    }
+
     // "Total AQ" is just the % that current sum of the 4 measurands is of total possible
     private calculateTotalAq(): number {
-        const i = this.historicalMinutes - 1
 
-        const environmentalDataTotal = 
-            this.$environmentalData.value.temperature?.data[i].value +
-            this.$environmentalData.value.humidity?.data[i].value +
-            this.$environmentalData.value.voc?.data[i].value +
-            this.$environmentalData.value.occupancy?.data[i].value
-
-        return Math.round((environmentalDataTotal / this.maxTotal) * 100)
+        const temperatureScore = this.getMeasurandScore('temperature')
+        const humidityScore = this.getMeasurandScore('humidity')
+        const vocScore = this.getMeasurandScore('voc')
+        const occupancyScore = this.getMeasurandScore('occupancy')
+        const aqScore = 100 - ((temperatureScore + humidityScore + vocScore + occupancyScore) / 4)
+        return aqScore
     }
 
     startDataGeneration() {
-        const time_interval_ms = 1000;
+        const time_interval_ms = 1000
         this.dataGenerationInterval = setInterval(() => {
-            this.dataGenerationTick(time_interval_ms);
-        }, time_interval_ms);
+            this.dataGenerationTick(time_interval_ms)
+        }, time_interval_ms)
     }
 
     endDataGeneration() {
-        clearInterval(this.dataGenerationInterval);
+        clearInterval(this.dataGenerationInterval)
     }
 }
