@@ -7,6 +7,7 @@
     (mapZoom)="onMapZoom($event)"
     [popupLocation]="lastClickedMarker?.lngLat"
     [selectedLevelId]="selectedLevelId"
+    [selectedFeatureId]="selectedFeatureId"
     [symbols]="mapSymbols"
     [markers]="mapMarkers"
     symbolImageUrl="assets/devices/air20/SurfaceMountFlatVertical.png"
@@ -20,22 +21,8 @@
     [bounds]="focusBounds"
     [popupOffset]="25"
     >
-    <div *ngIf="lastClickedMarker" mapPopup>
-        <div *ngIf="lastClickedMarker.feature.feature_type === 'anchor'">
-            <span class="font-weight-bold">{{featuresWithLocations[lastClickedMarker.feature.id].name}}</span>
-            <div>
-                <span>Air Quality:</span>
-                <span [class.text-danger]="lastClickedMarker.feature.properties.air_quality === 'Bad'">
-                    {{lastClickedMarker.feature.properties.air_quality}}
-                </span>
-            </div>
-            <span>
-                {{!lastClickedMarker.feature.properties.occupancy ? 'Not Occupied' : 'Occupancy: ' + lastClickedMarker.feature.properties.occupancy}}
-            </span>
-        </div>
-        <div *ngIf="lastClickedMarker.feature.feature_type === 'amenity'">
-            <span class="font-weight-bold">{{lastClickedMarker.feature.properties.device_name}}</span>
-        </div>
+    <div *ngIf="deviceService.getDevice(lastClickedMarker?.feature.id) as device" mapPopup class="device-popup">
+        <app-device-info [device]="device"></app-device-info>
     </div>
 </uvc-geojson-map>
 <uva-device-panel *ngIf="sidePanelVisibility.device" class="uva-device-panel" [@enterAnimation]></uva-device-panel>

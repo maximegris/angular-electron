@@ -1,18 +1,7 @@
 <mat-card class="uva-device-card mat-elevation-z2" *ngIf="device">
   <mat-card-header class="uva-device-card-header">
     <div class="uva-device-card-header-container">
-      <div class="uva-device-card-header-section uva-device-card-header-mode-block">
-        <uva-device-mode></uva-device-mode>
-      </div>
-      <div class="uva-device-card-header-section uva-device-card-header-details-block">
-        <div class="uva-device-type">{{ deviceTypeHumanized }}</div>
-        <div class="uva-device-name">{{ device.name }}</div>
-        <div class="uva-device-details">
-          <div>Location: {{ device.location.name }}</div>
-          <div>Serial #: {{ device.id }}</div>
-          <div>Installation Date: {{ device.installationDate | date:'MMM d, YYYY' }}</div>
-        </div>
-      </div>  
+      <app-device-info [device]="device"></app-device-info>
     </div>
   </mat-card-header>
   <mat-card-content class="uva-device-card-content">

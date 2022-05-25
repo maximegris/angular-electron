@@ -43,6 +43,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   showSpinner: boolean | string = true;
 
   selectedLevelId: string | number;
+  selectedFeatureId: string | number;
 
   mapMarkers: ImdfFeature<GeoJSON.Point>[] = [];
   mapSymbols: ImdfFeature<GeoJSON.Point>[] = [];
@@ -51,7 +52,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   minZoomMarkers: ImdfFeature<GeoJSON.Point>[] = [];
 
   featuresWithLocations: Record<string, FullLocation> = {};
-  featuresWithDevices: Record<string, ImdfFeature<GeoJSON.Point>[]> = {};
+  featuresWithDevices: Record<string, Device> = {};
 
   lastClickedMarker: MarkerClickEvent = null;
   currZoomLevel: number;
@@ -87,6 +88,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           this.onLevelChanged(levels[0] as unknown as LevelFeature<any>);
         }
         this.mapFeaturesToLocations();
+        this.disableHoverForDevicelessFeatures();
       }
     );
   }
@@ -111,6 +113,14 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     );
   }
 
+  disableHoverForDevicelessFeatures() {
+    this.geojson.features.forEach(feature => {
+      const props: ImdfProps = (feature.properties || {}) as ImdfProps;
+      props.hoverable = !!this.featuresWithDevices[feature.id];
+      feature.properties = props;
+    });
+  }
+
   /**
    * When level changes I will
    * - remember actual sleected level
@@ -129,9 +139,10 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     // take only those markers from input file that have 1 unit_id that points to a feature with location
     this.maxZoomMarkers = [];
     let counter = 0;
-    maxZoomInput.features.forEach(f => {
-      const deviceLocation = this.featuresWithLocations[f.properties.unit_ids[0]];
-      if (f.properties?.unit_ids?.length === 1 && deviceLocation) {
+    maxZoomInput.features.forEach(f => {     
+      if (f.properties?.unit_ids?.length === 1 && this.featuresWithLocations[f.properties.unit_ids[0]]) {
+        const parentRoomFeatureId = f.properties.unit_ids[0];
+        const deviceLocation = this.featuresWithLocations[parentRoomFeatureId];
         this.maxZoomMarkers.push({
           type: 'Feature',
           id: f.id,
@@ -147,7 +158,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           } as unknown as ImdfProps,
         });
 
-        this.deviceService.generateDeviceMock(f.id, f.properties.device_name, deviceLocation);
+        this.featuresWithDevices[parentRoomFeatureId] = this.deviceService.generateDeviceMock(f.id, f.properties.device_name, deviceLocation);
       }
     });
       //console.log(this.maxZoomMarkers);
@@ -202,6 +213,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         const parentFeature = this.geojson.features.find(f => f.id === event.feature.id);
         this.focusOnFeatures([parentFeature]);
         this.env.setCurrentLocation(this.featuresWithLocations[parentFeature.id]);
+        this.selectedFeatureId = parentFeature.id;
         this.setSidePanelVisibility('room');
       } else {
         // Amenity/Device markers use unit_ids property to refer to their parent features
@@ -213,18 +225,26 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           lngLat: [...event.feature.geometry.coordinates] as [number, number]
         };
         this.env.setCurrentDevice(this.deviceService.getDevice(event.feature.id as string));
+        this.selectedFeatureId = parentFeature.id;
         this.setSidePanelVisibility('device');
       }
   }
 
   onMapClick(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
-    if (features.length) {
+    this.selectedFeatureId = null;
+    // only features with devices in them are selectable
+    if (features.length && this.featuresWithDevices[features[0].id]) {
       console.log('Feature id = ', features[0].id);
       this.focusOnFeatures(features);
       if (this.featuresWithLocations[features[0].id]) {
         // clicked feature is a UVA location
         this.env.setCurrentLocation(this.featuresWithLocations[features[0].id]);
         this.setSidePanelVisibility('room');
+
+        if (this.featuresWithDevices[features[0].id]) {
+          // only select those features that have devices in them
+          this.selectedFeatureId = features[0].id;
+        }
       } else {
         this.setSidePanelVisibility();
       }
