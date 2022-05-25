@@ -161,7 +161,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       },
       properties: {
         ...f.properties,
-        air_quality: Math.random() > 0.5 ? 'Good' : 'Bad',
+        // air_quality: Math.random() > 0.5 ? 'Good' : 'Bad',
         occupancy: Math.floor(Math.random() * 10),
       } as unknown as ImdfProps,
     } as ImdfFeature<GeoJSON.Point>));

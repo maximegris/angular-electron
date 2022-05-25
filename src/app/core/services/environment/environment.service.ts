@@ -42,11 +42,7 @@ export class EnvironmentService {
   public readonly currentLocation$ = this.currentLocationSubject.asObservable();
   public readonly currentDevice$ = this.currentDeviceSubject.asObservable();
 
-  constructor() {
-    // setInterval(() => {
-    //   this.setManualMode(!this.$isManualMode.value)
-    // }, 5000);
-  }
+  constructor() {}
 
   setManualMode(mode: boolean): void {
     console.log(`environmentService.setManualMode(${mode})`);
@@ -56,30 +52,7 @@ export class EnvironmentService {
   setMeasurandValue(measurand: string, value: number): void {
     let tempEnvironmentData = this.$environmentData.value;
     tempEnvironmentData[measurand] = value;
-    tempEnvironmentData.total = this.calculateTotalAq(tempEnvironmentData)
     this.$environmentData.next(tempEnvironmentData);
-  }
-
-  getRemainingLampLife(installationDate: Date, lifespan: number): void {
-    const now = new Date().getTime()
-    const expiration = now + lifespan
-    this.$lampLife.next(this.getRemainingLife(installationDate, lifespan))
-  }
-
-  getRemainingFilterLife(installationDate: Date, lifespan: number): void {
-    const remainingLife = this.getRemainingLife(installationDate, 100000)
-    this.$filterLife.next(remainingLife);
-  }
-
-  private getRemainingLife(installationDate: Date, lifespan: number): number {
-    const now = new Date().getTime()
-    const consumed = now - installationDate.getTime()
-    const remainingLife = (consumed / lifespan) * 100
-    return remainingLife
-  }
-
-  calculateTotalAq(environmentData: EnvironmentData): number {
-    return ((environmentData.temperature + environmentData.humidity + environmentData.voc + environmentData.occupancy) / 400) * 100;
   }
 
   setCurrentLocation(loc: FullLocation | null) {

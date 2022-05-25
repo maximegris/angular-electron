@@ -27,6 +27,7 @@
     "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
     "start": "npm-run-all -p electron:serve ng:serve",
+    "start:web": "npm-run-all -p ng:serve",
     "ng:serve": "ng serve -c web",
     "build": "npm run electron:serve-tsc && ng build --base-href ./",
     "build:dev": "npm run build -- -c dev",

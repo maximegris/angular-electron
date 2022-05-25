@@ -34,7 +34,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(activeSerialPort => {
         this.activeSerialPort = activeSerialPort
         console.log("just set active serial port", this.activeSerialPort);
-        this.path.setValue(this.activeSerialPort.settings.path);
+        if (this.activeSerialPort) {
+          this.path.setValue(this.activeSerialPort.settings.path); 
+        } else {
+          this.path.setValue(null)
+        }
       });
   }
 

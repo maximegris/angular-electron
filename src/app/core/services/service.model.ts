@@ -152,7 +152,6 @@ export class LocationWithSublocations extends Location {
     }
 }
 
-
 export class FullLocation extends LocationWithSublocations {
     readonly fullLocationPath: LocationWithSublocations[];
     readonly updatedBy?: User;
@@ -222,6 +221,12 @@ export interface RollingEnvironmentalData {
         maxValue: number,
         maxDeltaPerInterval: number,
         data: TimestampedNumericalDatapoint[]
+    },
+    total?: {
+        minValue: number,
+        maxValue: number,
+        maxDeltaPerInterval: number,
+        data: TimestampedNumericalDatapoint[]
     }
 }
 
@@ -250,18 +255,36 @@ export class Device {
     private historicalMinutes = 60;
     private dataGenerationInterval;
 
+    private maxTotal;
+
+    useOverrideValues: boolean = false;
+    private environmentDataOverrideValues: {
+        temperature: number,
+        humidity: number,
+        voc: number,
+        occupancy: number
+    }
+
     private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null);
     public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable();
 
     constructor(initializer: Partial<Device> = {}) {
         Object.assign(this, initializer);
+
+        this.environmentDataOverrideValues = {
+            temperature: 72,
+            humidity: 50,
+            voc: 30,
+            occupancy: 0
+        }
+
         this.$environmentalData.next({
             temperature: {
                 minValue: 60,
                 maxValue: 90,
                 maxDeltaPerInterval: 1,
                 data: Array(this.historicalMinutes).fill({
-                    value: 72,
+                    value: this.environmentDataOverrideValues.temperature,
                     timestamp: new Date()
                 }) // fill with default value
             },
@@ -270,7 +293,7 @@ export class Device {
                 maxValue: 100,
                 maxDeltaPerInterval: 3,
                 data: Array(this.historicalMinutes).fill({
-                    value: 50,
+                    value: this.environmentDataOverrideValues.humidity,
                     timestamp: new Date()
                 }) // fill with default value
             },
@@ -279,7 +302,7 @@ export class Device {
                 maxValue: 500,
                 maxDeltaPerInterval: 50,
                 data: Array(this.historicalMinutes).fill({
-                    value: 30,
+                    value: this.environmentDataOverrideValues.voc,
                     timestamp: new Date()
                 }) // fill with default value
             },
@@ -288,12 +311,27 @@ export class Device {
                 maxValue: 30,
                 maxDeltaPerInterval: 3,
                 data: Array(this.historicalMinutes).fill({
-                    value: 0,
+                    value: this.environmentDataOverrideValues.occupancy,
                     timestamp: new Date()
                 }) // fill with default value
-            }
+            },
+            total: {
+                minValue: 0,
+                maxValue: 100,
+                maxDeltaPerInterval: 1,
+                data: Array(this.historicalMinutes).fill({
+                    value: 0,
+                    timestamp: new Date()
+                })
+            },
         })
-        this.startDataGeneration();
+        this.maxTotal = 
+            this.$environmentalData.value.temperature?.maxValue +
+            this.$environmentalData.value.humidity?.maxValue +
+            this.$environmentalData.value.voc?.maxValue +
+            this.$environmentalData.value.occupancy?.maxValue;
+        
+        this.startDataGeneration()
     }
 
     addEvent(event: DeviceEvent) {
@@ -306,29 +344,62 @@ export class Device {
     // generate data for this device
     // ms: milliseconds since last event
     private dataGenerationTick(ms: number) {
-
         let newDataTick: RollingEnvironmentalData = this.$environmentalData.value;
         // remove oldest datapoint from arrays
         newDataTick.temperature?.data.shift()
         newDataTick.humidity?.data.shift()
         newDataTick.voc?.data.shift()
         newDataTick.occupancy?.data.shift()
+        newDataTick.total?.data.shift()
 
         // add new value to end of arrays
-        newDataTick.temperature?.data.push({
-            value: this.getTemperatureValue(),
-            timestamp: new Date()
-        })
-        newDataTick.humidity?.data.push({
-            value: this.getHumidityValue(),
-            timestamp: new Date()
-        })
-        newDataTick.voc?.data.push({
-            value: this.getVocValue(),
-            timestamp: new Date()
-        })
-        newDataTick.occupancy?.data.push({
-            value: this.getOccupancyValue(),
+        if (this.useOverrideValues) {
+            newDataTick.temperature.data.push({
+                value: this.environmentDataOverrideValues.temperature,
+                timestamp: new Date()
+            })
+            newDataTick.humidity.data.push({
+                value: this.environmentDataOverrideValues.humidity,
+                timestamp: new Date()
+            })
+            newDataTick.voc.data.push({
+                value: this.environmentDataOverrideValues.voc,
+                timestamp: new Date()
+            })
+            newDataTick.occupancy.data.push({
+                value: this.environmentDataOverrideValues.occupancy,
+                timestamp: new Date()
+            })
+        } else {
+            // use generated values
+            newDataTick.temperature?.data.push({
+                value: this.getTemperatureValue(),
+                timestamp: new Date()
+            })
+            newDataTick.humidity?.data.push({
+                value: this.getHumidityValue(),
+                timestamp: new Date()
+            })
+            newDataTick.voc?.data.push({
+                value: this.getVocValue(),
+                timestamp: new Date()
+            })
+            newDataTick.occupancy?.data.push({
+                value: this.getOccupancyValue(),
+                timestamp: new Date()
+            })
+
+            // set most recent datapoint as current override data
+            // to prevent jarring change when going into manual mode in the future
+            this.setEnvironmentalOverrideData({
+                temperature: newDataTick.temperature.data[this.historicalMinutes - 1].value,
+                humidity: newDataTick.humidity.data[this.historicalMinutes - 1].value,
+                voc: newDataTick.voc.data[this.historicalMinutes - 1].value,
+                occupancy: newDataTick.occupancy.data[this.historicalMinutes - 1].value
+            })
+        }   
+        newDataTick.total?.data.push({
+            value: this.calculateTotalAq(),
             timestamp: new Date()
         })
 
@@ -392,6 +463,21 @@ export class Device {
         return 0
     }
 
+    setEnvironmentalOverrideData(data: { temperature?: number, humidity?: number, voc?: number, occupancy?: number }) {
+        if (data.temperature) {
+            this.environmentDataOverrideValues.temperature = data.temperature
+        }
+        if (data.humidity) {
+            this.environmentDataOverrideValues.humidity = data.humidity
+        }
+        if (data.voc) {
+            this.environmentDataOverrideValues.voc = data.voc
+        }
+        if (data.occupancy) {
+            this.environmentDataOverrideValues.occupancy = data.occupancy
+        }
+    }
+
     private getRealisticPseudorandomNumber(currentValue: number, maxMovement: number, overallMin: number, overallMax: number): number {
         let max: number = currentValue + maxMovement
         let min: number = currentValue - maxMovement
@@ -403,6 +489,19 @@ export class Device {
         }
         currentValue = Math.round((Math.random() * (max - min) + min) * 100) / 100
         return currentValue
+    }
+
+    // "Total AQ" is just the % that current sum of the 4 measurands is of total possible
+    private calculateTotalAq(): number {
+        const i = this.historicalMinutes - 1
+
+        const environmentalDataTotal = 
+            this.$environmentalData.value.temperature?.data[i].value +
+            this.$environmentalData.value.humidity?.data[i].value +
+            this.$environmentalData.value.voc?.data[i].value +
+            this.$environmentalData.value.occupancy?.data[i].value
+
+        return Math.round((environmentalDataTotal / this.maxTotal) * 100)
     }
 
     startDataGeneration() {

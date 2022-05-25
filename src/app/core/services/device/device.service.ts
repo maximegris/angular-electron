@@ -7,8 +7,12 @@ import { Device, FullLocation } from '../service.model';
 export class DeviceService {
 
   deviceMocks: Record<string, Device> = {};
+  // public isManualMode: boolean = false;
+  // public environmentData: EnvironmentData;
+  // unsubscribe$: Subject<boolean> = new Subject();
 
-  constructor() { }
+  constructor() {
+  }
 
   public generateDeviceMock(id: string, name: string, deviceLocation: FullLocation) {
     if (this.deviceMocks[id]) {

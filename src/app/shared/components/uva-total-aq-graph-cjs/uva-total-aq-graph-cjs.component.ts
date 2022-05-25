@@ -1,8 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { Subject, takeUntil } from 'rxjs';
-import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
 
 @Component({
   selector: 'uva-total-aq-graph-cjs',
@@ -11,10 +9,7 @@ import { EnvironmentData, EnvironmentService } from '../../../core/services/envi
 })
 export class UvaTotalAqGraphCjsComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
-  public totalAq: number;
-  public environmentData: EnvironmentData;
-  public canvas: HTMLCanvasElement;
-  unsubscribe$: Subject<EnvironmentData> = new Subject();
+  @Input() data!: number[]
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: false,
@@ -41,21 +36,11 @@ export class UvaTotalAqGraphCjsComponent {
   public barChartData: ChartData<'bar'> = {
     labels: ['TotalAQ'],
     datasets: [
-      { data: [10], backgroundColor: '#1b427f' },
+      { data: [50], backgroundColor: '#1b427f' },
     ]
   };
 
-  constructor(private environmentService: EnvironmentService) {};
-
-  ngOnInit(): void {
-    this.environmentService.environmentData
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(environmentData => {
-        this.totalAq = environmentData.total
-        this.barChartData.datasets[0].data = [Math.round(this.totalAq)]
-        this.chart?.update()
-      });
-  }
+  constructor() {}
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
@@ -66,5 +51,9 @@ export class UvaTotalAqGraphCjsComponent {
     console.log(event, active);
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.barChartData.datasets[0].data = this.data;
+    this.chart?.update()
+  }
 
 }

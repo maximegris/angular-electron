@@ -16,7 +16,6 @@ import { SerialCommunication } from '../../../core/services';
 })
 
 export class UvaDevicePanelComponent extends AbstractComponent implements OnInit, OnDestroy {
-
   device: Device;
   deviceSubscription: Subscription;
   deviceTypeHumanized: string;
@@ -69,6 +68,12 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
       minValue: 0,
       maxValue: 100
     }
+  totalData: {
+    data: number[]
+  } = {
+    data: [0]
+  }
+
   unsubscribe$: Subject<boolean> = new Subject();
 
   // These should be more that 365 because the device installation date is a random date 365 days in the past.
@@ -117,6 +122,9 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
             this.occupancyData.labels = [].concat(envData.occupancy.data.map(event => event.timestamp.toISOString()))
             this.occupancyData.maxValue = envData.occupancy.maxValue
             this.occupancyData.minValue = envData.occupancy.minValue
+            this.totalData = {
+              data: [envData.total.data[envData.total.data.length - 1].value],
+            }
 
             this.eventData = this.device.events?.map((event, idx) => ({
               id: idx,
@@ -134,6 +142,18 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
       this.filterReplacementDate = add(d.installationDate, { days: this.FILTER_LIFE_DAYS });
     });
 
+    this.envService.isManualMode
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(isManualMode => {
+        console.log(`uva-device-panel manual mode = ${isManualMode}`)
+        this.device.useOverrideValues = isManualMode
+      });
+    this.envService.environmentData
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(environmentalData => {
+        console.log('setting new env data overrides', environmentalData)
+        this.device.setEnvironmentalOverrideData(environmentalData)
+      })
     this.serialCommunication.lastSerialMessage
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: any) => {

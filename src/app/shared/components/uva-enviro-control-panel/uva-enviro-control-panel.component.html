@@ -1,11 +1,12 @@
 <div id="uvaEnviroControlPanel" cdkDrag cdkDragBoundary="app-dynamic-treatment-view" class="mat-elevation-z2" *ngIf="isManualMode">
-    <h1 mat-dialog-title>Environment Controls</h1>
+    <h1 mat-dialog-title>Demo Environment Override</h1>
     <div mat-dialog-content>
         <div class="uva-slider-container">
-            <uva-slider-group measurand="temperature" label="Temperature" min="0" max="100" value="{{this.environmentData.temperature}}" step="1"></uva-slider-group>
+            <!-- FIXME: Should set min and max with service-->
+            <uva-slider-group measurand="temperature" label="Temperature" min="60" max="90" value="{{this.environmentData.temperature}}" step="1"></uva-slider-group>
             <uva-slider-group measurand="humidity" label="Humidity" min="0" max="100" value="{{this.environmentData.humidity}}" step="1"></uva-slider-group>
-            <uva-slider-group measurand="voc" label="VOC" min="0" max="100" value="{{this.environmentData.voc}}" step="1"></uva-slider-group>
-            <uva-slider-group measurand="occupancy" label="Occupancy" min="0" max="100" value="{{this.environmentData.occupancy}}" step="1"></uva-slider-group>
+            <uva-slider-group measurand="voc" label="VOC" min="0" max="500" value="{{this.environmentData.voc}}" step="1"></uva-slider-group>
+            <uva-slider-group measurand="occupancy" label="Occupancy" min="0" max="30" value="{{this.environmentData.occupancy}}" step="1"></uva-slider-group>
         </div>
     </div>
     <div mat-dialog-actions class="uva-dialog-actions">
