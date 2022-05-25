@@ -369,9 +369,12 @@ export class GeoJsonMapComponent extends AbstractComponent {
     if (event.features.length > 0) {
       if (this.hoveredFeature) {
         event.target.removeFeatureState(this.hoveredFeature, 'hover');
+        this.hoveredFeature = null;
       }
-      this.hoveredFeature = event.features[0];
-      event.target.setFeatureState(this.hoveredFeature, { hover: true });
+      if ((event.features[0].properties as ImdfProps)?.hoverable !== false) {
+        this.hoveredFeature = event.features[0];
+        event.target.setFeatureState(this.hoveredFeature, { hover: true });
+      }
     }
   }
 

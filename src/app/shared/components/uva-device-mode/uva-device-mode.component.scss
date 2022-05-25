@@ -1,0 +1,18 @@
+.uva-device-card-header-image {
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    margin: auto auto;
+
+}
+
+.uva-device-mode {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.87);
+    letter-spacing: 0.4px;
+    text-align: center;
+
+    span {
+        text-transform: capitalize;
+    }
+}

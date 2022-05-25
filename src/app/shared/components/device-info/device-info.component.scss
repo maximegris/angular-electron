@@ -1,0 +1,42 @@
+:host {
+    max-width: 392px;
+    display: flex;
+    flex-direction: row;
+
+    .uva-device-card-header-mode-block {
+        display: inline;
+        float: left;
+        max-width: 100px;
+    }
+
+    .uva-device-card-header-details-block {
+        display: inline-block;
+        padding: 0px 32px;
+    }
+
+    .uva-device-type {
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.87);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+
+    .uva-device-name {
+        font-family: Avenir-Book;
+        font-size: 24px;
+        color: rgba(0, 0, 0, 0.87);
+        letter-spacing: 0;
+        text-align: left;
+        line-height: 24px;
+        margin-bottom: 16px;
+    }
+
+    .uva-device-details {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.87);
+        letter-spacing: 0.4px;
+        text-align: left;
+        line-height: 18px;
+    }
+}

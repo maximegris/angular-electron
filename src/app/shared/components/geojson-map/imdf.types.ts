@@ -8,6 +8,8 @@ export interface ImdfProps {
     display_point?: {
       coordinates: GeoJSON.Position;
     };
+    // if false then the feature will NOT visually indicate when a cursor hovers over it. Undefined or true will enable hover feature.
+    hoverable?: boolean;
 }
 
 

@@ -10,6 +10,8 @@ import { GeoJsonMapComponent } from './components/geojson-map/geojson-map.compon
 import { MapLevelControlComponent } from './components/map-level-control/map-level-control.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { LocationPresenterComponent } from './components/location-presenter/location-presenter.component';
+import { DeviceInfoComponent } from './components/device-info/device-info.component';
+import { UvaDeviceModeComponent } from './components/uva-device-mode/uva-device-mode.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { LocationPresenterComponent } from './components/location-presenter/loca
     GeoJsonMapComponent,
     MapLevelControlComponent,
     LocationPresenterComponent,
+    DeviceInfoComponent,
+    UvaDeviceModeComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +40,8 @@ import { LocationPresenterComponent } from './components/location-presenter/loca
     MapViewComponent,
     GeoJsonMapComponent,
     LocationPresenterComponent,
+    DeviceInfoComponent,
+    UvaDeviceModeComponent
   ]
 })
 export class SharedModule {}

@@ -4,3 +4,7 @@ uvc-geojson-map {
         height: calc(100vh - 64px);
     }
 }
+
+:host ::ng-deep .mapboxgl-popup-content {
+    width: 352px;
+}
