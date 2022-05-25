@@ -513,18 +513,14 @@ export class Device {
 
     private getMeasurandScore(measurand: string) {
         const ed = this.currentEnvironmentData()
-
         const optimal = this.$environmentalData.value[measurand].optimalValue
         const range = this.$environmentalData.value[measurand].range
         const delta = Math.abs(ed[measurand] - optimal)
         const score = (delta / range) * 100
         return score
-
     }
 
-    // "Total AQ" is just the % that current sum of the 4 measurands is of total possible
     private calculateTotalAq(): number {
-
         const temperatureScore = this.getMeasurandScore('temperature')
         const humidityScore = this.getMeasurandScore('humidity')
         const vocScore = this.getMeasurandScore('voc')
