@@ -77,12 +77,12 @@ export class UvaDeviceModeComponent extends AbstractComponent implements OnInit 
   }
 
   getDeviceMode(): void {
-    if (this.totalAq === 0 ) {
+    if (this.totalAq === 100 ) {
       this.deviceMode = DeviceMode.OFF;
       this.deviceImage = 'fan-off.svg';
-    } else if (this.totalAq < 33 ) {
+    } else if (this.totalAq > 66 ) {
       this.deviceMode = DeviceMode.LOW;
-    } else if (this.totalAq < 66 ) {
+    } else if (this.totalAq > 33 ) {
       this.deviceMode = DeviceMode.MEDIUM;
     } else {
       this.deviceMode = DeviceMode.HIGH;

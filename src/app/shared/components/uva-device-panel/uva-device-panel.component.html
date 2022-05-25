@@ -30,12 +30,12 @@
             </div>
             <div class="uva-aq-component-graph-row">
               <div class="uva-aq-component-graph-container uva-left">
-                <uva-aq-graph measurand="voc" label="VOC" [minValue]="vocData.minValue"
-                  [maxValue]="vocData.maxValue" [data]="vocData.data" [labels]="vocData.labels"></uva-aq-graph>
+                <uva-aq-graph measurand="voc" label="VOC" [minValue]="0"
+                  [maxValue]="500" [data]="vocData.data" [labels]="vocData.labels"></uva-aq-graph>
               </div>
               <div class="uva-aq-component-graph-container uva-right">
-                <uva-aq-graph measurand="occupancy" label="Occupancy" [minValue]="occupancyData.minValue"
-                  [maxValue]="occupancyData.maxValue" [data]="occupancyData.data" [labels]="occupancyData.labels"></uva-aq-graph>
+                <uva-aq-graph measurand="occupancy" label="Occupancy" [minValue]="0"
+                  [maxValue]="30" [data]="occupancyData.data" [labels]="occupancyData.labels"></uva-aq-graph>
               </div>  
             </div>
           </div>  
