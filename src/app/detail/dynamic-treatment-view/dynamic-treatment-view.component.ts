@@ -2,7 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LngLatBoundsLike } from 'mapbox-gl';
-import { finalize } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AbstractComponent } from '../../core/abstract.component';
 import { GeojsonMapService } from '../../core/services';
 import { DeviceService } from '../../core/services/device/device.service';
@@ -50,6 +51,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
 
   maxZoomMarkers: ImdfFeature<GeoJSON.Point>[] = [];
   minZoomMarkers: ImdfFeature<GeoJSON.Point>[] = [];
+  robotsMarkers: ImdfFeature<GeoJSON.Point>[] = [];
 
   featuresWithLocations: Record<string, FullLocation> = {};
   featuresWithDevices: Record<string, Device> = {};
@@ -63,6 +65,8 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     room: boolean,
     floor: boolean
   } = { device: false, room: false, floor: true };
+
+  locEnvUpdSub: Subscription;
 
   constructor(
     private env: EnvironmentService,
@@ -123,24 +127,76 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
 
   /**
    * When level changes I will
-   * - remember actual sleected level
+   * - remember actual selected level
    * - find out what features on current level have UVA locations
    * - find out what location have devices in them
    * - create aggregated markers/clusters for locations with devices
    */
   onLevelChanged(level: LevelFeature<any>) {
+    this.env.unregisterAllLocationsForEnvironmentMocking();
     this.selectedLevelId = level?.id;
-    const locationsOnLevel = this.geojson.features
-                              .filter(f =>
-                                f.properties.level_id === level.id &&
-                                !!this.featuresWithLocations[f.id] &&
-                                !!f.properties.display_point);
+    const featuresOnLevel = this.geojson.features.filter(f =>
+      f.properties.level_id === level.id && !!this.featuresWithLocations[f.id] && !!f.properties.display_point);
+    featuresOnLevel.forEach(feature => this.env.registerLocationForEnvironmentMocking(this.featuresWithLocations[feature.id]));
+    
+    this.createDeviceMarkers(featuresOnLevel);
+    //console.log(this.maxZoomMarkers);
+    this.createRoomMarkers(featuresOnLevel);
+    this.showSurfacideRobots();
+
+    this.decideVisibleMarkers();
+
+    this.env.setCurrentLocation(this.featuresWithLocations[level.id]);
+    this.setSidePanelVisibility('floor');
+  }
+
+  showSurfacideRobots() {
+    if (this.locEnvUpdSub) {
+      this.locEnvUpdSub.unsubscribe();
+      this.locEnvUpdSub = null;
+    }
+    this.locEnvUpdSub = this.env.locationEnvUpdated$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe(updatedLocations => {
+      this.robotsMarkers = [];
+      updatedLocations.filter(location => location.uvcTerminalCleaning.active).forEach(location => {
+        // Find feature associated to the location
+        const entry = Object.entries(this.featuresWithLocations).find(entry => entry[1].id === location.id);
+        if (entry) {
+          const feature = this.geojson.features.find(f => f.id === entry[0]);
+          // Create a robot marker at display_point of that feature
+          this.robotsMarkers.push({
+            type: 'Feature',
+            id: 'Robot' + feature.id,
+            feature_type: 'amenity',
+            geometry: {
+              type: 'Point',
+              coordinates: feature.properties.display_point.coordinates,
+            },
+            properties: {
+              ...feature.properties,
+              'icon-image': 'surfacide-robot-image',
+            } as unknown as ImdfProps,
+          }); 
+        }
+      });
+      console.log('Recalculate surfacide robots');
+      this.decideVisibleMarkers();
+    });
+  }
+
+  private createDeviceMarkers(featuresOnLevel: ImdfFeature<GeoJSON.Geometry>[]) {
     this.featuresWithDevices = {};
-    // take only those markers from input file that have 1 unit_id that points to a feature with location
     this.maxZoomMarkers = [];
     let counter = 0;
+    // take only those markers from input file that have 1 unit_id that points to a feature with location
     maxZoomInput.features.forEach(f => {     
-      if (f.properties?.unit_ids?.length === 1 && this.featuresWithLocations[f.properties.unit_ids[0]]) {
+      if (
+        // check that the device feature is associated with a valid UVA Location/feature
+        f.properties?.unit_ids?.length === 1 && this.featuresWithLocations[f.properties.unit_ids[0]] &&
+        // take only those device features on the current level
+        (!this.selectedLevelId || featuresOnLevel.some(feature => feature.id === f.properties.unit_ids[0]))
+      ) {
         const parentRoomFeatureId = f.properties.unit_ids[0];
         const deviceLocation = this.featuresWithLocations[parentRoomFeatureId];
         this.maxZoomMarkers.push({
@@ -162,8 +218,10 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         this.featuresWithDevices[parentRoomFeatureId] = this.deviceService.generateDeviceMock(f.id, f.properties.device_name, deviceLocation);
       }
     });
-      //console.log(this.maxZoomMarkers);
-    this.minZoomMarkers = locationsOnLevel.map(f => ({
+  }
+
+  private createRoomMarkers(features: ImdfFeature<GeoJSON.Geometry>[]) {
+    this.minZoomMarkers = features.map(f => ({
       type: 'Feature',
       feature_type: 'anchor',
       id: f.id,
@@ -177,11 +235,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         occupancy: Math.floor(Math.random() * 10),
       } as unknown as ImdfProps,
     } as ImdfFeature<GeoJSON.Point>));
-
-    this.decideVisibleMarkers();
-
-    this.env.setCurrentLocation(this.featuresWithLocations[level.id]);
-    this.setSidePanelVisibility('floor');
   }
 
   /**
@@ -202,7 +255,11 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
 
   showDeviceMarkers() {
     this.mapMarkers = null;
-    this.mapSymbols = this.maxZoomMarkers;
+    // a little optimization for zooming: do not recreate mapSymbols if they are the same as before
+    const markers = [...this.maxZoomMarkers, ...this.robotsMarkers];
+    if (markers.length !== this.mapSymbols?.length || markers.some((marker, index) => marker.id !== this.mapSymbols[index].id)) {
+      this.mapSymbols = [...this.maxZoomMarkers, ...this.robotsMarkers];
+    }
   }
 
   onMarkerClick(event: MarkerClickEvent) {

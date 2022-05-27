@@ -28,8 +28,6 @@ export interface MapInfo {
     featureId: string
 }
 
-const AIR_QUALITY_TREND_CHANGE_SECONDS = 45
-
 type AirQualityInfluencers = 'occupancy-high' | 'occupancy-low' | 'temp-high' | 'temp-low' |
     'voc-high' | 'humidity-low' | 'humidity-high'
 
@@ -91,16 +89,9 @@ export class Location {
             }
         }
 
-        if (!this.activeInterval) {
-            this.randomizeLocationAirQuality()
-            this.randomizeUVCTerminalCleaning()
-            this.randomizeHandwashingCompliance()
-            this.activeInterval = setInterval(() => {
-                this.randomizeLocationAirQuality()
-                this.randomizeUVCTerminalCleaning()
-                this.randomizeHandwashingCompliance()
-            }, AIR_QUALITY_TREND_CHANGE_SECONDS * 1000)
-        }
+        this.randomizeLocationAirQuality();
+        this.randomizeUVCTerminalCleaning();
+        this.randomizeHandwashingCompliance();
     }
 
     randomizeLocationAirQuality() {
