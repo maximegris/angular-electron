@@ -32,7 +32,7 @@ export interface MapSymbolImage {
   url: string;
 }
 
-const FEATURE_BACKGROUND_COLOR_NEUTRAL = '#e4eaed'; //'rgba(70, 113, 138, 0.4)';
+const FEATURE_BACKGROUND_COLOR_NEUTRAL = '#e4eaed';
 const FEATURE_BACKGROUND_COLOR_HOVERED = '#c8dbe6';
 
 @Component({
@@ -495,6 +495,12 @@ export class GeoJsonMapComponent extends AbstractComponent {
       (image as any).loaded = true;
       this.symbolImageLoaded = this.symbolImage.every((image: any) => image.loaded);
     }
+  }
+
+  repaint() {
+    // this doesn't repaint features
+    //this.mapboxMap?.triggerRepaint();
+    this.input = {...this.input};
   }
 
 }

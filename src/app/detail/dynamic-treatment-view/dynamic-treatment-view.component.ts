@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LngLatBoundsLike } from 'mapbox-gl';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { GeojsonMapService } from '../../core/services';
 import { DeviceService } from '../../core/services/device/device.service';
 import { EnvironmentService } from '../../core/services/environment/environment.service';
 import { Device, FullLocation } from '../../core/services/service.model';
-import { findBounds, MapZoomEvent, MarkerClickEvent } from '../../shared/components/geojson-map/geojson-map.component';
+import { findBounds, GeoJsonMapComponent, MapZoomEvent, MarkerClickEvent } from '../../shared/components/geojson-map/geojson-map.component';
 import { ImdfFeature, ImdfProps, isLevelFeature, LevelFeature } from '../../shared/components/geojson-map/imdf.types';
 import maxZoomInput from './max-zoom-markers.json';
 
@@ -40,6 +40,9 @@ const MAP_ID = 'venue';
 })
 
 export class DynamicTreatmentViewComponent extends AbstractComponent implements OnInit, OnDestroy {
+  @ViewChild(GeoJsonMapComponent)
+  mapComponent: GeoJsonMapComponent;
+
   geojson = null;
   showSpinner: boolean | string = true;
 
@@ -67,6 +70,20 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   } = { device: false, room: false, floor: true };
 
   locEnvUpdSub: Subscription;
+  airQualityColors = {
+    good: {
+      normal: '#e4eaed',
+      hovered: '#c8dbe6',
+    },
+    medium: {
+      normal: '#C9C666',
+      hovered: '#FFF800',
+    },
+    bad: {
+      normal: '#F59797',
+      hovered: '#F93131',
+    }
+  };
 
   constructor(
     private env: EnvironmentService,
@@ -142,7 +159,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     this.createDeviceMarkers(featuresOnLevel);
     //console.log(this.maxZoomMarkers);
     this.createRoomMarkers(featuresOnLevel);
-    this.showSurfacideRobots();
+    this.reactToEnvironmentDataChanges(featuresOnLevel);
 
     this.decideVisibleMarkers();
 
@@ -150,7 +167,11 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     this.setSidePanelVisibility('floor');
   }
 
-  showSurfacideRobots() {
+  /**
+   * Shows Surfacide robots
+   * Changes locations colors based on their air quality
+   */
+  reactToEnvironmentDataChanges(featuresOnLevel: ImdfFeature<GeoJSON.Geometry>[]) {
     if (this.locEnvUpdSub) {
       this.locEnvUpdSub.unsubscribe();
       this.locEnvUpdSub = null;
@@ -159,29 +180,49 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       takeUntil(this.destroyed$)
     ).subscribe(updatedLocations => {
       this.robotsMarkers = [];
-      updatedLocations.filter(location => location.uvcTerminalCleaning.active).forEach(location => {
+      // reset all location colors
+      featuresOnLevel.forEach(feature => {
+        feature.properties['fill-color'] = this.airQualityColors.good.normal;
+        feature.properties['fill-color-hovered'] = this.airQualityColors.good.hovered;
+      });
+
+      updatedLocations.forEach(location => {
         // Find feature associated to the location
         const entry = Object.entries(this.featuresWithLocations).find(entry => entry[1].id === location.id);
         if (entry) {
           const feature = this.geojson.features.find(f => f.id === entry[0]);
-          // Create a robot marker at display_point of that feature
-          this.robotsMarkers.push({
-            type: 'Feature',
-            id: 'Robot' + feature.id,
-            feature_type: 'amenity',
-            geometry: {
-              type: 'Point',
-              coordinates: feature.properties.display_point.coordinates,
-            },
-            properties: {
-              ...feature.properties,
-              'icon-image': 'surfacide-robot-image',
-            } as unknown as ImdfProps,
-          }); 
+
+          if (location.uvcTerminalCleaning.active) {
+            // Create a robot marker at display_point of that feature
+            this.robotsMarkers.push({
+              type: 'Feature',
+              id: 'Robot' + feature.id,
+              feature_type: 'amenity',
+              geometry: {
+                type: 'Point',
+                coordinates: feature.properties.display_point.coordinates,
+              },
+              properties: {
+                ...feature.properties,
+                'icon-image': 'surfacide-robot-image',
+              } as unknown as ImdfProps,
+            });
+          }
+
+          // change location color based on air quality
+          let airQuality = 'good';
+          if (entry[1].currentAirQualityIssueSources.length > 3) {
+            airQuality = 'bad'
+          } else if (entry[1].currentAirQualityIssueSources.length > 1) {
+            airQuality = 'medium';
+          }
+          feature.properties['fill-color'] = this.airQualityColors[airQuality].normal;
+          feature.properties['fill-color-hovered'] = this.airQualityColors[airQuality].hovered;
         }
       });
-      console.log('Recalculate surfacide robots');
+
       this.decideVisibleMarkers();
+      this.mapComponent?.repaint();      
     });
   }
 

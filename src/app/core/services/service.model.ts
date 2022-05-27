@@ -41,8 +41,6 @@ export class Location {
     readonly updatedAt?: Date
     readonly mapInfo?: MapInfo
 
-    private activeInterval = null
-
     currentAirQualityIssueSources?: AirQualityInfluencers[] = []
     handwashingCompliance: number = 75
     uvcTerminalCleaning: {
@@ -104,7 +102,7 @@ export class Location {
             ['occupancy-high', 'voc-high'],
             ['occupancy-high', 'voc-high', 'humidity-high', 'temp-high']
         ]
-        let roomScenarioIndex = Math.round(Math.random() * roomOptions.length - 1)
+        let roomScenarioIndex = Math.round(Math.random() * (roomOptions.length - 1))
         this.currentAirQualityIssueSources = roomOptions[roomScenarioIndex]
     }
 
