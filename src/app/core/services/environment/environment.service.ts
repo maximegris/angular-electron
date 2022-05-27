@@ -62,7 +62,6 @@ export class EnvironmentService {
     let tempEnvironmentData = this.$environmentData.value;
     tempEnvironmentData[measurand] = value;
     tempEnvironmentData.airQuality = this.getAirQuality(tempEnvironmentData.total)
-    console.log(tempEnvironmentData)
     this.$environmentData.next(tempEnvironmentData);
   }
 
