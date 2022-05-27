@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
+import { BADFAMILY } from 'dns';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { Device, FullLocation } from '../service.model';
 
 const installationDate = new Date()
+
+enum AirQuality {
+  BAD = 'bad',
+  MEDIUM = 'medium',
+  GOOD = 'good',
+}
 
 export type EnvironmentData = {
   temperature: number,
@@ -10,6 +17,7 @@ export type EnvironmentData = {
   voc: number,
   occupancy: number,
   total: number,
+  airQuality: AirQuality,
 }
 
 @Injectable({
@@ -26,6 +34,7 @@ export class EnvironmentService {
       voc: 50,
       occupancy: 50,
       total: 50,
+      airQuality: AirQuality.GOOD,
     }
   )
   public readonly environmentData: Observable<EnvironmentData> = this.$environmentData.asObservable();
@@ -52,6 +61,8 @@ export class EnvironmentService {
   setMeasurandValue(measurand: string, value: number): void {
     let tempEnvironmentData = this.$environmentData.value;
     tempEnvironmentData[measurand] = value;
+    tempEnvironmentData.airQuality = this.getAirQuality(tempEnvironmentData.total)
+    console.log(tempEnvironmentData)
     this.$environmentData.next(tempEnvironmentData);
   }
 
@@ -61,6 +72,18 @@ export class EnvironmentService {
 
   setCurrentDevice(device: Device | null) {
     this.currentDeviceSubject.next(device);
+  }
+
+  getAirQuality(total: number): AirQuality {
+    let airQuality: AirQuality
+    if (total < 33) {
+      airQuality = AirQuality.BAD
+    } else if (total < 66) {
+      airQuality = AirQuality.MEDIUM
+    } else {
+      airQuality = AirQuality.GOOD
+    }
+    return airQuality    
   }
 
 }
