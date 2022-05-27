@@ -155,6 +155,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           properties: {
             ...f.properties,
             device_name: 'Device #' + counter++,
+            'icon-image': 'air20-image',
           } as unknown as ImdfProps,
         });
 

@@ -27,6 +27,11 @@ export interface MapZoomEvent {
   zoomEnd: boolean;
 }
 
+export interface MapSymbolImage {
+  id: string;
+  url: string;
+}
+
 const FEATURE_BACKGROUND_COLOR_NEUTRAL = '#e4eaed'; //'rgba(70, 113, 138, 0.4)';
 const FEATURE_BACKGROUND_COLOR_HOVERED = '#c8dbe6';
 
@@ -216,7 +221,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   _symbols: GeoJSON.FeatureCollection;
 
   @Input()
-  symbolImageUrl: string;
+  symbolImage: string | MapSymbolImage[];
 
   /**
    * Configuration of symbol layer layout
@@ -227,7 +232,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
     this._symbolLayout = {
       ...layout,
       // this has to be hard-coded because other parts rely on it
-      'icon-image': 'uva-symbol-image',
+      'icon-image': ['case', ['has', 'icon-image'], ['get', 'icon-image'], 'uva-symbol-image'],
     };
   }
   _symbolLayout: Record<string, any> = {
@@ -252,6 +257,8 @@ export class GeoJsonMapComponent extends AbstractComponent {
   symbolImageLoaded = false;
 
   mapboxMap: Map;
+
+  readonly Array = Array;
 
   constructor() {
     super();
@@ -480,8 +487,14 @@ export class GeoJsonMapComponent extends AbstractComponent {
     }
   }
 
-  onSymbolImageLoaded(event: any) {
-    this.symbolImageLoaded = true;
+  onSymbolImageLoaded(imageId: string) {
+    if (typeof this.symbolImage === 'string') {
+      this.symbolImageLoaded = true;
+    } else {
+      const image = this.symbolImage.find(image => image.id === imageId);
+      (image as any).loaded = true;
+      this.symbolImageLoaded = this.symbolImage.every((image: any) => image.loaded);
+    }
   }
 
 }

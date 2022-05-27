@@ -10,7 +10,16 @@
     [selectedFeatureId]="selectedFeatureId"
     [symbols]="mapSymbols"
     [markers]="mapMarkers"
-    symbolImageUrl="assets/devices/air20/air20-flat.png"
+    [symbolImage]="[
+      {
+        id: 'air20-image',
+        url: 'assets/devices/air20/air20-flat.png'
+      },
+      {
+        id: 'surfacide-robot-image',
+        url: 'assets/logos/partners/surfacide/surfacide_towers.png'
+      }
+    ]"
     [symbolLayout]="{
       'icon-size': ['interpolate', ['exponential', 2], ['zoom'], 15, 0.01, 25, 2],
       'icon-rotation-alignment': 'map',
