@@ -232,10 +232,12 @@ export class GeoJsonMapComponent extends AbstractComponent {
     this._symbolLayout = {
       ...layout,
       // this has to be hard-coded because other parts rely on it
+      'icon-allow-overlap': true,
       'icon-image': ['case', ['has', 'icon-image'], ['get', 'icon-image'], 'uva-symbol-image'],
     };
   }
   _symbolLayout: Record<string, any> = {
+    'icon-allow-overlap': true,
     'icon-image': 'uva-symbol-image',
   };
 

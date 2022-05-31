@@ -74,14 +74,17 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     good: {
       normal: '#e4eaed',
       hovered: '#c8dbe6',
+      selected: '#c8dbe6',
     },
     medium: {
       normal: '#C9C666',
       hovered: '#FFF800',
+      selected: '#FFF800',
     },
     bad: {
       normal: '#F59797',
       hovered: '#F93131',
+      selected: '#F93131',
     }
   };
 
@@ -184,6 +187,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       featuresOnLevel.forEach(feature => {
         feature.properties['fill-color'] = this.airQualityColors.good.normal;
         feature.properties['fill-color-hovered'] = this.airQualityColors.good.hovered;
+        feature.properties['selected-fill-color'] = this.airQualityColors.good.selected;
       });
 
       updatedLocations.forEach(location => {
@@ -218,6 +222,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           }
           feature.properties['fill-color'] = this.airQualityColors[airQuality].normal;
           feature.properties['fill-color-hovered'] = this.airQualityColors[airQuality].hovered;
+          feature.properties['selected-fill-color'] = this.airQualityColors[airQuality].selected;
         }
       });
 
@@ -297,9 +302,9 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   showDeviceMarkers() {
     this.mapMarkers = null;
     // a little optimization for zooming: do not recreate mapSymbols if they are the same as before
-    const markers = [...this.maxZoomMarkers, ...this.robotsMarkers];
+    const markers = [...this.robotsMarkers, ...this.maxZoomMarkers];
     if (markers.length !== this.mapSymbols?.length || markers.some((marker, index) => marker.id !== this.mapSymbols[index].id)) {
-      this.mapSymbols = [...this.maxZoomMarkers, ...this.robotsMarkers];
+      this.mapSymbols = markers;
     }
   }
 
