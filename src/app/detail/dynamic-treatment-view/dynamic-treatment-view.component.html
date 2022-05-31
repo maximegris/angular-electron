@@ -5,6 +5,8 @@
     (mapClick)="onMapClick($event)"
     (markerClick)="onMarkerClick($event)"
     (mapZoom)="onMapZoom($event)"
+    (mouseDown)="resetAnimationTimer()"
+    (wheel)="resetAnimationTimer()"
     [popupLocation]="lastClickedMarker?.lngLat"
     [selectedLevelId]="selectedLevelId"
     [selectedFeatureId]="selectedFeatureId"

@@ -9,6 +9,8 @@
         (zoomEnd)="onZoom($event, false, true)"
         (mapLoad)="onMapLoad($event)"
         (mapClick)="onMapClick($event)"
+        (mouseDown)="mouseDown.emit($event)"
+        (wheel)="wheel.emit($event)"
     >
         <mgl-geojson-source
             id="uva-all-features"

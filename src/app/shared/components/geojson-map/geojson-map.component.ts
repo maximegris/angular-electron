@@ -188,6 +188,14 @@ export class GeoJsonMapComponent extends AbstractComponent {
   @Output()
   mapZoom = new EventEmitter<MapZoomEvent>();
 
+  @Output()
+  // TODO: create interface
+  mouseDown = new EventEmitter<unknown>();
+
+  @Output()
+  // TODO: create interface
+  wheel = new EventEmitter<unknown>();
+
   /**
    * Event in case user clicks on a level picker
    */
@@ -279,7 +287,9 @@ export class GeoJsonMapComponent extends AbstractComponent {
 
       this.extractFeatures();
 
-      this.bounds = findBounds(this.allFeatures);
+      if (!this.bounds) {
+        this.bounds = findBounds(this.allFeatures);
+      }
 
       // let max bounds show 2x width & height of feature bounds
       const width = (this.bounds[2] - this.bounds[0]);

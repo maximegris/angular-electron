@@ -2,8 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LngLatBoundsLike } from 'mapbox-gl';
-import { Subscription } from 'rxjs';
-import { finalize, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, from, NEVER, of, Subject, Subscription, timer } from 'rxjs';
+import { concatMap, delay, finalize, repeat, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractComponent } from '../../core/abstract.component';
 import { GeojsonMapService } from '../../core/services';
 import { DeviceService } from '../../core/services/device/device.service';
@@ -18,6 +18,8 @@ const LEVEL1ID = '81e9fd76-b34a-45f6-a6dc-1f172f01e849';
 // it is the largest feature with devices for which we want to show details
 const ZOOM_LEVEL_DETAILS = 17.6779015450;
 const MAP_ID = 'venue';
+const ANIMATION_LOOP_DELAY_MS = 5000;
+const ANIMATION_START_DELAY_MS = 10000;
 
 @Component({
   selector: 'app-dynamic-treatment-view',
@@ -88,6 +90,11 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     }
   };
 
+  isAnimating = false;
+  animationSubscription: Subscription;
+  animationTimerSubscription: Subscription;
+  animationPaused$ = new BehaviorSubject<boolean>(true);
+
   constructor(
     private env: EnvironmentService,
     public mapService: GeojsonMapService,
@@ -105,12 +112,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           // limit input data only to level 1
           features: (map as GeoJSON.FeatureCollection).features.filter(f => f.id === LEVEL1ID || f.properties?.level_id === LEVEL1ID)
         };
-
-        // set initial level selected
-        const levels = this.geojson.features.filter(f => isLevelFeature(f));
-        if (levels.length) {
-          this.onLevelChanged(levels[0] as unknown as LevelFeature<any>);
-        }
         this.mapFeaturesToLocations();
         this.disableHoverForDevicelessFeatures();
       }
@@ -132,6 +133,12 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         });
         if (this.selectedLevelId) {
           this.onLevelChanged({id: this.selectedLevelId} as LevelFeature<any>);
+        } else {
+          // set initial level selected
+          const levels = this.geojson.features.filter(f => isLevelFeature(f));
+          if (levels.length) {
+            this.onLevelChanged(levels[0] as unknown as LevelFeature<any>);
+          }
         }
       }
     );
@@ -159,6 +166,8 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       f.properties.level_id === level.id && !!this.featuresWithLocations[f.id] && !!f.properties.display_point);
     featuresOnLevel.forEach(feature => this.env.registerLocationForEnvironmentMocking(this.featuresWithLocations[feature.id]));
     
+    this.focusOnFeatures(featuresOnLevel);
+
     this.createDeviceMarkers(featuresOnLevel);
     //console.log(this.maxZoomMarkers);
     this.createRoomMarkers(featuresOnLevel);
@@ -168,6 +177,54 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
 
     this.env.setCurrentLocation(this.featuresWithLocations[level.id]);
     this.setSidePanelVisibility('floor');
+    this.startFlyoverAnimationLoop();
+  }
+
+  /**
+   * Build the flyover animation sequence.
+   * Level -> Room -> All devices in a room -> Level -> Next room -> etc.
+   */
+  startFlyoverAnimationLoop() {
+    const animationFrames: (() => void)[] = [];
+
+    // Generate animation frames
+    this.minZoomMarkers.forEach(roomMarker => {
+      // simulates a click that results in whole level shown
+      animationFrames.push(() => this.onMapClick([], false));
+
+      // simulates a click on room marker
+      animationFrames.push(() => this.onMarkerClick({
+        feature: roomMarker,
+        clientX: null, clientY: null, lngLat: null
+      }, false));
+
+      // simulates a click on all device markers in that room
+      // room marker id is the same as room feature id. unit_ids[0] is the room id device is in.
+      this.maxZoomMarkers
+        .filter(deviceMarker => (deviceMarker.properties as any).unit_ids[0] === roomMarker.id)
+        .forEach(deviceMarker => {
+          animationFrames.push(() => this.onMarkerClick({
+            feature: deviceMarker,
+            clientX: null, clientY: null, lngLat: null
+          }, false));
+        });
+    });
+
+    if (this.animationSubscription) {
+      this.animationSubscription.unsubscribe();
+    }
+
+    this.animationSubscription = this.animationPaused$.pipe(
+      switchMap(paused => paused ? NEVER : from(animationFrames).pipe(
+        concatMap(animation => of(animation).pipe(
+          delay(ANIMATION_LOOP_DELAY_MS),
+        )),
+        repeat(),
+      )),
+      takeUntil(this.destroyed$)
+    ).subscribe(animation => animation());
+
+    this.resetAnimationTimer();
   }
 
   /**
@@ -308,8 +365,11 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
     }
   }
 
-  onMarkerClick(event: MarkerClickEvent) {
+  onMarkerClick(event: MarkerClickEvent, userTriggered = true) {
       console.log(event);
+      if (userTriggered) {
+        this.resetAnimationTimer();
+      }
       // Clicking on an anchor marker will zoom the map such that the feature that contains clicked marker
       // will be centered on the map
       if (event.feature.feature_type === 'anchor') {
@@ -319,6 +379,8 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         this.env.setCurrentLocation(this.featuresWithLocations[parentFeature.id]);
         this.selectedFeatureId = parentFeature.id;
         this.setSidePanelVisibility('room');
+        // hide device popup if it was visible
+        this.lastClickedMarker = null;
       } else {
         // Amenity/Device markers use unit_ids property to refer to their parent features
         const parentFeature = this.geojson.features.find(f => f.id === (event.feature.properties as any).unit_ids[0]);
@@ -334,8 +396,13 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       }
   }
 
-  onMapClick(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[]) {
+  onMapClick(features: ImdfFeature<GeoJSON.Geometry, ImdfProps>[], userTriggered = true) {
     this.selectedFeatureId = null;
+    // hide device popup if it was visible
+    this.lastClickedMarker = null;
+    if (userTriggered) {
+      this.resetAnimationTimer();
+    }
     // only features with devices in them are selectable
     if (features.length && this.featuresWithDevices[features[0].id]) {
       console.log('Feature id = ', features[0].id);
@@ -370,6 +437,8 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   onMapZoom(evt: MapZoomEvent) {
     this.currZoomLevel = evt.zoomLevel;
     this.decideVisibleMarkers();
+    // TODO: this keeps restarting the animation
+    //this.resetAnimationTimer();
   }
 
   public toggle(event: MatSlideToggleChange) {
@@ -395,6 +464,22 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       default:
         break;
     }
+  }
+
+  /**
+   * After some user interaction we reset the timer that counts down to the beginning of flyover animation.
+   */
+  resetAnimationTimer() {
+    this.animationPaused$.next(true);
+
+    if (this.animationTimerSubscription) {
+      this.animationTimerSubscription.unsubscribe();
+    }
+
+    this.animationTimerSubscription = of(true).pipe(
+      delay(ANIMATION_START_DELAY_MS),
+      takeUntil(this.destroyed$)
+    ).subscribe(() => this.animationPaused$.next(false));
   }
 
   ngOnDestroy(): void {
