@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, interval, Observable, ReplaySubject, timer } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, timer } from 'rxjs';
 import { Device, FullLocation, Location } from '../service.model';
 
 // how often we mock location environment data
 const LOCATION_ENVIRONMENT_MOCK_INTERVAL_MS = 45000;
+
+enum AirQuality {
+  BAD = 'bad',
+  MEDIUM = 'medium',
+  GOOD = 'good',
+}
 
 export type EnvironmentData = {
   temperature: number,
@@ -11,6 +17,7 @@ export type EnvironmentData = {
   voc: number,
   occupancy: number,
   total: number,
+  airQuality: AirQuality,
 }
 
 @Injectable({
@@ -27,6 +34,7 @@ export class EnvironmentService {
       voc: 50,
       occupancy: 50,
       total: 50,
+      airQuality: AirQuality.GOOD,
     }
   )
   public readonly environmentData: Observable<EnvironmentData> = this.$environmentData.asObservable();
@@ -68,6 +76,7 @@ export class EnvironmentService {
   setMeasurandValue(measurand: string, value: number): void {
     let tempEnvironmentData = this.$environmentData.value;
     tempEnvironmentData[measurand] = value;
+    tempEnvironmentData.airQuality = this.getAirQuality(tempEnvironmentData.total)
     this.$environmentData.next(tempEnvironmentData);
   }
 
@@ -96,6 +105,18 @@ export class EnvironmentService {
 
   unregisterAllLocationsForEnvironmentMocking() {
     this.mockedLocations = [];
+  }
+
+  getAirQuality(total: number): AirQuality {
+    let airQuality: AirQuality
+    if (total < 33) {
+      airQuality = AirQuality.BAD
+    } else if (total < 66) {
+      airQuality = AirQuality.MEDIUM
+    } else {
+      airQuality = AirQuality.GOOD
+    }
+    return airQuality    
   }
 
 }
