@@ -79,14 +79,14 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       selected: '#c8dbe6',
     },
     medium: {
-      normal: '#C9C666',
-      hovered: '#FFF800',
-      selected: '#FFF800',
+      normal: '#f0eeb1',
+      hovered: '#fffc80',
+      selected: '#fffc80',
     },
     bad: {
-      normal: '#F59797',
-      hovered: '#F93131',
-      selected: '#F93131',
+      normal: '#fac8c8',
+      hovered: '#ff7878',
+      selected: '#ff7878',
     }
   };
 
@@ -274,7 +274,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           let airQuality = 'good';
           if (entry[1].currentAirQualityIssueSources.length > 3) {
             airQuality = 'bad'
-          } else if (entry[1].currentAirQualityIssueSources.length > 1) {
+          } else if (entry[1].currentAirQualityIssueSources.length > 2) {
             airQuality = 'medium';
           }
           feature.properties['fill-color'] = this.airQualityColors[airQuality].normal;
