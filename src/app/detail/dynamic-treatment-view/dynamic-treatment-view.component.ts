@@ -74,9 +74,9 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   locEnvUpdSub: Subscription;
   airQualityColors = {
     good: {
-      normal: '#e4eaed',
-      hovered: '#c8dbe6',
-      selected: '#c8dbe6',
+      normal: '#E9F3FB',
+      hovered: '#0093C8',
+      selected: '#0093C8',
     },
     medium: {
       normal: '#f0eeb1',
