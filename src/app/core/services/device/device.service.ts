@@ -94,6 +94,15 @@ export class DeviceService {
   setCurrentDevice(device: Device | null) {
     this.currentDeviceSubject.next(device);
   }
+
+  mockLocationEnvironmentData(): void {
+    this.mockedLocations.forEach(location => {
+      location.randomizeLocationAirQuality();
+      location.randomizeUVCTerminalCleaning();
+      location.randomizeHandwashingCompliance();
+    });
+    this.locationEnvUpdatedSubject.next([...this.mockedLocations]);
+  }
   
   setManualMode(mode: boolean): void {
     console.log(`deviceService.setManualMode(${mode})`);
