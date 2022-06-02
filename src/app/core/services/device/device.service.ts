@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ReplaySubject, BehaviorSubject, Observable, timer } from 'rxjs'
-import { Device, FullLocation, RollingEnvironmentalData } from '../service.model'
+import { Device, Location, FullLocation, RollingEnvironmentalData } from '../service.model'
 
 // how often we mock location environment data
 const LOCATION_ENVIRONMENT_MOCK_INTERVAL_MS = 45000
