@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
-import { Subject, takeUntil } from 'rxjs';
-import { EnvironmentService } from '../../../core/services/environment/environment.service';
+import { DeviceService } from '../../../core/services/device/device.service';
 
 @Component({
   selector: 'uva-slider-group',
@@ -16,13 +15,13 @@ export class UvaSliderGroupComponent implements OnInit {
   @Input() value!: number
   @Input() label: string
 
-  constructor(private environmentService: EnvironmentService) { }
+  constructor(private deviceService: DeviceService) { }
 
   ngOnInit(): void {
   }
 
   onInputChange(event: MatSliderChange): void {
-    this.environmentService.setMeasurandValue(this.measurand, event.value)
+    this.deviceService.setMeasurandValue(this.measurand, event.value)
   }
 
 }

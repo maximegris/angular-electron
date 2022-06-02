@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
+import { DeviceService } from '../../../core/services/device/device.service';
 
 @Component({
   selector: 'uva-enviro-control-panel',
@@ -8,23 +8,22 @@ import { EnvironmentData, EnvironmentService } from '../../../core/services/envi
   styleUrls: ['./uva-enviro-control-panel.component.scss']
 })
 export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
+  @Input() initTemperature: number
+  @Input() initHumidity: number
+  @Input() initVoc: number
+  @Input() initOccupancy: number
+
   public isManualMode: boolean = false;
-  public environmentData: EnvironmentData;
   unsubscribe$: Subject<boolean> = new Subject();
 
-  constructor(private environmentService: EnvironmentService) { }
+  constructor(private deviceService: DeviceService) { }
 
   ngOnInit(): void {
-    this.environmentService.isManualMode
+    this.deviceService.isManualMode
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isManualMode => {
         this.isManualMode = isManualMode
       });
-    this.environmentService.environmentData
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(environmentData => {
-        this.environmentData = environmentData
-      })
   }
 
   ngOnDestroy() {
@@ -34,7 +33,7 @@ export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
 
   closePanel(event: PointerEvent): void {
     console.log(`closePanel this.isManualMode ${this.isManualMode}`)
-    this.environmentService.setManualMode(false)
+    this.deviceService.setManualMode(false)
   }
 
 }

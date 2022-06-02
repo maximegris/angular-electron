@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { AbstractComponent } from '../../../core/abstract.component';
-import { EnvironmentService } from '../../../core/services/environment/environment.service';
 import { Device } from '../../../core/services/service.model';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import { add } from 'date-fns';
 import { EventElement } from '../uva-event-table/uva-event-table.component';
 import { SerialCommunication } from '../../../core/services';
-
+import { DeviceService } from '../../../core/services/device/device.service';
 
 @Component({
   selector: 'uva-device-panel',
@@ -23,6 +22,10 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
   filterDaysLeft: number;
   lampReplacementDate: Date;
   filterReplacementDate: Date;
+  currentTemperature: number;
+  currentHumidity: number;
+  currentVoc: number;
+  currentOccupancy: number;
   eventData: EventElement[];
   temperatureData: {
     data: number[],
@@ -81,7 +84,7 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
   readonly FILTER_LIFE_DAYS = 500;
 
   constructor(
-    private envService: EnvironmentService,
+    private deviceService: DeviceService,
     private serialCommunication: SerialCommunication
   ) {
     super();
@@ -89,7 +92,7 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
 
   ngOnInit(): void {
     console.log('UvaDevicePanel INIT');
-    this.envService.currentDevice$.pipe(
+    this.deviceService.currentDevice$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe(d => {
       let settingNewDevice: boolean = false;
@@ -103,21 +106,25 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
         this.deviceSubscription = this.device.environmentalData
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe(envData => {
+            this.currentTemperature = envData.temperature.data[envData.temperature.data.length - 1].value
             this.temperatureData.data = [].concat(envData.temperature.data.map(event => event.value))
             this.temperatureData.labels = [].concat(envData.temperature.data.map(event => event.timestamp.toISOString()))
             this.temperatureData.maxValue = envData.temperature.maxValue
             this.temperatureData.minValue = envData.temperature.minValue
 
+            this.currentHumidity = envData.humidity.data[envData.humidity.data.length - 1].value
             this.humidityData.data = [].concat(envData.humidity.data.map(event => event.value))
             this.humidityData.labels = [].concat(envData.humidity.data.map(event => event.timestamp.toISOString()))
             this.humidityData.maxValue = envData.humidity.maxValue
             this.humidityData.minValue = envData.humidity.minValue
 
+            this.currentVoc = envData.voc.data[envData.voc.data.length - 1].value
             this.vocData.data = [].concat(envData.voc.data.map(event => event.value))
             this.vocData.labels = [].concat(envData.voc.data.map(event => event.timestamp.toISOString()))
             this.vocData.maxValue = envData.voc.maxValue
             this.vocData.minValue = envData.voc.minValue
 
+            this.currentOccupancy = envData.occupancy.data[envData.occupancy.data.length - 1].value
             this.occupancyData.data = [].concat(envData.occupancy.data.map(event => event.value))
             this.occupancyData.labels = [].concat(envData.occupancy.data.map(event => event.timestamp.toISOString()))
             this.occupancyData.maxValue = envData.occupancy.maxValue
@@ -142,18 +149,18 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
       this.filterReplacementDate = add(d.installationDate, { days: this.FILTER_LIFE_DAYS });
     });
 
-    this.envService.isManualMode
+    this.deviceService.isManualMode
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isManualMode => {
         console.log(`uva-device-panel manual mode = ${isManualMode}`)
         this.device.useOverrideValues = isManualMode
       });
-    this.envService.environmentData
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(environmentalData => {
-        console.log('setting new env data overrides', environmentalData)
-        this.device.setEnvironmentalOverrideData(environmentalData)
-      })
+    // this.envService.environmentData
+    //   .pipe(takeUntil(this.unsubscribe$))
+    //   .subscribe(environmentalData => {
+    //     console.log('setting new env data overrides', environmentalData)
+    //     this.device.setEnvironmentalOverrideData(environmentalData)
+    //   })
     this.serialCommunication.lastSerialMessage
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: any) => {

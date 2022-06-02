@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Subject, takeUntil } from 'rxjs';
-import { EnvironmentService } from '../../../core/services/environment/environment.service';
+import { DeviceService } from '../../../core/services/device/device.service';
 
 @Component({
   selector: 'uva-mode-toggle',
@@ -16,10 +16,10 @@ export class UvaModeToggleComponent implements OnInit, OnDestroy {
   @ViewChild('uvaEnviroSliderToggle')
   public uvaEnviroSliderToggle!: MatSlideToggle;
 
-  constructor(private environmentService: EnvironmentService) { }
+  constructor(private deviceService: DeviceService) { }
 
   ngOnInit(): void {
-    this.environmentService.isManualMode
+    this.deviceService.isManualMode
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isManualMode => {
         this.isManualMode = isManualMode;
@@ -36,7 +36,7 @@ export class UvaModeToggleComponent implements OnInit, OnDestroy {
   }
 
   toggle(event: MatSlideToggleChange) {
-    this.environmentService.setManualMode(event.checked)
+    this.deviceService.setManualMode(event.checked)
   }
 
 }

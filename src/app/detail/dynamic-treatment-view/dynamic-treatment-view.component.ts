@@ -6,7 +6,6 @@ import { finalize } from 'rxjs/operators';
 import { AbstractComponent } from '../../core/abstract.component';
 import { GeojsonMapService } from '../../core/services';
 import { DeviceService } from '../../core/services/device/device.service';
-import { EnvironmentService } from '../../core/services/environment/environment.service';
 import { Device, FullLocation } from '../../core/services/service.model';
 import { findBounds, MapZoomEvent, MarkerClickEvent } from '../../shared/components/geojson-map/geojson-map.component';
 import { ImdfFeature, ImdfProps, isLevelFeature, LevelFeature } from '../../shared/components/geojson-map/imdf.types';
@@ -65,7 +64,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   } = { device: false, room: false, floor: true };
 
   constructor(
-    private env: EnvironmentService,
     public mapService: GeojsonMapService,
     public deviceService: DeviceService,
   ) {
@@ -179,7 +177,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
 
     this.decideVisibleMarkers();
 
-    this.env.setCurrentLocation(this.featuresWithLocations[level.id]);
+    this.deviceService.setCurrentLocation(this.featuresWithLocations[level.id]);
     this.setSidePanelVisibility('floor');
   }
 
@@ -212,7 +210,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         // When creating anchor marker, I use the same id as for the parent feature
         const parentFeature = this.geojson.features.find(f => f.id === event.feature.id);
         this.focusOnFeatures([parentFeature]);
-        this.env.setCurrentLocation(this.featuresWithLocations[parentFeature.id]);
+        this.deviceService.setCurrentLocation(this.featuresWithLocations[parentFeature.id]);
         this.selectedFeatureId = parentFeature.id;
         this.setSidePanelVisibility('room');
       } else {
@@ -224,7 +222,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           // always create a new array otherwise change detection will not detect the same popup reopening
           lngLat: [...event.feature.geometry.coordinates] as [number, number]
         };
-        this.env.setCurrentDevice(this.deviceService.getDevice(event.feature.id as string));
+        this.deviceService.setCurrentDevice(this.deviceService.getDevice(event.feature.id as string));
         this.selectedFeatureId = parentFeature.id;
         this.setSidePanelVisibility('device');
       }
@@ -238,7 +236,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       this.focusOnFeatures(features);
       if (this.featuresWithLocations[features[0].id]) {
         // clicked feature is a UVA location
-        this.env.setCurrentLocation(this.featuresWithLocations[features[0].id]);
+        this.deviceService.setCurrentLocation(this.featuresWithLocations[features[0].id]);
         this.setSidePanelVisibility('room');
 
         if (this.featuresWithDevices[features[0].id]) {
@@ -250,7 +248,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       }
     } else {
       this.focusOnFeatures(this.geojson.features);
-      this.env.setCurrentLocation(this.featuresWithLocations[LEVEL1ID]);
+      this.deviceService.setCurrentLocation(this.featuresWithLocations[LEVEL1ID]);
       this.setSidePanelVisibility('floor');
     }
   }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
 import { Device, FullLocation } from '../service.model';
 
 @Injectable({
@@ -7,9 +8,14 @@ import { Device, FullLocation } from '../service.model';
 export class DeviceService {
 
   deviceMocks: Record<string, Device> = {};
-  // public isManualMode: boolean = false;
-  // public environmentData: EnvironmentData;
-  // unsubscribe$: Subject<boolean> = new Subject();
+
+  private currentLocationSubject = new ReplaySubject<FullLocation | null>(1);
+  public readonly currentLocation$ = this.currentLocationSubject.asObservable();
+  private currentDeviceSubject = new ReplaySubject<Device | null>(1);
+  public readonly currentDevice$ = this.currentDeviceSubject.asObservable();
+  private $isManualMode: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public readonly isManualMode: Observable<boolean> = this.$isManualMode.asObservable();
+
 
   constructor() {
   }
@@ -70,4 +76,25 @@ export class DeviceService {
               device.location.id === locationId ||
               device.location.fullLocationPath.some(location => location.id === locationId));
   }
+
+  setCurrentLocation(loc: FullLocation | null) {
+    this.currentLocationSubject.next(loc);
+  }
+
+  setCurrentDevice(device: Device | null) {
+    this.currentDeviceSubject.next(device);
+  }
+  
+  setManualMode(mode: boolean): void {
+    console.log(`environmentService.setManualMode(${mode})`);
+    this.$isManualMode.next(mode);
+  }
+
+  setMeasurandValue(measurand: string, value: number): void {
+    // let tempEnvironmentData = this.$environmentData.value;
+    // tempEnvironmentData[measurand] = value;
+    // tempEnvironmentData.airQuality = this.getAirQuality(tempEnvironmentData.total)
+    // this.$environmentData.next(tempEnvironmentData);
+  }
+
 }
