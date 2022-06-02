@@ -384,7 +384,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       } else {
         // Amenity/Device markers use unit_ids property to refer to their parent features
         const parentFeature = this.geojson.features.find(f => f.id === (event.feature.properties as any).unit_ids[0]);
-        this.focusOnFeatures([parentFeature]);
         this.lastClickedMarker = {
           ...event,
           // always create a new array otherwise change detection will not detect the same popup reopening
@@ -393,6 +392,20 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         this.env.setCurrentDevice(this.deviceService.getDevice(event.feature.id as string));
         this.selectedFeatureId = parentFeature.id;
         this.setSidePanelVisibility('device');
+
+        // We will focus on the device but we want to leave enough margin around it
+        const parentBounds = findBounds([parentFeature]);
+        const parentWidth = parentBounds[2] - parentBounds[0];
+        const parentHeight = parentBounds[1] - parentBounds[3];
+        const devicePoint: GeoJSON.Point = event.feature.geometry;
+        const devicePointEnvelope: GeoJSON.Polygon = {
+          type: 'Polygon',
+          coordinates: [[
+            [devicePoint.coordinates[0] - parentWidth/4, devicePoint.coordinates[1] - parentHeight/4],
+            [devicePoint.coordinates[0] + parentWidth/4, devicePoint.coordinates[1] + parentHeight/4]]
+          ]
+        };
+        this.focusOnFeatures([{ geometry: devicePointEnvelope } as ImdfFeature<GeoJSON.Polygon>]);
       }
   }
 
