@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
-import { Device, FullLocation } from '../service.model';
+import { Device, FullLocation, RollingEnvironmentalData } from '../service.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,15 @@ export class DeviceService {
 
   deviceMocks: Record<string, Device> = {};
 
-  private currentLocationSubject = new ReplaySubject<FullLocation | null>(1);
+  private currentLocationSubject = new BehaviorSubject<FullLocation | null>(null);
   public readonly currentLocation$ = this.currentLocationSubject.asObservable();
-  private currentDeviceSubject = new ReplaySubject<Device | null>(1);
+  private currentDeviceSubject = new BehaviorSubject<Device | null>(null);
   public readonly currentDevice$ = this.currentDeviceSubject.asObservable();
   private $isManualMode: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public readonly isManualMode: Observable<boolean> = this.$isManualMode.asObservable();
+
+  private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null)
+  public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable()
 
   constructor() {
   }
@@ -85,12 +88,13 @@ export class DeviceService {
   }
   
   setManualMode(mode: boolean): void {
-    console.log(`environmentService.setManualMode(${mode})`);
+    console.log(`deviceService.setManualMode(${mode})`);
     this.$isManualMode.next(mode);
   }
 
-  setMeasurandValue(measurand: string, value: number, deviceId: string): void {
-    const device = this.getDevice(deviceId)
+  setMeasurandValue(measurand: string, value: number): void {
+    console.log(`SETTING ${measurand} TO VALUE ${value}`)
+    let device = this.currentDeviceSubject.value
     let tempEnvironmentData = device.currentEnvironmentData()
     tempEnvironmentData[measurand] = value
     device.setEnvironmentalOverrideData(tempEnvironmentData)

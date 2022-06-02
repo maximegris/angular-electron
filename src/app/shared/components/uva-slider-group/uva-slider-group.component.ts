@@ -22,8 +22,9 @@ export class UvaSliderGroupComponent implements OnInit {
   }
 
   onInputChange(event: MatSliderChange): void {
+    console.log(`[SLIDER GROUP] - ${this.measurand}, ${this.value}`)
     // this.deviceService.setMeasurandValue(this.measurand, event.value)
-    this.deviceService.setMeasurandValue(this.measurand, this.value, this.deviceId)
+    this.deviceService.setMeasurandValue(this.measurand, this.value)
   }
 
 }

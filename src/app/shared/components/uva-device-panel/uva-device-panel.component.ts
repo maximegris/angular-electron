@@ -155,12 +155,20 @@ export class UvaDevicePanelComponent extends AbstractComponent implements OnInit
         console.log(`uva-device-panel manual mode = ${isManualMode}`)
         this.device.useOverrideValues = isManualMode
       });
-    // this.envService.environmentData
-    //   .pipe(takeUntil(this.unsubscribe$))
-    //   .subscribe(environmentalData => {
-    //     console.log('setting new env data overrides', environmentalData)
-    //     this.device.setEnvironmentalOverrideData(environmentalData)
-    //   })
+    this.deviceService.environmentalData
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(environmentalData => {
+        console.log('setting new env data overrides', environmentalData)
+        // let newEnvData: {
+        //   temperature?: number;
+        //   humidity?: number;
+        //   voc?: number;
+        //   occupancy?: number;
+        // } = {
+        //   temperature: environmentalData.temperature.data[]
+        // }
+        // this.device.setEnvironmentalOverrideData(newEnvData)
+      })
     this.serialCommunication.lastSerialMessage
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data: any) => {

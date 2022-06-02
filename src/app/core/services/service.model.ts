@@ -411,12 +411,12 @@ export class Device {
 
             // set most recent datapoint as current override data
             // to prevent jarring change when going into manual mode in the future
-            this.setEnvironmentalOverrideData({
-                temperature: newDataTick.temperature.data[this.historicalMinutes - 1].value,
-                humidity: newDataTick.humidity.data[this.historicalMinutes - 1].value,
-                voc: newDataTick.voc.data[this.historicalMinutes - 1].value,
-                occupancy: newDataTick.occupancy.data[this.historicalMinutes - 1].value
-            })
+            // this.setEnvironmentalOverrideData({
+            //     temperature: newDataTick.temperature.data[this.historicalMinutes - 1].value,
+            //     humidity: newDataTick.humidity.data[this.historicalMinutes - 1].value,
+            //     voc: newDataTick.voc.data[this.historicalMinutes - 1].value,
+            //     occupancy: newDataTick.occupancy.data[this.historicalMinutes - 1].value
+            // })
         }   
         newDataTick.total?.data.push({
             value: this.calculateTotalAq(),
@@ -485,6 +485,7 @@ export class Device {
 
     setEnvironmentalOverrideData(data: { temperature?: number, humidity?: number, voc?: number, occupancy?: number }) {
         if (data.temperature) {
+            console.log("SET OVERRIDE VALUE FOR TEMP", data.temperature)
             this.environmentDataOverrideValues.temperature = data.temperature
         }
         if (data.humidity) {

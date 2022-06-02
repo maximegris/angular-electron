@@ -1,14 +1,14 @@
 <div class="uva-slider-group-container">
     <div class="uva-slider-group-label">
-        {{this.label}}
+        {{label}}
     </div>
     <mat-slider 
         thumbLabel 
-        color="primary" 
-        min="{{this.min}}" 
-        max={{this.max}} 
-        step={{this.step}} 
-        value="{{this.value}}"
+        color="primary"
+        [min]="min" 
+        [max]="max" 
+        [step]="step"
+        [(value)]="value"
         (change)="onInputChange($event)"
-    ></mat-slider>    
+    ></mat-slider>
 </div>
