@@ -27,7 +27,12 @@ export interface MapZoomEvent {
   zoomEnd: boolean;
 }
 
-const FEATURE_BACKGROUND_COLOR_NEUTRAL = '#e4eaed'; //'rgba(70, 113, 138, 0.4)';
+export interface MapSymbolImage {
+  id: string;
+  url: string;
+}
+
+const FEATURE_BACKGROUND_COLOR_NEUTRAL = '#e4eaed';
 const FEATURE_BACKGROUND_COLOR_HOVERED = '#c8dbe6';
 
 @Component({
@@ -183,6 +188,14 @@ export class GeoJsonMapComponent extends AbstractComponent {
   @Output()
   mapZoom = new EventEmitter<MapZoomEvent>();
 
+  @Output()
+  // TODO: create interface
+  mouseDown = new EventEmitter<unknown>();
+
+  @Output()
+  // TODO: create interface
+  wheel = new EventEmitter<unknown>();
+
   /**
    * Event in case user clicks on a level picker
    */
@@ -216,7 +229,7 @@ export class GeoJsonMapComponent extends AbstractComponent {
   _symbols: GeoJSON.FeatureCollection;
 
   @Input()
-  symbolImageUrl: string;
+  symbolImage: string | MapSymbolImage[];
 
   /**
    * Configuration of symbol layer layout
@@ -227,10 +240,12 @@ export class GeoJsonMapComponent extends AbstractComponent {
     this._symbolLayout = {
       ...layout,
       // this has to be hard-coded because other parts rely on it
-      'icon-image': 'uva-symbol-image',
+      'icon-allow-overlap': true,
+      'icon-image': ['case', ['has', 'icon-image'], ['get', 'icon-image'], 'uva-symbol-image'],
     };
   }
   _symbolLayout: Record<string, any> = {
+    'icon-allow-overlap': true,
     'icon-image': 'uva-symbol-image',
   };
 
@@ -253,6 +268,8 @@ export class GeoJsonMapComponent extends AbstractComponent {
 
   mapboxMap: Map;
 
+  readonly Array = Array;
+
   constructor() {
     super();
   }
@@ -270,7 +287,9 @@ export class GeoJsonMapComponent extends AbstractComponent {
 
       this.extractFeatures();
 
-      this.bounds = findBounds(this.allFeatures);
+      if (!this.bounds) {
+        this.bounds = findBounds(this.allFeatures);
+      }
 
       // let max bounds show 2x width & height of feature bounds
       const width = (this.bounds[2] - this.bounds[0]);
@@ -480,8 +499,20 @@ export class GeoJsonMapComponent extends AbstractComponent {
     }
   }
 
-  onSymbolImageLoaded(event: any) {
-    this.symbolImageLoaded = true;
+  onSymbolImageLoaded(imageId: string) {
+    if (typeof this.symbolImage === 'string') {
+      this.symbolImageLoaded = true;
+    } else {
+      const image = this.symbolImage.find(image => image.id === imageId);
+      (image as any).loaded = true;
+      this.symbolImageLoaded = this.symbolImage.every((image: any) => image.loaded);
+    }
+  }
+
+  repaint() {
+    // this doesn't repaint features
+    //this.mapboxMap?.triggerRepaint();
+    this.input = {...this.input};
   }
 
 }

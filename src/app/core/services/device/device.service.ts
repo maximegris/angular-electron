@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
-import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
-import { Device, FullLocation, RollingEnvironmentalData } from '../service.model';
+import { Injectable } from '@angular/core'
+import { ReplaySubject, BehaviorSubject, Observable, timer } from 'rxjs'
+import { Device, FullLocation, RollingEnvironmentalData } from '../service.model'
+
+// how often we mock location environment data
+const LOCATION_ENVIRONMENT_MOCK_INTERVAL_MS = 45000
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +22,12 @@ export class DeviceService {
   private $environmentalData: BehaviorSubject<RollingEnvironmentalData> = new BehaviorSubject(null)
   public readonly environmentalData: Observable<RollingEnvironmentalData> = this.$environmentalData.asObservable()
 
+  mockedLocations: Location[] = [];
+  private locationEnvUpdatedSubject = new ReplaySubject<Location[]>(1);
+  public readonly locationEnvUpdated$ = this.locationEnvUpdatedSubject.asObservable();
+
   constructor() {
+    timer(0, LOCATION_ENVIRONMENT_MOCK_INTERVAL_MS).subscribe(() => this.mockLocationEnvironmentData());
   }
 
   public generateDeviceMock(id: string, name: string, deviceLocation: FullLocation) {
@@ -98,10 +106,25 @@ export class DeviceService {
     let tempEnvironmentData = device.currentEnvironmentData()
     tempEnvironmentData[measurand] = value
     device.setEnvironmentalOverrideData(tempEnvironmentData)
-    // let tempEnvironmentData = this.$environmentData.value;
-    // tempEnvironmentData[measurand] = value;
-    // tempEnvironmentData.airQuality = this.getAirQuality(tempEnvironmentData.total)
-    // this.$environmentData.next(tempEnvironmentData);
+  }
+
+  registerLocationForEnvironmentMocking(location: Location) {
+    if (location && !this.mockedLocations.find(loc => loc.id === location.id)) {
+      this.mockedLocations.push(location);
+    }
+  }
+
+  unregisterLocationForEnvironmentMocking(location: Location) {
+    if (location) {
+      const idx = this.mockedLocations.findIndex(loc => loc.id === location.id);
+      if (idx >= 0) {
+        this.mockedLocations.splice(idx, 1);
+      }
+    }
+  }
+
+  unregisterAllLocationsForEnvironmentMocking() {
+    this.mockedLocations = [];
   }
 
 }

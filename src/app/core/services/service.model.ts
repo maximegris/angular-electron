@@ -28,8 +28,6 @@ export interface MapInfo {
     featureId: string
 }
 
-const AIR_QUALITY_TREND_CHANGE_SECONDS = 45
-
 type AirQualityInfluencers = 'occupancy-high' | 'occupancy-low' | 'temp-high' | 'temp-low' |
     'voc-high' | 'humidity-low' | 'humidity-high'
 
@@ -42,8 +40,6 @@ export class Location {
     readonly createdAt?: Date
     readonly updatedAt?: Date
     readonly mapInfo?: MapInfo
-
-    private activeInterval = null
 
     currentAirQualityIssueSources?: AirQualityInfluencers[] = []
     handwashingCompliance: number = 75
@@ -91,16 +87,9 @@ export class Location {
             }
         }
 
-        if (!this.activeInterval) {
-            this.randomizeLocationAirQuality()
-            this.randomizeUVCTerminalCleaning()
-            this.randomizeHandwashingCompliance()
-            this.activeInterval = setInterval(() => {
-                this.randomizeLocationAirQuality()
-                this.randomizeUVCTerminalCleaning()
-                this.randomizeHandwashingCompliance()
-            }, AIR_QUALITY_TREND_CHANGE_SECONDS * 1000)
-        }
+        this.randomizeLocationAirQuality();
+        this.randomizeUVCTerminalCleaning();
+        this.randomizeHandwashingCompliance();
     }
 
     randomizeLocationAirQuality() {
@@ -113,7 +102,7 @@ export class Location {
             ['occupancy-high', 'voc-high'],
             ['occupancy-high', 'voc-high', 'humidity-high', 'temp-high']
         ]
-        let roomScenarioIndex = Math.round(Math.random() * roomOptions.length - 1)
+        let roomScenarioIndex = Math.round(Math.random() * (roomOptions.length - 1))
         this.currentAirQualityIssueSources = roomOptions[roomScenarioIndex]
     }
 
