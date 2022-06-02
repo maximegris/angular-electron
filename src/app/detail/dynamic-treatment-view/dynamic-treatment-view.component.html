@@ -5,21 +5,36 @@
     (mapClick)="onMapClick($event)"
     (markerClick)="onMarkerClick($event)"
     (mapZoom)="onMapZoom($event)"
+    (mouseDown)="resetAnimationTimer()"
+    (wheel)="resetAnimationTimer()"
     [popupLocation]="lastClickedMarker?.lngLat"
     [selectedLevelId]="selectedLevelId"
     [selectedFeatureId]="selectedFeatureId"
     [symbols]="mapSymbols"
     [markers]="mapMarkers"
-    symbolImageUrl="assets/devices/air20/air20-flat.png"
+    [symbolImage]="[
+      {
+        id: 'air20-image',
+        url: 'assets/devices/air20/air20-flat.png'
+      },
+      {
+        id: 'surfacide-robot-image',
+        url: 'assets/logos/partners/surfacide/surfacide_towers.png'
+      }
+    ]"
     [symbolLayout]="{
-      'icon-size': ['interpolate', ['exponential', 2], ['zoom'], 15, 0.01, 25, 2],
+      'icon-size': [
+        'interpolate', ['exponential', 2], ['zoom'],
+        15, 0.01,
+        25, ['match', ['get', 'icon-image'], 'air20-image', 2, 10]
+      ],
       'icon-rotation-alignment': 'map',
       'icon-rotate': -30
     }"
     [showLevelPicker]="false"
     [showNavigationControls]="true"
     [bounds]="focusBounds"
-    [popupOffset]="25"
+    [popupOffset]="[6, -23]"
     >
     <div *ngIf="deviceService.getDevice(lastClickedMarker?.feature.id) as device" mapPopup class="device-popup">
         <app-device-info [device]="device"></app-device-info>

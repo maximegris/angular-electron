@@ -9,6 +9,8 @@
         (zoomEnd)="onZoom($event, false, true)"
         (mapLoad)="onMapLoad($event)"
         (mapClick)="onMapClick($event)"
+        (mouseDown)="mouseDown.emit($event)"
+        (wheel)="wheel.emit($event)"
     >
         <mgl-geojson-source
             id="uva-all-features"
@@ -64,9 +66,17 @@
             id="uva-markers-layer" type="circle" source="uva-markers" [paint]="markerPaint"
         ></mgl-layer>
 
-        <mgl-image *ngIf="symbolImageUrl"
-            id="uva-symbol-image" [url]="symbolImageUrl" (imageLoaded)="onSymbolImageLoaded($event)"
+        <!-- When we have just 1 symbol image defined as a string -->
+        <mgl-image *ngIf="symbolImage && !Array.isArray(symbolImage)"
+            id="uva-symbol-image" [url]="symbolImage" (imageLoaded)="onSymbolImageLoaded('uva-symbol-image')"
         ></mgl-image>
+
+        <!-- When we have an array of symbol images -->
+        <ng-container *ngIf="symbolImage && Array.isArray(symbolImage)">
+            <mgl-image *ngFor="let image of symbolImage"
+                [id]="image.id" [url]="image.url" (imageLoaded)="onSymbolImageLoaded(image.id)"
+            ></mgl-image>
+        </ng-container>
 
         <mgl-layer *ngIf="symbolImageLoaded"
             (layerClick)="onSymbolClick($event)"

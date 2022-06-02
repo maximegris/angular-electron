@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BADFAMILY } from 'dns';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { Device, FullLocation } from '../service.model';
+import { BehaviorSubject, Observable, ReplaySubject, timer } from 'rxjs';
+import { Device, FullLocation, Location } from '../service.model';
 
-const installationDate = new Date()
+// how often we mock location environment data
+const LOCATION_ENVIRONMENT_MOCK_INTERVAL_MS = 45000;
 
 enum AirQuality {
   BAD = 'bad',
@@ -51,7 +51,22 @@ export class EnvironmentService {
   public readonly currentLocation$ = this.currentLocationSubject.asObservable();
   public readonly currentDevice$ = this.currentDeviceSubject.asObservable();
 
-  constructor() {}
+  mockedLocations: Location[] = [];
+  private locationEnvUpdatedSubject = new ReplaySubject<Location[]>(1);
+  public readonly locationEnvUpdated$ = this.locationEnvUpdatedSubject.asObservable();
+
+  constructor() {
+    timer(0, LOCATION_ENVIRONMENT_MOCK_INTERVAL_MS).subscribe(() => this.mockLocationEnvironmentData());
+  }
+
+  mockLocationEnvironmentData(): void {
+    this.mockedLocations.forEach(location => {
+      location.randomizeLocationAirQuality();
+      location.randomizeUVCTerminalCleaning();
+      location.randomizeHandwashingCompliance();
+    });
+    this.locationEnvUpdatedSubject.next([...this.mockedLocations]);
+  }
 
   setManualMode(mode: boolean): void {
     console.log(`environmentService.setManualMode(${mode})`);
@@ -71,6 +86,25 @@ export class EnvironmentService {
 
   setCurrentDevice(device: Device | null) {
     this.currentDeviceSubject.next(device);
+  }
+
+  registerLocationForEnvironmentMocking(location: Location) {
+    if (location && !this.mockedLocations.find(loc => loc.id === location.id)) {
+      this.mockedLocations.push(location);
+    }
+  }
+
+  unregisterLocationForEnvironmentMocking(location: Location) {
+    if (location) {
+      const idx = this.mockedLocations.findIndex(loc => loc.id === location.id);
+      if (idx >= 0) {
+        this.mockedLocations.splice(idx, 1);
+      }
+    }
+  }
+
+  unregisterAllLocationsForEnvironmentMocking() {
+    this.mockedLocations = [];
   }
 
   getAirQuality(total: number): AirQuality {
