@@ -14,6 +14,7 @@ export class UvaSliderGroupComponent implements OnInit {
   @Input() step!: string
   @Input() value!: number
   @Input() label: string
+  @Input() deviceId: string
 
   constructor(private deviceService: DeviceService) { }
 
@@ -21,7 +22,8 @@ export class UvaSliderGroupComponent implements OnInit {
   }
 
   onInputChange(event: MatSliderChange): void {
-    this.deviceService.setMeasurandValue(this.measurand, event.value)
+    // this.deviceService.setMeasurandValue(this.measurand, event.value)
+    this.deviceService.setMeasurandValue(this.measurand, this.value, this.deviceId)
   }
 
 }

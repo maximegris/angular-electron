@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { Device } from '../../../core/services/service.model';
 import { DeviceService } from '../../../core/services/device/device.service';
 
 @Component({
@@ -12,13 +13,16 @@ export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
   @Input() initHumidity: number
   @Input() initVoc: number
   @Input() initOccupancy: number
+  @Input() deviceId: string
 
+  private device: Device
   public isManualMode: boolean = false;
   unsubscribe$: Subject<boolean> = new Subject();
 
   constructor(private deviceService: DeviceService) { }
 
   ngOnInit(): void {
+    this.device = this.deviceService.getDevice(this.deviceId);
     this.deviceService.isManualMode
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isManualMode => {

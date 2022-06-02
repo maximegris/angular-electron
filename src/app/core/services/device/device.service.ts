@@ -16,7 +16,6 @@ export class DeviceService {
   private $isManualMode: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public readonly isManualMode: Observable<boolean> = this.$isManualMode.asObservable();
 
-
   constructor() {
   }
 
@@ -59,7 +58,7 @@ export class DeviceService {
       events.push({
         part: 'Filter',
         action: 'Removed',
-        timestamp: new Date(2021, 11, 31),
+        timestamp: new Date(2021, 11, 30),
       });
     }
 
@@ -90,7 +89,11 @@ export class DeviceService {
     this.$isManualMode.next(mode);
   }
 
-  setMeasurandValue(measurand: string, value: number): void {
+  setMeasurandValue(measurand: string, value: number, deviceId: string): void {
+    const device = this.getDevice(deviceId)
+    let tempEnvironmentData = device.currentEnvironmentData()
+    tempEnvironmentData[measurand] = value
+    device.setEnvironmentalOverrideData(tempEnvironmentData)
     // let tempEnvironmentData = this.$environmentData.value;
     // tempEnvironmentData[measurand] = value;
     // tempEnvironmentData.airQuality = this.getAirQuality(tempEnvironmentData.total)
