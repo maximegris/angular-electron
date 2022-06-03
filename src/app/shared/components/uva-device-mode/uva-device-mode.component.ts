@@ -1,10 +1,8 @@
 import { Component, OnChanges, SimpleChange, OnInit, SimpleChanges, Input } from '@angular/core';
-import { Device, RollingEnvironmentalData } from '../../../core/services/service.model';
-import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
-import { AbstractComponent } from '../../../core/abstract.component';
+import { Device, RollingEnvironmentalData as EnvironmentData } from '../../../core/services/service.model';
 import { DeviceService } from '../../../core/services/device/device.service';
+import { AbstractComponent } from '../../../core/abstract.component';
 import { BehaviorSubject, Subject, takeUntil, Subscription } from 'rxjs';
-import { isThisSecond } from 'date-fns';
 
 enum DeviceMode {
   HIGH = 'high',
@@ -24,21 +22,17 @@ export class UvaDeviceModeComponent extends AbstractComponent implements OnInit 
   public totalAq: number;
   public deviceMode: DeviceMode;
   public deviceImage: string;
-  public manualEnviroData: EnvironmentData;
-  unsubscribe$: Subject<EnvironmentData> = new Subject();
-
-  public autoEnviroData: RollingEnvironmentalData
 
   private $isManualMode: BehaviorSubject<boolean>
   public isManualMode: boolean = false;
-  unsubscribeManualMode$: Subject<boolean> = new Subject();
+  unsubscribe$: Subject<boolean> = new Subject();
 
-  constructor(private envService: EnvironmentService) {
+  constructor(private deviceService: DeviceService) {
     super();
   }
 
   ngOnInit(): void {
-    this.envService.currentDevice$.pipe(
+    this.deviceService.currentDevice$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe(d => {
       let settingNewDevice: boolean = false;
@@ -59,19 +53,19 @@ export class UvaDeviceModeComponent extends AbstractComponent implements OnInit 
       }
     });
 
-    this.envService.isManualMode
+    this.deviceService.isManualMode
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isManualMode => {
         console.log(`uva-device-panel manual mode = ${isManualMode}`)
         this.device.useOverrideValues = isManualMode
       });
-    this.envService.environmentData
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(environmentalData => {
-        console.log('setting new env data overrides', environmentalData)
-        this.device.setEnvironmentalOverrideData(environmentalData)
-        this.getDeviceMode()
-      })
+    // this.envService.environmentData
+    //   .pipe(takeUntil(this.unsubscribe$))
+    //   .subscribe(environmentalData => {
+    //     console.log('setting new env data overrides', environmentalData)
+    //     this.device.setEnvironmentalOverrideData(environmentalData)
+    //     this.getDeviceMode()
+    //   })
 
 
   }

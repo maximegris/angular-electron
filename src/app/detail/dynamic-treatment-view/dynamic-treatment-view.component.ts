@@ -7,7 +7,6 @@ import { concatMap, delay, finalize, repeat, switchMap, takeUntil } from 'rxjs/o
 import { AbstractComponent } from '../../core/abstract.component';
 import { GeojsonMapService } from '../../core/services';
 import { DeviceService } from '../../core/services/device/device.service';
-import { EnvironmentService } from '../../core/services/environment/environment.service';
 import { Device, FullLocation } from '../../core/services/service.model';
 import { findBounds, GeoJsonMapComponent, MapZoomEvent, MarkerClickEvent } from '../../shared/components/geojson-map/geojson-map.component';
 import { ImdfFeature, ImdfProps, isLevelFeature, LevelFeature } from '../../shared/components/geojson-map/imdf.types';
@@ -96,7 +95,6 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   animationPaused$ = new BehaviorSubject<boolean>(true);
 
   constructor(
-    private env: EnvironmentService,
     public mapService: GeojsonMapService,
     public deviceService: DeviceService,
   ) {
@@ -160,11 +158,14 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
    * - create aggregated markers/clusters for locations with devices
    */
   onLevelChanged(level: LevelFeature<any>) {
-    this.env.unregisterAllLocationsForEnvironmentMocking();
+    this.deviceService.unregisterAllLocationsForEnvironmentMocking();
     this.selectedLevelId = level?.id;
+
+    this.deviceService.registerLocationForEnvironmentMocking(this.featuresWithLocations[level.id])
+
     const featuresOnLevel = this.geojson.features.filter(f =>
       f.properties.level_id === level.id && !!this.featuresWithLocations[f.id] && !!f.properties.display_point);
-    featuresOnLevel.forEach(feature => this.env.registerLocationForEnvironmentMocking(this.featuresWithLocations[feature.id]));
+    featuresOnLevel.forEach(feature => this.deviceService.registerLocationForEnvironmentMocking(this.featuresWithLocations[feature.id]));
     
     this.focusOnFeatures(featuresOnLevel);
 
@@ -175,7 +176,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
 
     this.decideVisibleMarkers();
 
-    this.env.setCurrentLocation(this.featuresWithLocations[level.id]);
+    this.deviceService.setCurrentLocation(this.featuresWithLocations[level.id]);
     this.setSidePanelVisibility('floor');
     this.startFlyoverAnimationLoop();
   }
@@ -236,7 +237,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       this.locEnvUpdSub.unsubscribe();
       this.locEnvUpdSub = null;
     }
-    this.locEnvUpdSub = this.env.locationEnvUpdated$.pipe(
+    this.locEnvUpdSub = this.deviceService.locationEnvUpdated$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe(updatedLocations => {
       this.robotsMarkers = [];
@@ -376,7 +377,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
         // When creating anchor marker, I use the same id as for the parent feature
         const parentFeature = this.geojson.features.find(f => f.id === event.feature.id);
         this.focusOnFeatures([parentFeature]);
-        this.env.setCurrentLocation(this.featuresWithLocations[parentFeature.id]);
+        this.deviceService.setCurrentLocation(this.featuresWithLocations[parentFeature.id]);
         this.selectedFeatureId = parentFeature.id;
         this.setSidePanelVisibility('room');
         // hide device popup if it was visible
@@ -389,7 +390,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
           // always create a new array otherwise change detection will not detect the same popup reopening
           lngLat: [...event.feature.geometry.coordinates] as [number, number]
         };
-        this.env.setCurrentDevice(this.deviceService.getDevice(event.feature.id as string));
+        this.deviceService.setCurrentDevice(this.deviceService.getDevice(event.feature.id as string));
         this.selectedFeatureId = parentFeature.id;
         this.setSidePanelVisibility('device');
 
@@ -422,7 +423,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       this.focusOnFeatures(features);
       if (this.featuresWithLocations[features[0].id]) {
         // clicked feature is a UVA location
-        this.env.setCurrentLocation(this.featuresWithLocations[features[0].id]);
+        this.deviceService.setCurrentLocation(this.featuresWithLocations[features[0].id]);
         this.setSidePanelVisibility('room');
 
         if (this.featuresWithDevices[features[0].id]) {
@@ -434,7 +435,7 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
       }
     } else {
       this.focusOnFeatures(this.geojson.features);
-      this.env.setCurrentLocation(this.featuresWithLocations[LEVEL1ID]);
+      this.deviceService.setCurrentLocation(this.featuresWithLocations[LEVEL1ID]);
       this.setSidePanelVisibility('floor');
     }
   }

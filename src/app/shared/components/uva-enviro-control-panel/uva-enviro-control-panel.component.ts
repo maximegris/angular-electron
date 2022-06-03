@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { EnvironmentData, EnvironmentService } from '../../../core/services/environment/environment.service';
+import { Device } from '../../../core/services/service.model';
+import { DeviceService } from '../../../core/services/device/device.service';
 
 @Component({
   selector: 'uva-enviro-control-panel',
@@ -8,23 +9,27 @@ import { EnvironmentData, EnvironmentService } from '../../../core/services/envi
   styleUrls: ['./uva-enviro-control-panel.component.scss']
 })
 export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
+  @Input() initTemperature: number
+  @Input() initHumidity: number
+  @Input() initVoc: number
+  @Input() initOccupancy: number
+  @Input() deviceId: string
+
+  private device: Device
   public isManualMode: boolean = false;
-  public environmentData: EnvironmentData;
   unsubscribe$: Subject<boolean> = new Subject();
 
-  constructor(private environmentService: EnvironmentService) { }
+  constructor(private deviceService: DeviceService) { }
 
   ngOnInit(): void {
-    this.environmentService.isManualMode
+    // console.log("[ENV CONRTOL PANEL] - INPUT DeviceID", this.deviceId)
+    this.device = this.deviceService.getDevice(this.deviceId);
+    // console.log("[ENV CONRTOL PANEL] - THIS.DEVICE.ID", this.device.id)
+    this.deviceService.isManualMode
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isManualMode => {
         this.isManualMode = isManualMode
       });
-    this.environmentService.environmentData
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(environmentData => {
-        this.environmentData = environmentData
-      })
   }
 
   ngOnDestroy() {
@@ -32,9 +37,28 @@ export class UvaEnviroControlPanelComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  // onSliderChange(measurand: string) {
+  //   console.log("slider changed!!!!")
+  //   this.deviceService.setMeasurandValue('temperature', this.initTemperature)
+  //   this.deviceService.setMeasurandValue('humidity', this.initHumidity)
+  //   this.deviceService.setMeasurandValue('voc', this.initVoc)
+  //   this.deviceService.setMeasurandValue('occupancy', this.initOccupancy)
+  // }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log("[ENV CONRTOL PANEL] - INPUT DeviceID ON CHANGE", this.deviceId)
+  //   this.deviceService.isManualMode
+  //     .pipe(takeUntil(this.unsubscribe$))
+  //     .subscribe(isManualMode => {
+  //       this.isManualMode = isManualMode
+  //     });
+  // }
+
+
+
   closePanel(event: PointerEvent): void {
     console.log(`closePanel this.isManualMode ${this.isManualMode}`)
-    this.environmentService.setManualMode(false)
+    this.deviceService.setManualMode(false)
   }
 
 }

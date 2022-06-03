@@ -3,7 +3,6 @@ import { differenceInMinutes } from 'date-fns';
 import { map, Subscription, takeUntil, tap } from 'rxjs';
 import { AbstractComponent } from '../../../core/abstract.component';
 import { DeviceService } from '../../../core/services/device/device.service';
-import { EnvironmentService } from '../../../core/services/environment/environment.service';
 import { Device, FullLocation } from '../../../core/services/service.model';
 
 @Component({
@@ -69,14 +68,13 @@ export class UvaRoomPanelComponent extends AbstractComponent implements OnInit {
   firstDeviceSubscription: Subscription;
 
   constructor(
-    private env: EnvironmentService,
-    private deviceService: DeviceService,
+    private deviceService: DeviceService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.env.currentLocation$.pipe(
+    this.deviceService.currentLocation$.pipe(
       tap(location => this.currentLocation = location),
       map(location => this.deviceService.getDevicesInLocation(location.id)),
       takeUntil(this.destroyed$)

@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, takeUntil, interval, Subscription } from 'rxjs';
-import { EnvironmentService } from '../../../core/services/environment/environment.service';
 
 const installationDate = new Date()
 const lifetime = 100000
@@ -24,7 +23,7 @@ export class UvaConsumableMonitorComponent implements OnInit, OnDestroy {
   unsubscribe$: Subject<number> = new Subject()
 
   // Want to make this a separate service, but for now using EnvironmentService. KR 20220519
-  constructor(private consumableService: EnvironmentService) { 
+  constructor() { 
   }
 
   ngOnInit(): void {
