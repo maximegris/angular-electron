@@ -41,6 +41,8 @@ export class Location {
     readonly updatedAt?: Date
     readonly mapInfo?: MapInfo
 
+    uvaAirQuality?: number = 0;
+
     currentAirQualityIssueSources?: AirQualityInfluencers[] = []
     handwashingCompliance: number = 75
     uvcTerminalCleaning: {
@@ -124,6 +126,18 @@ export class Location {
 
     randomizeHandwashingCompliance() {
         this.handwashingCompliance = Math.round(Math.random() * 100)
+    }
+
+    calculateUvaAirQuality(devices: Device[]) {
+        if (!devices || devices.length <= 0) {
+            this.uvaAirQuality = 0
+            return
+        }
+        let totalAQSum: number = 0;
+        for (const device of devices) {
+            totalAQSum = totalAQSum + device.currentEnvironmentData().total
+        }
+        this.uvaAirQuality = totalAQSum / devices.length
     }
 }
 
@@ -341,12 +355,13 @@ export class Device {
         }
     }
 
-    currentEnvironmentData(): {temperature: number, humidity: number, voc: number, occupancy: number} {
+    currentEnvironmentData(): { temperature: number, humidity: number, voc: number, occupancy: number, total: number } {
         return {
             temperature: this.$environmentalData.value.temperature.data[this.$environmentalData.value.temperature.data.length - 1].value,
             humidity: this.$environmentalData.value.humidity.data[this.$environmentalData.value.humidity.data.length - 1].value,
             voc: this.$environmentalData.value.voc.data[this.$environmentalData.value.voc.data.length - 1].value,
-            occupancy: this.$environmentalData.value.occupancy.data[this.$environmentalData.value.occupancy.data.length - 1].value
+            occupancy: this.$environmentalData.value.occupancy.data[this.$environmentalData.value.occupancy.data.length - 1].value,
+            total: this.$environmentalData.value.total.data[this.$environmentalData.value.total.data.length - 1].value
         }
     }
 

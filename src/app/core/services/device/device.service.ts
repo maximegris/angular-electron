@@ -28,6 +28,7 @@ export class DeviceService {
 
   constructor() {
     timer(0, LOCATION_ENVIRONMENT_MOCK_INTERVAL_MS).subscribe(() => this.mockLocationEnvironmentData());
+    timer(0, 1000).subscribe(() => this.computeLocationAQ());
   }
 
   public generateDeviceMock(id: string, name: string, deviceLocation: FullLocation) {
@@ -95,11 +96,18 @@ export class DeviceService {
     this.currentDeviceSubject.next(device);
   }
 
+  computeLocationAQ(): void {
+    this.mockedLocations.forEach(location => {
+      location.calculateUvaAirQuality(this.getDevicesInLocation(location.id))
+    })
+  }
+
   mockLocationEnvironmentData(): void {
     this.mockedLocations.forEach(location => {
       location.randomizeLocationAirQuality();
       location.randomizeUVCTerminalCleaning();
       location.randomizeHandwashingCompliance();
+      location.calculateUvaAirQuality(this.getDevicesInLocation(location.id))
     });
     this.locationEnvUpdatedSubject.next([...this.mockedLocations]);
   }

@@ -160,6 +160,9 @@ export class DynamicTreatmentViewComponent extends AbstractComponent implements 
   onLevelChanged(level: LevelFeature<any>) {
     this.deviceService.unregisterAllLocationsForEnvironmentMocking();
     this.selectedLevelId = level?.id;
+
+    this.deviceService.registerLocationForEnvironmentMocking(this.featuresWithLocations[level.id])
+
     const featuresOnLevel = this.geojson.features.filter(f =>
       f.properties.level_id === level.id && !!this.featuresWithLocations[f.id] && !!f.properties.display_point);
     featuresOnLevel.forEach(feature => this.deviceService.registerLocationForEnvironmentMocking(this.featuresWithLocations[feature.id]));
