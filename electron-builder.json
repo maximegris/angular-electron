@@ -20,16 +20,15 @@
     }
   ],
   "win": {
-    "icon": "dist/assets/icons",
+    "icon": "dist/assets/icons/icon.png",
     "target": [
       "portable"
-    ]
-  },
-  "portable": {
-    "splashImage": "dist/assets/icons/electron.bmp"
+    ],
+    "publisherName": "UV Partners"
   },
   "mac": {
-    "icon": "dist/assets/icons",
+    "category": "public.app-category.utilities",
+    "icon": "dist/assets/icons/icon.png",
     "target": [
       "dmg"
     ]
