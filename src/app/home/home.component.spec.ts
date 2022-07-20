@@ -13,13 +13,11 @@ describe('HomeComponent', () => {
       declarations: [HomeComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
