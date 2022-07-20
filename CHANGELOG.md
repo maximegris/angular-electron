@@ -1,5 +1,14 @@
+## 11.0.0 (2022-07-20)
+
+* misc/ Upgrade to Angular 14 & Electron 19 ([dbacec7](https://github.com/maximegris/angular-electron/commit/dbacec7))
+* chore: Included githubactions in the dependabot config ([36f2a66](https://github.com/maximegris/angular-electron/commit/36f2a66))
+* chore: Set permissions for GitHub actions ([ca54dda](https://github.com/maximegris/angular-electron/commit/ca54dda))
+
+
+
 ## <small>10.5.2 (2022-04-23)</small>
 
+* [Bumped Version] 10.5.2 ([c26be0a](https://github.com/maximegris/angular-electron/commit/c26be0a))
 * Bump plist from 3.0.4 to 3.0.5 ([bedaba3](https://github.com/maximegris/angular-electron/commit/bedaba3))
 * fix/ macos action ([f1d89b1](https://github.com/maximegris/angular-electron/commit/f1d89b1))
 * misc/ add electron-reloader ([c885a24](https://github.com/maximegris/angular-electron/commit/c885a24))
