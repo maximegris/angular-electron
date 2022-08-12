@@ -1,7 +1,13 @@
 {
   "name": "angular-electron",
-  "version": "11.0.0",
+  "description": "Angular Electron sample",
+  "author": {
+    "name": "Maxime GRIS",
+    "email": "maxime.gris@gmail.com"
+  },
+  "version": "11.1.0",
   "main": "main.js",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+  }
 }
