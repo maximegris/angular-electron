@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Debug" type="Multirun" singleton="false" separateTabs="false" reuseTabsWithFailures="false" startOneByOne="true" markFailedProcess="true" hideSuccessProcess="false" delayTime="0.1">
+    <runConfiguration name="main" type="Node.js" />
+    <runConfiguration name="attach" type="Attach to Node.js/Chrome" />
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="main" type="NodeJSConfigurationType" path-to-node="$PROJECT_DIR$/node_modules/.bin/electron.cmd" node-parameters="--serve . --remote-debugging-port=9876" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>
