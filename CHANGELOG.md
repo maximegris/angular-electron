@@ -1,5 +1,12 @@
+## 11.2.0 (2022-10-16)
+
+* misc/ Upgrade to Electron 21 ([ed23e89](https://github.com/maximegris/angular-electron/commit/ed23e89))
+
+
+
 ## 11.1.0 (2022-08-12)
 
+* [Bumped Version] 11.1.0 ([a3eeb6a](https://github.com/maximegris/angular-electron/commit/a3eeb6a))
 * Bump actions/cache from 2 to 3 ([85b8624](https://github.com/maximegris/angular-electron/commit/85b8624))
 * Bump actions/checkout from 2 to 3 ([0650214](https://github.com/maximegris/angular-electron/commit/0650214))
 * Bump actions/setup-node from 1 to 3 ([f9a55b6](https://github.com/maximegris/angular-electron/commit/f9a55b6))
