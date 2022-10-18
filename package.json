@@ -1,7 +1,7 @@
 {
   "name": "angular-electron",
   "version": "11.2.0",
-  "description": "Angular 14 with Electron 19 (Typescript + SASS + Hot Reload)",
+  "description": "Angular 14 with Electron 21 (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
     "name": "Maxime GRIS",
