@@ -67,7 +67,6 @@
     "@angular-eslint/template-parser": "14.1.2",
     "@angular/cli": "14.2.6",
     "@angular/compiler-cli": "14.2.6",
-    "@ngx-translate/core": "14.0.0",
     "@ngx-translate/http-loader": "7.0.0",
     "@playwright/test": "1.27.1",
     "@types/jasmine": "4.3.0",
