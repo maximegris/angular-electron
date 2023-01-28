@@ -1,6 +1,7 @@
-import {app, BrowserWindow, screen} from 'electron';
-import * as path from 'path';
+import { app, BrowserWindow, dialog, ipcMain, screen } from 'electron';
 import * as fs from 'fs';
+import * as path from 'path';
+import * as XLSX from 'xlsx';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -54,6 +55,8 @@ function createWindow(): BrowserWindow {
 }
 
 try {
+
+
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
@@ -77,7 +80,31 @@ try {
     }
   });
 
+  handleIPCEvents();
+
 } catch (e) {
   // Catch Error
   // throw e;
+}
+
+
+function handleIPCEvents() {
+  ipcMain.handle('openExcel', async (event, args) => {
+    const result = await dialog.showOpenDialog(
+      win, {
+      title: 'Select a file',
+      filters: [{
+        name: "Spreadsheets",
+        extensions: ["xlsx", "xls", "xlsb", /* ... other formats ... */]
+      }]
+    });
+    /* result.filePaths is an array of selected files */
+    if (result.filePaths.length == 0) {
+      throw new Error("No file was selected!");
+    }
+
+    const workbook = XLSX.readFile(result.filePaths[0]);
+    const first_ws = workbook.Sheets[workbook.SheetNames[0]];
+    return XLSX.utils.sheet_to_json(first_ws);
+  });
 }

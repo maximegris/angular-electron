@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { ipcRenderer, webFrame } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class ElectronService {
   ipcRenderer: typeof ipcRenderer;
   webFrame: typeof webFrame;
   childProcess: typeof childProcess;
+
   fs: typeof fs;
+  path: typeof path;
 
   constructor() {
     // Conditional imports
@@ -22,6 +25,7 @@ export class ElectronService {
       this.webFrame = window.require('electron').webFrame;
 
       this.fs = window.require('fs');
+      this.path = window.require('path');
 
       this.childProcess = window.require('child_process');
       this.childProcess.exec('node -v', (error, stdout, stderr) => {
@@ -33,6 +37,7 @@ export class ElectronService {
           console.error(`stderr: ${stderr}`);
           return;
         }
+
         console.log(`stdout:\n${stdout}`);
       });
 
@@ -52,5 +57,11 @@ export class ElectronService {
 
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
+  }
+
+  async readExcelFile(): Promise<string> {
+    const result = await this.ipcRenderer?.invoke('openExcel');
+    console.log(result);
+    return result;
   }
 }

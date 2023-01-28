@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ElectronService } from '../core/services';
 
 
 @Component({
@@ -8,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private electronService: ElectronService) { }
 
   ngOnInit(): void {
-    console.log('HomeComponent INIT');
+
+  }
+
+  readExcelFile() {
+    this.electronService.readExcelFile();
   }
 
 }
