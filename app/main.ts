@@ -7,6 +7,18 @@ let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
+
+function getIndexURL(): URL {
+  let pathIndex = './index.html';
+
+  if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
+     // Path when running electron in local folder
+    pathIndex = '../dist/index.html';
+  }
+
+  return new URL(path.join('file:', __dirname, pathIndex));
+}
+
 function createWindow(): BrowserWindow {
 
   const size = screen.getPrimaryDisplay().workAreaSize;
@@ -31,16 +43,7 @@ function createWindow(): BrowserWindow {
     require('electron-reloader')(module);
     win.loadURL('http://localhost:4200');
   } else {
-    // Path when running electron executable
-    let pathIndex = './index.html';
-
-    if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-       // Path when running electron in local folder
-      pathIndex = '../dist/index.html';
-    }
-
-    const url = new URL(path.join('file:', __dirname, pathIndex));
-    win.loadURL(url.href);
+    win.loadURL(getIndexURL().href);
   }
 
   // Emitted when the window is closed.
@@ -49,6 +52,12 @@ function createWindow(): BrowserWindow {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null;
+  });
+
+  
+  win.webContents.on('did-fail-load', () => {
+    console.log('did-fail-load');
+    win.loadURL(getIndexURL().href);
   });
 
   return win;
