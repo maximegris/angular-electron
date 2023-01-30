@@ -2,14 +2,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "module": "es2020",
+    "module": "es2022",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowJs": true,
-    "target": "es2015",
+    "target": "es2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -17,6 +17,8 @@
       "es2017",
       "es2016",
       "es2015",
+      "es2022",
+      "es2018",
       "dom"
     ]
   },
