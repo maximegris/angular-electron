@@ -5,14 +5,13 @@ import * as XLSX from 'xlsx';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
-  serve = args.some(val => val === '--serve');
-
+  serve = args.some((val) => val === '--serve');
 
 function getIndexURL(): URL {
   let pathIndex = './index.html';
 
   if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-     // Path when running electron in local folder
+    // Path when running electron in local folder
     pathIndex = '../dist/index.html';
   }
 
@@ -20,7 +19,6 @@ function getIndexURL(): URL {
 }
 
 function createWindow(): BrowserWindow {
-
   const size = screen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
@@ -31,8 +29,8 @@ function createWindow(): BrowserWindow {
     height: size.height,
     webPreferences: {
       nodeIntegration: true,
-      allowRunningInsecureContent: (serve),
-      contextIsolation: false,  // false if you want to run e2e test with Spectron
+      allowRunningInsecureContent: serve,
+      contextIsolation: false, // false if you want to run e2e test with Spectron
     },
   });
 
@@ -54,7 +52,6 @@ function createWindow(): BrowserWindow {
     win = null;
   });
 
-  
   win.webContents.on('did-fail-load', () => {
     console.log('did-fail-load');
     win.loadURL(getIndexURL().href);
@@ -64,8 +61,6 @@ function createWindow(): BrowserWindow {
 }
 
 try {
-
-
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
@@ -90,26 +85,25 @@ try {
   });
 
   handleIPCEvents();
-
 } catch (e) {
   // Catch Error
   // throw e;
 }
 
-
 function handleIPCEvents() {
   ipcMain.handle('openExcel', async (event, args) => {
-    const result = await dialog.showOpenDialog(
-      win, {
+    const result = await dialog.showOpenDialog(win, {
       title: 'Select a file',
-      filters: [{
-        name: "Spreadsheets",
-        extensions: ["xlsx", "xls", "xlsb", /* ... other formats ... */]
-      }]
+      filters: [
+        {
+          name: 'Spreadsheets',
+          extensions: ['xlsx', 'xls', 'xlsb'],
+        },
+      ],
     });
     /* result.filePaths is an array of selected files */
     if (result.filePaths.length == 0) {
-      throw new Error("No file was selected!");
+      throw new Error('No file was selected!');
     }
 
     const workbook = XLSX.readFile(result.filePaths[0]);
