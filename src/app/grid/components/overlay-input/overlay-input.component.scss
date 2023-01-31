@@ -1,0 +1,13 @@
+:host {
+    background: white;
+    width: 100%;
+}
+
+div, input, textarea {
+    width: 100%;
+    line-height: 23px;
+    height: 100%;
+    padding: 0 4px;
+    white-space: break-spaces;
+    word-wrap: break-word;
+}

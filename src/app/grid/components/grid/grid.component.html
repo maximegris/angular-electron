@@ -1,0 +1,32 @@
+<table #table role="grid" cdk-table [dataSource]="dataSource">
+    <ng-container cdkColumnDef="position">
+        <th role="columnheader" cdk-header-cell *cdkHeaderCellDef></th>
+        <th role="rowheader" cdk-cell *cdkCellDef="let element; let idx = index">{{idx + 1}}</th>
+    </ng-container>
+
+    <ng-container cdkColumnDef="name">
+        <th role="columnheader" cdk-header-cell *cdkHeaderCellDef>Name</th>
+        <td appGridCell cdk-cell *cdkCellDef="let element">
+            <app-grid-cell-value [value]="element.name"></app-grid-cell-value>
+        </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="weight">
+        <th role="columnheader" cdk-header-cell *cdkHeaderCellDef>Weight</th>
+        <td appGridCell cdk-cell *cdkCellDef="let element">
+            <app-grid-cell-value comment="example comment" [value]="element.weight"></app-grid-cell-value>
+        </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="symbol">
+        <th role="columnheader" cdk-header-cell *cdkHeaderCellDef>Symbol</th>
+        <td appGridCell cdk-cell *cdkCellDef="let element">
+            <app-grid-cell-value [value]="element.symbol"></app-grid-cell-value>
+        </td>
+    </ng-container>
+
+
+    <tr role="row" cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <tr [class.selected]="cursorIndex?.x === idx" cdk-row
+        *cdkRowDef="let row; let idx = index; columns: displayedColumns"></tr>
+</table>

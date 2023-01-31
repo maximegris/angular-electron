@@ -1,0 +1,10 @@
+<div [style.opacity]="editMode ? 0 : 1">
+    {{value}}
+</div>
+
+<div *ngIf="comment" class="comment-marker">
+    
+</div>
+<input *ngIf="editMode" (blur)="editMode = false" #textInput class="transparent" type="text"/>
+
+

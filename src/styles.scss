@@ -1,3 +1,4 @@
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import 'material-icons/iconfont/material-icons.scss';
 
 html, body {
@@ -6,25 +7,13 @@ html, body {
 
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+
+  * {
+    box-sizing: inherit
+  }
 }
 
-// a {
-//   color: #fff !important;
-//   text-transform: uppercase;
-//   text-decoration: none;
-//   background: #ed3330;
-//   padding: 20px;
-//   border-radius: 5px;
-//   display: inline-block;
-//   border: none;
-//   transition: all 0.4s ease 0s;
-
-//   &:hover {
-//     background: #fff;
-//     color: #ed3330 !important;
-//     letter-spacing: 1px;
-//     -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-//     -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-//     box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
-//     transition: all 0.4s ease 0s;
-//   }
+textarea.transparent, input.transparent {
+  all: unset;
+}
