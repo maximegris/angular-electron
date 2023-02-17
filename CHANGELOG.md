@@ -1,5 +1,17 @@
+## 12.0.0 (2023-02-17)
+
+* misc/ Upgrade to Electron 22 ([8cb0acd](https://github.com/maximegris/angular-electron/commit/8cb0acd))
+* package json description updated ([8726c0a](https://github.com/maximegris/angular-electron/commit/8726c0a))
+* fix(test): remove require.context (not needed) ([680d18d](https://github.com/maximegris/angular-electron/commit/680d18d))
+* refactor: use latest eslint ([41abef1](https://github.com/maximegris/angular-electron/commit/41abef1))
+* refactor: use latest eslint & change docs ([9f8add6](https://github.com/maximegris/angular-electron/commit/9f8add6))
+* feat: use latest angular / angular-builder / angular-eslint ([fd9f876](https://github.com/maximegris/angular-electron/commit/fd9f876))
+
+
+
 ## 11.2.0 (2022-10-16)
 
+* [Bumped Version] 11.2.0 ([0fd7a31](https://github.com/maximegris/angular-electron/commit/0fd7a31))
 * misc/ Upgrade to Electron 21 ([ed23e89](https://github.com/maximegris/angular-electron/commit/ed23e89))
 
 
