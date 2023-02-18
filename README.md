@@ -140,6 +140,10 @@ Finally from VsCode press **Ctrl+Shift+D** and select **Application Debug** and 
 
 Please note that Hot reload is only available in Renderer process.
 
+## Want to use Angular Material ? Ngx-Bootstrap ?
+
+Please refer to [HOW_TO file](./HOW_TO.md)
+
 ## Branch & Packages version
 
 - Angular 4 & Electron 1 : Branch [angular4](https://github.com/maximegris/angular-electron/tree/angular4)
