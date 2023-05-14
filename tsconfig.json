@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "outDir": "./dist/out-tsc",
     "module": "es2022",
     "sourceMap": true,
