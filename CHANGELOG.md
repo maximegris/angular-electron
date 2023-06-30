@@ -1,5 +1,18 @@
+## 13.0.0 (2023-06-30)
+
+* fix/ Use globalThis property, a standard way of accessing the global this on browser & Node ([45bdbfa](https://github.com/maximegris/angular-electron/commit/45bdbfa))
+* misc/ disable 'jsdoc/newline-after-description' rule ([9b22567](https://github.com/maximegris/angular-electron/commit/9b22567))
+* misc/ Enable Typescript strict mode ([f60add8](https://github.com/maximegris/angular-electron/commit/f60add8))
+* misc/ Update angular material HOW TO guide ([18c5431](https://github.com/maximegris/angular-electron/commit/18c5431))
+* misc/ Upgrade electron-builder dependency ([04a3b14](https://github.com/maximegris/angular-electron/commit/04a3b14))
+* misc/ Upgrade to Angular 15.2.9 & Electron 24 ([7c78613](https://github.com/maximegris/angular-electron/commit/7c78613))
+* misc/ Upgrade to Angular 16.1.3 & Electron 2 ([5f8e817](https://github.com/maximegris/angular-electron/commit/5f8e817))
+
+
+
 ## 12.0.0 (2023-02-17)
 
+* [Bumped Version] 12.0.0 ([f78a81f](https://github.com/maximegris/angular-electron/commit/f78a81f))
 * misc/ Upgrade to Electron 22 ([8cb0acd](https://github.com/maximegris/angular-electron/commit/8cb0acd))
 * package json description updated ([8726c0a](https://github.com/maximegris/angular-electron/commit/8726c0a))
 * fix(test): remove require.context (not needed) ([680d18d](https://github.com/maximegris/angular-electron/commit/680d18d))
