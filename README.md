@@ -14,12 +14,12 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 15 and Electron 24 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 16 and Electron 25 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v15.2.9
-- Electron v24.3.0
+- Angular v16.1.3
+- Electron v25.2.0
 
 With this sample, you can:
 
@@ -29,7 +29,7 @@ With this sample, you can:
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
 
-/!\ Angular CLI & Electron Builder needs Node 14 or later to work correctly.
+/!\ Angular CLI & Electron Builder needs Node 18.10 or later to work correctly.
 
 ## Getting Started
 
@@ -157,8 +157,9 @@ Please refer to [HOW_TO file](./HOW_TO.md)
 - Angular 12 & Electron 16 : Branch [angular12](https://github.com/maximegris/angular-electron/tree/angular12)
 - Angular 13 & Electron 18 : Branch [angular13](https://github.com/maximegris/angular-electron/tree/angular13)
 - Angular 14 & Electron 21 : Branch [angular14](https://github.com/maximegris/angular-electron/tree/angular14)
-- Angular 15 & Electron 24 : (main)
-
+- Angular 15 & Electron 24 : Branch [angular15](https://github.com/maximegris/angular-electron/tree/angular15)
+- Angular 16 & Electron 25 : (main)
+- 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license]: https://github.com/maximegris/angular-electron/blob/main/LICENSE.md
