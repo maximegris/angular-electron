@@ -9,7 +9,7 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [HomeComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule]
     }).compileComponents();

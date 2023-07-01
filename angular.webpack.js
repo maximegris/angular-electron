@@ -28,5 +28,8 @@ module.exports = (config, options) => {
 		})
     ];
 
+    // https://github.com/ryanclark/karma-webpack/issues/497
+    config.output.globalObject = 'globalThis';
+
     return config;
 }

@@ -10,7 +10,7 @@ describe('DetailComponent', () => {
   let fixture: ComponentFixture<DetailComponent>;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [DetailComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule]
     }).compileComponents();
