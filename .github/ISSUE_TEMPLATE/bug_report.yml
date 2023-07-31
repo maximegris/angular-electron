@@ -1,0 +1,41 @@
+name: "🐛 Bug report"
+description: Report errors or unexpected behavior
+labels:
+- bug
+- needs-triage
+body:
+- type: markdown
+  attributes:
+    value: |
+      Please make sure to [search for existing issues](https://github.com/maximegris/angular-electron/issues) before filing a new one!
+
+- type: textarea
+  attributes:
+    label: Steps to reproduce
+    description: We highly suggest including a screenshots and a bug report log.
+    placeholder: |
+      Tell us the steps required to trigger your bug.
+      1. Go to '...'
+      2. Click on '....'
+      3. Scroll down to '....'
+      4. See error
+
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: ✔️ Expected Behavior
+    placeholder: A clear and concise description of what you expected to happen.
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: 🔍 Additional context
+    description: Add any other context about the problem here.
+    placeholder: |
+      OS: [e.g. iOS]
+
+  validations:
+    required: false
