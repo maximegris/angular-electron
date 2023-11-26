@@ -19,13 +19,13 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [18.16]
+        node-version: [20]
 
     # The type of runner that the job will run on
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Cache node modules
       uses: actions/cache@v3
@@ -41,7 +41,7 @@ jobs:
           ${{ runner.os }}-
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -57,14 +57,10 @@ jobs:
       run: npm run lint
 
     - name: Run headless unit test
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: npm run test
+      run: npm run test
 
     - name: Run headless e2e test
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: npm run e2e
+      run: xvfb-run npm run e2e
 
     - name: Build the app
-      run: npm run electron:build
+      run: xvfb-run npm run electron:build
