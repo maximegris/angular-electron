@@ -22,10 +22,10 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [18.16]
+        node-version: [20]
 
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - uses: actions/checkout@v3
