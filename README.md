@@ -25,6 +25,7 @@ With this sample, you can:
 
 - Run your app in a local development environment with Electron & Hot reload
 - Run your app in a production environment
+- Execute your tests with Jest and Playwright (E2E)
 - Package your app into an executable file for Linux, Windows & Mac
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
