@@ -78,7 +78,7 @@
     "@typescript-eslint/parser": "6.16.0",
     "conventional-changelog-cli": "3.0.0",
     "electron": "27.2.0",
-    "electron-builder": "24.9.1",
+    "electron-builder": "24.13.3",
     "electron-debug": "3.2.0",
     "electron-reloader": "1.2.3",
     "eslint": "8.56.0",
