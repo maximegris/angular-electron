@@ -9,6 +9,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "allowJs": true,
     "target": "ES2022",
     "typeRoots": [
