@@ -1,5 +1,18 @@
+## <small>14.0.1 (2024-04-27)</small>
+
+* Create feature_request.yml ([0b26402](https://github.com/maximegris/angular-electron/commit/0b26402))
+* forms for open issues bug and new feature ([c997da6](https://github.com/maximegris/angular-electron/commit/c997da6))
+* misc/ Github action : update node version ([05707de](https://github.com/maximegris/angular-electron/commit/05707de))
+* misc/ GitHub actions: node 20, ubuntu 22.04 + pin versions ([872e696](https://github.com/maximegris/angular-electron/commit/872e696))
+* misc/ unit-test : replace Karma & Jasmine with Jest ([f36aa91](https://github.com/maximegris/angular-electron/commit/f36aa91))
+* misc/ Upgrade to Angular 17 & Electron 27 ([2ec1cec](https://github.com/maximegris/angular-electron/commit/2ec1cec))
+* chore: fix lint ([822853f](https://github.com/maximegris/angular-electron/commit/822853f))
+
+
+
 ## 13.0.0 (2023-06-30)
 
+* [Bumped Version] 13.0.0 ([e1a4e49](https://github.com/maximegris/angular-electron/commit/e1a4e49))
 * fix/ Use globalThis property, a standard way of accessing the global this on browser & Node ([45bdbfa](https://github.com/maximegris/angular-electron/commit/45bdbfa))
 * misc/ disable 'jsdoc/newline-after-description' rule ([9b22567](https://github.com/maximegris/angular-electron/commit/9b22567))
 * misc/ Enable Typescript strict mode ([f60add8](https://github.com/maximegris/angular-electron/commit/f60add8))
