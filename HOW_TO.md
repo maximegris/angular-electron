@@ -14,10 +14,10 @@ ng add ngx-bootstrap
 
 ### How to install Angular Material
 
-Replace temporarily custom builders by default ones in `angular.json`
+Temporarily replace custom builders by default ones in `angular.json`
 
-@angular-builders/custom-webpack:browser => @angular-devkit/build-angular:browser \
-@angular-builders/custom-webpack:dev-server => @angular-devkit/build-angular:dev-server
+@angular-builders/custom-esbuild:browser => @angular-devkit/build-angular:browser \
+@angular-builders/custom-esbuild:dev-server => @angular-devkit/build-angular:dev-server
 
 Add Angular Material using `ng add` command:
 
@@ -35,5 +35,5 @@ Angular Material Library is now installed in your project.
 
 Put back custom builders in `angular.json`
 
-@angular-devkit/build-angular:browser => @angular-builders/custom-webpack:browser \
-@angular-devkit/build-angular:dev-server => @angular-builders/custom-webpack:dev-server
+@angular-devkit/build-angular:browser => @angular-builders/custom-esbuild:browser \
+@angular-devkit/build-angular:dev-server => @angular-builders/custom-esbuild:dev-server
