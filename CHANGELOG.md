@@ -1,11 +1,13 @@
 ## <small>14.0.1 (2024-04-27)</small>
 
+* [Bumped Version] 14.0.1 ([3998f4d](https://github.com/maximegris/angular-electron/commit/3998f4d))
 * Create feature_request.yml ([0b26402](https://github.com/maximegris/angular-electron/commit/0b26402))
 * forms for open issues bug and new feature ([c997da6](https://github.com/maximegris/angular-electron/commit/c997da6))
 * misc/ Github action : update node version ([05707de](https://github.com/maximegris/angular-electron/commit/05707de))
 * misc/ GitHub actions: node 20, ubuntu 22.04 + pin versions ([872e696](https://github.com/maximegris/angular-electron/commit/872e696))
 * misc/ unit-test : replace Karma & Jasmine with Jest ([f36aa91](https://github.com/maximegris/angular-electron/commit/f36aa91))
 * misc/ Upgrade to Angular 17 & Electron 27 ([2ec1cec](https://github.com/maximegris/angular-electron/commit/2ec1cec))
+* misc/ Upgrade to Electron 30 ([1a431cd](https://github.com/maximegris/angular-electron/commit/1a431cd))
 * chore: fix lint ([822853f](https://github.com/maximegris/angular-electron/commit/822853f))
 
 
