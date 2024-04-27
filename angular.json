@@ -23,13 +23,13 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-builders/custom-esbuild:application",
           "options": {
             "outputPath": "dist",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "src/tsconfig.app.json",
-            "polyfills": "src/polyfills.ts",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
@@ -38,11 +38,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "customWebpackConfig": {
-              "path": "./angular.webpack.js",
-              "replaceDuplicatePlugins": true
-            }
+            "scripts": []
           },
           "configurations": {
             "dev": {
@@ -52,8 +48,6 @@
               "namedChunks": false,
               "aot": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -68,8 +62,6 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -84,8 +76,6 @@
               "namedChunks": false,
               "aot": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -100,8 +90,6 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -112,22 +100,22 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-builders/custom-esbuild:dev-server",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "buildTarget": "angular-electron:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "angular-electron:build:dev"
+              "buildTarget": "angular-electron:build:dev"
             },
             "production": {
-              "browserTarget": "angular-electron:build:production"
+              "buildTarget": "angular-electron:build:production"
             },
             "web": {
-              "browserTarget": "angular-electron:build:web"
+              "buildTarget": "angular-electron:build:web"
             },
             "web-production": {
-              "browserTarget": "angular-electron:build:web-production"
+              "buildTarget": "angular-electron:build:web-production"
             }
           }
         },
