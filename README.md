@@ -56,7 +56,7 @@ onWindowClose() {
 
 In this project, you can use dependency injection (DI) similarly to how it's done in Angular, thanks to InversifyJS. Below are examples demonstrating how to set up DI and provide services.
 
-### Example: Injecting Services
+### Example: define a Services
 
 ```typescript 
 @injectable()
@@ -73,10 +73,12 @@ export class MainWindow extends MainWindowBaseClass implements OnAppReady {
     }
 } 
 ```
+### Set up the DI container with the services you need
 ```typescript 
-// Set up the DI container with the services you need
-const container = useProvide([FileService]);
+ const container = useProvide([FileService]);
+```
 
-// Resolve the MainWindow class with its dependencies
-const mainWindow = container.resolve(MainWindow);
+### Resolve the MainWindow class with its dependencies
+```typescript 
+const mainWindowWithDependencies = container.resolve(MainWindow);
 ``` 
