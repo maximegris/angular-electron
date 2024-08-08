@@ -23,9 +23,7 @@ To manage Tray events effectively using decorators, you can streamline your code
 ### Example: Listening for `click` and `double-click` Events
 
 You can use the `@TrayListener` decorator to handle Tray events in a clean and organized way. Below is an example that listens for both `click` and `double-click` events:
-
 ```typescript
-// Use @TrayListener to bind Tray events to methods
 @TrayListener('click')
 onTrayClick() { 
     console.log('tray click');
@@ -44,10 +42,8 @@ You can also use decorators to handle BrowserWindow events efficiently. For inst
 ### Example: Listening for the `close` Event
 
 To listen for the `close` event on the BrowserWindow, use the `@WindowListener` decorator as shown below:
-
 ```typescript
-// Use @WindowListener to bind BrowserWindow events to methods
-@WindowListener('close')
+ @WindowListener('close')
 onWindowClose() {
     console.log('window close');
 }
