@@ -65,26 +65,19 @@ Use the `@injectable` decorator to mark your classes for dependency injection, a
 export class FileService {
 
 }
+```
+```typescript
 @injectable()
 export class MainWindow extends MainWindowBaseClass implements OnAppReady {
      constructor(@inject(FileService) protected readonly fileService: FileService) {
         super();
     }
 } 
-
 ```
-## Dependency Injection (DI) Like Angular
-
-In this project, you can use dependency injection (DI) similarly to Angular, thanks to InversifyJS. Below are examples demonstrating how to set up DI and provide services.
-
-### Example: Injecting Services
-
-Use the `@injectable` decorator to mark your classes for dependency injection, and the `@inject` decorator to inject dependencies into your constructors.
-
 ```typescript 
 // Set up the DI container with the services you need
 const container = useProvide([FileService]);
 
 // Resolve the MainWindow class with its dependencies
 const mainWindow = container.resolve(MainWindow);
-```
+``` 
