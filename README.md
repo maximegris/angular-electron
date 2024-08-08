@@ -36,6 +36,8 @@ onWindowClose() {
     console.log('Window closed');
 }
 ```
+## Dependency Injection
+
 ### Define a Service
 
 Use the `@injectable` decorator to mark your classes for dependency injection.
