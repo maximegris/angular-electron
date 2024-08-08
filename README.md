@@ -1,80 +1,85 @@
 [![Angular Logo](https://www.vectorlogo.zone/logos/angular/angular-icon.svg)](https://angular.io/) [![Electron Logo](https://www.vectorlogo.zone/logos/electronjs/electronjs-icon.svg)](https://electronjs.org/)
 
+
 # **Angular with Electron**
-# ***coding electron like angular structrue - class base and decorators and DI***
-
-
- 
-
-## Introduction
-
-This is a fork of [angular-electron](https://github.com/maximegris/angular-electron)
-
-Currently runs with:
-
-- **Angular v17.3.6**
-- **Electron v30.0.1** 
-
-
+### ***Coding Electron with Angular-like Structure: Class-Based, Decorators, and Dependency Injection***
 ## Handling Tray Events with Decorators
 
-To manage Tray events effectively using decorators, you can streamline your code as follows:
-
+Using decorators, you can efficiently manage Tray events. Here’s how you can listen to Tray events using the `@TrayListener` decorator:
 ### Example: Listening for `click` and `double-click` Events
 
-You can use the `@TrayListener` decorator to handle Tray events in a clean and organized way. Below is an example that listens for both `click` and `double-click` events:
 ```typescript
 @TrayListener('click')
 onTrayClick() { 
-    console.log('tray click');
+    if (this.window?.isVisible()) {
+        this.window?.hide();
+    } else {
+        this.window?.show();
+    }
+    console.log('Tray clicked');
 }
 
 @TrayListener('double-click')
-onTrayClick() {
-    console.log('tray double click');
-} 
+onTrayDoubleClick() {
+    console.log('Tray double-clicked');
+}
 ```
-
 ## Handling BrowserWindow Events with Decorators
 
-You can also use decorators to handle BrowserWindow events efficiently. For instance, to handle the `close` event, you can use the `@WindowListener` decorator.
-
+Similarly, you can use decorators to handle BrowserWindow events effectively. For instance, to manage the `close` event, use the `@WindowListener` decorator:
 ### Example: Listening for the `close` Event
 
-To listen for the `close` event on the BrowserWindow, use the `@WindowListener` decorator as shown below:
 ```typescript
- @WindowListener('close')
+@WindowListener('close')
 onWindowClose() {
-    console.log('window close');
+    this.window = null;
+    console.log('Window closed');
 }
 ```
-## Dependency Injection (DI)
+### Define a Service
 
-In this project, you can use dependency injection (DI) similarly to how it's done in Angular, thanks to InversifyJS. Below are examples demonstrating how to set up DI and provide services.
+Use the `@injectable` decorator to mark your classes for dependency injection.
 
-### Example: define a Services
+```typescript
+import { injectable } from 'inversify';
 
-```typescript 
 @injectable()
 export class FileService {
-
+    // Implementation
 }
 ```
-Use the `@injectable` decorator to mark your classes for dependency injection, and the `@inject` decorator to inject dependencies into your constructors.
+### Inject Dependencies into Classes
+
+Inject dependencies into your classes using the `@inject` decorator.
+
 ```typescript
+import { injectable, inject } from 'inversify';
+import { FileService } from './file.service'; // Adjust the path as necessary
+
 @injectable()
 export class MainWindow extends MainWindowBaseClass implements OnAppReady {
-     constructor(@inject(FileService) protected readonly fileService: FileService) {
+    private readonly TRAY_ICON_PATH = '/src/assets/icons/favicon.256x256.png';
+
+    constructor(@inject(FileService) protected readonly fileService: FileService) {
         super();
     }
-} 
-```
-### Set up the DI container with the services you need
-```typescript 
- const container = useProvide([FileService]);
-```
 
-### Resolve the MainWindow class with its dependencies
-```typescript 
+    // Other methods and properties
+}
+```
+### Set Up the DI Container
+
+Configure the DI container with the services you need.
+
+```typescript
+import { useProvide } from './dependency-injection-setup'; // Adjust the path as necessary
+
+const container = useProvide([FileService]);
+```
+### Resolve the MainWindow Class with Dependencies
+
+Resolve your main class with its dependencies from the container.
+
+```typescript
 const mainWindowWithDependencies = container.resolve(MainWindow);
 ``` 
