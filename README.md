@@ -58,14 +58,13 @@ In this project, you can use dependency injection (DI) similarly to how it's don
 
 ### Example: Injecting Services
 
-Use the `@injectable` decorator to mark your classes for dependency injection, and the `@inject` decorator to inject dependencies into your constructors.
-
 ```typescript 
 @injectable()
 export class FileService {
 
 }
 ```
+Use the `@injectable` decorator to mark your classes for dependency injection, and the `@inject` decorator to inject dependencies into your constructors.
 ```typescript
 @injectable()
 export class MainWindow extends MainWindowBaseClass implements OnAppReady {
