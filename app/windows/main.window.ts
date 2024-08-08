@@ -1,4 +1,4 @@
-import {BrowserWindow, Tray} from 'electron';
+import {BrowserWindow, Event as ElectronEvent, Rectangle, Tray} from 'electron';
 import {inject, injectable} from "inversify";
 import 'reflect-metadata'; // Import reflect-metadata
 import * as path from "node:path";
@@ -8,6 +8,10 @@ import {OnAppReady} from "../utils/interfaces/on-app-ready.interface";
 import {FileService} from "../utils/services/file.service";
 import {MainWindowBaseClass} from "../utils/base-classes/main-window.base-class";
 import {TrayListener} from "../utils/decorators/tray-listener.decorator";
+import {TrayEventEnum} from "../utils/enums/tray-listener.enum";
+import {WindowEventEnum} from "../utils/enums/window-listener.enum";
+import {WindowEventType} from "../utils/types/window-listener.type";
+import {TrayEventType} from "../utils/types/tray-listener.type";
 
 @injectable()
 export class MainWindow extends MainWindowBaseClass implements OnAppReady {
@@ -43,22 +47,15 @@ export class MainWindow extends MainWindowBaseClass implements OnAppReady {
         this.tray = new Tray(path.join(this.fileService.rootPath, this.TRAY_ICON_PATH));
     }
 
-    @TrayListener('click')
-    @TrayListener('double-click')
-    onTrayClick() {
-        if (this.window?.isVisible()) {
-            this.window?.hide();
-        } else {
-            this.window?.show();
-        }
-        console.log('tray click')
+    @TrayListener(TrayEventEnum.CLICK)
+    onClick(event: TrayEventType[TrayEventEnum.CLICK]): void {
+        console.log(event[1].width)
     }
 
 
-    @WindowListener('close')
-    onWindowClose() {
-        this.window = null;
-        console.log('window close')
+    @WindowListener(WindowEventEnum.CLOSED)
+    onWindowClose(event: WindowEventType[WindowEventEnum.CLOSED]): void {
+
     }
 }
 

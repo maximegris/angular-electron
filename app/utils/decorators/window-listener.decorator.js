@@ -17,7 +17,13 @@ function WindowListener(eventName) {
                 }
                 const window = this.window;
                 if (window) {
-                    window.on(eventName, this[propertyKey].bind(this));
+                    window.on(eventName, (...eventArgs) => {
+                        // Ensure the method signature matches the event's arguments
+                        if (typeof this[propertyKey] === 'function') {
+                            const expectedArgs = eventArgs;
+                            this[propertyKey](expectedArgs);
+                        }
+                    });
                 }
             };
         }

@@ -1,6 +1,8 @@
-import { Tray} from 'electron';
+import { Tray } from 'electron';
+import {TrayEventEnum} from "../enums/tray-listener.enum";
+import {TrayEventType} from "../types/tray-listener.type";
 
-export function TrayListener(eventName: TrayEvent) {
+export function TrayListener<T extends TrayEventEnum>(eventName: T) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
         if (!target.__trayEvents) {
             target.__trayEvents = [];
@@ -22,26 +24,15 @@ export function TrayListener(eventName: TrayEvent) {
                 const tray = this.tray as Tray;
 
                 if (tray) {
-                    tray.on(eventName as any, this[propertyKey].bind(this));
+                    tray.on(eventName as any, (...eventArgs: any[]) => {
+                        // Ensure the method signature matches the event's arguments
+                        if (typeof this[propertyKey] === 'function') {
+                            const expectedArgs = eventArgs as TrayEventType[T];
+                            this[propertyKey](expectedArgs);
+                        }
+                    });
                 }
             };
         }
     };
 }
-
-type TrayEvent =
-    | 'click'
-    | 'right-click'
-    | 'double-click'
-    | 'mouse-enter'
-    | 'mouse-leave'
-    | 'mouse-move'
-    | 'balloon-show'
-    | 'balloon-click'
-    | 'balloon-closed'
-    | 'drop'
-    | 'drop-files'
-    | 'drop-text'
-    | 'drag-enter'
-    | 'drag-leave'
-    | 'drag-end';

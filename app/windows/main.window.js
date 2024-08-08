@@ -22,6 +22,8 @@ const window_listener_decorator_1 = require("../utils/decorators/window-listener
 const file_service_1 = require("../utils/services/file.service");
 const main_window_base_class_1 = require("../utils/base-classes/main-window.base-class");
 const tray_listener_decorator_1 = require("../utils/decorators/tray-listener.decorator");
+const tray_listener_enum_1 = require("../utils/enums/tray-listener.enum");
+const window_listener_enum_1 = require("../utils/enums/window-listener.enum");
 let MainWindow = MainWindow_1 = class MainWindow extends main_window_base_class_1.MainWindowBaseClass {
     constructor(fileService) {
         super();
@@ -50,33 +52,23 @@ let MainWindow = MainWindow_1 = class MainWindow extends main_window_base_class_
     createTray() {
         this.tray = new electron_1.Tray(path.join(this.fileService.rootPath, this.TRAY_ICON_PATH));
     }
-    onTrayClick() {
-        var _a, _b, _c;
-        if ((_a = this.window) === null || _a === void 0 ? void 0 : _a.isVisible()) {
-            (_b = this.window) === null || _b === void 0 ? void 0 : _b.hide();
-        }
-        else {
-            (_c = this.window) === null || _c === void 0 ? void 0 : _c.show();
-        }
-        console.log('tray click');
+    onClick(event) {
+        console.log(event[1].width);
     }
-    onWindowClose() {
-        this.window = null;
-        console.log('window close');
+    onWindowClose(event) {
     }
 };
 exports.MainWindow = MainWindow;
 __decorate([
-    (0, tray_listener_decorator_1.TrayListener)('click'),
-    (0, tray_listener_decorator_1.TrayListener)('double-click'),
+    (0, tray_listener_decorator_1.TrayListener)(tray_listener_enum_1.TrayEventEnum.CLICK),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], MainWindow.prototype, "onTrayClick", null);
+], MainWindow.prototype, "onClick", null);
 __decorate([
-    (0, window_listener_decorator_1.WindowListener)('close'),
+    (0, window_listener_decorator_1.WindowListener)(window_listener_enum_1.WindowEventEnum.CLOSED),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], MainWindow.prototype, "onWindowClose", null);
 exports.MainWindow = MainWindow = MainWindow_1 = __decorate([

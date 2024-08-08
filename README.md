@@ -9,8 +9,8 @@ Using decorators, you can efficiently manage Tray events. Here’s how you can l
 ### Example: Listening for `click` and `double-click` Events
 
 ```typescript
-@TrayListener('click')
-onTrayClick() { 
+@TrayListener(TrayEventEnum.CLICK)
+onTrayClick(event: TrayEventType[TrayEventEnum.CLICK]) { 
     if (this.window?.isVisible()) {
         this.window?.hide();
     } else {
@@ -19,8 +19,8 @@ onTrayClick() {
     console.log('Tray clicked');
 }
 
-@TrayListener('double-click')
-onTrayDoubleClick() {
+@TrayListener(TrayEventEnum.DOUBLE_CLICK)
+onTrayDoubleClick(event: TrayEventType[TrayEventEnum.DOUBLE_CLICK]) {
     console.log('Tray double-clicked');
 }
 ```
@@ -30,8 +30,8 @@ Similarly, you can use decorators to handle BrowserWindow events effectively. Fo
 ### Example: Listening for the `close` Event
 
 ```typescript
-@WindowListener('close')
-onWindowClose() {
+@WindowListener(WindowEventEnum.CLOSED)
+onWindowClose(event: WindowEventType[WindowEventEnum.CLOSED]) {
     this.window = null;
     console.log('Window closed');
 }

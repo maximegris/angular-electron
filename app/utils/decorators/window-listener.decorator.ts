@@ -1,6 +1,8 @@
-import {BrowserWindow} from 'electron';
+import {WindowEventEnum} from "../enums/window-listener.enum";
+import {BrowserWindow} from "electron";
+import {WindowEventType} from "../types/window-listener.type";
 
-export function WindowListener(eventName: BrowserWindowEvent) {
+export function WindowListener<T extends WindowEventEnum>(eventName: T) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
         if (!target.__windowEvents) {
             target.__windowEvents = [];
@@ -22,44 +24,15 @@ export function WindowListener(eventName: BrowserWindowEvent) {
                 const window = this.window as BrowserWindow;
 
                 if (window) {
-                    window.on(eventName as any, this[propertyKey].bind(this));
+                    window.on(eventName as any, (...eventArgs: any[]) => {
+                        // Ensure the method signature matches the event's arguments
+                        if (typeof this[propertyKey] === 'function') {
+                            const expectedArgs = eventArgs as WindowEventType[T];
+                            this[propertyKey](expectedArgs);
+                        }
+                    });
                 }
             };
         }
     };
 }
-
-type BrowserWindowEvent =
-    | 'page-title-updated'
-    | 'close'
-    | 'closed'
-    | 'session-end'
-    | 'unresponsive'
-    | 'responsive'
-    | 'blur'
-    | 'focus'
-    | 'show'
-    | 'hide'
-    | 'ready-to-show'
-    | 'maximize'
-    | 'unmaximize'
-    | 'minimize'
-    | 'restore'
-    | 'will-resize'
-    | 'resize'
-    | 'will-move'
-    | 'move'
-    | 'moved'
-    | 'enter-full-screen'
-    | 'leave-full-screen'
-    | 'enter-html-full-screen'
-    | 'leave-html-full-screen'
-    | 'always-on-top-changed'
-    | 'app-command'
-    | 'scroll-touch-begin'
-    | 'scroll-touch-end'
-    | 'scroll-touch-edge'
-    | 'swipe'
-    | 'sheet-begin'
-    | 'sheet-end'
-    | 'new-window-for-tab';

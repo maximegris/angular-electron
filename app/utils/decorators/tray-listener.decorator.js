@@ -17,7 +17,13 @@ function TrayListener(eventName) {
                 }
                 const tray = this.tray;
                 if (tray) {
-                    tray.on(eventName, this[propertyKey].bind(this));
+                    tray.on(eventName, (...eventArgs) => {
+                        // Ensure the method signature matches the event's arguments
+                        if (typeof this[propertyKey] === 'function') {
+                            const expectedArgs = eventArgs;
+                            this[propertyKey](expectedArgs);
+                        }
+                    });
                 }
             };
         }
