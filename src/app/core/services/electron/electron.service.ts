@@ -5,6 +5,8 @@ import {Injectable} from '@angular/core';
 import {ipcRenderer, webFrame} from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
+import {IPCChannelEnum} from "../../../../../shared/enums/ipc-channel.enum";
+import {IPCChannelType} from "../../../../../shared/types/ipc-channel.type";
 
 type ElectronWindow = typeof window & { require: (arg: string) => any }
 
@@ -54,5 +56,9 @@ export class ElectronService {
 
     get isElectron(): boolean {
         return !!(window && window.process && window.process.type);
+    }
+
+    updateTrayText(text: IPCChannelType[IPCChannelEnum.UPDATE_TRAY_TEXT]) {
+         this.ipcRenderer.send(IPCChannelEnum.UPDATE_TRAY_TEXT, text);
     }
 }

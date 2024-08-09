@@ -36,6 +36,19 @@ onWindowClose(event: WindowEventType[WindowEventEnum.CLOSED]) {
     console.log('Window closed');
 }
 ```
+## Handling IPC Events with Decorators
+
+You can also use decorators to manage IPC events effectively. For example, to handle the `UPDATE_TRAY_TEXT` event from the main process, you can use the `@IpcListener` decorator:
+
+### Listening for the `UPDATE_TRAY_TEXT` IPC Event
+
+```typescript
+@IpcListener(IPCChannelEnum.UPDATE_TRAY_TEXT)
+onUpdateText(event: IpcMainEvent, timeLeft: IPCChannelType[IPCChannelEnum.UPDATE_TRAY_TEXT]): void {
+    console.log(timeLeft);
+}
+
+```
 ## Dependency Injection
 
 ### Define a Service
@@ -54,10 +67,7 @@ export class FileService {
 
 Inject dependencies into your classes using the `@inject` decorator.
 
-```typescript
-import { injectable, inject } from 'inversify';
-import { FileService } from './file.service'; // Adjust the path as necessary
-
+```typescript 
 @injectable()
 export class MainWindow extends MainWindowBaseClass implements OnAppReady {
     private readonly TRAY_ICON_PATH = '/src/assets/icons/favicon.256x256.png';
@@ -74,8 +84,6 @@ export class MainWindow extends MainWindowBaseClass implements OnAppReady {
 Configure the DI container with the services you need.
 
 ```typescript
-import { useProvide } from './dependency-injection-setup'; // Adjust the path as necessary
-
 const container = useProvide([FileService]);
 ```
 ### Resolve the MainWindow Class with Dependencies

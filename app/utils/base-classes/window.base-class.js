@@ -16,14 +16,21 @@ const fs = require("node:fs");
 const path = require("node:path");
 const inversify_1 = require("inversify");
 require("reflect-metadata"); // Required for InversifyJS to work properly
+const rxjs_1 = require("rxjs");
+const window_listener_decorator_1 = require("../decorators/window-listener.decorator");
+const window_listener_enum_1 = require("../enums/window-listener.enum");
 let WindowBaseClass = WindowBaseClass_1 = class WindowBaseClass {
     constructor() {
         this.window = null;
         this.tray = null;
+        this.app = electron_1.app;
+        this._window$ = new rxjs_1.ReplaySubject();
         electron_1.app.whenReady().then(() => this.onAppReady());
     }
     loadUrl(window, absolutePath) {
         this.window = window;
+        this._window$.next(window);
+        this._window$.complete();
         if (WindowBaseClass_1.isServeMode) {
             const debug = require('electron-debug');
             debug();
@@ -39,9 +46,21 @@ let WindowBaseClass = WindowBaseClass_1 = class WindowBaseClass {
             this.window.loadURL(url.href);
         }
     }
+    getWindow() {
+        return this._window$.asObservable();
+    }
+    onWindowClose() {
+        this.window = null;
+    }
 };
 exports.WindowBaseClass = WindowBaseClass;
 WindowBaseClass.isServeMode = process.argv.slice(1).some(val => val === '--serve');
+__decorate([
+    (0, window_listener_decorator_1.WindowListener)(window_listener_enum_1.WindowEventEnum.CLOSED),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], WindowBaseClass.prototype, "onWindowClose", null);
 exports.WindowBaseClass = WindowBaseClass = WindowBaseClass_1 = __decorate([
     (0, inversify_1.injectable)(),
     __metadata("design:paramtypes", [])
