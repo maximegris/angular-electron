@@ -1,28 +1,29 @@
-import { Component } from '@angular/core';
-import { ElectronService } from './core/services';
-import { TranslateService } from '@ngx-translate/core';
-import { APP_CONFIG } from '../environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {ElectronService} from './core/services';
+import {interval, map, tap} from "rxjs";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  constructor(
-    private electronService: ElectronService,
-    private translate: TranslateService
-  ) {
-    this.translate.setDefaultLang('en');
-    console.log('APP_CONFIG', APP_CONFIG);
+export class AppComponent implements OnInit {
+    s = 0;
 
-    if (electronService.isElectron) {
-      console.log(process.env);
-      console.log('Run in electron');
-      console.log('Electron ipcRenderer', this.electronService.ipcRenderer);
-      console.log('NodeJS childProcess', this.electronService.childProcess);
-    } else {
-      console.log('Run in browser');
+    constructor(
+        private electronService: ElectronService,
+    ) {
     }
-  }
+
+    ngOnInit() {
+        interval(1000).pipe(
+            map((_: number) => {
+                this.s++;
+                return this.s.toString();
+            }),
+            tap(time => {
+                this.electronService.updateTrayText(time);
+            })
+        ).subscribe()
+    }
 }
