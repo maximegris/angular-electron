@@ -19,7 +19,7 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [22]
 
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
