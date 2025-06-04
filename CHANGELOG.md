@@ -1,6 +1,14 @@
+## 15.0.0 (2025-06-04)
+
+* Bump actions/cache from 3 to 4 ([0d85918](https://github.com/maximegris/angular-electron/commit/0d85918))
+* misc/ use node22 on actions ([2e8c096](https://github.com/maximegris/angular-electron/commit/2e8c096))
+* misc: upgrade to angular 19 & Electron 36 ([793ea57](https://github.com/maximegris/angular-electron/commit/793ea57))
+
+
+
 ## <small>14.0.1 (2024-04-27)</small>
 
-* [Bumped Version] 14.0.1 ([3998f4d](https://github.com/maximegris/angular-electron/commit/3998f4d))
+* [Bumped Version] 14.0.1 ([801e99e](https://github.com/maximegris/angular-electron/commit/801e99e))
 * Create feature_request.yml ([0b26402](https://github.com/maximegris/angular-electron/commit/0b26402))
 * forms for open issues bug and new feature ([c997da6](https://github.com/maximegris/angular-electron/commit/c997da6))
 * misc/ Github action : update node version ([05707de](https://github.com/maximegris/angular-electron/commit/05707de))
