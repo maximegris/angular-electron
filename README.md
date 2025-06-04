@@ -14,12 +14,12 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 17 and Electron 30 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 19 and Electron 36 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v17.3.6
-- Electron v30.0.1
+- Angular v19.2.14
+- Electron v36.0.0
 
 With this sample, you can:
 
@@ -160,8 +160,9 @@ Please refer to [HOW_TO file](./HOW_TO.md)
 - Angular 14 & Electron 21 : Branch [angular14](https://github.com/maximegris/angular-electron/tree/angular14)
 - Angular 15 & Electron 24 : Branch [angular15](https://github.com/maximegris/angular-electron/tree/angular15)
 - Angular 16 & Electron 25 : Branch [angular16](https://github.com/maximegris/angular-electron/tree/angular16)
-- Angular 17 & Electron 30 : (main)
-- 
+- Angular 17 & Electron 30 : Branch [angular17](https://github.com/maximegris/angular-electron/tree/angular17)
+- Angular 19 & Electron 36 : (main)
+
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license]: https://github.com/maximegris/angular-electron/blob/main/LICENSE.md

@@ -18,16 +18,21 @@ function createWindow(): BrowserWindow {
     height: size.height,
     webPreferences: {
       nodeIntegration: true,
-      allowRunningInsecureContent: (serve),
+      allowRunningInsecureContent: serve,
       contextIsolation: false,
+      webSecurity: !serve
     },
   });
 
   if (serve) {
-    const debug = require('electron-debug');
-    debug();
+    import('electron-debug').then(debug => {
+      debug.default({isEnabled: true, showDevTools: true});
+    });
 
-    require('electron-reloader')(module);
+    import('electron-reloader').then(reloader => {
+      const reloaderFn = (reloader as any).default || reloader;
+      reloaderFn(module);
+    });
     win.loadURL('http://localhost:4200');
   } else {
     // Path when running electron executable
@@ -38,8 +43,9 @@ function createWindow(): BrowserWindow {
       pathIndex = '../dist/index.html';
     }
 
-    const url = new URL(path.join('file:', __dirname, pathIndex));
-    win.loadURL(url.href);
+    const fullPath = path.join(__dirname, pathIndex);
+    const url = `file://${path.resolve(fullPath).replace(/\\/g, '/')}`;
+    win.loadURL(url);
   }
 
   // Emitted when the window is closed.

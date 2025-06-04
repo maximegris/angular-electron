@@ -4,6 +4,7 @@
     "strict": true,
     "outDir": "./dist/out-tsc",
     "module": "es2022",
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
