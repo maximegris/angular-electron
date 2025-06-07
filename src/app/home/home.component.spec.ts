@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
+import {HomeComponent} from './home.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {provideRouter} from '@angular/router';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -10,8 +10,9 @@ describe('HomeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
-      declarations: [HomeComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule]
+      declarations: [],
+      imports: [HomeComponent, TranslateModule.forRoot()],
+      providers: [provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
