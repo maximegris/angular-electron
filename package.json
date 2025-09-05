@@ -27,7 +27,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
-    "start": "npm-run-all -p electron:serve ng:serve",
+    "start": "npm run electron:serve & ng serve",
     "ng:serve": "ng serve -c web -o",
     "build": "npm run electron:serve-tsc && ng build --base-href ./",
     "build:dev": "npm run build -- -c dev",
@@ -87,7 +87,6 @@
     "eslint-plugin-prefer-arrow": "1.2.3",
     "jest": "29.7.0",
     "node-polyfill-webpack-plugin": "4.1.0",
-    "npm-run-all": "4.1.5",
     "playwright": "1.52.0",
     "ts-node": "10.9.2",
     "typescript": "5.8.3",
@@ -95,7 +94,7 @@
     "webdriver-manager": "12.1.9"
   },
   "engines": {
-    "node": ">= 22.12.0 >= 24.0.0",
+    "node": ">= 22.12.0 || >= 24.0.0",
     "typescript": ">= 5.8.0 < 5.9.0"
   },
   "browserslist": [
