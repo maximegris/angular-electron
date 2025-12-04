@@ -14,12 +14,12 @@
 
 # Introduction
 
-Bootstrap and package your project with Angular 19 and Electron 36 (Typescript + SASS + Hot Reload) for creating Desktop applications.
+Bootstrap and package your project with Angular 20 and Electron 39 (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
-- Angular v19.2.14
-- Electron v36.0.0
+- Angular v20.3.15
+- Electron v39.2.5
 
 With this sample, you can:
 
@@ -29,8 +29,6 @@ With this sample, you can:
 - Package your app into an executable file for Linux, Windows & Mac
 
 /!\ Hot reload only pertains to the renderer process. The main electron process is not able to be hot reloaded, only restarted.
-
-/!\ Angular CLI & Electron Builder needs Node 18.10 or later to work correctly.
 
 ## Getting Started
 
@@ -161,7 +159,8 @@ Please refer to [HOW_TO file](./HOW_TO.md)
 - Angular 15 & Electron 24 : Branch [angular15](https://github.com/maximegris/angular-electron/tree/angular15)
 - Angular 16 & Electron 25 : Branch [angular16](https://github.com/maximegris/angular-electron/tree/angular16)
 - Angular 17 & Electron 30 : Branch [angular17](https://github.com/maximegris/angular-electron/tree/angular17)
-- Angular 19 & Electron 36 : (main)
+  Angular 19 & Electron 36 : Branch [angular19](https://github.com/maximegris/angular-electron/tree/angular19)
+- Angular 20 & Electron 39 : (main)
 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
