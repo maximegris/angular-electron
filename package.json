@@ -95,7 +95,7 @@
     "webdriver-manager": "12.1.9"
   },
   "engines": {
-    "node": ">= 22.12.0 >= 24.0.0",
+    "node": ">= 22.12.0 || >= 24.0.0",
     "typescript": ">= 5.8.0 < 5.9.0"
   },
   "browserslist": [
