@@ -1,5 +1,16 @@
+## 16.0.0 (2025-12-04)
+
+* misc: upgrade to angular 20 & Electron 39 ([3f3527e](https://github.com/maximegris/angular-electron/commit/3f3527e))
+* Bump pbkdf2 from 3.1.2 to 3.1.3 ([69a09e0](https://github.com/maximegris/angular-electron/commit/69a09e0))
+* fix/ test with standalone components ([bab2bb2](https://github.com/maximegris/angular-electron/commit/bab2bb2))
+* fix/ warning EBADENGINE ([1117613](https://github.com/maximegris/angular-electron/commit/1117613))
+* feat: migrate to standalone components ([77b10d3](https://github.com/maximegris/angular-electron/commit/77b10d3))
+
+
+
 ## 15.0.0 (2025-06-04)
 
+* [Bumped Version] 15.0.0 ([99f2df2](https://github.com/maximegris/angular-electron/commit/99f2df2))
 * Bump actions/cache from 3 to 4 ([0d85918](https://github.com/maximegris/angular-electron/commit/0d85918))
 * misc/ use node22 on actions ([2e8c096](https://github.com/maximegris/angular-electron/commit/2e8c096))
 * misc: upgrade to angular 19 & Electron 36 ([793ea57](https://github.com/maximegris/angular-electron/commit/793ea57))
@@ -518,7 +529,7 @@
 * feat(CI): update Ubuntu and Node versions in Travis ([e0ff557](https://github.com/maximegris/angular-electron/commit/e0ff557))
 * fix: type conflicts ([a2971bf](https://github.com/maximegris/angular-electron/commit/a2971bf))
 * fix(e2e): add mocha types ([20e1e89](https://github.com/maximegris/angular-electron/commit/20e1e89))
-* fix(e2e): without devTools ([2581983](https://github.com/maximegris/angular-electron/commit/2581983)), closes [/github.com/electron/spectron/issues/174#issuecomment-319242097](https://github.com//github.com/electron/spectron/issues/174/issues/issuecomment-319242097)
+* fix(e2e): without devTools ([2581983](https://github.com/maximegris/angular-electron/commit/2581983))
 * chore: Spectron for e2e tests ([901438a](https://github.com/maximegris/angular-electron/commit/901438a))
 
 
@@ -540,7 +551,7 @@
 * ref/ Generate changelog ([a89b3ce](https://github.com/maximegris/angular-electron/commit/a89b3ce))
 * ref/ Upgrade to Angular 7 ([315a79b](https://github.com/maximegris/angular-electron/commit/315a79b))
 * Update electron-builder.json files rule ([82c7bcf](https://github.com/maximegris/angular-electron/commit/82c7bcf))
-* Update Version Electron 2 to 3 #hacktoberfest ([f083328](https://github.com/maximegris/angular-electron/commit/f083328))
+* Update Version Electron 2 to 3 #hacktoberfest ([f083328](https://github.com/maximegris/angular-electron/commit/f083328)), closes [#hacktoberfest](https://github.com/maximegris/angular-electron/issues/hacktoberfest)
 
 
 
