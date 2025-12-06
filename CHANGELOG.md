@@ -1,19 +1,23 @@
+## 17.0.0 (2025-12-06)
+
+* misc: upgrade to angular 21 ([b38b483](https://github.com/maximegris/angular-electron/commit/b38b483))
+* misc/ upgrade actions/checkout to v6 ([cb26256](https://github.com/maximegris/angular-electron/commit/cb26256))
+* misc/ upgrade actions/setup-node to v6 ([4ee22b0](https://github.com/maximegris/angular-electron/commit/4ee22b0))
+
+
+
 ## 16.0.0 (2025-12-04)
 
-* misc: upgrade to angular 20 & Electron 39 ([3f3527e](https://github.com/maximegris/angular-electron/commit/3f3527e))
+* [Bumped Version] 15.0.0 ([99f2df2](https://github.com/maximegris/angular-electron/commit/99f2df2))
+* [Bumped Version] 16.0.0 ([a0aeada](https://github.com/maximegris/angular-electron/commit/a0aeada))
+* Bump actions/cache from 3 to 4 ([0d85918](https://github.com/maximegris/angular-electron/commit/0d85918))
 * Bump pbkdf2 from 3.1.2 to 3.1.3 ([69a09e0](https://github.com/maximegris/angular-electron/commit/69a09e0))
 * fix/ test with standalone components ([bab2bb2](https://github.com/maximegris/angular-electron/commit/bab2bb2))
 * fix/ warning EBADENGINE ([1117613](https://github.com/maximegris/angular-electron/commit/1117613))
-* feat: migrate to standalone components ([77b10d3](https://github.com/maximegris/angular-electron/commit/77b10d3))
-
-
-
-## 15.0.0 (2025-06-04)
-
-* [Bumped Version] 15.0.0 ([99f2df2](https://github.com/maximegris/angular-electron/commit/99f2df2))
-* Bump actions/cache from 3 to 4 ([0d85918](https://github.com/maximegris/angular-electron/commit/0d85918))
 * misc/ use node22 on actions ([2e8c096](https://github.com/maximegris/angular-electron/commit/2e8c096))
 * misc: upgrade to angular 19 & Electron 36 ([793ea57](https://github.com/maximegris/angular-electron/commit/793ea57))
+* misc: upgrade to angular 20 & Electron 39 ([3f3527e](https://github.com/maximegris/angular-electron/commit/3f3527e))
+* feat: migrate to standalone components ([77b10d3](https://github.com/maximegris/angular-electron/commit/77b10d3))
 
 
 
@@ -46,20 +50,15 @@
 
 ## 12.0.0 (2023-02-17)
 
+* [Bumped Version] 11.2.0 ([0fd7a31](https://github.com/maximegris/angular-electron/commit/0fd7a31))
 * [Bumped Version] 12.0.0 ([f78a81f](https://github.com/maximegris/angular-electron/commit/f78a81f))
+* misc/ Upgrade to Electron 21 ([ed23e89](https://github.com/maximegris/angular-electron/commit/ed23e89))
 * misc/ Upgrade to Electron 22 ([8cb0acd](https://github.com/maximegris/angular-electron/commit/8cb0acd))
 * package json description updated ([8726c0a](https://github.com/maximegris/angular-electron/commit/8726c0a))
 * fix(test): remove require.context (not needed) ([680d18d](https://github.com/maximegris/angular-electron/commit/680d18d))
 * refactor: use latest eslint ([41abef1](https://github.com/maximegris/angular-electron/commit/41abef1))
 * refactor: use latest eslint & change docs ([9f8add6](https://github.com/maximegris/angular-electron/commit/9f8add6))
 * feat: use latest angular / angular-builder / angular-eslint ([fd9f876](https://github.com/maximegris/angular-electron/commit/fd9f876))
-
-
-
-## 11.2.0 (2022-10-16)
-
-* [Bumped Version] 11.2.0 ([0fd7a31](https://github.com/maximegris/angular-electron/commit/0fd7a31))
-* misc/ Upgrade to Electron 21 ([ed23e89](https://github.com/maximegris/angular-electron/commit/ed23e89))
 
 
 
@@ -119,16 +118,11 @@
 
 ## <small>10.4.1 (2021-11-17)</small>
 
+* [Bumped Version] 10.4.0 ([7a4f527](https://github.com/maximegris/angular-electron/commit/7a4f527))
 * [Bumped Version] 10.4.1 ([c5096fa](https://github.com/maximegris/angular-electron/commit/c5096fa))
 * misc/ Upgrade eslint version ([4321d9d](https://github.com/maximegris/angular-electron/commit/4321d9d))
-* misc/ Upgrade to Angular 13.0.0 ([99e9f35](https://github.com/maximegris/angular-electron/commit/99e9f35))
-
-
-
-## 10.4.0 (2021-11-17)
-
-* [Bumped Version] 10.4.0 ([7a4f527](https://github.com/maximegris/angular-electron/commit/7a4f527))
 * misc/ upgrade to Angular 12.2.13 ([74df637](https://github.com/maximegris/angular-electron/commit/74df637))
+* misc/ Upgrade to Angular 13.0.0 ([99e9f35](https://github.com/maximegris/angular-electron/commit/99e9f35))
 * misc/ upgrade to Electron 16 ([65d285c](https://github.com/maximegris/angular-electron/commit/65d285c))
 * misc/ upgrade wait-on dependency ([e427f26](https://github.com/maximegris/angular-electron/commit/e427f26))
 
@@ -296,15 +290,10 @@
 
 ## 9.0.0 (2020-11-14)
 
-* [Bumped Version] 9.0.0 ([a7964be](https://github.com/maximegris/angular-electron/commit/a7964be))
-* misc/ upgrade to Angular 11 ([d265dfa](https://github.com/maximegris/angular-electron/commit/d265dfa))
-
-
-
-## <small>8.0.6 (2020-11-14)</small>
-
 * [Bumped Version] 8.0.6 ([e0fb539](https://github.com/maximegris/angular-electron/commit/e0fb539))
+* [Bumped Version] 9.0.0 ([a7964be](https://github.com/maximegris/angular-electron/commit/a7964be))
 * fix/ zonejs version ([0b9b8b3](https://github.com/maximegris/angular-electron/commit/0b9b8b3))
+* misc/ upgrade to Angular 11 ([d265dfa](https://github.com/maximegris/angular-electron/commit/d265dfa))
 
 
 
@@ -592,21 +581,16 @@
 ## 4.0.0 (2018-05-25)
 
 * misc/ remove unused packages ([a7e33b6](https://github.com/maximegris/angular-electron/commit/a7e33b6))
+* misc/ update changelog ([70b359f](https://github.com/maximegris/angular-electron/commit/70b359f))
 * misc/ update Changelog ([b758122](https://github.com/maximegris/angular-electron/commit/b758122))
+* Modify electron builder configuration to remove source code and tests ([0cf6899](https://github.com/maximegris/angular-electron/commit/0cf6899))
 * ref/ upgrade angular to 6.0.3 ([e7fac6e](https://github.com/maximegris/angular-electron/commit/e7fac6e))
+* version 3.4.1 ([308ea9c](https://github.com/maximegris/angular-electron/commit/308ea9c))
 * refactor: update electron, electron-builder to latest (2.0.2, 20.14.7) ([f19e6ee](https://github.com/maximegris/angular-electron/commit/f19e6ee))
 * refactor: upgrade to NodeJS 8, Angular 6, CLI 6, Electron 2.0, RxJS 6.1 ([e37efdb](https://github.com/maximegris/angular-electron/commit/e37efdb))
 * refactor(hooks): replace hooks to ng-cli fileReplacements logic ([c940037](https://github.com/maximegris/angular-electron/commit/c940037))
 * fix(test): create polyfills-test.ts for karma test & setup Travis CI ([7fbc68c](https://github.com/maximegris/angular-electron/commit/7fbc68c))
 * fix(travis): set progress to false (speed up npm) ([be48531](https://github.com/maximegris/angular-electron/commit/be48531))
-
-
-
-## <small>3.4.1 (2018-05-25)</small>
-
-* misc/ update changelog ([70b359f](https://github.com/maximegris/angular-electron/commit/70b359f))
-* Modify electron builder configuration to remove source code and tests ([0cf6899](https://github.com/maximegris/angular-electron/commit/0cf6899))
-* version 3.4.1 ([308ea9c](https://github.com/maximegris/angular-electron/commit/308ea9c))
 
 
 
@@ -955,21 +939,16 @@
 ## <small>1.0.2 (2017-04-07)</small>
 
 * Add TravisCI ([ef4b80e](https://github.com/maximegris/angular-electron/commit/ef4b80e))
+* feat/ Add electron-packager scripts ([57891dc](https://github.com/maximegris/angular-electron/commit/57891dc))
 * Fix typo ([f964c3f](https://github.com/maximegris/angular-electron/commit/f964c3f))
 * Fix typo ([e42bb5e](https://github.com/maximegris/angular-electron/commit/e42bb5e))
-* Update README ([3bb45b3](https://github.com/maximegris/angular-electron/commit/3bb45b3))
-* Update README with angular-cli doc ([5a57578](https://github.com/maximegris/angular-electron/commit/5a57578))
-* v1.0.2 ([1bd8e0e](https://github.com/maximegris/angular-electron/commit/1bd8e0e))
-
-
-
-## <small>1.0.1 (2017-04-03)</small>
-
-* feat/ Add electron-packager scripts ([57891dc](https://github.com/maximegris/angular-electron/commit/57891dc))
 * ref/ update README ([7fddc20](https://github.com/maximegris/angular-electron/commit/7fddc20))
 * update README ([9a983c1](https://github.com/maximegris/angular-electron/commit/9a983c1))
+* Update README ([3bb45b3](https://github.com/maximegris/angular-electron/commit/3bb45b3))
+* Update README with angular-cli doc ([5a57578](https://github.com/maximegris/angular-electron/commit/5a57578))
 * v1.0.0 ([7a21eb9](https://github.com/maximegris/angular-electron/commit/7a21eb9))
 * v1.0.1 ([68275a3](https://github.com/maximegris/angular-electron/commit/68275a3))
+* v1.0.2 ([1bd8e0e](https://github.com/maximegris/angular-electron/commit/1bd8e0e))
 * chore: initial commit from @angular/cli ([616a69e](https://github.com/maximegris/angular-electron/commit/616a69e))
 
 
