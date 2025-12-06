@@ -27,18 +27,14 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - name: Cache node modules
+    - name: Cache Node modules
       uses: actions/cache@v4
-      env:
-        cache-name: cache-node-modules
       with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
+        # npm cache files are stored in ~/.npm
         path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          ${{ runner.os }}-node-
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v6
@@ -51,15 +47,18 @@ jobs:
         sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
 
     - name: Install Dependencies
-      run: npm i
+      run: npm ci
 
     - name: Check lint
       run: npm run lint
 
+    - name: Install Playwright Browsers
+      run: npx playwright@1.57.0 install --with-deps
+
     - name: Run headless unit test
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: npm run test
+        run: npm run test -- --reporters=default
 
     - name: Run headless e2e test
       uses: GabrielBB/xvfb-action@v1

@@ -14,10 +14,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-permissions:
-  contents: read
-
 jobs:
   build:
     strategy:
@@ -25,34 +21,45 @@ jobs:
         node-version: [22]
 
     # The type of runner that the job will run on
-    runs-on: macos-12
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v6
 
-    - name: Cache node modules
+    - name: Cache Node modules
       uses: actions/cache@v4
-      env:
-        cache-name: cache-node-modules
       with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
+        # npm cache files are stored in ~/.npm
         path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          ${{ runner.os }}-node-
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Install macOS dependencies
+      if: matrix.platform == 'macos-latest'
+      run: |
+        brew install gnu-tar coreutils
+        echo "Homebrew dependencies installed"
+
     - name: Install Dependencies
-      run: npm i && npm i -D cli-truncate iconv-corefoundation
+      run: npm ci && npm i -D cli-truncate iconv-corefoundation
 
     - name: Check lint
       run: npm run lint
+
+    - name: Install Playwright Browsers
+      run: npx playwright@1.57.0 install --with-deps
+
+    - name: Run headless unit test
+      run: npm run test -- --reporters=default
+
+    - name: Run headless e2e test
+      run: npm run e2e
 
     - name: Build the app
       run: npm run electron:build

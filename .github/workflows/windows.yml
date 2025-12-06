@@ -25,23 +25,19 @@ jobs:
         node-version: [22]
 
     # The type of runner that the job will run on
-    runs-on: windows-2022
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v6
 
-    - name: Cache node modules
+    - name: Cache Node modules
       uses: actions/cache@v4
-      env:
-        cache-name: cache-node-modules
       with:
-        # npm cache files are stored in `~/.npm`
+        # npm cache files are stored in ~/.npm
         path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          ${{ runner.os }}-node-
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v6
@@ -49,13 +45,16 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install Dependencies
-      run: npm i
+      run: npm ci
 
     - name: Check lint
       run: npm run lint
 
+    - name: Install Playwright Browsers
+      run: npx playwright@1.57.0 install --with-deps
+
     - name: Run headless unit test
-      run: npm run test
+      run: npm run test -- --reporters=default
 
     - name: Run headless e2e test
       run: npm run e2e
