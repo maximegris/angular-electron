@@ -6,6 +6,7 @@
 /out-tsc
 /app-builds
 /release
+/test-results
 main.js
 src/**/*.js
 *.js.map

@@ -4,13 +4,10 @@
     "esModuleInterop": true,
     "outDir": "../out-tsc/spec",
     "types": [
-      "jest",
+      "vitest/globals",
       "node"
     ]
   },
-  "files": [
-    "polyfills-test.ts"
-  ],
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"
