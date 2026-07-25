@@ -66,7 +66,7 @@
     "@angular-eslint/schematics": "22.0.0",
     "@angular-eslint/template-parser": "22.0.0",
     "angular-eslint": "22.0.0",
-    "@angular/build": "22.0.1",
+    "@angular/build": "22.0.8",
     "@angular/cli": "22.0.1",
     "@angular/compiler-cli": "22.0.1",
     "@ngx-translate/core": "18.0.0",
