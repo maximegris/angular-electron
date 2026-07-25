@@ -79,7 +79,7 @@
     "@vitest/browser-playwright": "4.1.8",
     "@vitest/coverage-v8": "4.1.8",
     "@vitest/ui": "4.1.8",
-    "concurrently": "10.0.3",
+    "concurrently": "10.0.4",
     "electron": "42.4.0",
     "electron-builder": "26.15.3",
     "electron-debug": "4.1.0",
