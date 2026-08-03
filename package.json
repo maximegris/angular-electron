@@ -47,7 +47,7 @@
     "postversion": "node -e \"const fs=require('fs');const app=JSON.parse(fs.readFileSync('./app/package.json'));app.version=require('./package.json').version;fs.writeFileSync('./app/package.json',JSON.stringify(app,null,2)+'\\n');\" && git add app/package.json"
   },
   "dependencies": {
-    "@angular/common": "22.0.1",
+    "@angular/common": "22.0.2",
     "@angular/compiler": "22.0.1",
     "@angular/core": "22.0.1",
     "@angular/forms": "22.0.1",
