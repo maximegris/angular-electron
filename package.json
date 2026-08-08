@@ -1,6 +1,6 @@
 {
   "name": "angular-electron",
-  "version": "22.0.0",
+  "version": "22.0.1",
   "description": "Angular 22 with Electron 43 (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/belnadris/angular-electron",
   "author": {
